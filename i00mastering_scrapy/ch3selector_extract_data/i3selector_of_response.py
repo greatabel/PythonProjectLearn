@@ -22,18 +22,6 @@ body = '''
 
 response = HtmlResponse(url='htttp://www.example.com',
             body=body, encoding='utf-8')
-selector = Selector(response=response)
-
-li_selctors = selector.xpath('.//li/b/text()')
-print(li_selctors)
-
-# 只提取价格的float 数字部分
-prices = selector.xpath('.//li/b/text()').re('\d+\.\d+')
-print(prices)
-# 提取出float和int
-prices = selector.xpath('.//li/b/text()').re('\d*\.?\d+')
-print(prices)
-
-first = selector.xpath('.//li/b/text()').re_first('\d+\.\d+')
-print('first=', first)
-
+print(response.selector)
+print(response.xpath('.//h1/text()').extract())
+print(response.css('li::text').extract())
