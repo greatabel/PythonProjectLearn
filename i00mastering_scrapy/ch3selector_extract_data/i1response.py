@@ -24,4 +24,15 @@ response = HtmlResponse(url='htttp://www.example.com',
 selector = Selector(response=response)
 
 selector_list = selector.xpath('//h1')
-print(selector_list)
+for sel in selector_list:
+    print(sel.xpath('./text()'))
+
+print('-'*20)
+
+another_way = selector_list.xpath('./text()')
+print(another_way)
+
+print('@'*20)
+
+li_selector = selector.xpath('.//ul').css('li').xpath('./text()')
+print(li_selector)
