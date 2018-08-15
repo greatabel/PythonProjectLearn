@@ -36,3 +36,17 @@ print('@'*20)
 
 li_selector = selector.xpath('.//ul').css('li').xpath('./text()')
 print(li_selector)
+
+print('~'*20)
+
+sl = selector.xpath('.//li')
+for sel in sl:
+    print(sel.extract())
+sl = selector.xpath('.//li/text()')
+for sel in sl:
+    print(sel.extract())
+
+print('sl.extract()=', sl.extract())
+
+sl = selector.xpath('.//b')
+print(sl, sl.extract(), sl.extract_first())
