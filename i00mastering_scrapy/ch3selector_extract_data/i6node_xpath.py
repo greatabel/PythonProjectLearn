@@ -10,7 +10,7 @@ body = '''
     </head>
 
     <body>
-    <div id='image'>
+    <div id='images'>
 
     <a href='image00.html'>Name: Image 00 <br/><img src='image00.jpg' /></a>
     <a href='image01.html'>Name: Image 01 <br/><img src='image01.jpg' /></a>
@@ -33,3 +33,5 @@ print('a的第3个：', response.xpath('//a')[2])
 print('a的第3个：', response.xpath('//a[3]'))
 print('a的最后1个：', response.xpath('//a[last()]'))
 print('a的前3个:', response.xpath('//a[position()<=3]'))
+print('包含id属性的div:', response.xpath('//div[@id]'))
+print('包含id属性的div属性，并且值为images的div：', response.xpath('//div[@id="images"]'))
