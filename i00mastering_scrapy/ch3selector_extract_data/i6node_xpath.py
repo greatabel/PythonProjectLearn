@@ -29,17 +29,7 @@ body = '''
 response = HtmlResponse(url='http://www.example.com',
                         body=body,
                         encoding='utf-8')
-sel = response.xpath('//a')[0]
-print(sel)
-print('''
-# 假设我们想选中当前这个a 后代中的所有img，下面的做法是错误的，
-# 会找到文档中所有的img
-# 因为//img是绝对路径，会从文档的根开始搜索，而不是从当前的a 开始
-      ''')
-print(sel.xpath('//img') )
-
-print('需要使用.//img 来描述当前节点后代中的所有img')
-print(sel.xpath('.//img') )
-
-print('“选中所有img的父节点”')
-print(response.xpath('//img/..'))
+print('a的第3个：', response.xpath('//a')[2])
+print('a的第3个：', response.xpath('//a[3]'))
+print('a的最后1个：', response.xpath('//a[last()]'))
+print('a的前3个:', response.xpath('//a[position()<=3]'))
