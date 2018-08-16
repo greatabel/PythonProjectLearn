@@ -45,3 +45,20 @@ for a in response.xpath('/html/body//img'):
 print('E/text()：选中E的文本子节点')
 sel = response.xpath('//a/text()').extract()
 print(sel)
+
+for a in response.xpath('/html/*'):
+    print(a)
+for a in response.xpath('/html/body/div//*'):
+    print('#'*5, a)
+
+for a in response.xpath('//div/*/img'):
+    print(a)
+
+for a in response.xpath('//img/@src'):
+    print('@'*5, a)
+for a in response.xpath('//@href'):
+    print(a)
+
+print('E/@*：选中E的所有属性')
+for a in response.xpath('//a[1]/img/@*'):
+    print(a)
