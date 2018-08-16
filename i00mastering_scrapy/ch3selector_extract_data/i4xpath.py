@@ -37,3 +37,11 @@ print(response.xpath('/html/body/div/a'))
 print('\n//E 选中文档中所有E')
 for a in response.xpath('//a'):
     print(a)
+
+print('E1//E2：选中E1后代节点中的所有E2，无论在后代中的什么位置')
+for a in response.xpath('/html/body//img'):
+    print(a)
+
+print('E/text()：选中E的文本子节点')
+sel = response.xpath('//a/text()').extract()
+print(sel)
