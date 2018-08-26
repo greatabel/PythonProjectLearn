@@ -28,4 +28,5 @@ print('“选中所有base和title”', response.css('base, title'))
 print('“E1 E2：选中E1后代元素中的E2元素”:', response.css('div img'))
 print('“E1>E2：选中E1子元素中的E2元素”:', response.css('body>div'))
 print('“[ATTR]：选中包含ATTR属性的元素”', response.css('[style]'))
+print('“[ATTR=VALUE]：选中包含ATTR属性且值为VALUE的元素”', response.css('[id=images-1]'))
 
