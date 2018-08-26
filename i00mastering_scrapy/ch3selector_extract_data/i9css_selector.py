@@ -32,4 +32,7 @@ print('“[ATTR=VALUE]：选中包含ATTR属性且值为VALUE的元素”', resp
 print(mycolor.show('“E:nth-child(n)：选中E元素，且该元素必须是其父元素的第n个子元素”'),
     response.css('div>a:nth-child(1)'),'\n',
     response.css('div:nth-child(2)>a:nth-child(1)'))
+print(mycolor.show('“E:first-child：选中E元素，该元素必须是其父元素的第一个子元素”'),
+    response.css('div:first-child>a:last-child'))
+print('“E::text：选中E元素的文本节点”', response.css('a::text'))
 
