@@ -29,4 +29,7 @@ print('“E1 E2：选中E1后代元素中的E2元素”:', response.css('div img
 print('“E1>E2：选中E1子元素中的E2元素”:', response.css('body>div'))
 print('“[ATTR]：选中包含ATTR属性的元素”', response.css('[style]'))
 print('“[ATTR=VALUE]：选中包含ATTR属性且值为VALUE的元素”', response.css('[id=images-1]'))
+print(mycolor.show('“E:nth-child(n)：选中E元素，且该元素必须是其父元素的第n个子元素”'),
+    response.css('div>a:nth-child(1)'),'\n',
+    response.css('div:nth-child(2)>a:nth-child(1)'))
 
