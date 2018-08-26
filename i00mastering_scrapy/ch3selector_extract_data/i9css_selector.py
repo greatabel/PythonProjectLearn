@@ -23,5 +23,6 @@ body = '''
         '''
 
 response = HtmlResponse(url='http://www.example.com', body=body, encoding='utf8')
-print('“选中所有的img”', response.css('img'))
+print('“选中所有的img=>”', response.css('img'))
+print('“选中所有base和title”', response.css('base, title'))
 
