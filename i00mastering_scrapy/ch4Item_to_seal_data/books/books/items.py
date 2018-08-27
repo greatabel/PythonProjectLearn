@@ -11,3 +11,4 @@ from scrapy import Item, Field
 class BookItem(Item):
     name = Field()
     price = Field()
+    authors = Field(serializer=lambda x: '|'.join(x))
