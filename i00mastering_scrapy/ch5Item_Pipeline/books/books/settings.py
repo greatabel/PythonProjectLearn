@@ -14,6 +14,8 @@ BOT_NAME = 'books'
 SPIDER_MODULES = ['books.spiders']
 NEWSPIDER_MODULE = 'books.spiders'
 
+MONGO_DB_URI = 'mongodb://127.0.0.1:27017/'
+MONGO_DB_NAME = 'scrapy_data'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ch1example (+http://www.yourdomain.com)'
