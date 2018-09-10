@@ -23,6 +23,8 @@ ROBOTSTXT_OBEY = True
 
 ITEM_PIPELINES = {
     'books.pipelines.PriceConverterPipeline': 300,
+    'books.pipelines.DuplicatesPipeline': 350,
+    'books.pipelines.MongoDBPipeline': 400,
 }
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
