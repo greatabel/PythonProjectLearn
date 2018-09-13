@@ -31,3 +31,10 @@ le = LinkExtractor(deny=pattern1)
 links = le.extract_links(response1)
 for link in links:
     print(link)
+
+print(mycolor.show('allow_domain 参数 --------'))
+domains = ['github.com', 'stackoverflow.com']
+le = LinkExtractor(allow_domains=domains)
+links = le.extract_links(response1)
+for link in links:
+    print(link)
