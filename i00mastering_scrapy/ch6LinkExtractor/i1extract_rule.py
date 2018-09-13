@@ -1,0 +1,12 @@
+from scrapy.http import HtmlResponse
+
+html1 = open('example1.html').read()
+html2 = open('example2.html').read()
+response1 = HtmlResponse(url='http://example1.com', body=html1, encoding='utf8')
+response2 = HtmlResponse(url='http://example2.com', body=html2, encoding='utf8')
+
+from scrapy.linkextractors import LinkExtractor
+le = LinkExtractor()
+links = le.extract_links(response1)
+for link in links:
+    print(link)
