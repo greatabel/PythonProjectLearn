@@ -38,3 +38,11 @@ le = LinkExtractor(allow_domains=domains)
 links = le.extract_links(response1)
 for link in links:
     print(link)
+
+print(mycolor.show('deny_domain 参数 --------'))
+domains = ['github.com', 'stackoverflow.com']
+le = LinkExtractor(deny_domains=domains)
+links = le.extract_links(response1)
+for link in links:
+    print(link)
+
