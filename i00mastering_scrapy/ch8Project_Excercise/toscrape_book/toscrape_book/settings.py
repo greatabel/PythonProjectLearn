@@ -21,6 +21,11 @@ NEWSPIDER_MODULE = 'toscrape_book.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+FEED_EXPORT_FIELDS = ['upc', 'name', 'price', 'stock', 'review_rating', 'review_num']
+
+ITEM_PIPELINES = {
+    'toscrape_book.pipelines.BookPipeline': 300,
+}
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
