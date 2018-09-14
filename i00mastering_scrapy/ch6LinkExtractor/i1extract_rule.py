@@ -58,6 +58,11 @@ links = le.extract_links(response1)
 for link in links:
     print(link)
 
+print(mycolor.show('tags attrs 参数 --------'))
+le = LinkExtractor(tags='script', attrs="src")
+links = le.extract_links(response1)
+for link in links:
+    print(link)
 
 
 
