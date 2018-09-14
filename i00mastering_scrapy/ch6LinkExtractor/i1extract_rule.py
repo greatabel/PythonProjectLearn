@@ -46,3 +46,9 @@ links = le.extract_links(response1)
 for link in links:
     print(link)
 
+print(mycolor.show('restrict_xpaths 参数 --------', 'blue'))
+le = LinkExtractor(restrict_xpaths='//div[@id="top"]')
+links = le.extract_links(response1)
+for link in links:
+    print(link)
+
