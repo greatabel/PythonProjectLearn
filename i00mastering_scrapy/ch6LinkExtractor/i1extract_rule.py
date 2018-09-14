@@ -52,3 +52,16 @@ links = le.extract_links(response1)
 for link in links:
     print(link)
 
+print(mycolor.show('restrict_css 参数 --------'))
+le = LinkExtractor(restrict_css='div#bottom')
+links = le.extract_links(response1)
+for link in links:
+    print(link)
+
+
+
+
+
+
+
+
