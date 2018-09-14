@@ -64,8 +64,20 @@ links = le.extract_links(response1)
 for link in links:
     print(link)
 
+print(mycolor.show('process_value 参数 --------', 'blue'))
+
+import re
+def process(value):
+    m = re.search("javascript:goToPage\('(.*?)'", value)
+    if m:
+        value = m.group(1)
+    return value
 
 
+le = LinkExtractor(process_value=process)
+links = le.extract_links(response2)
+for link in links:
+    print(link)
 
 
 
