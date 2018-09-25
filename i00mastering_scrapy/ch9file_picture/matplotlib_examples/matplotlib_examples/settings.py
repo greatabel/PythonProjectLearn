@@ -21,6 +21,11 @@ NEWSPIDER_MODULE = 'matplotlib_examples.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+ITEM_PIPELINES = {
+    'scrapy.pipelines.files.FilesPipeline': 1,
+}
+FILES_STORE = 'examples_src'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

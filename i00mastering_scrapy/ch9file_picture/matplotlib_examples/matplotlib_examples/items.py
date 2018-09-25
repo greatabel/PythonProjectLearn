@@ -7,7 +7,10 @@
 
 import scrapy
 
-
+class ExampleItem(scrapy.Item):
+    file_urls = scrapy.Field()
+    files = scrapy.Field()
+    
 class MatplotlibExamplesItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
