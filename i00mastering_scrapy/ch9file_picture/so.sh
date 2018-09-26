@@ -1,0 +1,1 @@
+scrapy shell 'http://image.so.com/zj?ch=art&sn=30&listtype=new&temp=1'
