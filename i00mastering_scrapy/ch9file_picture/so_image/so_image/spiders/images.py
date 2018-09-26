@@ -5,12 +5,12 @@ import json
 
 
 class ImagesSpider(scrapy.Spider):
-     BASE_URL = 'http://image.so.com/zj?ch=art&sn=%s&listtype=new&temp=1'
+     BASE_URL = 'http://image.so.com/zj?ch=beauty&sn=%s&listtype=new&temp=1'
      start_index = 0
 
 
      # 限制最大下载数量，防止磁盘用量过大
-     MAX_DOWNLOAD_NUM = 100
+     MAX_DOWNLOAD_NUM = 10
 
 
      name = "images"
