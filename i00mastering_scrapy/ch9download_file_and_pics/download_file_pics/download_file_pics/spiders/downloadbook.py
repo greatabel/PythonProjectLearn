@@ -16,3 +16,5 @@ class DownloadbookSpider(scrapy.Spider):
             #将url填入下载列表
             print('#'*10, url[2:])
             item['file_urls'].append(download_url)
+
+        yield item
