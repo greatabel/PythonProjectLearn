@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'download_file_pics.spiders'
 #USER_AGENT = 'download_file_pics (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -67,7 +67,12 @@ ROBOTSTXT_OBEY = True
 #ITEM_PIPELINES = {
 #    'download_file_pics.pipelines.DownloadFilePicsPipeline': 300,
 #}
+ITEM_PIPELINES = {
+   'scrapy.pipelines.files.FilesPipeline': 1
+}
 
+FILES_STORE = '/Users/wanchang/Downloads/AbelProject/PythonProjectLearn/i00mastering_scrapy\
+/ch9download_file_and_pics/MyFiles'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
