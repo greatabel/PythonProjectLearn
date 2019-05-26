@@ -10,11 +10,11 @@ class DownloadbookSpider(scrapy.Spider):
     def parse(self, response):
         item = {}
         # 下载列表
-        item['file_urls'] = []
+        item['image_urls'] = []
         for url in response.xpath('/html/body//img/@src').extract():
             download_url = response.urljoin(url)
             #将url填入下载列表
             print('#'*10, url[2:])
-            item['file_urls'].append(download_url)
+            item['image_urls'].append(download_url)
 
         yield item

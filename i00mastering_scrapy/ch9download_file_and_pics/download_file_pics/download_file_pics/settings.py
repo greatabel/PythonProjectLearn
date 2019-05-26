@@ -68,10 +68,10 @@ ROBOTSTXT_OBEY = False
 #    'download_file_pics.pipelines.DownloadFilePicsPipeline': 300,
 #}
 ITEM_PIPELINES = {
-   'scrapy.pipelines.files.FilesPipeline': 1
+   'scrapy.pipelines.images.ImagesPipeline': 1
 }
 
-FILES_STORE = '/Users/wanchang/Downloads/AbelProject/PythonProjectLearn/i00mastering_scrapy\
+IMAGES_STORE = '/Users/wanchang/Downloads/AbelProject/PythonProjectLearn/i00mastering_scrapy\
 /ch9download_file_and_pics/MyFiles'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -93,3 +93,12 @@ FILES_STORE = '/Users/wanchang/Downloads/AbelProject/PythonProjectLearn/i00maste
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+IMAGES_THUMBS = {
+        'small': (50, 50),
+        'big': (270, 270),
+    }
+
+IMAGES_MIN_WIDTH = 110
+IMAGES_MIN_HEIGHT = 110
+
