@@ -27,7 +27,7 @@ class ImagesSpider(scrapy.Spider):
 
 
         infos = json.loads(response0)
-        print('#'*20, len(infos))
+
         # 提取所有图片下载url 到一个列表， 赋给item的'image_urls'字段
         yield {'image_urls': [info['qhimg_url'] for info in infos['list']]}
         # 如count 字段大于0，并且下载数量不足MAX_DOWNLOAD_NUM，继续获取下一页图片信息
