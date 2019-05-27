@@ -1,5 +1,6 @@
 import browser_cookie3
 
+# https://github.com/borisbabic/browser_cookie3
 
 # 获取Chrome 浏览器中的Cookie
 chrome_cookiejar = browser_cookie3.chrome()        
