@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for downloadmatplot_files project
+# Scrapy settings for matplotlib_examples project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'downloadmatplot_files'
+BOT_NAME = 'matplotlib_examples'
 
-SPIDER_MODULES = ['downloadmatplot_files.spiders']
-NEWSPIDER_MODULE = 'downloadmatplot_files.spiders'
+SPIDER_MODULES = ['matplotlib_examples.spiders']
+NEWSPIDER_MODULE = 'matplotlib_examples.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'downloadmatplot_files (+http://www.yourdomain.com)'
+#USER_AGENT = 'matplotlib_examples (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'downloadmatplot_files.middlewares.DownloadmatplotFilesSpiderMiddleware': 543,
+#    'matplotlib_examples.middlewares.MatplotlibExamplesSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'downloadmatplot_files.middlewares.DownloadmatplotFilesDownloaderMiddleware': 543,
+#    'matplotlib_examples.middlewares.MatplotlibExamplesDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'downloadmatplot_files.pipelines.DownloadmatplotFilesPipeline': 300,
+#    'matplotlib_examples.pipelines.MatplotlibExamplesPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
