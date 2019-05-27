@@ -69,7 +69,8 @@ ROBOTSTXT_OBEY = False
 #}
 
 ITEM_PIPELINES = {
-   'scrapy.pipelines.files.FilesPipeline': 1,
+   # 'scrapy.pipelines.files.FilesPipeline': 1,
+    'matplotlib_examples.pipelines.MyFilesPipeline': 1,
 }
 
 FILES_STORE = 'examples_src'
