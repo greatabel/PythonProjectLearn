@@ -70,6 +70,9 @@ SPIDER_MIDDLEWARES = {
     'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
 }
 
+# 伪装成常规浏览器
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
+
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
