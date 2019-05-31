@@ -36,12 +36,10 @@ class SQLitePipeline(object):
      self.db_cur = self.db_conn.cursor()
 
   def close_spider(self, spider):
+     print('#'*20, 'close and commit')
      self.db_conn.commit()
      self.db_conn.close()
 
-  def close_spider(self, spider):
-     self.db_conn.commit()
-     self.db_conn.close()
 
   def process_item(self, item, spider):
      self.insert_db(item)

@@ -19,13 +19,15 @@ NEWSPIDER_MODULE = 'toscrape_book.spiders'
 #USER_AGENT = 'toscrape_book (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 FEED_EXPORT_FIELDS = ['upc', 'name', 'price', 'stock', 'review_rating', 'review_num']
 
 ITEM_PIPELINES = {
     'toscrape_book.pipelines.BookPipeline': 300,
 }
+
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -69,9 +71,12 @@ ITEM_PIPELINES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'toscrape_book.pipelines.ToscrapeBookPipeline': 300,
-#}
+
+SQLITE_DB_NAME = 'scrapy.db'
+
+ITEM_PIPELINES = {
+   'toscrape_book.pipelines.SQLitePipeline': 400,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
