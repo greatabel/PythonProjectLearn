@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'toscrape_book.spiders'
 #USER_AGENT = 'toscrape_book (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 FEED_EXPORT_FIELDS = ['upc', 'name', 'price', 'stock', 'review_rating', 'review_num']
 
@@ -67,11 +67,17 @@ ITEM_PIPELINES = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+MYSQL_DB_NAME = 'scrapy_db'
+MYSQL_HOST = 'localhost'
+MYSQL_USER = 'test'
+MYSQL_PASSWORD = 'test1024'
+
+
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'toscrape_book.pipelines.ToscrapeBookPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'toscrape_book.pipelines.MySQLPipeline': 401,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
