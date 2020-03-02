@@ -34,5 +34,9 @@ def register_resources(app):
 
 
 if __name__ == '__main__':
+    '''
+    python3 -m flask db init
+
+    '''
     app = create_app()
     app.run(port=5000, debug=True)
