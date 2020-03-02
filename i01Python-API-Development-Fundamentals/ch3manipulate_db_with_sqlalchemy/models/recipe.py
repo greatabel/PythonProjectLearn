@@ -1,4 +1,4 @@
-from exceptions import db
+from extensions import db
 
 
 recipe_list = []
