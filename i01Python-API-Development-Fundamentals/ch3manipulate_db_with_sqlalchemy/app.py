@@ -36,7 +36,9 @@ def register_resources(app):
 if __name__ == '__main__':
     '''
     python3 -m flask db init
-
+    python3 -m flask db migrate
+    python3 -m flask db upgrade
     '''
+    
     app = create_app()
     app.run(port=5000, debug=True)
