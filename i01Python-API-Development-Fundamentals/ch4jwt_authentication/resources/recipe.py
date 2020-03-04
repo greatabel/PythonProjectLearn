@@ -73,7 +73,7 @@ class RecipeResource(Resource):
         recipe.save()
 
         return recipe.data(), HTTPStatus.OK
-        
+
     @jwt_required
     def delete(self, recipe_id):
 
@@ -94,7 +94,7 @@ class RecipeResource(Resource):
 
 
 class RecipePublishResource(Resource):
-
+    @jwt_required
     def put(self, recipe_id):
         recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
 
@@ -105,6 +105,7 @@ class RecipePublishResource(Resource):
 
         return {}, HTTPStatus.NO_CONTENT
 
+    @jwt_required
     def delete(self, recipe_id):
         recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
 
