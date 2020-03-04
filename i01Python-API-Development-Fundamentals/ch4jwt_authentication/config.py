@@ -15,3 +15,5 @@ class Config:
 
     SECRET_KEY = 'super-secret-key'
     JWT_ERROR_MESSAGE_KEY = 'message'
+    # https://stackoverflow.com/questions/56281886/api-with-flask-jwt-extended-with-authentication-problems
+    PROPAGATE_EXCEPTIONS = True

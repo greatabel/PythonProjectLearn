@@ -16,6 +16,7 @@ def create_app():
 
     register_extensions(app)
     register_resources(app)
+
     return app
 
 
@@ -25,6 +26,7 @@ def register_extensions(app):
     jwt.init_app(app)
 
 
+
 def register_resources(app):
     api = Api(app)
 
@@ -32,7 +34,7 @@ def register_resources(app):
     api.add_resource(UserResource, '/users/<string:username>')
 
     api.add_resource(MeResource, '/me')
-    
+
     api.add_resource(TokenResource, '/token')
     
     api.add_resource(RecipeListResource, '/recipes')
