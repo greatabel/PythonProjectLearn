@@ -2,6 +2,9 @@ from  app import *
 from models.user import User
 from models.recipe import Recipe
 
+'''
+create database smilecook default character set utf8mb4;
+'''
 
 app = create_app()
 # app.run(port=5000, debug=True)
