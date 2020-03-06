@@ -3,15 +3,20 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_optional, get_jwt_identity, jwt_required
 from http import HTTPStatus
 
-from utils import hash_password
+from webargs import fields
+from webargs.flaskparser import use_args
+
+from models.recipe import Recipe
 from models.user import User
 
 from schemas.user import UserSchema
+from schemas.recipe import RecipeSchema
 from marshmallow import ValidationError
 
 
 user_schema = UserSchema()
 user_public_schema = UserSchema(exclude=('email', ))
+recipe_list_schema = RecipeSchema(many=True)
 
 
 class UserListResource(Resource):
@@ -76,4 +81,31 @@ class MeResource(Resource):
 
         return data, HTTPStatus.OK
         
+example_args = {
+    'visibility': fields.String(missing='public')    
+}
+
+class UserRecipeListResource(Resource):
+
+    @jwt_optional
+    @use_args(example_args, location="query")
+    def get(self, visibility, username):
+
+        user = User.get_by_username(username=username)
+
+        if user is None:
+            return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
+
+        current_user = get_jwt_identity()
+
+        if current_user == user.id and visibility in ['all', 'private']:
+            pass
+        else:
+            visibility = 'public'
+
+        recipes = Recipe.get_all_by_user(user_id=user.id, visibility=visibility)
+        data = recipe_list_schema.dump(recipes)
+        return data, HTTPStatus.OK
+
+
 

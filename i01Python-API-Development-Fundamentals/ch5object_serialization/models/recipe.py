@@ -27,10 +27,19 @@ class Recipe(db.Model):
             'directions': self.directions,
             'user_id': self.user_id
         }
-        
+
     @classmethod
     def get_all_publish(cls):
         return cls.query.filter_by(is_publish=True).all()
+
+    @classmethod
+    def get_all_by_user(cls, user_id, visibility='public'):
+        if visibility == 'public':
+            return cls.query.filter_by(user_id=user_id, is_publish=True).all()
+        elif visibility == 'private':
+            return cls.query.filter_by(user_id=user_id, is_publish=False).all()
+        else:
+            return cls.query.filter_by(userid=user_id).all
 
     @classmethod
     def get_by_id(cls, recipe_id):
