@@ -57,7 +57,7 @@ class UserResource(Resource):
 
         current_user = get_jwt_identity()
 
-
+        # print('current_user=', current_user, user.id)
         if current_user == user.id:
             data = user_schema.dump(user)
         else:
