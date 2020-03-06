@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_optional, get_jwt_identity, jwt_required
 from http import HTTPStatus
 
 from webargs import fields
-from webargs.flaskparser import use_args
+from webargs.flaskparser import use_kwargs
 
 from models.recipe import Recipe
 from models.user import User
@@ -86,24 +86,25 @@ example_args = {
 }
 
 class UserRecipeListResource(Resource):
-
+    #visibility 和 username 顺序很重要，错了不行
     @jwt_optional
-    @use_args(example_args, location="query")
+    @use_kwargs(example_args, location="query")
     def get(self, visibility, username):
-
+        print('visibility=', visibility)
         user = User.get_by_username(username=username)
 
         if user is None:
             return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
 
         current_user = get_jwt_identity()
-
+        print(current_user, user.id, visibility)
         if current_user == user.id and visibility in ['all', 'private']:
             pass
         else:
             visibility = 'public'
 
         recipes = Recipe.get_all_by_user(user_id=user.id, visibility=visibility)
+        # print('recipes=', recipes)
         data = recipe_list_schema.dump(recipes)
         return data, HTTPStatus.OK
 

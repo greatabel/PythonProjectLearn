@@ -12,16 +12,16 @@ app = Flask(__name__)
 
 #     return "Hello " + lang_code
 
-from webargs import fields
-from webargs.flaskparser import use_args
+# from webargs import fields
+# from webargs.flaskparser import use_args
 
 # http://127.0.0.1:5000/user/1?per_page=101
 @app.route('/user/<int:uid>')
-@use_args({'per_page': fields.Int(missing=100)},  location="query")
-def user_detail(args, uid):
+@use_kwargs({'per_page': fields.Int(missing=100)},  location="query")
+def user_detail(per_page, uid):
     return ('The user page for user {uid}, '
             'showing {per_page} posts.').format(uid=uid,
-                                                per_page=args['per_page'])
+                                                per_page=per_page)
 
 
 if __name__ == "__main__":
