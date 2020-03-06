@@ -1,5 +1,6 @@
 import datetime as dt
 from marshmallow import Schema, fields
+from marshmallow import pprint
 
 
 # https://marshmallow.readthedocs.io/en/stable/quickstart.html
@@ -22,3 +23,16 @@ class UserSchema(Schema):
 UserSchemaA = Schema.from_dict(
     {"name": fields.Str(), "email": fields.Email(), "created_at": fields.DateTime()}
 )
+
+
+#Serializing Objects
+user = User(name="Monty", email="monty@python.org")
+schema = UserSchema()
+result = schema.dump(user)
+pprint(result)
+print(type(result))
+
+print('You can also serialize to a JSON-encoded string: 注意dump vs dumps')
+json_result = schema.dumps(user)
+pprint(json_result)
+print(type(json_result))
