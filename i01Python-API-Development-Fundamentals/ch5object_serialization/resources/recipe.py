@@ -5,6 +5,11 @@ from http import HTTPStatus
 
 
 from models.recipe import Recipe
+from schemas.recipe import RecipeSchema
+
+
+recipe_schema = RecipeSchema()
+recipe_list_schema = RecipeSchema(many=True)
 
 
 class RecipeListResource(Resource):
@@ -12,10 +17,8 @@ class RecipeListResource(Resource):
     def get(self):
         data = []
         recipes = Recipe.get_all_publish()
-        for recipe in recipes:
-            data.append(recipe.data)
-
-        return {'data': data}, HTTPStatus.OK
+        data = recipe_list_schema.dump(recipes)
+        return data, HTTPStatus.OK
 
     @jwt_required
     def post(self):
@@ -96,22 +99,31 @@ class RecipeResource(Resource):
 class RecipePublishResource(Resource):
     @jwt_required
     def put(self, recipe_id):
-        recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
+        recipe = Recipe.get_by_id(recipe_id=recipe_id)
 
         if recipe is None:
-            return {'message': 'recipe not found'}, HTTPStatus.NOT_FOUND
+            return {'message': 'Recipe not found'}, HTTPStatus.NOT_FOUND
+
+        current_user = get_jwt_identity()
+
+        if current_user != recipe.user_id:
+            return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
 
         recipe.is_publish = True
+        recipe.save()
 
         return {}, HTTPStatus.NO_CONTENT
 
     @jwt_required
     def delete(self, recipe_id):
-        recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
+        recipe = Recipe.get_by_id(recipe_id=recipe_id)
 
         if recipe is None:
-            return {'message': 'recipe not found'}, HTTPStatus.NOT_FOUND
+            return {'message': 'Recipe not found'}, HTTPStatus.NOT_FOUND
+
+        current_user = get_jwt_identity()
+
+        if current_user != recipe.user_id:
+            return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
 
         recipe.is_publish = False
-
-        return {}, HTTPStatus.NO_CONTENT
