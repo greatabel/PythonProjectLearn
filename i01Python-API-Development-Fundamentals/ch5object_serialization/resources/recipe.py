@@ -6,6 +6,7 @@ from http import HTTPStatus
 
 from models.recipe import Recipe
 from schemas.recipe import RecipeSchema
+from marshmallow import ValidationError
 
 
 recipe_schema = RecipeSchema()
@@ -25,15 +26,19 @@ class RecipeListResource(Resource):
         json_data = request.get_json()
 
         current_user = get_jwt_identity()
+        try:
+            data = recipe_schema.load(data=json_data)
 
-        recipe = Recipe(name=json_data['name'],
-                        description=json_data['description'],
-                        num_of_servings=json_data['num_of_servings'],
-                        cook_time=json_data['cook_time'],
-                        directions=json_data['directions'],
-                        user_id=current_user)
-        recipe.save()
-        return recipe.data(), HTTPStatus.CREATED
+            recipe = Recipe(**data)
+            recipe.user_id = current_user
+            recipe.save()
+            return recipe_schema.dump(recipe), HTTPStatus.CREATED
+
+        except ValidationError as err:
+            return {'message': err.messages}, HTTPStatus.BAD_REQUEST
+
+
+        
 
 
 class RecipeResource(Resource):
