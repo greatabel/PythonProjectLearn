@@ -59,9 +59,9 @@ class UserResource(Resource):
 
 
         if current_user == user.id:
-            data = user_schema.dump(user).data
+            data = user_schema.dump(user)
         else:
-            data = user_public_schema.dump(user).data
+            data = user_public_schema.dump(user)
 
         return data, HTTPStatus.OK
 
@@ -72,7 +72,7 @@ class MeResource(Resource):
     def get(self):
         user = User.get_by_id(id=get_jwt_identity())
 
-        data = user_schema.dump(user).data
+        data = user_schema.dump(user)
 
         return data, HTTPStatus.OK
         
