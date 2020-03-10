@@ -21,3 +21,5 @@ class Config:
     
     # https://stackoverflow.com/questions/56281886/api-with-flask-jwt-extended-with-authentication-problems
     PROPAGATE_EXCEPTIONS = True
+
+    UPLOADED_IMAGES_DEST = 'static/images'

@@ -3,6 +3,7 @@ Flask-RESTful
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-JWT-Extended
+Flask-Uploads
 httpie
 itsdangerous
 marshmallow
