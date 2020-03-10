@@ -8,5 +8,6 @@ httpie
 itsdangerous
 marshmallow
 passlib
+Pillow
 PyMySQL
 webargs
