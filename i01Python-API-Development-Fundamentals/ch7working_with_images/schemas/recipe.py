@@ -21,6 +21,7 @@ class RecipeSchema(Schema):
     cook_time = fields.Integer()
     directions = fields.String(validate=[validate.Length(max=1000)])
     is_publish = fields.Boolean(dump_only=True)
+    cover_url = fields.Method(serialize='dump_cover_url')
 
     author = fields.Nested(UserSchema, attribute='user', dump_only=True, only=['id', 'username'])
 
@@ -39,3 +40,9 @@ class RecipeSchema(Schema):
             raise ValidationError('Cook time must be greater than 0.')
         if value > 300:
             raise ValidationError('Cook time must not be greater than 300.')
+
+    def dump_cover_url(self, recipe):
+        if recipe.cover_image:
+            return url_for('static', filename='images/recipes/{}'.format(recipe.cover_image), _external=True)
+        else:
+            return url_for('static', filename='images/assets/default-recipe-cover.jpg', _external=True)
