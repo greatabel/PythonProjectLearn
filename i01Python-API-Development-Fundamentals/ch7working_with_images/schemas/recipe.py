@@ -1,3 +1,4 @@
+from flask import url_for
 from marshmallow import Schema, fields, post_dump, validate, validates, ValidationError
 
 from schemas.user import UserSchema
