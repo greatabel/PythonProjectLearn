@@ -1,4 +1,4 @@
-from flask import request, url_for
+from flask import request, url_for, render_template
 from flask_restful import Resource
 from flask_jwt_extended import jwt_optional, get_jwt_identity, jwt_required
 from http import HTTPStatus
@@ -52,10 +52,14 @@ class UserListResource(Resource):
             link = url_for('useractivateresource',
                             token=token,
                             _external=True)
-            text = '感谢使用 SmileCook! 请点击确认链接: {}'.format(link)
+            # text = '感谢使用 SmileCook! 请点击确认链接: {}'.format(link)
+            #  text Body of the message. (text version)/ html:Body of the message. (HTML version)
+            text = None
+
             mailgun.send_email(to=user.email,
                                subject=subject,
-                               text=text)
+                               text=text,
+                               html=render_template('email/confirmation.html', link=link))
 
             data = user_schema.dump(user)
             return data, HTTPStatus.CREATED
