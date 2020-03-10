@@ -10,6 +10,8 @@ class User(db.Model):
     password = db.Column(db.String(200))
     bio = db.Column(db.String(1000))
     is_active = db.Column(db.Boolean(), default=False)
+    avatar_image = db.Column(db.String(100), default=False)
+    
     created_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now())
     updated_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
 
