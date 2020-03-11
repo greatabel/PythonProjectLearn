@@ -12,6 +12,7 @@ class Recipe(db.Model):
     num_of_servings = db.Column(db.Integer)
     cook_time = db.Column(db.Integer)
     directions = db.Column(db.String(1000))
+    ingredients = db.Column(db.String(1000))
     is_publish = db.Column(db.Boolean(), default=False)
     cover_image = db.Column(db.String(100), default=False)
 
