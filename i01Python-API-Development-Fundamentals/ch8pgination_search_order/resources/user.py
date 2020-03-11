@@ -15,7 +15,7 @@ from models.user import User
 
 
 from schemas.user import UserSchema
-from schemas.recipe import RecipeSchema
+from schemas.recipe import RecipeSchema, RecipePaginationSchema
 from marshmallow import ValidationError
 
 from utils import generate_token, verify_token, save_image
@@ -25,6 +25,7 @@ user_schema = UserSchema()
 user_public_schema = UserSchema(exclude=('email', ))
 user_avatar_schema = UserSchema(only=('avatar_url', ))
 recipe_list_schema = RecipeSchema(many=True)
+recipe_pagination_schema = RecipePaginationSchema()
 
 domain = os.environ.get('YOUR_DOMAIN_NAME', '')
 api_key = os.environ.get('YOUR_API_KEY', '')
@@ -107,6 +108,8 @@ class MeResource(Resource):
         return data, HTTPStatus.OK
         
 example_args = {
+    'page': fields.Int(missing=1),
+    'per_page': fields.Int(missing=10),
     'visibility': fields.String(missing='public')    
 }
 
@@ -114,8 +117,8 @@ class UserRecipeListResource(Resource):
     #visibility 和 username 顺序很重要，错了不行
     @jwt_optional
     @use_kwargs(example_args, location="query")
-    def get(self, visibility, username):
-        print('visibility=', visibility)
+    def get(self, page, per_page, visibility, username):
+        print('visibility=', visibility, page, per_page)
         user = User.get_by_username(username=username)
 
         if user is None:
@@ -128,9 +131,9 @@ class UserRecipeListResource(Resource):
         else:
             visibility = 'public'
 
-        recipes = Recipe.get_all_by_user(user_id=user.id, visibility=visibility)
+        paginated_recipes = Recipe.get_all_by_user(user_id=user.id, page=page, per_page=per_page, visibility=visibility)
         # print('recipes=', recipes)
-        data = recipe_list_schema.dump(recipes)
+        data = recipe_pagination_schema.dump(paginated_recipes)
         return data, HTTPStatus.OK
 
 
