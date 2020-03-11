@@ -2,6 +2,7 @@ from flask import url_for
 from marshmallow import Schema, fields, post_dump, validate, validates, ValidationError
 
 from schemas.user import UserSchema
+from schemas.pagination import PaginationSchema
 
 
 def validate_num_of_servings(n):
@@ -29,11 +30,11 @@ class RecipeSchema(Schema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
 
-    @post_dump(pass_many=True)
-    def wrap(self, data, many, **kwargs):
-        if many:
-            return {'data': data}
-        return data
+    # @post_dump(pass_many=True)
+    # def wrap(self, data, many, **kwargs):
+    #     if many:
+    #         return {'data': data}
+    #     return data
 
     @validates('cook_time')
     def validate_cook_time(self, value):
@@ -47,3 +48,8 @@ class RecipeSchema(Schema):
             return url_for('static', filename='images/recipes/{}'.format(recipe.cover_image), _external=True)
         else:
             return url_for('static', filename='images/assets/default-recipe-cover.jpg', _external=True)
+
+
+class RecipePaginationSchema(PaginationSchema):
+    data = fields.Nested(RecipeSchema, attribute='items', many=True)
+

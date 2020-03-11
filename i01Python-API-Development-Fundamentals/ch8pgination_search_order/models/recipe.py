@@ -1,5 +1,7 @@
 from extensions import db
 
+from sqlalchemy import asc, desc
+
 
 class Recipe(db.Model):
     __tablename__ = 'recipe'
@@ -31,8 +33,9 @@ class Recipe(db.Model):
         }
 
     @classmethod
-    def get_all_publish(cls):
-        return cls.query.filter_by(is_publish=True).all()
+    def get_all_published(cls, page, per_page):
+        return cls.query.filter_by(is_publish=True).order_by(desc(cls.created_at))\
+                  .paginate(page=page, per_page=per_page)
 
     @classmethod
     def get_all_by_user(cls, user_id, visibility='public'):
