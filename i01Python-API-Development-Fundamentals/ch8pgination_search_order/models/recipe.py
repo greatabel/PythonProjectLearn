@@ -24,11 +24,13 @@ class Recipe(db.Model):
     @classmethod
     def get_all_published(cls, q, page, per_page):
         keyword = '%{keyword}%'.format(keyword=q)
-        return cls.query.filter_by(ior_(cls.name.ilike(keyword),
+        print('keyword=', keyword, page, per_page)
+        t =  cls.query.filter(or_(cls.name.ilike(keyword),
                                     cls.description.ilike(keyword)),
-                                    cls.is_publish.is_(True)). \
-                   order_by(desc(cls.created_at))\
-                  .paginate(page=page, per_page=per_page)
+                                cls.is_publish.is_(True)). \
+            order_by(desc(cls.created_at)).paginate(page=page, per_page=per_page)
+        print(t)
+        return t
 
     @classmethod
     def get_all_by_user(cls, user_id, page, per_page, visibility='public'):
