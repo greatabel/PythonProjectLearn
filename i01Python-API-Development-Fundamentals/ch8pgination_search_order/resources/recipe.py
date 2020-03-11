@@ -48,8 +48,6 @@ class RecipeListResource(Resource):
 
         except ValidationError as err:
             return {'message': err.messages}, HTTPStatus.BAD_REQUEST
-
-
         
 
 
@@ -66,7 +64,7 @@ class RecipeResource(Resource):
 
         if recipe.is_publish == False and recipe.user_id != current_user:
             return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
-            
+
         return recipe_schema.dump(recipe), HTTPStatus.OK
 
     @jwt_required
