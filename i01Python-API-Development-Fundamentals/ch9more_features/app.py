@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_uploads import configure_uploads, patch_request_class
@@ -37,6 +37,10 @@ def register_extensions(app):
     def check_if_token_in_blacklist(decrypted_token):
         jti = decrypted_token['jti']
         return jti in black_list
+
+    @limiter.request_filter
+    def ip_whitelist():
+        return request.remote_addr == '127.0.0.1'
         
     @app.before_request
     def before_request():
