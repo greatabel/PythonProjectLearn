@@ -38,10 +38,11 @@ def register_extensions(app):
         jti = decrypted_token['jti']
         return jti in black_list
 
+    # 测试时候需要注释掉
     @limiter.request_filter
     def ip_whitelist():
         return request.remote_addr == '127.0.0.1'
-        
+
     @app.before_request
     def before_request():
         print('\n==================== BEFORE REQUEST ====================\n')

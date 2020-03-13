@@ -7,7 +7,7 @@ from http import HTTPStatus
 from webargs import fields
 from webargs.flaskparser import use_kwargs
 
-from extensions import image_set
+from extensions import image_set, limiter
 from mailgun import MailgunApi
 from models.recipe import Recipe
 from models.user import User
@@ -114,6 +114,8 @@ example_args = {
 }
 
 class UserRecipeListResource(Resource):
+    decorators = [limiter.limit('4/minute;30/hour;300/day', methods=['GET'], error_message='Too Many Requests')]
+
     #visibility 和 username 顺序很重要，错了不行
     @jwt_optional
     @use_kwargs(example_args, location="query")
