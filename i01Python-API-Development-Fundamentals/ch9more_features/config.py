@@ -23,3 +23,7 @@ class Config:
     PROPAGATE_EXCEPTIONS = True
 
     UPLOADED_IMAGES_DEST = 'static/images'
+
+    CACHE_TYPE = 'simple'
+    #The default expiration time is 10 * 60 second
+    CACHE_DEFAULT_TIMEOUT = 10 * 60
