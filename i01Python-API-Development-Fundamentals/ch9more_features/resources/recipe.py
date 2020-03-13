@@ -12,7 +12,7 @@ from schemas.recipe import RecipeSchema, RecipePaginationSchema
 from marshmallow import ValidationError
 
            
-from extensions import image_set, cache
+from extensions import image_set, cache, limiter
 
 from utils import save_image, clear_cache
 
@@ -24,7 +24,8 @@ recipe_pagination_schema = RecipePaginationSchema()
 
 
 class RecipeListResource(Resource):
-    
+    decorators = [limiter.limit('3 per minute', methods=['GET'], error_message='Too Many Requests')]
+
     @use_kwargs({'q': fields.Str(missing=''),
                  'page': fields.Int(missing=1),
                  'per_page': fields.Int(missing=20),
@@ -201,7 +202,7 @@ class RecipeCoverUploadResource(Resource):
         recipe.cover_image = filename
         recipe.save()
         clear_cache('/recipes')
-        
+
         return recipe_cover_schema.dump(recipe), HTTPStatus.OK
 
 

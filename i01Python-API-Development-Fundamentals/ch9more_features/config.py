@@ -27,3 +27,5 @@ class Config:
     CACHE_TYPE = 'simple'
     #The default expiration time is 10 * 60 second
     CACHE_DEFAULT_TIMEOUT = 10 * 60
+
+    RATELIMIT_HEADERS_ENABLED = True

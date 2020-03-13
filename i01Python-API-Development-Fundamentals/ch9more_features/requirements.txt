@@ -1,6 +1,7 @@
 Flask
 Flask-Caching
 Flask-RESTful
+Flask-Limiter
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-JWT-Extended
