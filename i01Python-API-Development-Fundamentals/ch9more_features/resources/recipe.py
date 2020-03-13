@@ -14,7 +14,7 @@ from marshmallow import ValidationError
            
 from extensions import image_set, cache
 
-from utils import save_image
+from utils import save_image, clear_cache
 
 
 recipe_schema = RecipeSchema()
@@ -104,6 +104,7 @@ class RecipeResource(Resource):
             recipe.directions = data.get('directions') or recipe.directions
 
             recipe.save()
+            clear_cache('/recipes')
 
             return recipe_schema.dump(recipe), HTTPStatus.OK
 
@@ -126,6 +127,7 @@ class RecipeResource(Resource):
             return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
 
         recipe.delete()
+        clear_cache('/recipes')
 
         return {}, HTTPStatus.NO_CONTENT
 
@@ -146,6 +148,7 @@ class RecipePublishResource(Resource):
 
         recipe.is_publish = True
         recipe.save()
+        clear_cache('/recipes')
 
         return {}, HTTPStatus.NO_CONTENT
 
@@ -162,6 +165,9 @@ class RecipePublishResource(Resource):
             return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
 
         recipe.is_publish = False
+        recipe.save()
+        clear_cache('/recipes')
+        return {}, HTTPStatus.NO_CONTENT
 
 
 class RecipeCoverUploadResource(Resource):
@@ -194,7 +200,8 @@ class RecipeCoverUploadResource(Resource):
         filename = save_image(image=file, folder='recipes')
         recipe.cover_image = filename
         recipe.save()
-
+        clear_cache('/recipes')
+        
         return recipe_cover_schema.dump(recipe), HTTPStatus.OK
 
 

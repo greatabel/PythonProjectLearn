@@ -9,7 +9,7 @@ from itsdangerous import URLSafeTimedSerializer
 
 from flask import current_app
 
-from extensions import image_set
+from extensions import image_set, cache
 
 
 def hash_password(pasword):
@@ -72,5 +72,8 @@ def compress_image(filename, folder):
     return compressed_filename
 
 
+def clear_cache(key_prefix):
+    keys = [key for key in cache.cache._cache.keys() if key.startswith(key_prefix)]
+    cache.delete_many(*keys)
 
 
