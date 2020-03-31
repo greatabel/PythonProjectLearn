@@ -1,7 +1,0 @@
-Flask
-Flask-RESTful
-httpie
-Flask-SQLAlchemy
-Flask-Migrate
-passlib
-PyMySQL
