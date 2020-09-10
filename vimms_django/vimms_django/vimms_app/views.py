@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from .forms import DocumentForm
+from .file_processor import handle_uploaded_file
 # Create your views here.
 
 
@@ -9,7 +11,22 @@ def home(request):
 
 
 def simple_ms1(request):
-    return render(request, 'vimss_app/simple_ms1.html')
+    if request.method == 'POST':
+        # print(request.FILES.getlist("document"),'#'*10)
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            processed_files = handle_uploaded_file(request.FILES['document'])
+            form.save()
+            # return redirect('home')
+            return render(request, 'vimss_app/simple_ms1.html', {
+                        'form': form, 'processed_files': processed_files
+                    })
+    else:
+        form = DocumentForm()
+    return render(request, 'vimss_app/simple_ms1.html', {
+        'form': form
+    })
+
 
 
 def dia(request):
