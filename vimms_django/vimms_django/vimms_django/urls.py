@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('vimms_app/', include('vimms_app.urls')),
+    path('', include('vimms_app.urls')),
+    path('home/', include('vimms_app.urls')),
     path('admin/', admin.site.urls),
 ]
