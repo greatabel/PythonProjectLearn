@@ -9,16 +9,16 @@ def home(request):
 
 
 def simple_ms1(request):
-    return HttpResponse("You're looking at: simple_ms1")
+    return render(request, 'vimss_app/simple_ms1.html')
 
 
 def dia(request):
-    return HttpResponse("You're looking at: dia")
+    return render(request, 'vimss_app/dia.html')
 
 
 def multiple_sample(request):
-    return HttpResponse("You're looking at: multiple_sample")
+    return render(request, 'vimss_app/multiple_sample.html')
 
 
 def top_n(request):
-    return HttpResponse("You're looking at: top_n")
+    return render(request, 'vimss_app/top_n.html')
