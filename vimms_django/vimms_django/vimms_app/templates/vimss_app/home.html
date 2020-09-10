@@ -1,7 +1,7 @@
 {% extends 'vimss_app/base.html' %}
 
 {% block title %}
-  HOME
+  HOME(Vimms by Django)
 {% endblock %}
 
 {% block breadcrumb %}
@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+{% load static %}
+
+<div class="col-md-12  text-center">
+    <img src="{% static "vimss_logo.png" %}" class="img-responsive center-block" style="width: 30%">
+
+</div>
+
+
 <!--   <table class="table">
     <thead class="thead-inverse">
       <tr>
