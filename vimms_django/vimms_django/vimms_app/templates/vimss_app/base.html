@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="{% static "bootstrap-4.5.2-dist/css/bootstrap.min.css" %}"> 
   <script src="{% static "jquery-3.5.1.slim.min.js" %}"></script>
   <script src="{% static "bootstrap-4.5.2-dist/js/bootstrap.min.js" %}"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  $('li.active').removeClass('active');
+  $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+});
+  </script>
 </head>
 
 <body>
