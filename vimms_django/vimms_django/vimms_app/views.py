@@ -15,7 +15,7 @@ def simple_ms1(request):
         # print(request.FILES.getlist("document"),'#'*10)
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            processed_files = handle_uploaded_file(request.FILES['document'])
+            processed_files = handle_uploaded_file(request.FILES['document'], 'simple_ms1')
             form.save()
             # return redirect('home')
             return render(request, 'vimss_app/simple_ms1.html', {

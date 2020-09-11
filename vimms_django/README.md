@@ -9,5 +9,16 @@ original requirements：
 输出有几种不同数据的采集参数选择
 
 
+************** attention please **************
+vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
+1. exmaple在最新的代码上运行不起来，不要使用pip安装，也不要使用github上master分支1.0.0, 1.1.0，
+  而要去你发给我的文件夹下本地安装：
+（比如我的在你传给我的文件解压下 vimms-master 有setup.py的目录下执行：）
+先执行 python3 setup.py build
+然后执行 python3 setup.py install
+
+2. 打开本地安装的mass_spec_utils的gnps.py文件：
+比如我的在： /usr/local/lib/python3.7/site-packages/mass_spec_utils/library_matching/gnps.py
+的代码有bug：from .spectrum import SpectralRecord 改为from spectrum import SpectralRecord
 
 
