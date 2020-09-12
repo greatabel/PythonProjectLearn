@@ -6,6 +6,7 @@ from .forms import DocumentForm
 from .file_processor import handle_uploaded_file
 from .processor_simple_ms1 import simple_ms1_processor
 from .processor_dia import dia_processor
+from .process_topn import topn_processor
 # Create your views here.
 
 
@@ -37,6 +38,7 @@ def simple_ms1(request):
 
 
 def dia(request):
+    processed_files = []
     if(request.GET.get('dia_btn')):
         # print( int(request.GET.get('mytextbox')) )
         result_path = dia_processor()
@@ -45,10 +47,12 @@ def dia(request):
 
 
 def top_n(request):
+    processed_files = []
     if(request.GET.get('topn_btn')):
         # print( int(request.GET.get('mytextbox')) )
-        print('Button clicked')
-    return render(request, 'vimss_app/top_n.html',{'value':'Button clicked'})
+        result_path = topn_processor()
+        processed_files = [result_path]
+    return render(request, 'vimss_app/top_n.html',{'processed_files': processed_files})
 
 
 def multiple_sample(request):
