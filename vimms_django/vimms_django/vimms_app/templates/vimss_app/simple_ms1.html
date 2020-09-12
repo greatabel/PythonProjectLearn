@@ -12,11 +12,14 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button type="submit" class="btn btn-primary" >Upload</button>
+
   </form>
 
+
+
 {% for myfile in processed_files %}
-    <li> <a class="nav-link" href="documents/{{ myfile }}"> {{ myfile }} </a></li>
+    <li> <a class="nav-link" href="{{ myfile }}"> {{ myfile }} </a></li>
 
 {% endfor %}
 

@@ -30,12 +30,18 @@ def simple_ms1(request):
 
 
 def dia(request):
-    return render(request, 'vimss_app/dia.html')
+    if(request.GET.get('dia_btn')):
+        # print( int(request.GET.get('mytextbox')) )
+        print('Button clicked')
+    return render(request, 'vimss_app/dia.html',{'value':'Button clicked'})
+
+
+def top_n(request):
+    if(request.GET.get('topn_btn')):
+        # print( int(request.GET.get('mytextbox')) )
+        print('Button clicked')
+    return render(request, 'vimss_app/top_n.html',{'value':'Button clicked'})
 
 
 def multiple_sample(request):
     return render(request, 'vimss_app/multiple_sample.html')
-
-
-def top_n(request):
-    return render(request, 'vimss_app/top_n.html')

@@ -12,7 +12,7 @@ original requirements：
 ************** attention please **************
 vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
 1. exmaple在最新的代码上运行不起来，不要使用pip安装，也不要使用github上master分支1.0.0, 1.1.0，
-  而要去你发给我的文件夹下本地安装：
+  而要去客户发给我的工程代码解压后本地安装（发过来的应该是1.1.0的某个分支代码）：
 （比如我的在你传给我的文件解压下 vimms-master 有setup.py的目录下执行：）
 先执行 python3 setup.py build
 然后执行 python3 setup.py install
@@ -21,4 +21,4 @@ vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
 比如我的在： /usr/local/lib/python3.7/site-packages/mass_spec_utils/library_matching/gnps.py
 的代码有bug：from .spectrum import SpectralRecord 改为from spectrum import SpectralRecord
 
-
+3. vimms_django/vimms_django/documents/simple_ms1/example_data/hmdb_compounds.p 
