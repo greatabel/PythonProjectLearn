@@ -7,6 +7,7 @@ from .file_processor import handle_uploaded_file
 from .processor_simple_ms1 import simple_ms1_processor
 from .processor_dia import dia_processor
 from .process_topn import topn_processor
+from .processor_varytopn import varying_topn_processor
 # Create your views here.
 
 
@@ -50,7 +51,10 @@ def top_n(request):
     processed_files = []
     if(request.GET.get('topn_btn')):
         # print( int(request.GET.get('mytextbox')) )
-        result_path = topn_processor()
+        path_list = topn_processor()
+        processed_files = path_list
+    elif (request.GET.get('varyingtopn_btn')):
+        result_path = varying_topn_processor()
         processed_files = [result_path]
     return render(request, 'vimss_app/top_n.html',{'processed_files': processed_files})
 

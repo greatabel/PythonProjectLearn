@@ -88,3 +88,5 @@ def extract_hmdb_metabolite(in_file, delete=True):
 line 145 add following init function logic: 
         if self.get(ScanParameters.PRECURSOR_MZ) is None:
             return [[(0, 0)]]
+
+7.
