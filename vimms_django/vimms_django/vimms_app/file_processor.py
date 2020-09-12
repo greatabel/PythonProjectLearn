@@ -4,7 +4,7 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 import os
 from .pre_process import download_data_and_preprocess
-from .processor_simple_ms1 import simple_ms1_processor
+# from .processor_simple_ms1 import simple_ms1_processor
 
 
 def handle_uploaded_file(f, view_name):
@@ -15,8 +15,7 @@ def handle_uploaded_file(f, view_name):
     print('finished unzip!')
     download_data_and_preprocess()
 
-    result_path = simple_ms1_processor()
-    return [result_path]
+
             # for f in z.namelist():
 
             #     suffix = f.split(".")[-1]

@@ -21,4 +21,70 @@ vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
 比如我的在： /usr/local/lib/python3.7/site-packages/mass_spec_utils/library_matching/gnps.py
 的代码有bug：from .spectrum import SpectralRecord 改为from spectrum import SpectralRecord
 
-3. vimms_django/vimms_django/documents/simple_ms1/example_data/hmdb_compounds.p 
+3. 
+vimms_django/vimms_django/documents/simple_ms1/example_data/hmdb_compounds.p 
+
+4. time to process , take too long
+DataGenerator.py  need to speedup function: extract_hmdb_metabolite
+from line 19, extract_hmdb_metabolite function change into:
+
+def extract_hmdb_metabolite(in_file, delete=True):
+    logger.debug('Extracting HMDB metabolites from %s' % in_file)
+
+    count = 0
+    # loops through file and extract the necessary element text to create a DatabaseCompound
+    db = xml.etree.ElementTree.parse(f).getroot()
+    logger.debug('##')
+    compounds = []
+    prefix = '{http://www.hmdb.ca}'
+    for metabolite_element in db:
+        count += 1
+        if count % 1000 == 0:
+            logger.debug('count=%s' % count)
+        row = [None, None, None, None, None, None]
+        for element in metabolite_element:
+            if element.tag == (prefix + 'name'):
+                row[0] = element.text
+            elif element.tag == (prefix + 'chemical_formula'):
+                row[1] = element.text
+            elif element.tag == (prefix + 'monisotopic_molecular_weight'):
+                row[2] = element.text
+            elif element.tag == (prefix + 'smiles'):
+                row[3] = element.text
+            elif element.tag == (prefix + 'inchi'):
+                row[4] = element.text
+            elif element.tag == (prefix + 'inchikey'):
+                row[5] = element.text
+
+        # if all fields are present, then add them as a DatabaseCompound
+        if None not in row:
+            compound = DatabaseCompound(row[0], row[1], row[2], row[3], row[4], row[5])
+            compounds.append(compound)
+    logger.info('Loaded %d DatabaseCompounds from %s' % (len(compounds), in_file))
+
+    # f.close()
+    # if zf is not None:
+    #     zf.close()
+
+    if delete:
+        logger.info('Deleting %s' % in_file)
+        os.remove(in_file)
+
+    return compounds
+
+
+
+
+5. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/Controller/tree.py
+    nedd to change line 36:
+            # rt = self.last_ms1_scan.rt
+            rt = self.scan_to_process.rt
+
+            # then get the last ms1 scan, select bin walls and create scan locations
+            # mzs = self.last_ms1_scan.mzs
+            mzs = self.scan_to_process.mzs
+
+6. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/MassSpec.py
+line 145 add following init function logic: 
+        if self.get(ScanParameters.PRECURSOR_MZ) is None:
+            return [[(0, 0)]]

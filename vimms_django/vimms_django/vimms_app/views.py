@@ -2,7 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import DocumentForm
+
 from .file_processor import handle_uploaded_file
+from .processor_simple_ms1 import simple_ms1_processor
+from .processor_dia import dia_processor
 # Create your views here.
 
 
@@ -15,7 +18,11 @@ def simple_ms1(request):
         # print(request.FILES.getlist("document"),'#'*10)
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            processed_files = handle_uploaded_file(request.FILES['document'], 'simple_ms1')
+
+            handle_uploaded_file(request.FILES['document'], 'simple_ms1')
+
+            result_path = simple_ms1_processor()
+            processed_files = [result_path]
             form.save()
             # return redirect('home')
             return render(request, 'vimss_app/simple_ms1.html', {
@@ -32,8 +39,9 @@ def simple_ms1(request):
 def dia(request):
     if(request.GET.get('dia_btn')):
         # print( int(request.GET.get('mytextbox')) )
-        print('Button clicked')
-    return render(request, 'vimss_app/dia.html',{'value':'Button clicked'})
+        result_path = dia_processor()
+        processed_files = [result_path]
+    return render(request, 'vimss_app/dia.html',{'processed_files': processed_files})
 
 
 def top_n(request):
