@@ -10,12 +10,14 @@ original requirements：
 
 
 ************** attention please **************
+
 vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
 1. exmaple在最新的代码上运行不起来，不要使用pip安装，也不要使用github上master分支1.0.0, 1.1.0，
   而要去客户发给我的工程代码解压后本地安装（发过来的应该是1.1.0的某个分支代码）：
 （比如我的在你传给我的文件解压下 vimms-master 有setup.py的目录下执行：）
 先执行 python3 setup.py build
 然后执行 python3 setup.py install
+
 
 2. vimms包作者使用的一个他自己写的库（打开本地安装的mass_spec_utils的gnps）有bug，移植需要修复：
 
@@ -29,15 +31,29 @@ from distutils.sysconfig import get_python_lib
 print(get_python_lib())
 ----------- end 题外话 --------
 
-3.把 hmdb_compounds.p 从 hmdb_metabolites.xml （一个超过4G大小的xml）
-中解压和处理在intel i7 + 8G内存上耗费3-4小时，太长时间了，最好使用我已经处理好的hmdb_compounds.p，放在
-自己本机相关目录中，相对路径为：
-vimms_django/vimms_django/documents/simple_ms1/example_data/hmdb_compounds.p 
+3.  要想能上传 处理整个你email附件发给我的example_data.zip 压缩包，需要有hmdb_compounds.p文件
+    
 
-如果学校想看自己处理的过程，就需要改进vimms包作者相关代码，让代码可以处理巨大的xml文件：
-比如我的该文件在：/usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/DataGenerator.py
-DataGenerator.py  need to speedup function: extract_hmdb_metabolite
-从 line 19, extract_hmdb_metabolite function 修改为:
+    把 hmdb_compounds.p 从 hmdb_metabolites.xml （一个超过4G大小的xml）
+    中解压和处理在intel i7 + 8G内存上耗费3-4小时，太长时间了。
+
+    最好使用我已经处理好的hmdb_compounds.p（我会打包发给你），放在
+    自己本机相关目录中，相对路径为：
+    vimms_django/vimms_django/documents/simple_ms1/example_data/hmdb_compounds.p 
+    
+    具体工程路径层次截图为：
+    ![image][requirement_docs/readme0.jpg]
+ 
+    如果学校想看如果自己要复现从压缩包处理出hmdb_compounds.p，需要做如下处理：
+    3.1 配置位置：修改工程中pre_proces.py中的24行 =>
+   url = '/Users/abel/Downloads/hmdb_metabolites.xml' 为你自己本地文件中hmdb_metabolites.xml的位置，
+   hmdb_metabolites.xml为从hmdb_metabolites.zip中解压，根据vimms文档，需要从：
+   http://www.hmdb.ca/system/downloads/current/hmdb_metabolites.zip 下载该zip包。
+
+    3.2 就需要改进vimms包作者相关代码，让代码可以处理巨大的xml文件：
+    比如我的该文件在：/usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/DataGenerator.py
+    DataGenerator.py  need to speedup function: extract_hmdb_metabolite
+    从 line 19, extract_hmdb_metabolite function 修改为:
 
 def extract_hmdb_metabolite(in_file, delete=True):
     logger.debug('Extracting HMDB metabolites from %s' % in_file)
@@ -86,7 +102,8 @@ def extract_hmdb_metabolite(in_file, delete=True):
 
 
 
-5. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/Controller/tree.py
+
+4. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/Controller/tree.py
    需要修复vimms包的bug，位置 line 36:
             # rt = self.last_ms1_scan.rt
             rt = self.scan_to_process.rt
@@ -95,12 +112,14 @@ def extract_hmdb_metabolite(in_file, delete=True):
             # mzs = self.last_ms1_scan.mzs
             mzs = self.scan_to_process.mzs
 
-6. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/MassSpec.py
+
+5. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/MassSpec.py
    需要修复vimms包的bug，位置 line 145 add 添加 init function logic: 
         if self.get(ScanParameters.PRECURSOR_MZ) is None:
             return [[(0, 0)]]
 
-7. （暂时可能不需要了，防止将来万一需要）如果后续需要跑vary n in topn, 注意就需要配置R环境运行相关 vimms包的R脚本才可以
+
+6. （暂时可能不需要了，防止将来万一需要）如果后续需要跑vary n in topn, 注意就需要配置R环境运行相关 vimms包的R脚本才可以
 R脚本包作者放在：example_data/results/beer1pos 的 extract_peaks.R
 运行：RScript extract_peaks.R
 提前需要装好所有运行extract_peaks.R所需要的R库的依赖，需要使用BiocManager安装依赖，在RScript的
@@ -109,7 +128,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("xcms")
 
-8. 执行test需要到有manager.py的目录(相对工程目录为vimms_django/vimms_django下），
+
+7. 执行test需要到有manager.py的目录(相对工程目录为vimms_django/vimms_django下），
 然后bash命令行中执行：python3 manage.py test
 如果正常反馈为：
 
