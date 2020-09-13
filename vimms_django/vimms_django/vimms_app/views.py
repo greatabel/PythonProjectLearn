@@ -54,8 +54,8 @@ def top_n(request):
         path_list = topn_processor()
         processed_files = path_list
     elif (request.GET.get('varyingtopn_btn')):
-        result_path = varying_topn_processor()
-        processed_files = [result_path]
+        path_list = varying_topn_processor()
+        processed_files = path_list
     return render(request, 'vimss_app/top_n.html',{'processed_files': processed_files})
 
 

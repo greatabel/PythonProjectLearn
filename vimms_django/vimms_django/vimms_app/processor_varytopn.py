@@ -27,6 +27,7 @@ def varying_topn_processor():
     file_name = 'Beer_multibeers_1_T10_POS.mzML'
 
     experiment_name = 'beer1pos'
+    url_experiment_out_dir = os.path.join(base_dir, 'results', experiment_name, 'mzML')
     experiment_out_dir = os.path.abspath(os.path.join(base_dir, 'results', experiment_name, 'mzML'))
     min_rt = 3*60 # start time when compounds begin to elute in the mzML file
     max_rt = 21*60
@@ -106,6 +107,9 @@ def varying_topn_processor():
 
             # load controller and compute performance
             controller = load_controller(experiment_out_dir, experiment_name, N, rt_tol)
+            mytemp = os.path.join(url_experiment_out_dir, fragfile_filename)
+            pathlist.append(mytemp)
+            
             if controller is not None:
                 tp, fp, fn, prec, rec, f1 = compute_performance_scenario_2(controller, chemicals, min_ms1_intensity,
                                                                            fullscan_filename, fragfile_filename,
@@ -141,6 +145,7 @@ def varying_topn_processor():
 
     fig_out = os.path.join(experiment_out_dir, 'topN_recall.png')
 
+
     plt.figure(figsize=(12, 6))
     ax = sns.lineplot(x='N', y='F1', hue='experiment', legend='brief', data=result_df)
     plt.title('Top-N F1')
@@ -154,4 +159,4 @@ def varying_topn_processor():
     fig_out = os.path.join(experiment_out_dir, 'topN_f1.png')
     plt.savefig(fig_out, dpi=300)
 
-    return 'test!'
+    return pathlist
