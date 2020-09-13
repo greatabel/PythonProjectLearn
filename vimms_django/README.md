@@ -24,7 +24,7 @@ vimms库还非常不成熟，因此移植时候需要修复移植库的bug：
 的代码有bug修复下：from .spectrum import SpectralRecord 改为 from spectrum import SpectralRecord
 
 ----------- start 题外话 --------
-如果你部署在liunx上想修改查看python的包路径可以试试以下命令
+如果你部署在linux上想查看python的包路径,可以进入python然后执行：
 from distutils.sysconfig import get_python_lib
 print(get_python_lib())
 ----------- end 题外话 --------
@@ -96,7 +96,7 @@ def extract_hmdb_metabolite(in_file, delete=True):
             mzs = self.scan_to_process.mzs
 
 6. /usr/local/lib/python3.7/site-packages/vimms-1.1.0-py3.7.egg/vimms/MassSpec.py
-l 需要修复vimms包的bug，位置 line 145 add 添加 init function logic: 
+   需要修复vimms包的bug，位置 line 145 add 添加 init function logic: 
         if self.get(ScanParameters.PRECURSOR_MZ) is None:
             return [[(0, 0)]]
 
@@ -108,3 +108,27 @@ R脚本包作者放在：example_data/results/beer1pos 的 extract_peaks.R
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("xcms")
+
+8. 执行test需要到有manager.py的目录(相对工程目录为vimms_django/vimms_django下），
+然后bash命令行中执行：python3 manage.py test
+如果正常反馈为：
+
+Destroying test database for alias 'default'...
+(samaritan1)abeltekiMacBook-Pro:vimms_django abel$ python3 manage.py test
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+
+如果错误反馈为：
+ERROR: test_model_use (vimms_app.tests.DocumentModelTestCase)
+Document upload/download are correctly identified
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+FAILED (errors=1)
+Destroying test database for alias 'default'...
