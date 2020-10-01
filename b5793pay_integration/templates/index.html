@@ -116,11 +116,14 @@
                                     <li>{{item }}</li> 
                                     {% endfor %} 
                                 </ul>
-
-                                <p>Price : <strong>$ {{product['price']}}</strong>  </p>
+                                <span style="font-weight:bold;display:block;margin-bottom:-20px;margin-left:-5px;">$</span>
+                                <p style="font-size:20px;font-weight:bold">  
+                                    <strong>{{product['price']}}</strong> 
+                                    <a href="#" class="btn btn-danger pull-right" style="margin-right:30px;" role="button" >Buy</a>
+                                 </p>
                                 
                                 
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                     
                             </div>
                         </div>
                     </div>
@@ -130,48 +133,36 @@
                 <!-- /.row -->
         
 
+                <!-- /.row -->
                 <div class="row">
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                            {% for product in products[3:6] %}
+                    <div class="col-md-4 text-left col-sm-6 col-xs-6">
                         <div class="thumbnail product-box">
-                            <img src="/static/img/4.jpg" alt="" style="height:150px"/>
+                            <img src="/static/img/{{ product['id'] }}.jpg" alt="" style="height:150px"/>
                             <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
-                                
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="/static/img/5.jpg" alt="" style="height:150px"/>
-                            <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
-                                
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="/static/img/6.jpg" alt="" style="height:150px"/>
-                            <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
-                                
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                </div>
+                                <h5><a href="#" style="color:black;font-weight:bold"> 
+                                        {{product['name']}}<br/>{{product['desc0']}} </a></h5>
+                                <h6 style="color:gray">{{ product['desc1'] }}</h6>
 
+                                 <ul style="margin: 0; padding:13px;font-size:8px;">
+                                    {% for item in product['desc2'] %} 
+                                    <li>{{item }}</li> 
+                                    {% endfor %} 
+                                </ul>
+                                <span style="font-weight:bold;display:block;margin-bottom:-20px;margin-left:-5px;">$</span>
+                                <p style="font-size:20px;font-weight:bold">  
+                                    <strong>{{product['price']}}</strong> 
+                                    <a href="#" class="btn btn-danger pull-right" style="margin-right:30px;" role="button" >Buy</a>
+                                 </p>
+                                
+                                
+                     
+                            </div>
+                        </div>
+                    </div>
+                            {% endfor %}
+               
+                </div>
 
                 </div>
                 <!-- /.row -->
