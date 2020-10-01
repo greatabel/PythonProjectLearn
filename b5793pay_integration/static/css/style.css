@@ -18,6 +18,13 @@
     GENERAL STYLES
 ==================================================*/
 
+/* start of student add */
+
+
+
+/* end of student add */
+
+
 body {
           font-family:'Open Sans', sans-serif;
     font-size:14px;
@@ -100,6 +107,7 @@ color: #000;
 .product-box h3>a,.product-box h3>a:hover,.product-box h3>a:focus {
     color:#000;
     text-decoration:none;
+
 }
 
 .offer-box {

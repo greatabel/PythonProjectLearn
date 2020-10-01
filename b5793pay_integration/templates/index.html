@@ -99,49 +99,36 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                            {% for product in products[0:3] %}
+                    <div class="col-md-4 text-left col-sm-6 col-xs-6">
                         <div class="thumbnail product-box">
-                            <img src="/static/img/1.jpg" alt="" style="height:150px"/>
+                            <img src="/static/img/{{ product['id'] }}.jpg" alt="" style="height:150px"/>
                             <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
+                                <h5><a href="#" style="color:black;font-weight:bold"> 
+                                        {{product['name']}}<br/>{{product['desc0']}} </a></h5>
+                                <h6 style="color:gray">{{ product['desc1'] }}</h6>
+
+                                 <ul style="margin: 0; padding:13px;font-size:8px;">
+                                    {% for item in product['desc2'] %} 
+                                    <li>{{item }}</li> 
+                                    {% endfor %} 
+                                </ul>
+
+                                <p>Price : <strong>$ {{product['price']}}</strong>  </p>
                                 
                                 
                                 <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
                             </div>
                         </div>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="/static/img/t.jpg" alt="" style="height:150px" />
-                            <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
-                                
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="/static/img/3.jpg" alt="" style="height:150px"/>
-                            <div class="caption">
-                                <h3><a href="#">Product Name </a></h3>
-                                <p>Price : <strong>$ 100</strong>  </p>
-                                
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
+                            {% endfor %}
+               
                 </div>
                 <!-- /.row -->
+        
 
                 <div class="row">
                     <div class="col-md-4 text-center col-sm-6 col-xs-6">
