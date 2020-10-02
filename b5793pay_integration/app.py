@@ -6,6 +6,7 @@ import json
 app = Flask(__name__)
 app.debug = True
 
+
 def get_products():
     print('get_products', '#'*10)
     # Reading data 
@@ -15,7 +16,16 @@ def get_products():
     return None
 
 
+products = get_products()
+
+
 @app.route('/')
 def cart_list():
-    products = get_products()
     return render_template('index.html', products=products)
+
+
+@app.route('/shopping_cart/<productid>')
+def shopping_list(productid):
+    product = products[int(productid)]
+    print('productid=', productid)
+    return render_template('shopping_cart.html', product=product)
