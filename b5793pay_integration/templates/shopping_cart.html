@@ -100,6 +100,8 @@
                     </div>
                 </div>
 
+<h3><span style="font-weight:bold;">Shopping Cart </span></h3>
+
 <table class="table">
   <thead style="background-color:lightgray">
     <tr>
@@ -140,12 +142,17 @@
             </div>
       </td>
       <td>
-          <strong>${{product['price']}}</strong> 
+          <strong>
+             $<label id="priceLabel" >{{product['price']}}</label>
+          </strong> 
       </td>
       <td>
-           <input  class="form-control" id="QtyInput" style="width:100px" placeholder="1">
+      <input type="text" id="QtyInput" name="QtyInput" style="width:100px" value="1">
+
       </td>
-      <td>${{product['price']}}</td>
+      <td>
+      $<label id="totalPriceLabel" >{{product['price']}}</label>
+      </td>
     </tr>
     <tr>
       
@@ -159,7 +166,7 @@
       <td></td>
 
       <td>
-                  <button type="button" class="btn" style="margin-right:30px;background-color:black"> 
+                  <button type="button" class="btn" style="margin-right:30px;background-color:black" id="updateQtyBtn"> 
                 <span style="font-weight:bold;color:white">Update Qty</span> </button> </td>
     </tr>
 
@@ -169,7 +176,7 @@
 
 <table class="table">
     <tr>
-    <h3>Select Payment Option</h3>
+    <h3><span style="font-weight:bold;">Select Payment Option</span></h3>
     </tr>
     <tr>
    
@@ -246,7 +253,13 @@
     <script>
         $(function () {
 
-            $('#mi-slider').catslider();
+          $( "#updateQtyBtn" ).click(function() {
+          var price = $('#priceLabel').text();
+          var qty = $('#QtyInput').val();
+          var totalPriceLabel = $('#totalPriceLabel')
+          totalPriceLabel.text(price * qty);
+          // alert( "Handler for .click() called." + price +'#'+ qty);
+          });
 
         });
         </script>
