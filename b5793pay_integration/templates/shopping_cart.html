@@ -100,33 +100,94 @@
                     </div>
                 </div>
 
-                <!-- /.row -->
-                <div class="row">
-                          
-                    <div class="col-md-4 text-left col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="/static/img/{{ product['id'] }}.jpg" alt="" style="height:150px"/>
-                            <div class="caption">
-                                <h5><a href="#" style="color:black;font-weight:bold"> 
-                                        {{product['name']}}<br/>{{product['desc0']}} </a></h5>
-                                <h6 style="color:gray">{{ product['desc1'] }}</h6>
+<table class="table">
+  <thead style="background-color:lightgray">
+    <tr>
+      <th scope="col">Remove</th>
+      <th scope="col">Image</th>
+      <th scope="col">Product Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      </th>
+      <td>
+       <div class="product-box">
+        <img src="/static/img/{{ product['id'] }}.jpg" alt="" style="height:150px"/>
+       </div>
+      </td>
 
-                                 <ul style="margin: 0; padding:13px;font-size:8px;">
-                                    {% for item in product['desc2'] %} 
-                                    <li>{{item }}</li> 
-                                    {% endfor %} 
-                                </ul>
-                                <span style="font-weight:bold;display:block;margin-bottom:-20px;margin-left:-5px;">$</span>
-                                <p style="font-size:20px;font-weight:bold">  
-                                    <strong>{{product['price']}}</strong> 
-                                    <a href="/shopping_list/{{product['id']}}" class="btn btn-danger pull-right" style="margin-right:30px;" role="button" >Buy</a>
-                                 </p>
-                                
-                                
-                     
-                            </div>
-                        </div>
-                    </div>
+      <td>
+             <div class="caption">
+                <h5><a href="#" style="color:black;font-weight:bold"> 
+                        {{product['name']}}<br/>{{product['desc0']}} </a></h5>
+                <h6 style="color:gray">{{ product['desc1'] }}</h6>
+
+                 <ul style="margin: 0; padding:13px;font-size:8px;">
+                    {% for item in product['desc2'] %} 
+                    <li>{{item }}</li> 
+                    {% endfor %} 
+                </ul>
+       
+                
+                
+     
+            </div>
+      </td>
+      <td>
+          <strong>${{product['price']}}</strong> 
+      </td>
+      <td>
+           <input  class="form-control" id="QtyInput" style="width:100px" placeholder="1">
+      </td>
+      <td>${{product['price']}}</td>
+    </tr>
+    <tr>
+      
+      <td>
+      <a href="/shopping_cart/{{product['id']}}" class="btn  pull-right" style="margin-right:30px;background-color:black" role="button" >Remove</a>
+
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+
+      <td>
+      <a href="/shopping_cart/{{product['id']}}" class="btn  pull-right" style="margin-right:30px;background-color:black" role="button" >Update Qty</a>
+      </td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+<table class="table">
+    <tr>
+    <h3>Select Payment Option</h3>
+    </tr>
+    <tr>
+   
+     <img src="/static/img/payment_options.png" style="width:800px;" alt="" style="height:150px"/>
+    </tr>
+
+    <tr >
+    <td  style="width:600px"></td>
+    <td>
+        <button type="button" class="btn btn-danger"> <span style="font-weight:bold">Check out Now >>></span> </button>
+
+    </td>
+    </tr>
+</table>
+
+
+
+                <!-- /.row -->
+          
                       
                
                 </div>
