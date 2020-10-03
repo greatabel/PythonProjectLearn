@@ -186,7 +186,7 @@
     <tr >
     <td  style="width:600px"></td>
     <td>
-        <button type="button" class="btn btn-danger"> <span style="font-weight:bold">Check out Now >>></span> </button>
+        <button onclick="goto_payment()" type="button" class="btn btn-danger"> <span style="font-weight:bold">Check out Now >>></span> </button>
 
     </td>
     </tr>
@@ -261,7 +261,16 @@
           // alert( "Handler for .click() called." + price +'#'+ qty);
           });
 
+          
+
         });
+
+        function goto_payment() {
+             var price = $('#priceLabel').text();
+            var qty = $('#QtyInput').val();
+            var total = price * qty;
+            location.href = "/payment/"+total;
+          };
         </script>
 </body>
 </html>

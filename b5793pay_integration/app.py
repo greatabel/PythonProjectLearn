@@ -29,3 +29,9 @@ def shopping_list(productid):
     product = products[int(productid)]
     print('productid=', productid)
     return render_template('shopping_cart.html', product=product)
+
+
+@app.route('/payment/<total>')
+def payment(total):
+    print('total=', total)
+    return render_template('payment.html', total=total)
