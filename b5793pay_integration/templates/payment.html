@@ -247,7 +247,7 @@
               <tbody>
                 <tr>
                   <td class="col-md-1" style="vertical-align: middle;">
-                    <input type="radio" id="male" name="gender" value="male" >
+                    <input type="radio" id="paypalRadio" name="pay_options" value="paypal" >
                     
                   </td>
                    <td class="col-md-1" style="vertical-align: middle;">
@@ -260,7 +260,7 @@
 
                 <tr>
                   <td class="col-md-1" style="vertical-align: middle;">
-                    <input type="radio" id="male" name="gender" value="male" >
+                    <input type="radio" id="googleRadio" name="pay_options" value="google_pay" >
                     
                   </td>
                    <td class="col-md-1" style="vertical-align: middle;">
@@ -286,7 +286,7 @@
             <tr >
         
             <td class="col-md-2">
-                 <span style="font-weight:bold;"><button onclick="goto_payment()" type="button" class="btn btn-primary">
+                 <span style="font-weight:bold;"><button onclick="pay()" type="button" class="btn btn-primary">
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                  Continue to Checkout
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -365,6 +365,54 @@
 
           });
         });
+
+        function post(path, params, method='post') {
+
+          // The rest of this code assumes you are not using a library.
+          // It can be made less wordy if you use one.
+          const form = document.createElement('form');
+          form.method = method;
+          form.action = path;
+
+          for (const key in params) {
+            if (params.hasOwnProperty(key)) {
+              const hiddenField = document.createElement('input');
+              hiddenField.type = 'hidden';
+              hiddenField.name = key;
+              hiddenField.value = params[key];
+
+              form.appendChild(hiddenField);
+            }
+          }
+
+          document.body.appendChild(form);
+          form.submit();
+        }
+
+        function pay() {
+           var checked_pay = document.querySelector('input[name = "pay_options"]:checked');
+
+          if(checked_pay != null){  //Test if something was checked
+          console.log(checked_pay.value); //Alert the value of the checked.
+          switch(checked_pay.value) {
+            case "paypal":
+              // code block
+              window.location.href  = "/paypal/10";
+              console.log('here')
+              break;
+            case "google_pay":
+              // code block
+              break;
+            default:
+              // code block
+              console.log('unhandle pay options')
+          }
+
+          } else {
+          alert('Nothing checked'); //Alert, nothing was checked.
+          }
+          };
+
         </script>
 </body>
 </html>

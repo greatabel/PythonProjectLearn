@@ -35,3 +35,9 @@ def shopping_list(productid):
 def payment(total):
     print('total=', total)
     return render_template('payment.html', total=total)
+
+
+@app.route('/paypal/<total>')
+def paypal(total=1):
+    print('total=', total)
+    return render_template('paypal.html', total=total)
