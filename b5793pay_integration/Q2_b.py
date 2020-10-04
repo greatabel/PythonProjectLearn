@@ -36,7 +36,6 @@ from Crypto.Hash import SHA
 # y = 0
 # 20981*x + 23400*y = 1
 # x = (1 - 23400*y)/20981
-
 for i in range(-100000, 100000):
     x = (1 - 23400*i)/20981
     if x.is_integer():
@@ -48,22 +47,6 @@ print('-'*20)
 # 50621.0 i= -45388
 # 27221.0 i= -24407
 # 3821.0 i= -3426
-for i in range(-100000, 100000):
-    x = (1 - 23400*i)/20983
-    if x.is_integer():
-        print('possilbe private d in consideration:', x, 'i=', i)
-
-print('-'*20)
-
-for i in range(-100000, 100000):
-    x = (1 - 23400*i)/21067
-    if x.is_integer():
-        print('possilbe private d in consideration:', x, 'i=', i)
-
-print('-end of rsa(n,e,d) design consideration.\n')
-
-print('#'*20)
-
 
 # print('d=', 3821)
 
@@ -84,27 +67,32 @@ print('message is:', message)
 common_n = 23707
 public_e = 20981
 
-true_count = 0
 
-for name, private_d, public_e in \
-    [('Alice', 50621 , 20981), ('Bob',12247, 20983), ('Karen',1003, 21067)]:
+
+print('Q2_b 3 client shere public_e, common_n, so if Alice, Bob Karen first check\
+        whether their 3 signatures are same, if not re-sign it, if is the same, then\
+        send the same output-signature to bank, bank only have to check the comon-signature')
+
+signatures = []
+for name, private_d in [('Alice', 50621), ('Bob',27221), ('Karen',3821)]:
     print('At client side[' + name + '], encrypt with private_d:',private_d)
     print('\nencrypt process is: pow(message, private_d) % common_n')
-    s0 = pow(message, private_d) % common_n
-    print('encrypt output=', s0)
+    s = pow(message, private_d) % common_n
+    print('encrypt output=', s)
+    signatures.append(s)
 
-    print('\nAt bank side, decrypt with common_n, public_e:', common_n, public_e)
-    print('decrypt process is: pow(s0, public_e) % common_n')
-    t0 = pow(s0, public_e) % common_n
-    print('decrypt message=', t0)
+if signatures[0] == signatures[1] == signatures[2]:
+    print('Alice, Bob Karen send  multi-signature-in-one to book', signatures[0])
 
-    if t0 == message:
-        print('The bank believes this signature is authentic\n')
-        true_count+= 1
-    else:
-        print('The signature is not passed!')
+print('At bank side, decrypt with public_e:', public_e)
+print('\ndecrypt process is: pow(s0, public_e) % common_n')
+t0 = pow(signatures[0], public_e) % common_n
+print('decrypt message=', t0)
 
-if true_count == 3:
-    print("All 3 signature is authentic, now the pay check can be paid!")
+if t0 == message:
+    print('The bank believes this signature is authentic\n')
+    
 else:
-    print('BanK: you need all 3 signature authentic')
+    print('The signature is not passed!')
+
+
