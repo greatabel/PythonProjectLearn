@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 import json
+from flask import request
 
 
 app = Flask(__name__)
@@ -41,3 +42,31 @@ def payment(total):
 def paypal(total=1):
     print('total=', total)
     return render_template('paypal.html', total=total)
+
+common_n = 23707
+public_e = 20981
+clients = {'alice': 0, 'bob': 0, 'karen': 0, 'bank': 0}
+
+@app.route('/q2_c_home/<name>')
+def bank_check(name):
+    flag = False
+    if request.args.get('private_d') is not None \
+        and request.args.get('message') is not None:
+        private_d = int(request.args.get('private_d'))
+        message = int(request.args.get('message'))
+        if name == 'bank':
+            bmessage = clients['alice']
+            s = pow(bmessage, private_d) % common_n
+            if s == message:
+                print('#'*20, 'sign verified success!')
+                flag = True
+        s = None
+        s = pow(message, private_d) % common_n
+        clients[name] = s
+        print(clients)
+    others = ['alice', 'bob', 'karen']
+    if name != 'bank':
+        others.remove(name)
+
+    return render_template('Q2_c_bank_check.html', name=name, 
+                others=others, clients=clients, flag=flag)
