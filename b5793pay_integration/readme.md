@@ -15,7 +15,12 @@ python3 -m flask run
 
 
 
-3. 相关支付测试账号：
+3. 
+paypal选项 选择支付页面的paypal按钮（黄色）， 
+所有的信用卡（visa, mastercard ,americaexprss)都使用paypal按钮下面的 借记卡或信用卡 按钮（黑色）
+
+
+相关支付测试账号：
 https://www.sandbox.paypal.com/
 myreceiver2for2github@gmail.com Test1024
 
