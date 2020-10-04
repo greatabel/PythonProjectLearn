@@ -68,7 +68,7 @@
         <!-- /.container-fluid -->
     </nav>
     <div class="container">
-
+  <input id="total" type="hidden" value='{{total}}'>
 
         <div class="row">
       
@@ -121,8 +121,9 @@
         },
 
         createOrder: function(data, actions) {
+            var total = $('#total').val();
           return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":"AUD","value":1098}}]
+            purchase_units: [{"amount":{"currency_code":"AUD","value":total}}]
           });
         },
 

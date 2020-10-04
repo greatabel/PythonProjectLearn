@@ -1,17 +1,18 @@
 1. 本地安装python3 然后terminal执行：
-
+（如果pip没有安装，请先安装pip工具：https://www.runoob.com/w3cnote/python-pip-install-usage.html ）
 pip3 install --upgrade -r requirements.txt
 
+
+2.
 在命令行中来到工程文件夹，到达app.py平级，然后执行下面领域运行网站：
 
 export FLASK_APP=app.py
 export FLASK_ENV=development
 
 python3 -m flask run
+然后访问：http://localhost:5000/
 
 
-2. 
-启动mysql，配置好本地mysql，执行ecommercedb.sql
 
 
 3. 相关支付测试账号：
@@ -42,3 +43,10 @@ http://localhost:5000/q2_c_home/alice 私钥使用50621_27221_3821_20981中的50
 http://localhost:5000/q2_c_home/bob   私钥使用50621_27221_3821_20981中的27221
 http://localhost:5000/q2_c_home/karen 私钥使用50621_27221_3821_20981中3821
 http://localhost:5000/q2_c_home/bank  公钥使用50621_27221_3821_20981中的20981
+
+
+5. 
+研究工程发现暂时不需要持久化，所以backend存储暂时使用json文件和缓存，
+也可以很方便的修改为使用mysql：只需要自己修改下app.py的get_products方法读取mysql的products table即可
+启动mysql，配置好本地mysql，执行ecommercedb.sql
+

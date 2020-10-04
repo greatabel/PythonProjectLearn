@@ -258,7 +258,7 @@
       
                 </tr>
 
-                <tr>
+<!--                 <tr>
                   <td class="col-md-1" style="vertical-align: middle;">
                     <input type="radio" id="googleRadio" name="pay_options" value="google_pay" >
                     
@@ -269,8 +269,44 @@
                    </div>
                    </td>
       
-                </tr>
+                </tr> -->
 
+                <tr>
+                  <td class="col-md-1" style="vertical-align: middle;">
+                    <input type="radio" id="googleRadio" name="pay_options" value="visa" >
+                    
+                  </td>
+                   <td class="col-md-1" style="vertical-align: middle;">
+                   <div class="product-box">
+                    <img src="/static/img/visa.png" alt="" style="height:40px;"/>
+                   </div>
+                   </td>
+      
+                </tr>
+                <tr>
+                  <td class="col-md-1" style="vertical-align: middle;">
+                    <input type="radio" id="googleRadio" name="pay_options" value="mastercard" >
+                    
+                  </td>
+                   <td class="col-md-1" style="vertical-align: middle;">
+                   <div class="product-box">
+                    <img src="/static/img/mastercard.png" alt="" style="height:40px;"/>
+                   </div>
+                   </td>
+      
+                </tr>
+                <tr>
+                  <td class="col-md-1" style="vertical-align: middle;">
+                    <input type="radio" id="googleRadio" name="pay_options" value="america_express" >
+                    
+                  </td>
+                   <td class="col-md-1" style="vertical-align: middle;">
+                   <div class="product-box">
+                    <img src="/static/img/america_express.png" alt="" style="height:40px;"/>
+                   </div>
+                   </td>
+      
+                </tr>                
                  <tr>
                   <td class="col-md-1"></td>
              
@@ -296,7 +332,7 @@
             </tr>
         </table>
                       
-               
+               <input id="total" type="hidden" value='{{total}}'>
                 </div>
                 <!-- /.row -->
         
@@ -390,17 +426,23 @@
         }
 
         function pay() {
+          console.log('pay')
            var checked_pay = document.querySelector('input[name = "pay_options"]:checked');
-
+          var total = $('#total').val();
+          console.log(total);
           if(checked_pay != null){  //Test if something was checked
-          console.log(checked_pay.value); //Alert the value of the checked.
+         //Alert the value of the checked.
           switch(checked_pay.value) {
             case "paypal":
+            case "visa":
+            case "mastercard":
+            case "america_express":
               // code block
-              window.location.href  = "/paypal/10";
-              console.log('here')
+              window.location.href  = "/paypal/"+ total;
+
+               console.log(checked_pay.value); 
               break;
-            case "google_pay":
+            // case "google_pay":
               // code block
               break;
             default:
