@@ -35,3 +35,10 @@ visa测试账号1：4012888888881881
 
 美国运通测试账号：American Express :345390028685591    
         Expires :10-2022 (MM-YYYY)    CVV2 :181 （不够前面补0： 0181）
+
+
+4. Q2_c 测试页面和输入数据：
+http://localhost:5000/q2_c_home/alice 私钥使用50621_27221_3821_20981中的50621
+http://localhost:5000/q2_c_home/bob   私钥使用50621_27221_3821_20981中的27221
+http://localhost:5000/q2_c_home/karen 私钥使用50621_27221_3821_20981中3821
+http://localhost:5000/q2_c_home/bank  公钥使用50621_27221_3821_20981中的20981
