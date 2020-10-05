@@ -157,3 +157,6 @@ plt.show()
 np.savetxt("ta", ta, delimiter = ",")
 np.savetxt("xa", xa, delimiter = ",")
 
+
+# LEARN PYTHON WITH ME
+
