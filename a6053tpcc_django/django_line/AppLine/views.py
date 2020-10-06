@@ -11,6 +11,7 @@ def index(request):
         'test': 'test',
 
     }
-
+    item_search = request.GET.get('item', '')
+    print(item_search)
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'AppLine/index.html', context=context)

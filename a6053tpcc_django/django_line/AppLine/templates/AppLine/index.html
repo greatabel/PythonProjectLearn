@@ -1,7 +1,40 @@
 <html>
-<head>index</head>
+<head><title>AppLine</title>
+</head>
+
 <body>
-body
-<a href="#">{{ test }}</a>.
+
+<label for="item">Item Name: (like: Indapamide,SYLATRON ...)</label>
+<input type="text" id="itemInput" placeholder="Enter item name ..."
+    style="width:300px;">
+
+<button  onclick="search('item')" >Search Item</button>
+
+<br/><br/>
+
+<label for="warehouse">WareHouse Name: (like: DabZ,Skippad,Topiczoom ...)</label>
+<input type="text" id="warehouseInput" placeholder="Enter item name ..."
+    style="width:300px;">
+
+<button  onclick="search('warehouse')" >Search Item</button>
+
+<script>
+function search(typename) {
+    var item = '';
+    var warehouse = ''
+        switch(typename){
+            case "item":         
+                item = document.getElementById("itemInput").value;
+                break;
+            case "warehouse":
+                warehouse = document.getElementById("warehouseInput").value;
+                break;
+        }
+
+        alert(item);
+        location.href = "?item="+item + "&warehouse="+warehouse;
+          };
+</script>
+
 </body>
 </html>
