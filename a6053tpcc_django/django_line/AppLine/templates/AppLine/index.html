@@ -2,13 +2,13 @@
 <head><title>AppLine</title>
 </head>
 
-<body onload="get_url_parameter();">
+<body onload="get_url_parameter_and_set_doms();">
 
 <label for="item">Item Name: (like: Indapamide,Glyburide ...)</label>
 <input type="text" id="itemInput" placeholder="Enter item name ..."
     style="width:300px;">
 
-<button  onclick="search('item')" >Search Item</button>
+<button  onclick="search_and_action('item')" >Search Item</button>
 
 <br/>
 Warehouse of item [
@@ -27,7 +27,7 @@ Warehouse of item [
 <input type="text" id="warehouseInput" placeholder="Enter warehouse name ..."
     style="width:300px;">
 
-<button  onclick="search('warehouse')" >Search Warehouse</button>
+<button  onclick="search_and_action('warehouse')" >Search Warehouse</button>
 
 <br/>
 Stocks Qty of item [
@@ -47,44 +47,81 @@ is following:
 <br/>
 <label for="order_delivery_choose">Choose a action:</label>
 
-<select name="actions" id="order_delivery_choose">
+<select name="actions" id="ddlAction">
   <option value="order">Order</option>
   <option value="delivery">Delivery</option>
 
 </select>
-<input type="text" id="qtyInput" placeholder="Enter Qty to order/deliver ..."
-    style="width:300px;">
-<button  onclick="action()" >action</button>
+
+<button type="button" class="quantity-arrow-minus">-</button>
+    <input type="number" id="qtyInput" class="update_cart" value="0">
+    <button type="button" class="quantity-arrow-plus">+</button>
+<span>&nbsp;</span>
+<button  onclick="search_and_action('action')" >action</button>
+
+{% if still_can_order_flag %}
+<span>Now You success order</span>
+{% else %}
+<span  style="color:red; font-size:24px;background-color:pink">You failed order</span>
+
+{% endif %}
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/>
+
+
 
 <script>
+// setting of quantity-arrow-plus
+var minus = document.querySelectorAll('.quantity-arrow-minus');
+var update_cart = document.querySelectorAll('.update_cart');
+var plus = document.querySelectorAll('.quantity-arrow-plus');
 
-function action() {
-    
-}
+minus.forEach(function(node) {
+    node.addEventListener('click', function(e) {
+       const input = e.target.nextElementSibling
+       input.value = parseInt(input.value) - 1;
+    });
+});
 
-function get_url_parameter() {
+plus.forEach(function(node) {
+    node.addEventListener('click', function(e) {
+       const input = e.target.previousElementSibling
+       input.value = parseInt(input.value) + 1;
+    });
+});
+
+
+
+function get_url_parameter_and_set_doms() {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var item = url.searchParams.get("item");
     var warehouse = url.searchParams.get("warehouse");
-    console.log(item, warehouse);
+    var qty = url.searchParams.get("qty");
+    console.log(item, warehouse, qty);
     document.getElementById("itemInput").value = item;
     document.getElementById("lblItem0").innerHTML = item;
     document.getElementById("lblItem1").innerHTML = item;
     document.getElementById("warehouseInput").value = warehouse;
     document.getElementById("lblWarehouse").innerHTML = warehouse;
+    document.getElementById("qtyInput").value = qty;
 }
 
-function search(typename) {
+function search_and_action(typename) {
     var item = '';
     var warehouse = ''
     item = document.getElementById("itemInput").value;
     warehouse = document.getElementById("warehouseInput").value;
 
-    location.href = "?item="+item + "&warehouse="+warehouse;
+    var e = document.getElementById("ddlAction");
+    var action = e.options[e.selectedIndex].value;
+    var qty =  document.getElementById("qtyInput").value;
+
+    
+
+
+    location.href = "?item="+item + "&warehouse="+warehouse+"&action="+action+"&qty="+qty;
 
 };
 </script>
