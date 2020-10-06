@@ -40,9 +40,12 @@ def index(request):
         print('1 w_ids=', w_ids, 'item_ids=', item_ids) 
         stock_queryset = Stock.objects.filter(w_id__in=w_ids, i_id__in=item_ids).values('w_id', 'i_id', 's_qty')
         print('1 stock=', stock_queryset, len(stock_queryset))
+        slist = list(stock_queryset)
+        print(slist)
     # print('wlist=', wlist)
     context = {
         'wlist': wlist,
+        'slist': slist,
 
     }    
     # Render the HTML template index.html with the data in the context variable

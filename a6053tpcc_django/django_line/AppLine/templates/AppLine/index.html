@@ -12,7 +12,7 @@
 
 <br/>
 Warehouse of item [
-<span id='lblItem' style="color:red; font-size:32px;background-color:pink"></span> ] is following:
+<span id='lblItem0' style="color:red; font-size:32px;background-color:pink"></span> ] is following:
 
 <table>
   {% for r in wlist %}
@@ -29,6 +29,25 @@ Warehouse of item [
 
 <button  onclick="search('warehouse')" >Search Warehouse</button>
 
+<br/>
+Stocks Qty of item [
+<span id='lblItem1' style="color:red; font-size:32px;background-color:pink"></span> ] in Warehouse [
+<span id='lblWarehouse' style="color:blue; font-size:32px;background-color:pink"></span>
+]
+is following:
+
+<table>
+  {% for r in slist %}
+    {% cycle '<tr>' '' '' '' '' '' '' '' %}
+      <td>{{r.s_qty}}</td>
+    {% cycle '' '' '' '' '' '' '' '</tr>' %}
+  {% endfor %}
+</table>
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
 <script>
 
 
@@ -40,9 +59,10 @@ function get_url_parameter() {
     var warehouse = url.searchParams.get("warehouse");
     console.log(item, warehouse);
     document.getElementById("itemInput").value = item;
-    document.getElementById("lblItem").innerHTML = item;
+    document.getElementById("lblItem0").innerHTML = item;
+    document.getElementById("lblItem1").innerHTML = item;
     document.getElementById("warehouseInput").value = warehouse;
-
+    document.getElementById("lblWarehouse").innerHTML = warehouse;
 }
 
 function search(typename) {
