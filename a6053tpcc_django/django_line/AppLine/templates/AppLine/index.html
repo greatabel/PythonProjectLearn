@@ -2,38 +2,58 @@
 <head><title>AppLine</title>
 </head>
 
-<body>
+<body onload="get_url_parameter();">
 
-<label for="item">Item Name: (like: Indapamide,SYLATRON ...)</label>
+<label for="item">Item Name: (like: Indapamide,Glyburide ...)</label>
 <input type="text" id="itemInput" placeholder="Enter item name ..."
     style="width:300px;">
 
 <button  onclick="search('item')" >Search Item</button>
 
-<br/><br/>
+<br/>
+Warehouse of item [
+<span id='lblItem' style="color:red; font-size:32px;background-color:pink"></span> ] is following:
+
+<table>
+  {% for r in wlist %}
+    {% cycle '<tr>' '' '' '' '' '' '' '' %}
+      <td>{{r.w_name}}</td>
+    {% cycle '' '' '' '' '' '' '' '</tr>' %}
+  {% endfor %}
+</table>
+
 
 <label for="warehouse">WareHouse Name: (like: DabZ,Skippad,Topiczoom ...)</label>
-<input type="text" id="warehouseInput" placeholder="Enter item name ..."
+<input type="text" id="warehouseInput" placeholder="Enter warehouse name ..."
     style="width:300px;">
 
-<button  onclick="search('warehouse')" >Search Item</button>
+<button  onclick="search('warehouse')" >Search Warehouse</button>
 
 <script>
+
+
+
+function get_url_parameter() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var item = url.searchParams.get("item");
+    var warehouse = url.searchParams.get("warehouse");
+    console.log(item, warehouse);
+    document.getElementById("itemInput").value = item;
+    document.getElementById("lblItem").innerHTML = item;
+    document.getElementById("warehouseInput").value = warehouse;
+
+}
+
 function search(typename) {
     var item = '';
     var warehouse = ''
-        switch(typename){
-            case "item":         
-                item = document.getElementById("itemInput").value;
-                break;
-            case "warehouse":
-                warehouse = document.getElementById("warehouseInput").value;
-                break;
-        }
+    item = document.getElementById("itemInput").value;
+    warehouse = document.getElementById("warehouseInput").value;
 
-        alert(item);
-        location.href = "?item="+item + "&warehouse="+warehouse;
-          };
+    location.href = "?item="+item + "&warehouse="+warehouse;
+
+};
 </script>
 
 </body>
