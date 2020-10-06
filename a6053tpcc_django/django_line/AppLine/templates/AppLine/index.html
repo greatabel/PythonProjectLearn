@@ -59,10 +59,10 @@ is following:
 <span>&nbsp;</span>
 <button  onclick="search_and_action('action')" >action</button>
 
-{% if still_can_order_flag %}
-<span>Now You success order</span>
-{% else %}
-<span  style="color:red; font-size:24px;background-color:pink">You failed order</span>
+{% if still_can_order_flag == 'T' %}
+<span  style="color:blue; font-size:24px;background-color:pink">Your line order or delivery has been accepted</span>
+{% elif still_can_order_flag == 'F' %}
+<span  style="color:red; font-size:24px;background-color:pink">Insufficient stock</span>
 
 {% endif %}
 
@@ -105,7 +105,9 @@ function get_url_parameter_and_set_doms() {
     document.getElementById("lblItem1").innerHTML = item;
     document.getElementById("warehouseInput").value = warehouse;
     document.getElementById("lblWarehouse").innerHTML = warehouse;
-    document.getElementById("qtyInput").value = qty;
+    if(qty != null && qty != '') {
+        document.getElementById("qtyInput").value = qty;
+    }
 }
 
 function search_and_action(typename) {
