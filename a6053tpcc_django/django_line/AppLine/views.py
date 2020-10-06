@@ -8,7 +8,7 @@ from .models import Item, Warehouse, Stock
 
 def index(request):
     # return HttpResponse("Hello, world. You're at the polls index.")
-    wlist = None
+    wlist, slist = None, None
 
     item_parameter = request.GET.get('item', '')
     print('item_parameter=', item_parameter)

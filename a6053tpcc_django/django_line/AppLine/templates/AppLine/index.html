@@ -12,7 +12,7 @@
 
 <br/>
 Warehouse of item [
-<span id='lblItem0' style="color:red; font-size:32px;background-color:pink"></span> ] is following:
+<span id='lblItem0' style="color:red; font-size:24px;background-color:pink"></span> ] is following:
 
 <table>
   {% for r in wlist %}
@@ -31,8 +31,8 @@ Warehouse of item [
 
 <br/>
 Stocks Qty of item [
-<span id='lblItem1' style="color:red; font-size:32px;background-color:pink"></span> ] in Warehouse [
-<span id='lblWarehouse' style="color:blue; font-size:32px;background-color:pink"></span>
+<span id='lblItem1' style="color:red; font-size:24px;background-color:pink"></span> ] in Warehouse [
+<span id='lblWarehouse' style="color:blue; font-size:24px;background-color:pink"></span>
 ]
 is following:
 
@@ -44,13 +44,26 @@ is following:
   {% endfor %}
 </table>
 
+<br/>
+<label for="order_delivery_choose">Choose a action:</label>
 
+<select name="actions" id="order_delivery_choose">
+  <option value="order">Order</option>
+  <option value="delivery">Delivery</option>
+
+</select>
+<input type="text" id="qtyInput" placeholder="Enter Qty to order/deliver ..."
+    style="width:300px;">
+<button  onclick="action()" >action</button>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/>
+
 <script>
 
-
+function action() {
+    
+}
 
 function get_url_parameter() {
     var url_string = window.location.href;
