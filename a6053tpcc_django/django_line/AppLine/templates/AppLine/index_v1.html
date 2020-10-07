@@ -1,0 +1,132 @@
+<html>
+<head><title>AppLine</title>
+</head>
+
+<body onload="get_url_parameter_and_set_doms();">
+
+<label for="item">Item Name: (like: Indapamide,Glyburide ...)</label>
+<input type="text" id="itemInput" placeholder="Enter item name ..."
+    style="width:300px;">
+
+<button  onclick="search_and_action('item')" >Search Item</button>
+
+<br/>
+Warehouse of item [
+<span id='lblItem0' style="color:red; font-size:24px;background-color:pink"></span> ] is following:
+
+<table>
+  {% for r in wlist %}
+    {% cycle '<tr>' '' '' '' '' '' '' '' %}
+      <td>{{r.w_name}}</td>
+    {% cycle '' '' '' '' '' '' '' '</tr>' %}
+  {% endfor %}
+</table>
+
+
+<label for="warehouse">WareHouse Name: (like: DabZ,Skippad,Topiczoom ...)</label>
+<input type="text" id="warehouseInput" placeholder="Enter warehouse name ..."
+    style="width:300px;">
+
+<button  onclick="search_and_action('warehouse')" >Search Warehouse</button>
+
+<br/>
+Stocks Qty of item [
+<span id='lblItem1' style="color:red; font-size:24px;background-color:pink"></span> ] in Warehouse [
+<span id='lblWarehouse' style="color:blue; font-size:24px;background-color:pink"></span>
+]
+is following:
+
+<table>
+  {% for r in slist %}
+    {% cycle '<tr>' '' '' '' '' '' '' '' %}
+      <td>{{r.s_qty}}</td>
+    {% cycle '' '' '' '' '' '' '' '</tr>' %}
+  {% endfor %}
+</table>
+
+<br/>
+<label for="order_delivery_choose">Choose a action:</label>
+
+<select name="actions" id="ddlAction">
+  <option value="order">Order</option>
+  <option value="delivery">Delivery</option>
+
+</select>
+
+<button type="button" class="quantity-arrow-minus">-</button>
+    <input type="number" id="qtyInput" class="update_cart" value="0">
+    <button type="button" class="quantity-arrow-plus">+</button>
+<span>&nbsp;</span>
+<button  onclick="search_and_action('action')" >action</button>
+
+{% if still_can_order_flag == 'T' %}
+<span  style="color:blue; font-size:24px;background-color:pink">Your line order or delivery has been accepted</span>
+{% elif still_can_order_flag == 'F' %}
+<span  style="color:red; font-size:24px;background-color:pink">Insufficient stock</span>
+
+{% endif %}
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
+<script>
+// setting of quantity-arrow-plus
+var minus = document.querySelectorAll('.quantity-arrow-minus');
+var update_cart = document.querySelectorAll('.update_cart');
+var plus = document.querySelectorAll('.quantity-arrow-plus');
+
+minus.forEach(function(node) {
+    node.addEventListener('click', function(e) {
+       const input = e.target.nextElementSibling
+       input.value = parseInt(input.value) - 1;
+    });
+});
+
+plus.forEach(function(node) {
+    node.addEventListener('click', function(e) {
+       const input = e.target.previousElementSibling
+       input.value = parseInt(input.value) + 1;
+    });
+});
+
+
+
+function get_url_parameter_and_set_doms() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var item = url.searchParams.get("item");
+    var warehouse = url.searchParams.get("warehouse");
+    var qty = url.searchParams.get("qty");
+    console.log(item, warehouse, qty);
+    document.getElementById("itemInput").value = item;
+    document.getElementById("lblItem0").innerHTML = item;
+    document.getElementById("lblItem1").innerHTML = item;
+    document.getElementById("warehouseInput").value = warehouse;
+    document.getElementById("lblWarehouse").innerHTML = warehouse;
+    if(qty != null && qty != '') {
+        document.getElementById("qtyInput").value = qty;
+    }
+}
+
+function search_and_action(typename) {
+    var item = '';
+    var warehouse = ''
+    item = document.getElementById("itemInput").value;
+    warehouse = document.getElementById("warehouseInput").value;
+
+    var e = document.getElementById("ddlAction");
+    var action = e.options[e.selectedIndex].value;
+    var qty =  document.getElementById("qtyInput").value;
+
+    
+
+
+    location.href = "?item="+item + "&warehouse="+warehouse+"&action="+action+"&qty="+qty;
+
+};
+</script>
+
+</body>
+</html>
