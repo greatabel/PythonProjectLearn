@@ -270,6 +270,7 @@ class Review:
     def __repr__(self):
         return f'<Review of movie {self.__movie}, rating = {self.__rating}, timestamp = {self.__timestamp}>'
 
+
 class User:
 
     def __init__(self, user_name: str, password: str):
@@ -327,6 +328,7 @@ class User:
 
     def __hash__(self):
         return hash(self.__user_name)
+
 
 class MovieFileCSVReader:
 
