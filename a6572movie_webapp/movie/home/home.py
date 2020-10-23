@@ -28,6 +28,7 @@ class PageResult:
 
 @home_blueprint.route('/<int:pagenum>', methods=['GET'])
 def home(pagenum):
+    movie_list = []
     movie_list = repo.repo_instance.load_movies()
     # movie_list = load_movies()
     # 1, and 2
