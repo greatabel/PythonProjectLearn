@@ -105,7 +105,7 @@ class Movie:
         else:
             self.__release_year = None
 
-    def __init__(self, title: str, release_year: int):
+    def __init__(self, title: str, release_year: int, id: int):
 
         self.__set_title_internal(title)
         self.__set_release_year_internal(release_year)
@@ -115,6 +115,7 @@ class Movie:
         self.__actors = []
         self.__genres = []
         self.__runtime_minutes = None
+        self.id = id
 
     # essential attributes
 
