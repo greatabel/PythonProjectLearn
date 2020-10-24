@@ -2,6 +2,7 @@ from datetime import date, datetime
 from typing import List, Iterable
 from flask_login import UserMixin
 
+
 class Director:
     def __init__(self, director_full_name: str):
         if director_full_name == "" or type(director_full_name) is not str:

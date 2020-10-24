@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask import Blueprint, render_template
 
 
@@ -16,6 +16,9 @@ class PageResult:
     def __init__(self, data, page=1, number=2):
         self.__dict__ = dict(zip(['data', 'page', 'number'], [data, page, number]))
         self.full_listing = [self.data[i:i+number] for i in range(0, len(self.data), number)]
+        self.totalpage = len(data)// number
+        print('totalpage=', self.totalpage)
+
 
     def __iter__(self):
         if self.page - 1 < len(self.full_listing):
@@ -30,22 +33,48 @@ class PageResult:
 
 
 @home_blueprint.route('/home/<int:pagenum>', methods=['GET'])
-def home(pagenum):
+@home_blueprint.route('/home', methods=['GET', 'POST'])
+def home(pagenum=1):
     movie_list = []
     movie_list = repo.repo_instance.load_movies()
+    # print(movie_list[0], movie_list[0].actors)
     # movie_list = load_movies()
-    # 1, and 2
-    director1 = Director("Joss Whedon")
+    # # 1, and 2
+    # director1 = Director("Joss Whedon")
 
-    # 3, 4
-    director2 = Director("Anthony Russo")
+    # # 3, 4
+    # director2 = Director("Anthony Russo")
 
-    directors = [director1, director2]
+    # directors = [director1, director2]
 
+    if request.method == "POST":
+        search_list = []
+        keyword = request.form['keyword']
+        print('keyword=', keyword, '-'*10)
+        if keyword is not None:
+            for movie in movie_list:
+                if movie.director.director_full_name == keyword:
+                    search_list.append(movie)
+
+                for actor in movie.actors:
+                    if actor.actor_full_name == keyword:
+                        search_list.append(movie)
+                        break
+
+                for gene in movie.genres:
+                    if gene.genre_name == keyword:
+                        search_list.append(movie)
+                        break
+        print('search_list=' ,search_list, '#'*5)
+        return render_template(
+            'home.html',
+            listing=PageResult(search_list, pagenum, 100),
+            
+        )
     return render_template(
         'home.html',
         listing=PageResult(movie_list, pagenum),
-        directors=directors,
+        
     )
 
 

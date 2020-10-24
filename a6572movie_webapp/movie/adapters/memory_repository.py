@@ -4,7 +4,7 @@ from datetime import date, datetime
 from typing import List
 
 from movie.adapters.repository import AbstractRepository, RepositoryException
-from movie.domain.model import Movie
+from movie.domain.model import Movie, Director, Actor, Genre
 
 
 
@@ -24,11 +24,18 @@ def read_csv_file(filename: str):
 
 def load_movies():
     data_path = os.path.join('movie', 'adapters', 'data')
-    print(data_path, '#'*10)
+    # print(data_path, '#'*10)
     moive_list = []
+    director1 = Director("Joss Whedon")
+    director2 = Director("Anthony Russo")
 
+    actor1 = Actor("Robert Downey")
+    actor2 = Actor("Chris Evans")
+
+    genre1 = Genre("fiction")
+    genre2 = Genre("action")
     for data_row in read_csv_file(os.path.join(data_path, 'news_movies.csv')):
-        print(data_row, '#'*5)
+        # print(data_row, '#'*5)
         movie_key = int(data_row[0])
 
         # Create Moive object.
@@ -39,7 +46,41 @@ def load_movies():
             # image_hyperlink=data_row[5],
             id=movie_key
         )
+        # add realted director
+        if movie_key == 1:
+            movie.director = director1
+
+            movie.add_actor(actor1)
+            movie.add_actor(actor2)
+
+            movie.add_genre(genre1)
+            movie.add_genre(genre2)
+
+        elif movie_key == 2:
+            movie.director = director1
+            movie.add_actor(actor1)
+            movie.add_actor(actor2)
+
+            movie.add_genre(genre1)
+            movie.add_genre(genre2)
+        elif movie_key == 3:
+
+            movie.director = director2
+            movie.add_actor(actor1)
+            movie.add_actor(actor2)
+
+            movie.add_genre(genre1)
+            movie.add_genre(genre2)
+        elif movie_key == 4:
+            movie.director = director2
+            movie.add_actor(actor1)
+            movie.add_actor(actor2)
+
+            movie.add_genre(genre1)
+            movie.add_genre(genre2)
+
         moive_list.append(movie)
+        print(movie, 'in MemoryRepository',  movie.director)
     return moive_list
 
 

@@ -4,9 +4,10 @@ import flask_login
 from flask import request
 from flask import url_for
 from flask import redirect
+from flask import Blueprint, render_template
 
 from movie import create_app
-from movie.domain.model import Director, User
+from movie.domain.model import Director, User, Review, Movie
 
 
 app = create_app()
@@ -27,7 +28,7 @@ def login():
 
         flask_login.login_user(stored_user)
         print(stored_user.is_active, 'login')
-        return redirect(url_for('account'))
+        return redirect(url_for('review'))
     else:
         print('login fail')
     return redirect(url_for('home_bp.home',pagenum=1))
@@ -58,11 +59,27 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('home_bp.home',pagenum=1))
 
-
-@app.route("/account")
+reviews = []
+@app.route("/review", methods=["GET", "POST"])
 @flask_login.login_required
-def account():
-    return "You are logged in"
+def review():
+    if request.method == "POST":
+        
+        movie_name = request.form['movie_name']
+        movie_id = request.form['movie_id']
+        rtext = request.form['rtext']
+        rating = request.form['rating']
+
+        movie = Movie(movie_name, 1990, int(movie_id))
+        review = Review(movie, rtext, int(rating))
+        reviews.append(review)
+
+
+    return render_template(
+        'review.html',
+        reviews=reviews,
+        
+    )
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
