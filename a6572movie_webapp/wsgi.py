@@ -55,8 +55,8 @@ def register():
 
 @app.route("/logout")
 def logout():
-    login_user.logout_user()
-    return redirect(url_for("home"))
+    flask_login.logout_user()
+    return redirect(url_for('home_bp.home',pagenum=1))
 
 
 @app.route("/account")
