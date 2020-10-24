@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from typing import List, Iterable
-
+from flask_login import UserMixin
 
 class Director:
     def __init__(self, director_full_name: str):
@@ -272,7 +272,7 @@ class Review:
         return f'<Review of movie {self.__movie}, rating = {self.__rating}, timestamp = {self.__timestamp}>'
 
 
-class User:
+class User(UserMixin):
 
     def __init__(self, user_name: str, password: str):
         if user_name == "" or type(user_name) is not str:
@@ -286,6 +286,7 @@ class User:
         self.__watched_movies = list()
         self.__reviews = list()
         self.__time_spent_watching_movies_minutes = 0
+        self.id = self.__user_name
 
     @property
     def user_name(self) -> str:
@@ -329,6 +330,7 @@ class User:
 
     def __hash__(self):
         return hash(self.__user_name)
+
 
 
 class MovieFileCSVReader:

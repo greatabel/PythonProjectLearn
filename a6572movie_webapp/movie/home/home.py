@@ -1,12 +1,15 @@
+from flask import Flask
 from flask import Blueprint, render_template
+
 
 # from movie.adapters.memory_repository import load_movies
 import movie.adapters.repository as repo
-from movie.domain.model import Director
+from movie.domain.model import Director, User
 
 
 home_blueprint = Blueprint(
     'home_bp', __name__)
+
 
 class PageResult:
     
@@ -22,11 +25,11 @@ class PageResult:
             return None
 
     def __repr__(self): #used for page linking
-        return "/{}".format(self.page+1) #view the next page
+        return "/home/{}".format(self.page+1) #view the next page
 
 
 
-@home_blueprint.route('/<int:pagenum>', methods=['GET'])
+@home_blueprint.route('/home/<int:pagenum>', methods=['GET'])
 def home(pagenum):
     movie_list = []
     movie_list = repo.repo_instance.load_movies()
@@ -44,3 +47,5 @@ def home(pagenum):
         listing=PageResult(movie_list, pagenum),
         directors=directors,
     )
+
+

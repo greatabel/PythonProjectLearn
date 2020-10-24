@@ -45,7 +45,8 @@ div[class*="release_year"] {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -106,7 +107,7 @@ div[class*="release_year"] {
              <form class="form-horizontal" action="/register" method="POST">
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="email" name="email" id="email" placeholder="Email address" class="form-control">
+                        <input type="email" name="email" id="email" placeholder="Email address/Username" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -137,7 +138,7 @@ div[class*="release_year"] {
             {%if listing.page == 1%}
             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
             {%else%}
-                <li class="page-item"><a class="page-link" href="/{{listing.page-1}}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="/home/{{listing.page-1}}">Previous</a></li>
              {%endif%}
             <li class="page-item"><a class="page-link" href="{{listing}}">Next</a></li>
           </ul>

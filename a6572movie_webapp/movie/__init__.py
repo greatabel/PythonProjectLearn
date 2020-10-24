@@ -1,8 +1,10 @@
 import os
 
 from flask import Flask
+
 import movie.adapters.repository as repo
 from movie.adapters.memory_repository import MemoryRepository
+
 
 
 def create_app(test_config=None):
@@ -21,9 +23,13 @@ def create_app(test_config=None):
         data_path = app.config['TEST_DATA_PATH']
 
     repo.repo_instance = MemoryRepository()
-        
+
+    
+
     with app.app_context():
         # Register blueprints.
         from .home import home
         app.register_blueprint(home.home_blueprint)
     return app
+
+
