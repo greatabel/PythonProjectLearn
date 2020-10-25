@@ -4,7 +4,7 @@ from flask import Blueprint, render_template
 
 # from movie.adapters.memory_repository import load_movies
 import movie.adapters.repository as repo
-from movie.domain.model import Director, User
+from movie.domain.model import Director, User, Review, Movie
 
 
 home_blueprint = Blueprint(
@@ -47,6 +47,7 @@ def home(pagenum=1):
 
     # directors = [director1, director2]
 
+
     if request.method == "POST":
         search_list = []
         keyword = request.form['keyword']
@@ -77,4 +78,26 @@ def home(pagenum=1):
         
     )
 
+rc_reviews = []
+@home_blueprint.route("/recommend", methods=["GET", "POST"])
+def recommend():
+    import movie.home.recommandation as recommandation
+    choosed = recommandation.main()
 
+    if request.method == "POST":
+        
+        movie_name = request.form['movie_name']
+        movie_id = request.form['movie_id']
+        rtext = request.form['rtext']
+        rating = request.form['rating']
+
+        movie = Movie(movie_name, 1990, int(movie_id))
+        review = Review(movie, rtext, int(rating))
+        rc_reviews.append(review)
+
+
+    return render_template(
+        'recommend.html',
+        choosed=choosed
+        
+    )

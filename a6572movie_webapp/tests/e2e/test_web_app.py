@@ -3,6 +3,20 @@ import pytest
 from flask import session
 
 
+def test_recommend(client):
+
+    # Check that we can retrieve the articles page.
+    data = {
+    'movie_id':1,
+    'movie_name': 'test movie_name',
+    'rtext': 'test',
+    'rating':5
+    }
+    response = client.post('/recommend', data=data)
+    assert response.status_code == 200
+
+
+
 def test_login_without_auth(client):
     # Check that we can retrieve the articles page.
     response = client.post('/login')
@@ -15,8 +29,9 @@ def test_logout_without_auth(client):
     assert response.status_code == 404
 
 
-
-def test_home_without_auth(client):
+def test_register_without_auth(client):
     # Check that we can retrieve the articles page.
-    response = client.post('/home/1?keyword=test')
-    assert response.status_code == 405
+    response = client.post('/register')
+    assert response.status_code == 404
+
+
