@@ -18,6 +18,8 @@ import os
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
+import glob
 
 def normalization(data):
     _range = np.max(data) - np.min(data)
@@ -140,13 +142,7 @@ def DCT_transfrom(img):
     return img_dct , energy_img.astype(np.uint8)
 
 
-
-
-
-
-if __name__=="__main__":
-
-
+def video_process():
     video_data=r"./data/data.mp4"
     capture = cv2.VideoCapture(video_data)
     frame_count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -155,7 +151,7 @@ if __name__=="__main__":
     frame_height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
     retaining=True
     count=0
-    cv2.namedWindow('image', flags=cv2.WINDOW_FREERATIO)
+    # cv2.namedWindow('image', flags=cv2.WINDOW_FREERATIO)
     while (retaining):
         retaining, frame = capture.read()
 
@@ -180,9 +176,66 @@ if __name__=="__main__":
         region=findTextRegion(dilation_img)
         for box in region:
             cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
-        cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
-        # cv2.imwrite(r"./save_png/"+str(count).rjust(5,"0")+".png",frame)
-        count+=1
+        # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
+        cv2.imwrite(r"./save_png/"+str(count).rjust(5,"0")+".png",frame)
+        count+=1    
+
+
+
+def image_process(path):
+    data_path = os.path.join(path,'*') 
+    filenames = glob.glob(data_path)
+    filenames.sort()
+
+    images = [cv2.imread(img) for img in filenames]
+
+    count = 0
+    for frame in images:
+        # DCT
+        frame=img_crop(frame,patch_size=8)
+        img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        img_gray = np.float32(img_gray)
+
+
+        img_dct,energy_img= DCT_transfrom(img_gray)  # 使用dct获得img的频域图像
+
+        ret, binary = cv2.threshold(energy_img, np.max(energy_img)*0.7, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)
+
+        # 平滑滤波
+        energy_img_blur = cv2.blur(binary, (3, 3), )
+
+        dilation_img=preprocess(energy_img_blur)
+
+        region=findTextRegion(dilation_img)
+        for box in region:
+            cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+        # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
+        cv2.imwrite(r"./save_png/"+str(count).rjust(5,"0")+".png",frame)
+        count+=1  
+
+
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description='process video/image')
+    parser.add_argument('--type', type=str, default='video',
+                        #use yolo3_darknet53_voc, yolo3_mobilenet1.0_voc, yolo3_mobilenet0.25_voc 
+                        help="choose the type of source type file you want to process")
+    parser.add_argument('--folder', type=str, default='/',
+                        #use yolo3_darknet53_voc, yolo3_mobilenet1.0_voc, yolo3_mobilenet0.25_voc 
+                        help="absolute path of folder needed to process")
+    args = parser.parse_args()
+    p_type = args.type
+    p_folder = args.folder
+    print(p_type, p_folder, '#'*10)
+
+    if p_type == 'video':
+        video_process()
+    elif p_type == 'image':
+        image_process(p_folder)
+    # python3 DCT_demo.py --type=image --folder=/Users/abel/Downloads/spare_time/B6408_3400_character/teacher_image_10_25 
+
+
+
 
 
 
