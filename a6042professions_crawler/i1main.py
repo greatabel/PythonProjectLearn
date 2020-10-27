@@ -25,17 +25,38 @@ mymakets_B = ['Beautician', 'Make up Artist',
 
 
 def result_to_plcae_obj(cityid, cityname, jobname, result):
+    business_status = None
+    if 'business_status' in result:
+        business_status = result['business_status']
+    formatted_address = None
+    if 'formatted_address' in result:
+        formatted_address = result['formatted_address']
+    name = None
+    if 'name' in result:
+        name = result['name']
     opening_hours = None
     if 'opening_hours' in result:
         opening_hours = result['opening_hours']
+    plus_code = None
+    if 'plus_code' in result:
+        plus_code = result['plus_code']
+    rating = None
+    if 'rating' in result:
+        rating = result['rating']
+    types = None
+    if 'types' in result:
+        types = result['types']
+    user_ratings_total = None
+    if 'user_ratings_total' in result:
+        user_ratings_total = result['user_ratings_total']
     p = Place(
         cityid,
         cityname,
         jobname,
-        result['business_status'], result['formatted_address'], 
-        result['name'], opening_hours, 
-        result['plus_code'], result['rating'], 
-        result['types'], result['user_ratings_total'])
+        business_status, formatted_address, 
+        name, opening_hours, 
+        plus_code, rating, 
+        types, user_ratings_total)
     return p
 
 
@@ -44,12 +65,12 @@ def printHotels(searchString='',cityid='', cityname='', jobname='', next=''):
 
     try:
         places_result = gmaps.places(query=searchString, page_token=next)
-    except ApiError as e:
+    except googlemaps.exceptions.ApiError as e:
         print(e)
     else:
         for result in places_result['results']:
             print(result['name'], '#'*10, result['place_id'])         
-            print(result)
+            # print(result)
             # 暂时不需要详细部分
             # r = _get_place_details(result['place_id'], api_key)
             # print('@'*10, r, '@'*10, '\n')
@@ -83,15 +104,18 @@ if __name__ == "__main__":
             cityname = cityrow[1]
             if int(cityid) >= 100 and int(cityid) < 200:
                 print(colored(jobname + cityid + cityname, "red", attrs=['reverse']))
-
-    print('\n'*3)
+                printHotels(jobname + ' near ' +  cityname, cityid,cityname, jobname)
+        csv_writer_places_to_local(places, 'results/' + jobname + '_100_200cities_alljob.csv')
+    print('\n'*2)
     for jobname in mymakets_B:
         for cityrow in citylist:
             cityid = cityrow[0]
             cityname = cityrow[1]
             if int(cityid) >= 200 and int(cityid) < 300:
-                print(colored(jobname + cityid + cityname, "blue", attrs=['reverse']))   
+                print(colored(jobname + cityid + cityname, "blue", attrs=['reverse']))
+                printHotels(jobname + ' near ' +  cityname, cityid,cityname, jobname)
+        csv_writer_places_to_local(places, 'results/' + jobname + '_200_300cities_alljob.csv')
     csv_writer_places_to_local(places, 
-        'results/' + citylist[0][0] + '_' + destination+'.csv')
+        'results/allcities_alljob.csv')
 
 
