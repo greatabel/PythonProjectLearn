@@ -1,11 +1,15 @@
 import googlemaps
+from termcolor import colored
+
 from os import environ
 import time
 import csv
 
+
 from  place import Place
 from  csv_operation import csv_writer_places_to_local, csv_reader
 from i2place_detail import _get_place_details
+
 
 api_key = environ.get('GOOGLE_CLOUD_API_KEY', '')
 gmaps = googlemaps.Client(key=api_key)
@@ -68,12 +72,25 @@ if __name__ == "__main__":
     print(citylist[0],citylist[0][0], citylist[0][1])
     destination = citylist[0][1]
     places = []
-    printHotels(mymakets_A[0] + ' near ' + citylist[0][1],  citylist[0][0], citylist[0][1], mymakets_A[0])
-    print(len(places), places[0], '#'*20)
-    print('\n')
-    printHotels(mymakets_A[0] + ' near ' +  citylist[1][1], citylist[1][0],citylist[1][1], mymakets_A[0])
-    print(len(places), places[0], '#'*20)
+    # printHotels(mymakets_A[0] + ' near ' + citylist[0][1],  citylist[0][0], citylist[0][1], mymakets_A[0])
+    # print(len(places), places[0], '#'*20)
+    # print('\n')
+    # printHotels(mymakets_A[0] + ' near ' +  citylist[1][1], citylist[1][0],citylist[1][1], mymakets_A[0])
+    # print(len(places), places[0], '#'*20)
+    for jobname in mymakets_A:
+        for cityrow in citylist:
+            cityid = cityrow[0]
+            cityname = cityrow[1]
+            if int(cityid) >= 100 and int(cityid) < 200:
+                print(colored(jobname + cityid + cityname, "red", attrs=['reverse']))
 
+    print('\n'*3)
+    for jobname in mymakets_B:
+        for cityrow in citylist:
+            cityid = cityrow[0]
+            cityname = cityrow[1]
+            if int(cityid) >= 200 and int(cityid) < 300:
+                print(colored(jobname + cityid + cityname, "blue", attrs=['reverse']))   
     csv_writer_places_to_local(places, 
         'results/' + citylist[0][0] + '_' + destination+'.csv')
 
