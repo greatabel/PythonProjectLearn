@@ -1,8 +1,12 @@
 class Place:
-    def __init__(self, business_status, formatted_address, name,
+    def __init__(self, cityid, cityname, jobname, business_status,
+                 formatted_address, name,
                  opening_hours, plus_code, rating, types,
                  user_ratings_total
                 ):
+      self.cityid = cityid
+      self.cityname = cityname
+      self.jobname = jobname
       self.business_status = business_status
       self.formatted_address = formatted_address
       self.name = name
