@@ -2,8 +2,9 @@ class PaSciRoAnimal():
     myclass = "Animal"
     shape_on_plot = None
 
-    def __init__(self, normal_speed, colour='yellow', size=2): 
+    def __init__(self, normal_speed, accelerated_speed, colour='yellow', size=2): 
         self.normal_speed = normal_speed
+        self.accelerated_speed = accelerated_speed
         self.colour = colour
         # size of the body
         self.size = size
