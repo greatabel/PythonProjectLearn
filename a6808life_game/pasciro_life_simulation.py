@@ -33,20 +33,39 @@ def stepChange(animal_obj, key ,positions, step_index):
     step = animal_obj.normal_speed
     x_step = np.random.randint(-step, step, size=len(x))
     y_step = np.random.randint(-step, step, size=len(y))
-    if animal_obj.myclass == "PaSciRoSheep":
+    if animal_obj.myclass in  ("PaSciRoSheep", "PaSciRoBird"):
+        index = 0
         for x1, y1 in zip(x, y):
+
             # print(x1, y1, '#'*5)
             # because we kunow tiger 's position is at index = 0 at postions
             for x2, y2 in zip(positions[0][0], positions[0][1]):
                 # print(x2, y2, '@'*3)
                 dist = math.hypot(x2 - x1, y2 - y1)
-                if dist < 30:
+                print('dist=',dist, animal_obj.myclass)
+                if dist < 20:
                     # run much fast , when found danger
                     print('run faster, in dangerous in distance:', dist, x1, y1, ' in ', x, y)
                     x_step += [animal_obj.accelerated_speed] * len(x)
                     y_step += [animal_obj.accelerated_speed] * len(y)
+                if dist < 3:
+                    print('Collision', '#'*20)
+                    # x = np.delete(x, index)
+                    # y = np.delete(y, index)
+                    # sheep meet tiger, we remove it from map, it means sheep dead
+                    x[index] = 500
+                    y[index] = 500
 
+                    print('removed out of map, death!')
+            index += 1
 
+    # in self species, for pregnant populations
+    for x1, y1 in zip(x, y):
+        for x2, y2 in zip(x, y):
+            dist = math.hypot(x2 - x1, y2 - y1)
+            if dist < 3:
+                    print('same species, prepare for reproduction! ', '@'*20)
+                    animal_obj.pregnant = True
 
     tempx = x + x_step
     tempy = y + y_step

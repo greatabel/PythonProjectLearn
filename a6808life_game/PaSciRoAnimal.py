@@ -1,6 +1,7 @@
 class PaSciRoAnimal():
     myclass = "Animal"
     shape_on_plot = None
+    is_pregnancy = False
 
     def __init__(self, normal_speed, accelerated_speed, colour='yellow', size=2): 
         self.normal_speed = normal_speed
@@ -31,5 +32,5 @@ class PaSciRoSheep(PaSciRoAnimal):
 
 
 class PaSciRoBird(PaSciRoAnimal):
-    myclass = "PaSciRoSheepBird"
+    myclass = "PaSciRoBird"
     shape_on_plot = "^"
