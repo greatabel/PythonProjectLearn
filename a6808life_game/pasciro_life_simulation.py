@@ -16,45 +16,75 @@ import time
 
 from PaSciRoAnimal import PaSciRoTiger, PaSciRoSheep, PaSciRoBird
 
-def stepChange(lifeform):
-    if lifeform[2] == 1:
-        lifeform[0] = lifeform[0] + random.randint(-3, 3)
-        lifeform[1] = lifeform[1] + random.randint(-3, 3)
 
+# def stepChange(lifeform):
+#     if lifeform[2] == 1:
+#         lifeform[0] = lifeform[0] + random.randint(-3, 3)
+#         lifeform[1] = lifeform[1] + random.randint(-3, 3)
+def stepChange(animal_obj, position):
+    # animal move is different accordign to speces
+    x, y = position[0], position[1]
+    x_step = np.random.randint(-animal_obj.normal_speed, animal_obj.normal_speed, size=len(x))
+    y_step = np.random.randint(-animal_obj.normal_speed, animal_obj.normal_speed, size=len(y))
+    x += x_step
+    y += y_step
+    # if this move is run , the next postion is out of boundary 
+    # means we don't make this move, we skip this turn's movement, next rurn to see whether run
+
+    if np.any((x < 1)|(x > XMAX )|(y < 1 )|(y > YMAX )):
+        print('boundary warning!', x)
+        x -= x_step
+        y -= y_step
 
 XMAX  = 200
 YMAX  = 100
 POP   = 20
 STEPS = 10
-STEPS = 5
+# STEPS = 5
     
 def main():
     # init 3 Alien Species: PaSciRoTiger PaSciRoSheep PaSciRoBird
-    tiger = PaSciRoTiger(5, 'yellow', 120)
+    tiger = PaSciRoTiger(8, 'yellow', 120)
     tiger.printit()
-    sheep = PaSciRoSheep(2, 'blue', 60)
+    sheep = PaSciRoSheep(2, 'skyblue', 60)
     sheep.printit()
-    bird = PaSciRoBird(8, 'red',30)
+    bird = PaSciRoBird(1, 'red',30)
     bird.printit()
     alien_species = {0: tiger, 1: sheep, 2: bird}
+
     # inital population of anmial:
     # size is bigger, the num of species should be smaller
-    # so we initally with less tiger, more sheep, even more birds
-    pops = [POP//8, POP//4, POP*5 //8]
+    # Genesis time ， so we initally with less tiger, more sheep, even more birds
+    pops = [POP//6, POP//3, POP//2]
+
+    positions = []
     for key, animal_obj in alien_species.items():
 
         x = np.random.randint(XMAX, size=pops[key])
         y = np.random.randint(YMAX, size=pops[key])
-        plt.scatter(x, y, c =animal_obj.colour,  
-            linewidths = 1,  
-            marker = animal_obj.shape_on_plot,  
-            edgecolor ="green",  
-            s = animal_obj.size)
+        print(x, y)
+        positions.append([x, y])
 
-      
-    plt.xlabel("X-axis") 
-    plt.ylabel("Y-axis") 
-    plt.show() 
+    # simulate life after inital 
+    for i in range(STEPS):
+        for key, animal_obj in alien_species.items():    
+            stepChange(animal_obj,positions[key])
+            plt.scatter(positions[key][0], positions[key][1], c =animal_obj.colour,  
+                linewidths = 1,  
+                marker = animal_obj.shape_on_plot,  
+                edgecolor ="green",  
+                s = animal_obj.size)
+
+        plt.xlim(0,XMAX)
+        plt.ylim(0,YMAX)
+        plt.xlabel("X-axis") 
+        plt.ylabel("Y-axis") 
+        plt.show(block=False)
+        plt.savefig('save_png/' + str(i) + '.png')
+        # time.sleep(1)
+        plt.pause(2)
+        plt.close()
+
     # lifeforms = np.zeros((POP, 3), dtype=int)
     # print('0 lifeforms=', lifeforms)
     # for i in range(POP):

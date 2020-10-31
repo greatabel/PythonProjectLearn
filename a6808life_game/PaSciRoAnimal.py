@@ -23,9 +23,11 @@ class PaSciRoTiger(PaSciRoAnimal):
     myclass = "PaSciRoTiger"
     shape_on_plot = "H"
 
+
 class PaSciRoSheep(PaSciRoAnimal):
     myclass = "PaSciRoSheep"
     shape_on_plot = "P"
+
 
 class PaSciRoBird(PaSciRoAnimal):
     myclass = "PaSciRoSheepBird"
