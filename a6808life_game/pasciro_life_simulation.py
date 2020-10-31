@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+from PaSciRoAnimal import PaSciRoTiger, PaSciRoSheep, PaSciRoBird
+
 def stepChange(lifeform):
     if lifeform[2] == 1:
         lifeform[0] = lifeform[0] + random.randint(-3, 3)
@@ -24,8 +26,16 @@ XMAX  = 200
 YMAX  = 100
 POP   = 20
 STEPS = 10
+STEPS = 2
     
 def main():
+    tiger = PaSciRoTiger(5, 'yellow')
+    tiger.printit()
+    sheep = PaSciRoSheep(2, 'blue')
+    sheep.printit()
+    bird = PaSciRoBird(8, 'red')
+    bird.printit()
+
     lifeforms = np.zeros((POP, 3), dtype=int)
     print('0 lifeforms=', lifeforms)
     for i in range(POP):
