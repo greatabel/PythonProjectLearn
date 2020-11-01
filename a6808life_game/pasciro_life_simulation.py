@@ -10,10 +10,12 @@
 #
 
 import random
-import matplotlib.pyplot as plt
-import numpy as np
 import time
 import math
+import argparse
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 from PaSciRoAnimal import PaSciRoTiger, PaSciRoSheep, PaSciRoBird
 
@@ -111,6 +113,28 @@ STEPS = 10
 
 
 def main():
+    global XMAX, YMAX, POP, STEPS
+    parser = argparse.ArgumentParser(description="process video/image")
+    parser.add_argument(
+        "--POP",
+        type=int,
+        default=20,
+
+        help="choose the population number you want to simulate",
+    )
+    parser.add_argument(
+        "--STEPS",
+        type=int,
+        default=10,
+
+        help="STEPS you needed to simulate",
+    )
+    args = parser.parse_args()
+    POP = args.POP
+    STEPS = args.STEPS
+    # python3 pasciro_life_simulation.py --POP=15 --STEPS=5
+    print('parameter:', POP, STEPS)
+
     # init 3 Alien Species: PaSciRoTiger PaSciRoSheep PaSciRoBird
     tiger = PaSciRoTiger(8, 16, "yellow", 120)
     tiger.printit()
@@ -147,7 +171,9 @@ def main():
                 edgecolor="green",
                 s=animal_obj.size,
             )
-
+            # if the species have pregancy individual, then population has a random 
+            # probability to produce a new generation, the survival probability of the new generation 
+            # is also random
             if animal_obj.is_pregnancy == True:
                 print("reproduction", "->" * 10)
                 child_x = np.random.randint(10, XMAX - 10, size=pops[key] // 4)
@@ -161,11 +187,13 @@ def main():
                     edgecolor="yellow",
                     s=animal_obj.size // 2,
                 )
+
         plt.xlim(0, XMAX)
         plt.ylim(0, YMAX)
         plt.xlabel("X-axis")
         plt.ylabel("Y-axis")
         plt.show(block=False)
+        # save the simulation state as an image 
         plt.savefig("save_png/" + str(i) + ".png")
         # time.sleep(1)
         plt.pause(2)
