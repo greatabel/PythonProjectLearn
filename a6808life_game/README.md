@@ -20,3 +20,7 @@ pip3 install -r requirements.txt
 
 3.
 run in terminal:
+python3 pasciro_life_simulation.py 
+
+or you can run with parmaeters:
+python3 pasciro_life_simulation.py --POP=15 --STEPS=5
