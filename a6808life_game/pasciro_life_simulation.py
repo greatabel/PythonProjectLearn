@@ -59,7 +59,7 @@ def stepChange(animal_obj, key, positions, step_index):
                     )
                     x_step += [animal_obj.accelerated_speed] * len(x)
                     y_step += [animal_obj.accelerated_speed] * len(y)
-                if dist < 3:
+                if dist < 10:
                     print("Collision", "#" * 20)
                     # x = np.delete(x, index)
                     # y = np.delete(y, index)
