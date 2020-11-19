@@ -1,0 +1,29 @@
+linear regression：
+future month  312  predict visitors: 611864.6034297964
+future month  313  predict visitors: 613094.3620983902
+future month  314  predict visitors: 614324.120766984
+future month  315  predict visitors: 615553.8794355777
+future month  316  predict visitors: 616783.6381041715
+future month  317  predict visitors: 618013.3967727652
+future month  318  predict visitors: 619243.155441359
+future month  319  predict visitors: 620472.9141099527
+future month  320  predict visitors: 621702.6727785466
+future month  321  predict visitors: 622932.4314471403
+future month  322  predict visitors: 624162.1901157341
+future month  323  predict visitors: 625391.9487843278
+
+
+Polynomial Curve Fitting：
+future month  312 n-degree-coefficient-curve predict visitors: 746489.1380864521
+future month  313 n-degree-coefficient-curve predict visitors: 755001.3900901556
+future month  314 n-degree-coefficient-curve predict visitors: 763719.5045037749
+future month  315 n-degree-coefficient-curve predict visitors: 772647.192118837
+future month  316 n-degree-coefficient-curve predict visitors: 781788.2055798827
+future month  317 n-degree-coefficient-curve predict visitors: 791146.3396148467
+future month  318 n-degree-coefficient-curve predict visitors: 800725.431265444
+future month  319 n-degree-coefficient-curve predict visitors: 810529.3601175563
+future month  320 n-degree-coefficient-curve predict visitors: 820562.048531628
+future month  321 n-degree-coefficient-curve predict visitors: 830827.4618730447
+future month  322 n-degree-coefficient-curve predict visitors: 841329.6087425204
+future month  323 n-degree-coefficient-curve predict visitors: 852072.541206494
+​
