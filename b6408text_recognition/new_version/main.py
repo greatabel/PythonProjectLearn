@@ -13,6 +13,13 @@ DCT系数中，
     5 找框 去掉过大过小的框
 
     6 在原图上绘制对应的框
+
+
+    执行方式如下：
+    参数说明:   --type=image 代表处理文件的类型（是图片还是视频）
+               --folder=input_images 代表处理的文件夹是input_images文件夹
+
+    python3 main.py --type=image --folder=input_images
 """
 import os
 import cv2
@@ -257,4 +264,4 @@ if __name__ == "__main__":
 
     if p_type == "image":
         image_process(p_folder)
-     # python3 main.py --type=image --folder=input_images
+
