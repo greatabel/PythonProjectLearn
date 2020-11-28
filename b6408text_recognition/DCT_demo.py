@@ -69,7 +69,8 @@ def preprocess(energy_img_blur):
     return dilation2
 
 
-def findTextRegion(origin_img):
+def findTextRegion(origin_img, frame):
+    cv2.imwrite("save_png/0origin_img.png", origin_img)
     region = []
 
     # 1. 查找轮廓
@@ -78,12 +79,23 @@ def findTextRegion(origin_img):
         origin_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
     )
 
+    #-----start 11.21  debug add----
+    for c in contours:
+
+        x,y,w,h = cv2.boundingRect(c)
+        print(w, h)
+        if w>5 and h>10:
+            cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),5)
+    cv2.imwrite("save_png/1filename.png", frame)
+    #-----end  11.21  debug add----
+
+
     # 2. 筛选那些面积小的
     for i in range(len(contours)):
         cnt = contours[i]
         # 计算该轮廓的面积
         area = cv2.contourArea(cnt)
-        print('0 area=', area)
+        print('area=', area)
         # 面积小的都筛选掉
         if area < 15000:
             continue
@@ -208,7 +220,7 @@ def image_process(path):
 
     count = 0
     for frame in images:
-        print('frame ', '-'*10, count)
+        print('frame ', '-'*20, count)
         # DCT
         frame = img_crop(frame, patch_size=8)
         img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -231,7 +243,7 @@ def image_process(path):
 
         dilation_img = preprocess(energy_img_blur)
 
-        region = findTextRegion(dilation_img)
+        region = findTextRegion(dilation_img, frame)
         for box in region:
             cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
         # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
@@ -266,4 +278,4 @@ if __name__ == "__main__":
     if p_type == "image":
         image_process(p_folder)
     # python3 DCT_demo.py --type=image --folder=/Users/abel/Downloads/spare_time/B6408_3400_character/teacher_image_10_25
-    # python3 DCT_demo.py --type=image --folder=/img
+    # python3 DCT_demo.py --type=image --folder=img
