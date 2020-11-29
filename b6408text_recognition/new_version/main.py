@@ -27,6 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 import glob
+from common import crop_rect
 
 
 def normalization(data):
@@ -90,7 +91,7 @@ def findTextRegion(origin_img, frame):
     for c in contours:
 
         x,y,w,h = cv2.boundingRect(c)
-        print(w, h)
+        print('w,h=', w, h)
         '''
         if w>5 and h>10:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),5)
@@ -102,13 +103,15 @@ def findTextRegion(origin_img, frame):
     # 2. 筛选那些面积小的
     for i in range(len(contours)):
         cnt = contours[i]
+        # print('type(cnt)=', type(cnt))
         # 计算该轮廓的面积
         area = cv2.contourArea(cnt)
-        print('area=', area)
+        # print('area=', area)
         # 面积小的都筛选掉
         
         if area < 5000:
             continue
+        # print('passed area=', area)
         '''
         if area > origin_img.shape[0] * origin_img.shape[1] * 0.1:
             continue
@@ -124,12 +127,14 @@ def findTextRegion(origin_img, frame):
 
         # box是四个点的坐标
         box = cv2.boxPoints(rect)
+
         box = np.int0(box)
 
         # 计算高和宽
         height = abs(box[0][1] - box[2][1])
         width = abs(box[0][0] - box[2][0])
 
+        print('height, width=', height, width)
         # 筛选那些太细的矩形，留下扁的
         '''
         if height > width * 1.2:
@@ -176,6 +181,7 @@ def DCT_transfrom(img):
     energy_img = normalization(energy_img)
 
     return img_dct, energy_img.astype(np.uint8)
+
 
 
 
@@ -233,6 +239,13 @@ def image_process(path):
         #region = findTextRegion(dilation_img, frame)
         region = findTextRegion(binary, frame)
         for box in region:
+            # -- start 11.29 --
+            rect = cv2.minAreaRect(box)
+            im_crop, img_rot = crop_rect(frame, rect)
+            cv2.imshow("cropped_box", im_crop)
+            cv2.waitKey(0)
+            # -- end   11.29 --
+
             cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
         cv2.imshow("frame",frame)
         cv2.waitKey(0)
