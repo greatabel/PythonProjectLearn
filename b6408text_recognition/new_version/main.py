@@ -87,18 +87,17 @@ def findTextRegion(origin_img, frame):
         origin_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
     )
 
-    #-----start 11.21  debug add----
+    # -----start 11.21  debug add----
     for c in contours:
 
-        x,y,w,h = cv2.boundingRect(c)
-        print('w,h=', w, h)
-        '''
+        x, y, w, h = cv2.boundingRect(c)
+        print("w,h=", w, h)
+        """
         if w>5 and h>10:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),5)
-        '''
+        """
     cv2.imwrite("save_png/1filename.png", frame)
-    #-----end  11.21  debug add----
-
+    # -----end  11.21  debug add----
 
     # 2. 筛选那些面积小的
     for i in range(len(contours)):
@@ -108,14 +107,14 @@ def findTextRegion(origin_img, frame):
         area = cv2.contourArea(cnt)
         # print('area=', area)
         # 面积小的都筛选掉
-        
+
         if area < 5000:
             continue
         # print('passed area=', area)
-        '''
+        """
         if area > origin_img.shape[0] * origin_img.shape[1] * 0.1:
             continue
-        '''
+        """
 
         # 轮廓近似，作用很小
         epsilon = 0.001 * cv2.arcLength(cnt, True)
@@ -134,12 +133,12 @@ def findTextRegion(origin_img, frame):
         height = abs(box[0][1] - box[2][1])
         width = abs(box[0][0] - box[2][0])
 
-        print('height, width=', height, width)
+        print("height, width=", height, width)
         # 筛选那些太细的矩形，留下扁的
-        '''
+        """
         if height > width * 1.2:
             continue
-        '''
+        """
 
         # print('box=', box)
         region.append(box)
@@ -183,8 +182,6 @@ def DCT_transfrom(img):
     return img_dct, energy_img.astype(np.uint8)
 
 
-
-
 def image_process(path):
     data_path = os.path.join(path, "*")
     filenames = glob.glob(data_path)
@@ -194,24 +191,24 @@ def image_process(path):
 
     count = 0
     for frame in images:
-        print('frame ', '-'*20, count)
+        print("frame ", "-" * 20, count)
         # DCT
-        frame = cv2.resize(frame, (1024,768))
-        #frame = img_crop(frame, patch_size=16)
-        #cv2.imshow("frame",frame)
-        #cv2.waitKey(0)
+        frame = cv2.resize(frame, (1024, 768))
+        # frame = img_crop(frame, patch_size=16)
+        # cv2.imshow("frame",frame)
+        # cv2.waitKey(0)
         img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        #img_gray = np.float32(img_gray)
-        #cv2.imshow("img_gray",img_gray)
-        #cv2.waitKey(0)
-        
-        #img_dct, energy_img = DCT_transfrom(img_gray)  # 使用dct获得img的频域图像q
-        #cv2.imshow("energy_img",energy_img)
-        #cv2.waitKey(0)
-        #cv2.imwrite(r"./save_png/00img_dct.png", energy_img)
-        #print(np.max(energy_img))
+        # img_gray = np.float32(img_gray)
+        # cv2.imshow("img_gray",img_gray)
+        # cv2.waitKey(0)
+
+        # img_dct, energy_img = DCT_transfrom(img_gray)  # 使用dct获得img的频域图像q
+        # cv2.imshow("energy_img",energy_img)
+        # cv2.waitKey(0)
+        # cv2.imwrite(r"./save_png/00img_dct.png", energy_img)
+        # print(np.max(energy_img))
         binary = cv2.threshold(img_gray, 140, 255, cv2.THRESH_BINARY)[1]
-        '''
+        """
         ret, binary = cv2.threshold(
             #energy_img,
             img_gray,
@@ -220,23 +217,23 @@ def image_process(path):
             255,
             cv2.THRESH_OTSU + cv2.THRESH_BINARY,
         )
-        '''
-        cv2.imshow("binary",binary)
+        """
+        cv2.imshow("binary", binary)
         cv2.waitKey(0)
-        #cv2.imwrite(r"./save_png/01binary.png", binary)
+        # cv2.imwrite(r"./save_png/01binary.png", binary)
 
         # 平滑滤波
-        '''
+        """
         energy_img_blur = cv2.blur(
             binary,
             (3, 3),
         )
-        '''
+        """
 
-        #dilation_img = preprocess(energy_img_blur)
-        #cv2.imshow('dilation_img',dilation_img)
-        #cv2.waitKey(0)
-        #region = findTextRegion(dilation_img, frame)
+        # dilation_img = preprocess(energy_img_blur)
+        # cv2.imshow('dilation_img',dilation_img)
+        # cv2.waitKey(0)
+        # region = findTextRegion(dilation_img, frame)
         region = findTextRegion(binary, frame)
         for box in region:
             # -- start 11.29 --
@@ -247,10 +244,10 @@ def image_process(path):
             # -- end   11.29 --
 
             cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
-        cv2.imshow("frame",frame)
+        cv2.imshow("frame", frame)
         cv2.waitKey(0)
         # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
-        #cv2.imwrite(r"./save_png/" + str(count).rjust(5, "0") + ".png", frame)
+        # cv2.imwrite(r"./save_png/" + str(count).rjust(5, "0") + ".png", frame)
         count += 1
 
 
@@ -260,14 +257,12 @@ if __name__ == "__main__":
         "--type",
         type=str,
         default="video",
-       
         help="choose the type of source type file you want to process",
     )
     parser.add_argument(
         "--folder",
         type=str,
         default="/",
-      
         help="absolute path of folder needed to process",
     )
     args = parser.parse_args()
@@ -277,4 +272,3 @@ if __name__ == "__main__":
 
     if p_type == "image":
         image_process(p_folder)
-
