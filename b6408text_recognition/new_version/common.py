@@ -1,6 +1,7 @@
 import cv2
 
 
+#截取出指定多边形对应的图
 def crop_rect(img, rect):
     # get the parameter of the small rectangle
     center = rect[0]
@@ -16,3 +17,4 @@ def crop_rect(img, rect):
     out = cv2.getRectSubPix(img_rot, size, center)
 
     return out, img_rot
+

@@ -235,15 +235,42 @@ def image_process(path):
         # cv2.waitKey(0)
         # region = findTextRegion(dilation_img, frame)
         region = findTextRegion(binary, frame)
+        box_index = 0
         for box in region:
             # -- start 11.29 --
             rect = cv2.minAreaRect(box)
             im_crop, img_rot = crop_rect(frame, rect)
-            cv2.imshow("cropped_box", im_crop)
+            # cv2.imshow("cropped_box", im_crop)
             cv2.waitKey(0)
             # -- end   11.29 --
 
-            cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+            # -- start 11.30 --
+
+                    # DCT
+            region_frame = img_crop(im_crop, patch_size=16)
+            img_gray = cv2.cvtColor(region_frame, cv2.COLOR_BGR2GRAY)
+            img_gray = np.float32(img_gray)
+            img_dct, energy_img = DCT_transfrom(img_gray)
+            ret, binary = cv2.threshold(
+                energy_img,
+                np.max(energy_img) * 0.7,
+                255,
+                cv2.THRESH_OTSU + cv2.THRESH_BINARY,
+            )
+
+            # 平滑滤波
+            energy_img_blur = cv2.blur(
+                binary,
+                (3, 3),
+            )
+
+            dilation_img = preprocess(energy_img_blur)
+            cv2.imshow("dilation_img", dilation_img)
+            cv2.imwrite("save_png/box_index" + str(box_index) + ".png", dilation_img)
+            box_index += 1
+            # -- end 11.30 ---
+
+            # cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
         cv2.imshow("frame", frame)
         cv2.waitKey(0)
         # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
