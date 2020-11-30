@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 import glob
-from common import crop_rect
+from common import crop_rect, average_color
 
 
 def normalization(data):
@@ -265,16 +265,18 @@ def image_process(path):
             )
 
             dilation_img = preprocess(energy_img_blur)
+            dominant_colorname = average_color(dilation_img)
+
             cv2.imshow("dilation_img", dilation_img)
             cv2.imwrite("save_png/box_index" + str(box_index) + ".png", dilation_img)
             box_index += 1
             # -- end 11.30 ---
-
-            # cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+            if dominant_colorname == 'white':
+                cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
         cv2.imshow("frame", frame)
         cv2.waitKey(0)
         # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
-        # cv2.imwrite(r"./save_png/" + str(count).rjust(5, "0") + ".png", frame)
+        cv2.imwrite(r"./save_png/" + str(count).rjust(5, "0") + ".png", frame)
         count += 1
 
 
