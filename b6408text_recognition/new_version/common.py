@@ -4,7 +4,7 @@ import webcolors
 from sklearn.cluster import KMeans
 
 
-#截取出指定多边形对应的图
+# 截取出指定多边形对应的图
 def crop_rect(img, rect):
     # get the parameter of the small rectangle
     center = rect[0]
@@ -24,7 +24,7 @@ def crop_rect(img, rect):
 
 def closest_colour(requested_colour):
     min_colours = {}
-    # 这里要小心兼容性，阳新骨料是小写 可以的
+    # 这里要小心兼容性，小写 可以的
     # for key, name in webcolors.css3_hex_to_names.items():
     for key, name in webcolors.CSS3_HEX_TO_NAMES.items():
         r_c, g_c, b_c = webcolors.hex_to_rgb(key)
@@ -36,16 +36,16 @@ def closest_colour(requested_colour):
 
 
 def average_color(crop_img):
-    colorname = ''
+    colorname = ""
     dominant_color = None
     # crop_img = crop_img.reshape((crop_img.shape[0] * crop_img.shape[1], 3))
     if len(crop_img) > 0:
-        
-        #using k-means to cluster pixels
-        kmeans = KMeans(n_clusters = 1)
+
+        # using k-means to cluster pixels
+        kmeans = KMeans(n_clusters=1)
         kmeans.fit(crop_img)
         dominant_color = kmeans.cluster_centers_.astype(np.int32)[0]
         colorname = closest_colour(dominant_color)
 
         print(dominant_color, colorname)
-    return  colorname
+    return colorname

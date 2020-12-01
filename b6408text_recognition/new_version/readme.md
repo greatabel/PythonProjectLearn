@@ -10,7 +10,7 @@ https://docs.python.org/zh-cn/3/tutorial/venv.html
 
 4.
 terminal底下进入工程目录下，在requirements.txt同级目录下运行：
-pip install --upgrade -r requirements.txt
+pip3 install --upgrade -r requirements.txt
 
 
 5.

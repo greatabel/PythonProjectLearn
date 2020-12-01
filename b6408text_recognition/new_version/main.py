@@ -246,7 +246,7 @@ def image_process(path):
 
             # -- start 11.30 --
 
-                    # DCT
+            # DCT
             region_frame = img_crop(im_crop, patch_size=16)
             img_gray = cv2.cvtColor(region_frame, cv2.COLOR_BGR2GRAY)
             img_gray = np.float32(img_gray)
@@ -271,7 +271,7 @@ def image_process(path):
             cv2.imwrite("save_png/box_index" + str(box_index) + ".png", dilation_img)
             box_index += 1
             # -- end 11.30 ---
-            if dominant_colorname == 'white':
+            if dominant_colorname == "white":
                 cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
         cv2.imshow("frame", frame)
         cv2.waitKey(0)
