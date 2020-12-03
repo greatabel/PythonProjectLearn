@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>d3+jQuery股权穿透图</title>
+  <title>d3+jQuery股权穿透图-兰德</title>
   <script src="https://cdn.bootcss.com/d3/3.2.7/d3.min.js"></script>
 <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 </head>
@@ -15,6 +15,18 @@
    </div>
 </body>
 <script type="text/javascript">
+    var myjson = {}
+    /* 修改这里的url访问地址  */
+    
+    var url = "http://127.0.0.1:5000/relationship";
+
+
+    $.getJSON(url, function (json) {
+
+        console.log(json);
+        myjson = json;
+        // alert(myjson);
+
         var container;
         var zoom;
         var rootData;
@@ -27,194 +39,220 @@
           //selectChange();
        var child=document.getElementById("product_tree");
             child.innerHTML = '';
-      getData();
+      getData(myjson);
         });
 
-var getData =function() {
+    });
+
+    //     var container;
+    //     var zoom;
+    //     var rootData;
+    //     var depthInfo;
+    // var rootName;//根节点名称
+
+    //     jQuery(document).ready(function () {
+    //         resizeScreen();
+          
+    //       //selectChange();
+    //    var child=document.getElementById("product_tree");
+    //         child.innerHTML = '';
+    //   getData();
+    //     });
+
+var getData =function(myjson) {
     // 测试内容
-    rootData = {
-    "downward": {
-        "direction": "downward",
-        "name": "origin",
-        "children": [
-            {
-                "name": "Abel测试公司0",
-                "amount": "100",
-                "ratio": "55%",
-                "hasHumanholding":true,
-                "hasChildren":true,
-                "isExpand": false,
-                "children": [
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "name": "Abel测试公司1",
-                "amount": "100",
-                "ratio": "55%",
-                "hasHumanholding":true,
-                "hasChildren":true,
-                "isExpand": false,
-                "children": [
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "name": "Abel测试公司2",
-                "amount": "100",
-                "ratio": "55%",
-                "hasHumanholding":true,
-                "hasChildren":true,
-                "isExpand": false,
-                "children": [
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "name": "Abel测试公司3",
-                "hasHumanholding":false,
-                "hasChildren":true,
-                "amount": "100",
-                "ratio": "55%",
-                "children": []
-            },
-            {
-                "name": "Abel测试公司4",
-                "hasHumanholding":false,
-                "hasChildren":true,
-                "isExpand": false,
-                "amount": "100",
-                "ratio": "55%",
-                "children": [
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            }
-        ]
-    },
-    "upward": {
-        "direction": "upward",
-        "name": "origin",
-        "children": [
-            {
-                "name": "王健林up",
-                "hasHumanholding":false,
-                "amount": "100",
-                "ratio": "55%",
-                "children": [
-                    {
-                        "name": "王健林u0",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "王健林u1",
-                        "hasHumanholding":false,
-                        "isExpand": false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": [
-                            {
-                                "name": "王健林u2",
-                                "hasHumanholding":false,
-                                "amount": "100",
-                                "ratio": "55%",
-                                "children": []
-                            },
-                            {
-                                "name": "王健林u3",
-                                "hasHumanholding":false,
-                                "amount": "100",
-                                "ratio": "55%",
-                                "children": []
-                            }
-                        ]
-                    },
-                    {
-                        "name": "王健林u4",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            }
-        ]
-    }
-}
+//     rootData = {
+//     "downward": {
+//         "direction": "downward",
+//         "name": "origin",
+//         "children": [
+//             {
+//                 "name": "珠海市华裕发展集团有限公司",
+//                 "amount": "100",
+//                 "ratio": "100%",
+//                 "hasHumanholding":true,
+//                 "hasChildren":true,
+//                 "isExpand": false,
+//                 "children": [
+//                     {
+//                         "name": "珠海市睿诚商务信息咨询有限公司",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "100%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "珠海市裕恒商贸有限公司",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "珠海经济特区腾辉发展有限公司",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "91%",
+//                         "children": []
+//                     }
+//                 ]
+//             },
+//             {
+//                 "name": "Abel测试公司1",
+//                 "amount": "100",
+//                 "ratio": "55%",
+//                 "hasHumanholding":true,
+//                 "hasChildren":true,
+//                 "isExpand": false,
+//                 "children": [
+//                     {
+//                         "name": "公司名字",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "公司名字",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     }
+//                 ]
+//             },
+//             {
+//                 "name": "Abel测试公司2",
+//                 "amount": "100",
+//                 "ratio": "55%",
+//                 "hasHumanholding":true,
+//                 "hasChildren":true,
+//                 "isExpand": false,
+//                 "children": [
+//                     {
+//                         "name": "公司名字",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "公司名字",
+//                         "hasHumanholding":false,
+//                         "hasChildren":true,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     }
+//                 ]
+//             },
+//             {
+//                 "name": "Abel测试公司3",
+//                 "hasHumanholding":false,
+//                 "hasChildren":true,
+//                 "amount": "100",
+//                 "ratio": "55%",
+//                 "children": []
+//             },
+//             {
+//                 "name": "Abel测试公司4",
+//                 "hasHumanholding":false,
+//                 "hasChildren":true,
+//                 "isExpand": false,
+//                 "amount": "100",
+//                 "ratio": "55%",
+//                 "children": [
+//                     {
+//                         "name": "公司或股东名字",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "公司或股东名字",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "公司或股东名字",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "公司或股东名字",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "55%",
+//                         "children": []
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+//     "upward": {
+//         "direction": "upward",
+//         "name": "origin",
+//         "children": [
+                    
+//                     {
+//                         "name": "达海控股集团有限公司",
+//                         "hasHumanholding":false,
+//                         "isExpand": false,
+//                         "amount": "100",
+//                         "ratio": "2.45416%",
+//                         "children": [
+//                             {
+//                                 "name": "张昕",
+//                                 "hasHumanholding":false,
+//                                 "amount": "100",
+//                                 "ratio": "1.14749%",
+//                                 "children": []
+//                             },
+//                             {
+//                                 "name": "陈卫新",
+//                                 "hasHumanholding":false,
+//                                 "amount": "100",
+//                                 "ratio": "1.14749%",
+//                                 "children": []
+//                             }
+//                         ]
+//                     },
+//                     {
+//                         "name": "耿裕华",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "2.9499%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "姚富新",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "1.8437%",
+//                         "children": []
+//                     },
+//                     {
+//                         "name": "张建忠",
+//                         "hasHumanholding":false,
+//                         "amount": "100",
+//                         "ratio": "1.4749%",
+//                         "children": []
+//                     }
+//                 ]
+//     }
+// }
+    rootData = myjson;
       rootName = '南通市华德房地产有限公司';
       drawing();
   };
@@ -470,7 +508,7 @@ var getData =function() {
               return d.name.substr(10, d.name.length);
             })
             .style({
-              'fill': "#337ab7",
+              // 'fill': "#337ab7",
               'font-size': function(d) {
                 return(d.name == 'origin') ? 14 : 11;
               },
@@ -485,10 +523,12 @@ var getData =function() {
             })
             .attr("text-anchor", "start")
             .attr("class", "linkname")
-            .style("fill", "#E066FF")
+            .style("fill", "blue")
+            // .style("fill", "#E066FF")
             .style('font-size', 10)
             .text(function(d) {
-              var str = (d.name == 'origin') ? '' : "认缴金额:"+ d.amount +"万人民币";
+              // var str = (d.name == 'origin') ? '' : "认缴金额:"+ d.amount +"万人民币";
+              var str = (d.name == 'origin') ? '' : "融资次数:A轮";
               return(str.length > 13) ? str.substr(0, 13) + ".." : str;
             });
           nodeEnter.append("text")
