@@ -64,73 +64,123 @@
                 ]
             },
             {
-                "name": "Abel测试公司2",
+                "name": "珠海市横琴区同裕投资集团有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
                 "amount": "100",
-                "ratio": "55%",
+                "ratio": "45%",
+                "children": []
+            },
+            {
+                "name": "江苏华亚房地产有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "100%",
+                "children": []
+            },
+            {
+                "name": "南通达海华德房地产有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "100%",
+                "children": []
+            },
+            {
+                "name": "常州华德房地产有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "100%",
+                "children": []
+            },
+            {
+                "name": "南通市华玺酒店管理有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "100%",
+                "children": []
+            },
+            {
+                "name": "南通和顺物业管理有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "100%",
+                "children": []
+            }, 
+            {
+                "name": "怀来达海房地产开发有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "50%",
+                "children": []
+            },
+            {
+                "name": "南通市福润房地产开发有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "49%",
+                "children": []
+            },
+            {
+                "name": "南通华越置业有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "33.335%",
+                "children": []
+            },
+            {
+                "name": "南通市华昌房地产有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "32%",
+                "children": []
+            }, 
+            {
+                "name": "南通君之地置业有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "25%",
+                "children": []
+            }, 
+            {
+                "name": "南通成茂地开发有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "25%",
+                "children": []
+            },  
+            {
+                "name": "连云港华玺房地产有限公司",
+                "hasHumanholding":false,
+                "hasChildren":true,
+                "amount": "100",
+                "ratio": "25%",
+                "children": []
+            },                               
+            {
+                "name": "南通锦韵地产置业有限公司",
+                "amount": "100",
+                "ratio": "23%",
                 "hasHumanholding":true,
                 "hasChildren":true,
                 "isExpand": false,
                 "children": [
                     {
-                        "name": "公司名字",
+                        "name": "南通锦跃置业有限公司",
                         "hasHumanholding":false,
                         "hasChildren":true,
                         "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "name": "Abel测试公司3",
-                "hasHumanholding":false,
-                "hasChildren":true,
-                "amount": "100",
-                "ratio": "55%",
-                "children": []
-            },
-            {
-                "name": "Abel测试公司4",
-                "hasHumanholding":false,
-                "hasChildren":true,
-                "isExpand": false,
-                "amount": "100",
-                "ratio": "55%",
-                "children": [
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司或股东名字",
-                        "hasHumanholding":false,
-                        "amount": "100",
-                        "ratio": "55%",
+                        "ratio": "65.0044%",
                         "children": []
                     }
                 ]
