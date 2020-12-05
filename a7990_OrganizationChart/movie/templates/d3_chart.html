@@ -316,12 +316,7 @@ var getData =function(myjson) {
 //          .projection(function(d) {
 //            return [d.x, d.y];
 //          });
-                  // abel test line
-      var straight = d => "M" + d.source.x + "," + d.source.y
-      + "H" + d.target.x + "V" + d.target.y;
-
-
-
+          
         var diagonal = d3.svg.diagonal()
           .source(function(d) {
             return {
@@ -431,7 +426,9 @@ var getData =function(myjson) {
             }
           });
 
-
+          // abel test line
+          var straight = d => "M" + d.source.x + "," + d.source.y
+      + "H" + d.target.x + "V" + d.target.y;
  
           // Update the node.
           var node = g.selectAll('g.' + node_class)
@@ -655,33 +652,7 @@ var getData =function(myjson) {
             })
           link.transition()
             .duration(duration)
-            // .attr('d', straight)
-            .attr('d', diagonal)
-            .attr("d", function (d) {
-
-        // var my_source_y = （d.source.name == 'origin' ? (forUpward ? d.source.y -20 :d.source.y + 20) : (forUpward ? d.source.y - 60 : d.source.y + 60) ）
-        var my_new_source_y = 0
-
-        if (d.source.name == "origin") {
-          if ( forUpward ) {
-            my_new_source_y = d.source.y - 20
-          } else {
-             my_new_source_y = d.source.y + 20
-          }
-        } else {
-            if ( forUpward ){
-            my_new_source_y = d.source.y - 60
-          } else {
-             my_new_source_y = d.source.y + 60
-          }
-        }
-        var dx = d.target.x - d.source.x,
-            dy = d.target.y - d.source.y,
-            //dr = Math.sqrt(dx * dx + dy * dy);
-        dr = 0;
-        // return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-        return "M" + d.source.x + "," +my_new_source_y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-    });
+            .attr('d', diagonal);
           link.exit().transition()
             .duration(duration)
             .attr('d', function(d) {
