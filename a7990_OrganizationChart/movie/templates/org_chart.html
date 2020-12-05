@@ -403,7 +403,7 @@ var getData =function(myjson) {
           var link_class = direction + 'Link';
           var downwardSign = (forUpward) ? -1 : 1;
           var nodeColor = (forUpward) ? '#37592b' : '#8b4513';
-          var nodeColor = (forUpward) ? 'red' : 'blue';
+          var nodeColor = (forUpward) ? '#FA4458' : '#208DEA';
  
           var isExpand = false;
           var statusUp = true;
@@ -523,7 +523,7 @@ var getData =function(myjson) {
             })
             .attr("text-anchor", "start")
             .attr("class", "linkname")
-            .style("fill", "blue")
+            .style("fill", "#208DEA")
             // .style("fill", "#E066FF")
             .style('font-size', 10)
             .text(function(d) {
@@ -538,7 +538,7 @@ var getData =function(myjson) {
             })
             .attr("text-anchor", "start")
             .attr("class", "linkname")
-            .style("fill", "blue")
+            .style("fill", "#208DEA")
             .style('font-size', 10)
             .text(function(d) {
               return(d.name == 'origin') ? "" : d.ratio;
@@ -619,7 +619,7 @@ var getData =function(myjson) {
             .attr('class', link_class)
             .attr('stroke',function(d){
               // return '#8b4513'
-              return "blue"
+              return "#208DEA"
             })
             .attr('fill',"none")
             .attr('stroke-width','1px')
