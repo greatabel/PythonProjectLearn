@@ -369,7 +369,7 @@ var getData =function(myjson) {
           .attr("stroke-width", 2) //箭头宽度
           .append("path")
           .attr("d", "M0,-5L10,0L0,5") //箭头的路径
-          .attr('fill', '#000'); //箭头颜色  
+          .attr('fill', '#208DEA'); //箭头颜色  
         //箭头(上半部分)
         var markerUp = svg.append("marker")
           .attr("id", "resolvedUp")
@@ -384,8 +384,8 @@ var getData =function(myjson) {
           .attr("stroke-width", 2) //箭头宽度
           .append("path")
           .attr("d", "M0,-5L10,0L0,5") //箭头的路径
-          .attr('fill', '#000'); //箭头颜色  
- 
+          .attr('fill', '#208DEA'); //箭头颜色  
+          
         // Initialize the tree nodes and update chart.
         for(var d in this.directions) {
           var direction = this.directions[d];
@@ -402,7 +402,11 @@ var getData =function(myjson) {
           var node_class = direction + 'Node';
           var link_class = direction + 'Link';
           var downwardSign = (forUpward) ? -1 : 1;
-          var nodeColor = (forUpward) ? '#37592b' : '#8b4513';
+          // var nodeColor = (forUpward) ? '#37592b' : '#8b4513';
+          /* 
+          #FA4458 is red
+          #208DEA is blue
+          */
           var nodeColor = (forUpward) ? '#FA4458' : '#208DEA';
  
           var isExpand = false;
@@ -421,6 +425,10 @@ var getData =function(myjson) {
               d.y += downwardSign * 0; // 上下两树图根节点之间的距离
             }
           });
+
+          // abel test line
+          var straight = d => "M" + d.source.x + "," + d.source.y
+      + "H" + d.target.x + "V" + d.target.y;
  
           // Update the node.
           var node = g.selectAll('g.' + node_class)
@@ -619,11 +627,13 @@ var getData =function(myjson) {
             .attr('class', link_class)
             .attr('stroke',function(d){
               // return '#8b4513'
-              return "#208DEA"
+              // return "#208DEA"
+              // 灰色的线条连接线颜色
+              return "#D6D6D6"
             })
             .attr('fill',"none")
             .attr('stroke-width','1px')
-            .attr('opacity', 0.5)
+            .attr('opacity', 1)
             .attr('d', function(d) {
               var o = {
                 x: source.x0,
