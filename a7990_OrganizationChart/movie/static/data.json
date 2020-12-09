@@ -37,32 +37,7 @@
                     }
                 ]
             },
-            {
-                "name": "Abel测试公司1",
-                "amount": "100",
-                "ratio": "55%",
-                "hasHumanholding":true,
-                "hasChildren":true,
-                "isExpand": false,
-                "children": [
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    },
-                    {
-                        "name": "公司名字",
-                        "hasHumanholding":false,
-                        "hasChildren":true,
-                        "amount": "100",
-                        "ratio": "55%",
-                        "children": []
-                    }
-                ]
-            },
+
             {
                 "name": "珠海市横琴区同裕投资集团有限公司",
                 "hasHumanholding":false,

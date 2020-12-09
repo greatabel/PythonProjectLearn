@@ -15,6 +15,14 @@
    </div>
 </body>
 <script type="text/javascript">
+    var w = window.screen.width;
+    console.log('w=', w)
+    if(w <= 1024) {
+      document.getElementsByTagName('body')[0].style.zoom=0.6;
+    } else {
+
+     // document.getElementsByTagName('body')[0].style.zoom=0.7
+    }
     var myjson = {}
     /* 修改这里的url访问地址  */
     
