@@ -19,8 +19,8 @@ def parser():
     args = parser.parse_args()
     print(args.ip, args.encryption)
     iplist_str = args.ip
-    
-    return iplist_str.split(',')
+
+    return iplist_str.split(",")
 
 
 def main():
@@ -30,7 +30,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-    '''
+    """
     python3 main.py --ip 192.168.0.1,192.168.0.2 --encryption yes
 
-    '''
+    """
