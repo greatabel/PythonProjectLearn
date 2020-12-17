@@ -5,22 +5,34 @@ import sys
 import random
 
 
-white_extension_name = ['.pdf', '.epub', '.mobi', '.txt', '.zip', 
-'.rar', '.csv', '.jpg', '.png', '.avi', '.mp4', '.json']
+white_extension_name = [
+    ".pdf",
+    ".epub",
+    ".mobi",
+    ".txt",
+    ".zip",
+    ".rar",
+    ".csv",
+    ".jpg",
+    ".png",
+    ".avi",
+    ".mp4",
+    ".json",
+]
 
 
 def get_files(file_wait_to_process_directory):
     count = 0
     file_dic = {}
     #  loop all file and files
-    for fpathe,dirs,fs in os.walk(file_wait_to_process_directory):
-      for f in fs:
-        filename, file_ext = os.path.splitext(f)
-        if file_ext in  white_extension_name:
-            count += 1
-            # print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
-            file_dic[filename] = os.path.join(fpathe,f)
-    print('local file count=', count)
+    for fpathe, dirs, fs in os.walk(file_wait_to_process_directory):
+        for f in fs:
+            filename, file_ext = os.path.splitext(f)
+            if file_ext in white_extension_name:
+                count += 1
+                # print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
+                file_dic[filename] = os.path.join(fpathe, f)
+    print("local file count=", count)
     return file_dic
 
 
@@ -72,10 +84,10 @@ def file_scanner(numbers, to_servers):
                 # print(localfilename)
                 for key, localfilename in file_dic.items():
                     time.sleep(3)
-                    print('@'*10, 'send localfile:', key, ' => remote server')
+                    print("@" * 10, "send localfile:", key, " => remote server")
                     sender_file(server, localfilename)
                 break
             except Exception as ex:
-                print("Unexpected error in file_scanner:", sys.exc_info()[0], ex)
+                print("Unexpected error in file_scanner:", sys.exc_info()[0], "ex=", ex)
         else:
             print("try 5 times file_scanner")

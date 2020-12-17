@@ -43,7 +43,7 @@ def file_downloader(numbers):
             # print(size, len(recvd), "@" * 5)
 
             # print(size, len(recvd), 'percent:', len(recvd)*100/size, '%')
-            # according to hardware I am using, 
+            # according to hardware I am using,
             # I use block per 6Mbtyes
             data = s.recv(1024 * 1024 * 6)
 
