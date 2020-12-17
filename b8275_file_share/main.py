@@ -31,6 +31,7 @@ def main():
 if __name__ == "__main__":
     main()
     """
+    调用示例：
     python3 main.py --ip 192.168.0.1,192.168.0.2 --encryption yes
 
     """
