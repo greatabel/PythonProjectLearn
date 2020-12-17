@@ -31,7 +31,7 @@ def file_downloader(numbers):
     if filename in file_dic:
         print(filename, ' already existed in local.')
     else:
-            
+
         if "/" in filename:
             dir = os.path.dirname(filename)
             try:
@@ -40,7 +40,7 @@ def file_downloader(numbers):
                 print("Directory does not exist. Creating directory.")
                 os.mkdir(dir)
         f = open(filename, "wb")
-        print("download filename: " + filename)
+        print("download from remote, filename: " + filename)
 
         while True:
             s.sendall("getfile".encode("utf-8"))
