@@ -40,7 +40,7 @@ def file_downloader(numbers):
         print("Total size: " + str(size))
         recvd = b""
         while size > len(recvd):
-            print(size, len(recvd), "@" * 5)
+            # print(size, len(recvd), "@" * 5)
             data = s.recv(1024 * 1024 * 6)
 
             if not data:
