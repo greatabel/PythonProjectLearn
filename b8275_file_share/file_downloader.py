@@ -32,7 +32,7 @@ def file_downloader(numbers):
             print("Directory does not exist. Creating directory.")
             os.mkdir(dir)
     f = open(filename, "wb")
-    print("Filename: " + filename)
+    print("download filename: " + filename)
 
     while True:
         s.sendall("getfile".encode("utf-8"))
