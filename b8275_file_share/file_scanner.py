@@ -9,11 +9,6 @@ from common import get_files
 
 
 
-
-
-
-
-
 def sender_file(server, localfilename):
 
     print("Trying to connect...")
