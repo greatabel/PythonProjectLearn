@@ -75,7 +75,7 @@ def file_scanner(numbers, to_servers):
                     print('@'*10, 'send localfile:', key, ' => remote server')
                     sender_file(server, localfilename)
                 break
-            except:
-                print("Unexpected error in file_scanner:", sys.exc_info()[0])
+            except Exception as ex:
+                print("Unexpected error in file_scanner:", sys.exc_info()[0], ex)
         else:
             print("try 5 times file_scanner")
