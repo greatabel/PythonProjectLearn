@@ -72,7 +72,7 @@ def file_scanner(numbers, to_servers):
                 # print(localfilename)
                 for key, localfilename in file_dic.items():
                     time.sleep(3)
-                    print('@'*10, 'send localfile:'  key, ' => remote server')
+                    print('@'*10, 'send localfile:', key, ' => remote server')
                     sender_file(server, localfilename)
                 break
             except:
