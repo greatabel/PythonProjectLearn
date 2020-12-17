@@ -5,10 +5,8 @@ import os
 
 
 def file_downloader(numbers):
-    print('process1 file_scanner', '-'*20)
-    for i in numbers:
-        time.sleep(0.1)  # artificial time-delay
-        print("process1 square: ", str(i*i))
+    print('process2 file_downloader', '-'*20)
+
 
     print('Waiting for clinet to connect...')
     c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

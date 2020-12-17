@@ -71,7 +71,7 @@ def main():
     print(servers, "#" * 10)
     # start multiple-process
     arr = [2, 3]
-    p1 = mp.Process(target=file_scanner, args=(arr,))
+    p1 = mp.Process(target=file_scanner, args=(arr, servers))
     p2 = mp.Process(target=file_downloader, args=(arr,))
     # p3 = mp.Process(target=main_server, args=(arr,))
     # p4 = mp.Process(target=main_client, args=(arr,))
