@@ -1,10 +1,12 @@
 import os
+import time
 import argparse
 
 import multiprocessing as mp
 from multiprocessing import Process
 
 import socket
+import sys
 
 from file_scanner import file_scanner
 from file_downloader import file_downloader
@@ -31,58 +33,93 @@ def parser():
     return iplist_str.split(",")
 
 
-def main_server():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    host = socket.gethostname()
-    port = 8088
-    s.bind((host,port))
-    try:
-        while True:
-            receive_data,addr = s.recvfrom(1024)
-            print("来自服务器" + str(addr) + "的消息:")
-            print(receive_data.decode('utf-8'))
-            # msg = input('please input send to msg:')
-            msg = 'hello from main_server'
-            s.sendto(msg.encode('utf-8'),addr)
-    except:
-        s.close()
+# def main_server():
+#     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#     host = socket.gethostname()
+#     port = 8088
+#     s.bind((host,port))
+#     try:
+#         while True:
+#             receive_data,addr = s.recvfrom(1024)
+#             print("received from client:" + str(addr) )
+#             print(receive_data.decode('utf-8'))
+#             # msg = input('please input send to msg:')
+#             msg = 'hello from main_server'
+#             s.sendto(msg.encode('utf-8'),addr)
+#     except:
+#         s.close()
 
 
-def main_client():
-    s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-    try:
-        while True:
-            host = socket.gethostname()
-            port = 8088
-            # send_data = input('please input msg:')
-            send_data = 'hello from main_client'
-            s.sendto(send_data.encode('utf-8'),(host,port))
-            msg,addr = s.recvfrom(1024)
-            print("来自服务器" + str(addr) + "的消息:")
-            print(msg.decode('utf-8'))
-    except:
-        s.close()
+# def main_client():
+#     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+#     try:
+#         while True:
+#             host = socket.gethostname()
+#             port = 8088
+#             # send_data = input('please input msg:')
+#             send_data = 'hello from main_client'
+#             s.sendto(send_data.encode('utf-8'),(host,port))
+#             msg,addr = s.recvfrom(1024)
+#             print("received from server:" + str(addr))
+#             print(msg.decode('utf-8'))
+#     except:
+#         s.close()
+def file_client():
+    cmd = os.getcwd()
 
+    foldername = cmd + '/share/t1.txt'
+    print(foldername)
+    print('Trying to connect...')
+    s = socket.socket()
+    s.connect(('127.0.0.1', 1234))
+
+    print('Connected. Wating for command.')
+    while True:
+        cmd = s.recv(32).decode('utf-8')
+
+        if cmd == 'getfilename':
+            print('"getfilename" command received.')
+            s.sendall(foldername.encode('utf-8'))
+
+        if cmd == 'getfile':
+            print('"getfile" command received. Going to send file.')
+            with open(foldername, 'rb') as f:
+                data = f.read()
+            s.sendall('%16d'.encode('utf-8') % len(data))
+            s.sendall(data)
+            print('File transmission done.')
+
+        if cmd == 'end':
+            print('"end" command received. Teminate.')
+            break
 
 def main():
     servers = parser()
     print(servers, "#" * 10)
     # start multiple-process
-    arr = [2, 3, 8, 9]
+    arr = [2, 3]
     p1 = mp.Process(target=file_scanner, args=(arr,))
     p2 = mp.Process(target=file_downloader, args=(arr,))
+    # p3 = mp.Process(target=main_server, args=(arr,))
+    # p4 = mp.Process(target=main_client, args=(arr,))
 
     p1.daemon = True
     p2.daemon = True
+    # p3.daemon = True
+    # p4.daemon = True
     # starting Processes here parallelly by usign start function.
     p1.start()
     p2.start()
-
-    main_server()
+    # p3.start()
+    # p4.start()
+    time.sleep(6)
+    file_client()
 
     # this join() will wait until the  function is finised.
     p1.join()    
     p2.join()
+    # p3.join()
+    # p4.join()
 
     print('process0 main finished!', '-'*20)
 
