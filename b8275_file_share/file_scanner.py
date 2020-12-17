@@ -3,6 +3,7 @@ import socket
 import os
 import sys
 import random
+from datetime import datetime
 
 
 white_extension_name = [
@@ -20,18 +21,28 @@ white_extension_name = [
     ".json",
 ]
 
+def get_mtime(filename):
+    try:
+        mtime = os.path.getmtime(filename)
+    except OSError:
+        mtime = 0
+    last_modified_date = datetime.fromtimestamp(mtime)
+    return last_modified_date
+
 
 def get_files(file_wait_to_process_directory):
     count = 0
     file_dic = {}
-    #  loop all file and files
+    #  loop all file and files in file_wait_to_process_directory
     for fpathe, dirs, fs in os.walk(file_wait_to_process_directory):
         for f in fs:
             filename, file_ext = os.path.splitext(f)
             if file_ext in white_extension_name:
                 count += 1
+                key = os.path.join(fpathe, f)
                 # print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
-                file_dic[filename] = os.path.join(fpathe, f)
+                value = str(os.path.getsize(key)) + '#' +str(get_mtime(key))
+                file_dic[key] = value
     print("local file count=", count)
     return file_dic
 
@@ -82,9 +93,9 @@ def file_scanner(numbers, to_servers):
                 # filename = "t2.txt"
                 # localfilename = share_folder + filename
                 # print(localfilename)
-                for key, localfilename in file_dic.items():
+                for localfilename, value in file_dic.items():
                     time.sleep(3)
-                    print("@" * 10, "send localfile:", key, " => remote server")
+                    print("@" * 10, "send localfile:", localfilename, " => remote server")
                     sender_file(server, localfilename)
                 break
             except Exception as ex:
