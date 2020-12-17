@@ -6,6 +6,32 @@ import random
 from datetime import datetime
 
 
+white_extension_name = [
+    ".pdf",
+    ".epub",
+    ".mobi",
+    ".txt",
+    ".zip",
+    ".rar",
+    ".csv",
+    ".jpg",
+    ".png",
+    ".avi",
+    ".mp4",
+    ".json",
+]
+
+
+
+def get_mtime(filename):
+    try:
+        mtime = os.path.getmtime(filename)
+    except OSError:
+        mtime = 0
+    last_modified_date = datetime.fromtimestamp(mtime)
+    return last_modified_date
+
+    
 def get_files(file_wait_to_process_directory):
     count = 0
     file_dic = {}

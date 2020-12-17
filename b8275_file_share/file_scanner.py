@@ -8,28 +8,8 @@ from datetime import datetime
 from common import get_files
 
 
-white_extension_name = [
-    ".pdf",
-    ".epub",
-    ".mobi",
-    ".txt",
-    ".zip",
-    ".rar",
-    ".csv",
-    ".jpg",
-    ".png",
-    ".avi",
-    ".mp4",
-    ".json",
-]
 
-def get_mtime(filename):
-    try:
-        mtime = os.path.getmtime(filename)
-    except OSError:
-        mtime = 0
-    last_modified_date = datetime.fromtimestamp(mtime)
-    return last_modified_date
+
 
 
 
