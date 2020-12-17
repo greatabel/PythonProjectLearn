@@ -72,6 +72,6 @@ def file_downloader(numbers):
             s.sendall("end".encode("utf-8"))
             print("File received.")
 
-            s.close()
-            c.close()
-            f.close()
+            # s.close()
+            # c.close()
+            # f.close()
