@@ -64,34 +64,7 @@ def parser():
 #             print(msg.decode('utf-8'))
 #     except:
 #         s.close()
-def file_client():
-    cmd = os.getcwd()
 
-    foldername = cmd + '/share/t1.txt'
-    print(foldername)
-    print('Trying to connect...')
-    s = socket.socket()
-    s.connect(('127.0.0.1', 1234))
-
-    print('Connected. Wating for command.')
-    while True:
-        cmd = s.recv(32).decode('utf-8')
-
-        if cmd == 'getfilename':
-            print('"getfilename" command received.')
-            s.sendall(foldername.encode('utf-8'))
-
-        if cmd == 'getfile':
-            print('"getfile" command received. Going to send file.')
-            with open(foldername, 'rb') as f:
-                data = f.read()
-            s.sendall('%16d'.encode('utf-8') % len(data))
-            s.sendall(data)
-            print('File transmission done.')
-
-        if cmd == 'end':
-            print('"end" command received. Teminate.')
-            break
 
 def main():
     servers = parser()
@@ -113,7 +86,7 @@ def main():
     # p3.start()
     # p4.start()
     time.sleep(6)
-    file_client()
+
 
     # this join() will wait until the  function is finised.
     p1.join()    
