@@ -39,7 +39,7 @@ def main_server():
     try:
         while True:
             receive_data,addr = s.recvfrom(1024)
-            print("来自服务器" + str(addr) + "的消息:")
+            print("服务器接收到" + str(addr) + "的消息:")
             print(receive_data.decode('utf-8'))
             # msg = input('please input send to msg:')
             msg = 'hello from main_server'
@@ -49,6 +49,7 @@ def main_server():
 
 
 def main_client():
+    print('main_client')
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     try:
         while True:
@@ -57,6 +58,7 @@ def main_client():
             # send_data = input('please input msg:')
             send_data = 'hello from main_client'
             s.sendto(send_data.encode('utf-8'),(host,port))
+            print('send')
             msg,addr = s.recvfrom(1024)
             print("来自服务器" + str(addr) + "的消息:")
             print(msg.decode('utf-8'))
@@ -76,7 +78,7 @@ def main():
     p1.start()
     p2.start()
 
-    main_server()
+    main_client()
 
     # this join() will wait until the  function is finised.
     p1.join()    
