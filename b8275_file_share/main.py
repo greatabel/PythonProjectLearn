@@ -72,6 +72,8 @@ def main():
     p1 = mp.Process(target=file_scanner, args=(arr,))
     p2 = mp.Process(target=file_downloader, args=(arr,))
 
+    p1.daemon = True
+    p2.daemon = True
     # starting Processes here parallelly by usign start function.
     p1.start()
     p2.start()
@@ -88,8 +90,9 @@ def main():
 if __name__ == "__main__":
     main()
     """
-    调用示例：
+    if have 3 servers：
     python3 main.py --ip 192.168.0.1,192.168.0.2 --encryption yes
+
     on osx:
     python3 main.py --ip 10.248.10.117 --encryption yes
     on ubuntu server:

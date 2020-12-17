@@ -54,7 +54,10 @@ def main_client():
     try:
         while True:
             host = socket.gethostname()
+            
+            host = '10.248.10.117'
             port = 8088
+            print('host=', host)
             # send_data = input('please input msg:')
             send_data = 'hello from main_client'
             s.sendto(send_data.encode('utf-8'),(host,port))
