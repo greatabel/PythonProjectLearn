@@ -1,6 +1,8 @@
 import time
 import socket
 import os
+import random
+
 
 def sender_file(server):
     share_folder = os.getcwd() + '/share/'
