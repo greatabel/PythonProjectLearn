@@ -35,36 +35,36 @@ def main_server():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     host = socket.gethostname()
     port = 8088
-    s.bind((host,port))
+    s.bind((host, port))
     try:
         while True:
-            receive_data,addr = s.recvfrom(1024)
+            receive_data, addr = s.recvfrom(1024)
             print("服务器接收到" + str(addr) + "的消息:")
-            print(receive_data.decode('utf-8'))
+            print(receive_data.decode("utf-8"))
             # msg = input('please input send to msg:')
-            msg = 'hello from main_server'
-            s.sendto(msg.encode('utf-8'),addr)
+            msg = "hello from main_server"
+            s.sendto(msg.encode("utf-8"), addr)
     except:
         s.close()
 
 
 def main_client():
-    print('main_client')
-    s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    print("main_client")
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         while True:
             host = socket.gethostname()
-            
-            host = '10.248.10.117'
+
+            host = "10.248.10.117"
             port = 8088
-            print('host=', host)
+            print("host=", host)
             # send_data = input('please input msg:')
-            send_data = 'hello from main_client'
-            s.sendto(send_data.encode('utf-8'),(host,port))
-            print('send')
-            msg,addr = s.recvfrom(1024)
+            send_data = "hello from main_client"
+            s.sendto(send_data.encode("utf-8"), (host, port))
+            print("send")
+            msg, addr = s.recvfrom(1024)
             print("来自服务器" + str(addr) + "的消息:")
-            print(msg.decode('utf-8'))
+            print(msg.decode("utf-8"))
     except:
         s.close()
 
@@ -84,10 +84,10 @@ def main():
     main_client()
 
     # this join() will wait until the  function is finised.
-    p1.join()    
+    p1.join()
     p2.join()
 
-    print('process0 main finished!', '-'*20)
+    print("process0 main finished!", "-" * 20)
 
 
 if __name__ == "__main__":

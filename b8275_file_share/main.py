@@ -87,14 +87,13 @@ def main():
     # p4.start()
     time.sleep(6)
 
-
     # this join() will wait until the  function is finised.
-    p1.join()    
+    p1.join()
     p2.join()
     # p3.join()
     # p4.join()
 
-    print('process0 main finished!', '-'*20)
+    print("process0 main finished!", "-" * 20)
 
 
 if __name__ == "__main__":
