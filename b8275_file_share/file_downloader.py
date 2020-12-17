@@ -16,9 +16,10 @@ def file_downloader(numbers):
     c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     c.bind(("", 1234))
     c.listen(1)
-    s, a = c.accept()
+
 
     while True:
+        s, a = c.accept()
         print("Connected. Going to receive file.")
         s.sendall("getfilename".encode("utf-8"))
         filename = s.recv(1024).decode("utf-8")
