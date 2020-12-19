@@ -37,30 +37,32 @@ def sender_file(server, localfilename):
 
 
 def file_scanner(numbers, to_servers):
-    print("process1 file_scanner", "-" * 20)
-    print(to_servers)
-    share_folder = os.getcwd() + "/share/"
-    file_dic = get_files(share_folder)
-    print(file_dic)
+    while True:
 
-    for server in to_servers:
-        # we will reconect 5 times
-        for i in range(5):
-            try:
-                sleeptime = random.uniform(0, 0.5)
-                time.sleep(sleeptime)
+        print("process1 file_scanner", "-" * 20)
+        print(to_servers)
+        share_folder = os.getcwd() + "/share/"
+        file_dic = get_files(share_folder)
+        print(file_dic)
 
-                # share_folder = os.getcwd() + "/share/"
+        for server in to_servers:
+            # we will reconect 5 times
+            for i in range(5):
+                try:
+                    sleeptime = random.uniform(0, 0.5)
+                    time.sleep(sleeptime)
 
-                # filename = "t2.txt"
-                # localfilename = share_folder + filename
-                # print(localfilename)
-                for localfilename, value in file_dic.items():
-                    time.sleep(3)
-                    print("@" * 10, "send localfile:", localfilename, " => remote server")
-                    sender_file(server, localfilename)
-                break
-            except Exception as ex:
-                print("Unexpected error in file_scanner:", sys.exc_info()[0], "ex=", ex)
-        else:
-            print("try 5 times file_scanner")
+                    # share_folder = os.getcwd() + "/share/"
+
+                    # filename = "t2.txt"
+                    # localfilename = share_folder + filename
+                    # print(localfilename)
+                    for localfilename, value in file_dic.items():
+                        time.sleep(3)
+                        print("@" * 10, "send localfile:", localfilename, " => remote server")
+                        sender_file(server, localfilename)
+                    break
+                except Exception as ex:
+                    print("Unexpected error in file_scanner:", sys.exc_info()[0], "ex=", ex)
+            else:
+                print("try 5 times file_scanner")

@@ -75,8 +75,9 @@ def file_downloader(numbers):
                     f.write(data)
                     # print(len(recvd))
                 break
-            s.sendall("end".encode("utf-8"))
             print("File received.")
+        s.sendall("end".encode("utf-8"))
+            
 
             # s.close()
             # c.close()
