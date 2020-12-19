@@ -14,6 +14,12 @@ def file_downloader(numbers):
 
     print("Waiting for clinet to connect...")
     c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    '''
+    c.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1) 
+    这里value设置为1，表示将SO_REUSEADDR标记为TRUE，
+    操作系统会在服务器socket被关闭或服务器进程终止后马上释放该服务器的端口，否则操作系统会保留几分钟该端口
+    '''
+    c.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
     c.bind(("", 1234))
     c.listen(1)
 

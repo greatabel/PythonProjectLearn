@@ -108,7 +108,7 @@ if __name__ == "__main__":
     on osx:
     python3 main.py --ip 10.248.10.117 --encryption yes
     on ubuntu server:
-    python3 main.py --ip 10.248.32.252 --encryption yes
+    python3 main.py --ip 10.248.33.4 --encryption yes
 
     at home:
     on osx:
