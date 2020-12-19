@@ -29,11 +29,11 @@ def file_downloader(numbers):
         s, a = c.accept()
         print("Connected. Going to receive file.")
         s.sendall("getfilename".encode("utf-8"))
-        filename = s.recv(1024).decode("utf-8")
+        received_filename = s.recv(1024).decode("utf-8")
 
-        name_value_split_index = filename.find("###")
-        filename = filename[:name_value_split_index]
-        received_file_value = filename[name_value_split_index+3:]
+        name_value_split_index = received_filename.find("###")
+        filename = received_filename[:name_value_split_index]
+        received_file_value = received_filename[name_value_split_index+3:]
         print('*-*'*5, filename, received_file_value)
 
         # check local share , replace remote server share folder
@@ -48,7 +48,7 @@ def file_downloader(numbers):
         file_dic = get_files(share_folder)
         print(file_dic)
 
-        if filename in file_dic:
+        if (filename in file_dic ) and file_dic[filename] == received_file_value:
             print(filename, ' already existed in local.')
         else:
 
