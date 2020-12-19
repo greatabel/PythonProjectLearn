@@ -59,8 +59,8 @@ def file_scanner(numbers, to_servers):
                     # print(localfilename)
                     for localfilename, value in file_dic.items():
                         time.sleep(3)
-                        print("@" * 10, "send localfile:", localfilename, " => remote server")
-                        sender_file(server, localfilename)
+                        print("@" * 10, "send localfile:", localfilename+"###"+value, " => remote server")
+                        sender_file(server, localfilename+"###"+value)
                     break
                 except Exception as ex:
                     print("Unexpected error in file_scanner:", sys.exc_info()[0], "ex=", ex)

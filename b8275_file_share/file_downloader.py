@@ -17,7 +17,8 @@ def file_downloader(numbers):
     '''
     c.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1) 
     这里value设置为1，表示将SO_REUSEADDR标记为TRUE，
-    操作系统会在服务器socket被关闭或服务器进程终止后马上释放该服务器的端口，否则操作系统会保留几分钟该端口
+    操作系统会在服务器socket被关闭或服务器进程终止后马上释放该服务器的端口，
+    否则操作系统会保留几分钟该端口
     '''
     c.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
     c.bind(("", 1234))
@@ -30,6 +31,11 @@ def file_downloader(numbers):
         s.sendall("getfilename".encode("utf-8"))
         filename = s.recv(1024).decode("utf-8")
 
+        name_value_split_index = filename.find("###")
+        filename = filename[:name_value_split_index+3]
+        received_file_value = filename[name_value_split_index+3:]
+        print('*-*', filename, received_file_value)
+        
         # check local share , replace remote server share folder
         share_index = filename.find("/share/")
         after = filename[share_index + 7 :]
