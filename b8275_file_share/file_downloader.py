@@ -32,7 +32,7 @@ def file_downloader(numbers):
         filename = s.recv(1024).decode("utf-8")
 
         name_value_split_index = filename.find("###")
-        filename = filename[:name_value_split_index+3]
+        filename = filename[:name_value_split_index]
         received_file_value = filename[name_value_split_index+3:]
         print('*-*'*5, filename, received_file_value)
 
