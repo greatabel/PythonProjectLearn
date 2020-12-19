@@ -49,7 +49,8 @@ def file_scanner(numbers, to_servers):
             # we will reconect 5 times
             for i in range(5):
                 try:
-                    sleeptime = random.uniform(0, 0.5)
+                    sleeptime = random.uniform(0.5, 1)
+                    print('scan folder after:', sleeptime, ' seconds')
                     time.sleep(sleeptime)
 
                     # share_folder = os.getcwd() + "/share/"
