@@ -50,7 +50,7 @@ def file_downloader(numbers):
 
         if (filename in file_dic ) and file_dic[filename] == received_file_value:
             print(filename, ' already existed in local.')
-        elif received_file_value == 0:
+        elif int(received_file_value) == 0:
             print('remove file is empty')
         else:
 
