@@ -34,8 +34,8 @@ def file_downloader(numbers):
         name_value_split_index = filename.find("###")
         filename = filename[:name_value_split_index+3]
         received_file_value = filename[name_value_split_index+3:]
-        print('*-*', filename, received_file_value)
-        
+        print('*-*'*5, filename, received_file_value)
+
         # check local share , replace remote server share folder
         share_index = filename.find("/share/")
         after = filename[share_index + 7 :]

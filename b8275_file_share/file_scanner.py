@@ -9,7 +9,7 @@ from common import get_files
 
 
 
-def sender_file(server, localfilename):
+def sender_file(server, localfilename, filevalue):
 
     print("Trying to connect...")
     s = socket.socket()
@@ -21,7 +21,7 @@ def sender_file(server, localfilename):
 
         if cmd == "getfilename":
             print('"getfilename" command received.')
-            s.sendall(localfilename.encode("utf-8"))
+            s.sendall( (localfilename + "###"+ filevalue).encode("utf-8"))
 
         if cmd == "getfile":
             print('"getfile" command received. Going to send file.')
@@ -59,8 +59,8 @@ def file_scanner(numbers, to_servers):
                     # print(localfilename)
                     for localfilename, value in file_dic.items():
                         time.sleep(3)
-                        print("@" * 10, "send localfile:", localfilename+"###"+value, " => remote server")
-                        sender_file(server, localfilename+"###"+value)
+                        print("@" * 10, "send localfile:", localfilename, " => remote server")
+                        sender_file(server, localfilename, value)
                     break
                 except Exception as ex:
                     print("Unexpected error in file_scanner:", sys.exc_info()[0], "ex=", ex)

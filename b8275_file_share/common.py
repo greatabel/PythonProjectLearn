@@ -43,7 +43,8 @@ def get_files(file_wait_to_process_directory):
                 count += 1
                 key = os.path.join(fpathe, f)
                 # print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
-                value = str(os.path.getsize(key)) + '#' +str(get_mtime(key))
+                value = str(os.path.getsize(key))
+                # value = str(os.path.getsize(key)) + '#' +str(get_mtime(key))
                 file_dic[key] = value
     print("local file count=", count)
     return file_dic
