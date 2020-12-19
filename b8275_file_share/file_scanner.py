@@ -50,7 +50,7 @@ def file_scanner(numbers, to_servers):
             for i in range(5):
                 try:
                     sleeptime = random.uniform(0.5, 1)
-                    print('scan folder after:', sleeptime, ' seconds')
+                    print('scan folder after:', round(sleeptime,3), ' seconds')
                     time.sleep(sleeptime)
 
                     # share_folder = os.getcwd() + "/share/"

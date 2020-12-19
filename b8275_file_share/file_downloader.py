@@ -48,12 +48,13 @@ def file_downloader(numbers):
         file_dic = get_files(share_folder)
         print(file_dic)
 
-        if (filename in file_dic ) and file_dic[filename] == received_file_value:
+        if (filename in file_dic ) and file_dic[filename] == received_file_value \
+            and int(file_dic[filename]) != 0:
             print(filename, ' already existed in local.')
         elif int(received_file_value) == 0:
-            print('remove file is empty')
+            print('remote file is empty')
         else:
-
+            print(filename, ' >>>')
             if "/" in filename:
                 dir = os.path.dirname(filename)
                 try:
