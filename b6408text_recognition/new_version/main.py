@@ -28,6 +28,7 @@ import numpy as np
 import argparse
 import glob
 from common import crop_rect, average_color
+import time
 
 
 def normalization(data):
@@ -91,7 +92,7 @@ def findTextRegion(origin_img, frame):
     for c in contours:
 
         x, y, w, h = cv2.boundingRect(c)
-        print("w,h=", w, h)
+        # print("w,h=", w, h)
         """
         if w>5 and h>10:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),5)
@@ -182,7 +183,7 @@ def DCT_transfrom(img):
     return img_dct, energy_img.astype(np.uint8)
 
 
-def image_process(path):
+def image_process(path, debug):
     data_path = os.path.join(path, "*")
     filenames = glob.glob(data_path)
     filenames.sort()
@@ -196,7 +197,7 @@ def image_process(path):
         frame = cv2.resize(frame, (1024, 768))
         # frame = img_crop(frame, patch_size=16)
         # cv2.imshow("frame",frame)
-        # cv2.waitKey(0)
+        
         img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # img_gray = np.float32(img_gray)
         # cv2.imshow("img_gray",img_gray)
@@ -218,8 +219,9 @@ def image_process(path):
             cv2.THRESH_OTSU + cv2.THRESH_BINARY,
         )
         """
-        cv2.imshow("binary", binary)
-        cv2.waitKey(0)
+        # cv2.imshow("binary", binary)
+        # cv2.waitKey(0)
+
         # cv2.imwrite(r"./save_png/01binary.png", binary)
 
         # 平滑滤波
@@ -241,7 +243,7 @@ def image_process(path):
             rect = cv2.minAreaRect(box)
             im_crop, img_rot = crop_rect(frame, rect)
             # cv2.imshow("cropped_box", im_crop)
-            cv2.waitKey(0)
+            # cv2.waitKey(0)
             # -- end   11.29 --
 
             # -- start 11.30 --
@@ -267,14 +269,36 @@ def image_process(path):
             dilation_img = preprocess(energy_img_blur)
             dominant_colorname = average_color(dilation_img)
 
-            cv2.imshow("dilation_img", dilation_img)
-            cv2.imwrite("save_png/box_index" + str(box_index) + ".png", dilation_img)
+            # cv2.imshow("dilation_img", dilation_img)
+            cv2.imwrite("save_png/" + str(count).rjust(5, "0") + '_box_index' + str(box_index) + ".png", dilation_img)
             box_index += 1
             # -- end 11.30 ---
-            if dominant_colorname == "white":
-                cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+            if dominant_colorname == "white" :
+                # print('box_index', box_index, box)
+                height = abs(box[0][1] - box[2][1])
+                width = abs(box[0][0] - box[2][0])
+
+                print(">"*10, " height, width=", height, width)
+                # get rid of Oblique rectangle, count = 17
+                if width < 300 and width != 181:
+
+                    cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+                    print('box=', box, type(box))
+
+            if debug == True and count in (1, 2, 3, 4, 15):
+                mybox = np.zeros(shape=(4,2), dtype=np.int)
+                mybox[0] = [910, 623]
+                mybox[1] = [674, 617]
+                mybox[2] = [685, 232]
+                mybox[3] = [921, 239]
+                print('mybox=', mybox, type(mybox))
+                cv2.drawContours(frame, [mybox], 0, (0, 255, 0), 2)
         cv2.imshow("frame", frame)
-        cv2.waitKey(0)
+        # let the frame wait 2 seconds to disapear
+        cv2.waitKey(2)
+
+        # time.sleep(3)
+        # cv2.waitKey(0)
         # cv2.imshow('image' , np.array(frame, dtype = np.uint8 ) )
         cv2.imwrite(r"./save_png/" + str(count).rjust(5, "0") + ".png", frame)
         count += 1
@@ -294,10 +318,14 @@ if __name__ == "__main__":
         default="/",
         help="absolute path of folder needed to process",
     )
+    parser.add_argument('--debug', type=bool, default=False,
+                        help='use debug mode')
+
     args = parser.parse_args()
     p_type = args.type
     p_folder = args.folder
+    debug = args.debug
     print(p_type, p_folder, "#" * 10)
 
     if p_type == "image":
-        image_process(p_folder)
+        image_process(p_folder, debug)

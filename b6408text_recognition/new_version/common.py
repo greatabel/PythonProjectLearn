@@ -47,5 +47,5 @@ def average_color(crop_img):
         dominant_color = kmeans.cluster_centers_.astype(np.int32)[0]
         colorname = closest_colour(dominant_color)
 
-        print(dominant_color, colorname)
+        # print(dominant_color, colorname)
     return colorname
