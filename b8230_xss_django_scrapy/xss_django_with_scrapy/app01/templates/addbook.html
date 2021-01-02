@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>书籍展示</h1>
+<h1>订阅网站籍展示</h1>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -15,19 +15,19 @@
 
                 {% csrf_token %}
               <div class="form-group">
-                <label for="title">书名</label>
-                <input type="text" class="form-control" id="title" placeholder="书名" name="title">
+                <label for="title">订阅网站名</label>
+                <input type="text" class="form-control" id="title" placeholder="订阅网站名" name="title">
               </div>
                 <div class="form-group">
                 <label for="price">价格</label>
-                <input type="text" class="form-control" id="price" placeholder="价格" name="price">
+                <input type="text" class="form-control" id="price" placeholder="订阅价格" name="price" value=0>
               </div>
                 <div class="form-group">
-                <label for="publishDate">出版日期</label>
+                <label for="publishDate">订阅日期</label>
                 <input type="date" class="form-control" id="publishDate" name="publishDate">
               </div>
                 <div class="form-group">
-                <label for="title">出版社</label>
+                <label for="title">网站网址</label>
                     <select name="publishs_id" id="publishs" class="form-control">
                         {% for publish in all_publish %}
                             <option value="{{ publish.id }}">{{ publish.name }}</option>
@@ -35,7 +35,7 @@
                     </select>
               </div>
                 <div class="form-group">
-                <label for="title">书名</label>
+                <label for="title">订阅网站详情</label>
                 <select name="authors" id="authors" multiple class="form-control">
                         {% for author in all_authors %}
                             <option value="{{ author.id }}">{{ author.name }}</option>
