@@ -19,7 +19,9 @@ NEWSPIDER_MODULE = 'scrapy_securityweb.spiders'
 #USER_AGENT = 'scrapy_securityweb (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+
+FEED_EXPORT_ENCODING = 'utf-8'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
