@@ -1,8 +1,8 @@
 import scrapy
 
-class BooksSpider(scrapy.Spider):
+class SecurityWebSpider(scrapy.Spider):
 
-    name = 'books'
+    name = 'securityweb'
     # start_urls = ['https://www.cert.org.cn/publish/main/9/index.html']
     start_urls = ['http://books.toscrape.com/']
     def parse(self, response):
