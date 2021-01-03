@@ -6,37 +6,35 @@
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>安全网站订阅展示</h1>
+<h1>安全网站订阅信息展示</h1>
 
 
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{% url 'addbook' %}" class="btn btn-primary">添加安全网站订阅</a>
-            <a href="{% url 'show_info_list' %}" class="btn btn-warning">查看订阅网站信息列表</a>
+
             <table class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>序号</th>
-                    <th>订阅网站名</th>
-                    <th>订阅日期</th>
+                    <th>标题</th>
+                    <th>url</th>
 
-                    <th>操作</th>
+
                 </tr>
                 </thead>
                 <tbody>
 
-                {% for book_obj in book_objs %}
+                {% for book_obj in mylist %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ book_obj.title }}</td>
-                        <td>{{ book_obj.publishDate|date:'Y-m-d' }}</td>
-  
+                        <td>{{ book_obj.0 }}</td>
                         <td>
-                            <a href="{% url 'editbook' book_obj.pk %}" class="btn btn-warning">编辑</a>
-                            <a href="{% url 'delbook' %}?book_id={{ book_obj.pk }}" class="btn btn-danger">删除</a>
-                            <button book_id="{{ book_obj.pk }}" class="btn btn-danger ajaxbtn" >ajax删除</button>
+                            <a href="{{ book_obj.1 }} ">{{ book_obj.1 }} </a>
                         </td>
+
+  
+             
                     </tr>
                 {% endfor %}
                 </tbody>

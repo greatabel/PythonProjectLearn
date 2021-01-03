@@ -15,6 +15,7 @@ urlpatterns = [
     url(r"^delbook/$", views.delbook,name="delbook"),
     url(r"^editbook/(\d+)/$", views.editbook,name="editbook"),
 
+    url(r"^show_info_list/$", views.show_info_list,name="show_info_list"),
 
 
 ]

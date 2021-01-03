@@ -32,9 +32,10 @@ class User(models.Model):
 	注意：这里的用户名指的是网络上注册的用户名，不要等同于现实中的真实姓名，所以采用了唯一机制。
 	如果是现实中的人名，那是可以重复的，肯定是不能设置unique的。另外关于密码，建议至少128位长度。
 	'''
+	
 class Author(models.Model):
 	"""
-	作者表
+
 	"""
 	gender = (
 		('male',"男"),
@@ -54,7 +55,7 @@ class Author(models.Model):
 
 class AuthorDetail(models.Model):
 	"""
-	作者详细信息表
+
 	"""
 	birthday = models.DateField()
 	telephone = models.CharField(max_length=11)
@@ -65,7 +66,7 @@ class AuthorDetail(models.Model):
 
 class Publish(models.Model):
 	"""
-	出版社表
+	发布表
 	"""
 	name=models.CharField( max_length=32)
 	city=models.CharField( max_length=32)
@@ -74,7 +75,7 @@ class Publish(models.Model):
 
 class Book(models.Model):
 	"""
-	书籍表
+	订阅表
 	"""
 	title = models.CharField(max_length=32)
 	publishDate = models.DateField()

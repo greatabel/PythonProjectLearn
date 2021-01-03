@@ -5,6 +5,8 @@ import datetime
 from django.conf import settings
 import hashlib
 from django.http import JsonResponse
+from app01 import common
+
 
 def hash_code(s, salt='mysite'):
     h = hashlib.sha256()
@@ -130,6 +132,18 @@ def showbooks(request):
 		return redirect('/login/')
 	book_objs = models.Book.objects.all()
 	return render(request,'showbooks.html',{'book_objs':book_objs})
+
+
+def show_info_list(request):
+	if not request.session.get("is_login",None):
+		return redirect('/login/')
+	mylist = common.csv_reader('securitywebs.csv', 
+		'/Users/abel/Downloads/AbelProject/PythonProjectLearn/b8230_xss_django_scrapy/scrapy_securityweb')
+	print('mylist=', mylist)
+	# info_objs = models.Book.objects.all()
+	# return render(request,'show_info_list.html',{'info_objs':info_objs})
+	return render(request,'show_info_list.html',{'mylist':mylist[1:]})
+
 
 def addbook(request):
 	"""

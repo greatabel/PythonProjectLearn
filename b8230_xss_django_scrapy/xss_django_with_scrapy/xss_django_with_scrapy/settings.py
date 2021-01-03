@@ -71,7 +71,7 @@ DATABASES = {
         'NAME': 'xss_django',  # 数据库名，先前创建的
         'USER': 'root',     # 用户名，可以自己创建用户
         'PASSWORD': environ.get('MYSQLCONNSTR_DB_PWD', ''),  # 密码, 本机我设置为空
-        'HOST': 'localhost',  # mysql服务所在的主机ip
+        'HOST': '127.0.0.1',  # mysql服务所在的主机ip
         'PORT': '3306',         # mysql服务端口
         'OPTIONS': {
             'charset': 'utf8mb4'  # This is the important line
