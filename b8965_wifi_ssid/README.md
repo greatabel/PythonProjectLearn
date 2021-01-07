@@ -37,7 +37,9 @@ source movie-env/bin/activate
 
 3.
 然后进入 文件夹，运行：
-python3 manage.py runserver
+export FLASK_APP=i1flask_api.py
+export FLASK_ENV=development
+python3 -m flask run
 
 在浏览器中通过访问：http://127.0.0.1:5000/ 查看效果
 
