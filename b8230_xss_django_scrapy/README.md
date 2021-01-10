@@ -21,7 +21,7 @@ source movie-env/bin/activate
 
 
 <!-- 2. 
-pip3 install -r requirements.txt -->
+pip3 install -r requirements.txt -i http://pypi.douban.com/simple/ -->
 
 
 
@@ -41,3 +41,9 @@ python3 manage.py runserver
 
 在浏览器中通过访问：http://127.0.0.1:5000/ 查看效果
 
+
+osx虚拟机：123456
+tv 688348944
+ps  467jnv
+
+mysql   Asd45678
