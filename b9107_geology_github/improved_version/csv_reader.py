@@ -1,5 +1,6 @@
 def csv_reader(filename):
-    with open("data1.csv") as file1:
+    # print(filename, 'in csv_reader')
+    with open(filename) as file1:
         lines1 = file1.readlines()
         data1 = []
         for line in lines1:

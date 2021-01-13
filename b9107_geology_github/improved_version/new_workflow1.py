@@ -1,8 +1,5 @@
 from math import *
 from csv_reader import csv_reader
-# read sample files
-
-
 
 
 def sample_difference(data1, data2, w):
@@ -15,17 +12,19 @@ def sample_difference(data1, data2, w):
         results.append(s)
     return results
 
-data1 = csv_reader('data1.csv')
-data2 = csv_reader('data2.csv')
-w =  csv_reader('weights.csv')[0]
 
-results = sample_difference(data1, data2, w)
-# print('results=', results)
-critical = 0
-for i in range(len(results)):
-    if results[i] > 5:
-        critical = critical + 1
-if critical == 1:
-    print("criticality: 1 result above 5")
-else:
-    print("criticality:", critical, "results above 5")
+if __name__ == "__main__":
+    data1 = csv_reader("data1.csv")
+    data2 = csv_reader("data2.csv")
+    w = csv_reader("weights.csv")[0]
+    # print(data1, data2, w)
+    results = sample_difference(data1, data2, w)
+    # print('results=', results)
+    critical = 0
+    for i in range(len(results)):
+        if results[i] > 5:
+            critical = critical + 1
+    if critical == 1:
+        print("criticality: 1 result above 5")
+    else:
+        print("criticality:", critical, "results above 5")

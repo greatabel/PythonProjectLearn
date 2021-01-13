@@ -28,6 +28,8 @@ with open("weights.csv") as filew:
     for n in linew.split(","):
         w.append(float(n.strip()))
 
+print(data1, data2, w)
+
 results = []
 for i in range(len(data1)):
     s = 0
