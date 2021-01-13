@@ -34,6 +34,7 @@ for i in range(len(data1)):
         s += w[j] * abs(d)
     results.append(s)
 
+# print('results=', results)
 critical = 0
 for i in range(len(results)):
     if results[i] > 5:
