@@ -9,26 +9,33 @@ print("-*-" * 10)
 data2019 = csv_reader("2019file.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
+
+
 print('-'*10, 'tweets:')
 print(data2020[1][10], '\n', '#'*10, '\n', data2019[1][10])
 
 
-print("1. Heat comparison")
+print("\n1. Heat comparison")
 print(len(data2020), " VS ", len(data2019))
 
+data2020full = csv_reader("2020_total_file.csv", "data")
 
-print('2. sentiment anlaysis')
+print('\n2. sentiment anlaysis')
 total_sentiment = 0
 
 num_positive = 0
 num_neural = 0
 num_nagtive = 0
 
-pick_twlist = data2020[0::10]
+unwanted_chars = ".,-_ ()’"
+wordfreq = {}
+
+split = 1001
+pick_twlist = data2020full[0::split]
 for tw in pick_twlist:
     text = tw[10]
     print(text, '\n')
-    sentiment_tw = anlaysis(text)
+    words, sentiment_tw = anlaysis(text)
     print(sentiment_tw)
     total_sentiment += sentiment_tw
     if sentiment_tw < 0:
@@ -37,7 +44,21 @@ for tw in pick_twlist:
         num_neural += 1
     if sentiment_tw > 0:
         num_positive += 1
+    # print('words=', words)
+    for raw_word in words:
+        word = raw_word.strip(unwanted_chars)
+        if word not in wordfreq:
+            wordfreq[word] = 0 
+        wordfreq[word] += 1
 
 print('tatal sentiment polarity:', total_sentiment)
 print('everaget sentiment polarity:', total_sentiment/len(pick_twlist))
-print('number of (positive VS neural VS nagtive):', num_positive, num_neural, num_nagtive)
+print('number of (positive VS neural VS nagtive):', 
+        num_positive*split, num_neural*split, num_nagtive*split)
+
+print('\n 3. Related words related to this topic')
+# print(wordfreq)
+a1_sorted_keys = sorted(wordfreq, key=wordfreq.get, reverse=True)
+for r in a1_sorted_keys:
+    if wordfreq[r] > 1:
+        print(r, wordfreq[r])
