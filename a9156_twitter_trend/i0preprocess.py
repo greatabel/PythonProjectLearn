@@ -14,8 +14,16 @@ print("-" * 10, "tweets:")
 print(data2020[1][10], "\n", "#" * 10, "\n", data2019[1][10])
 
 
+js_txt = '''
+
+var DATA = {
+'''
+
 print("\n1. Heat comparison")
 print(len(data2020), " VS ", len(data2019))
+
+compare_txt = "'data2020':" + str(len(data2020)) + ", 'data2019':" + str(len(data2019))
+js_txt += compare_txt
 
 data2020full = csv_reader("2020_total_file.csv", "data")
 
@@ -77,3 +85,10 @@ a2_sorted_keys = sorted(usernamefreq, key=usernamefreq.get, reverse=True)
 for r in a2_sorted_keys:
     if usernamefreq[r] > 1:
         print(r, usernamefreq[r])
+
+js_txt += " };"
+# write to a local js file , let d3 do data-visual
+with open("data_visualization/data.js", 'w') as file:
+    file.write(js_txt.strip())
+
+
