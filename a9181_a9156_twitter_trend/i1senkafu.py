@@ -36,7 +36,8 @@ num_neural = 0
 num_nagtive = 0
 
 unwanted_chars = ".,-_ ()’'"
-black_list = ["sea https", "s", "u.s"]
+black_list = ["//t.co/daqs0qh2wb #", "# #", 
+    "[ auto ]", "//t.co/tgzew5at0r https", "s territory"]
 wordfreq = {}
 
 usernamefreq = {}
@@ -46,7 +47,7 @@ pick_twlist = data2020full[0::split]
 for tw in pick_twlist:
     text = tw[10]
     username = tw[8]
-    print(text, "\n@@@username=", username, "\n")
+    # print(text, "\n@@@username=", username, "\n")
     words, sentiment_tw = anlaysis(text)
     print(sentiment_tw)
     total_sentiment += sentiment_tw
@@ -119,7 +120,7 @@ for r in a2_sorted_keys:
 js_txt += " };"
 
 # write to a local js file , let d3 do data-visual
-with open("data_visualization/data.js", 'w') as file:
+with open("data_visualization/senkufu.js", 'w') as file:
     file.write(js_txt.strip())
 
 
