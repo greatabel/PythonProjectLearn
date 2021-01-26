@@ -197,7 +197,7 @@ def image_process(path, debug):
         frame = cv2.resize(frame, (1024, 768))
         # frame = img_crop(frame, patch_size=16)
         # cv2.imshow("frame",frame)
-        
+
         img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # img_gray = np.float32(img_gray)
         # cv2.imshow("img_gray",img_gray)
@@ -270,28 +270,35 @@ def image_process(path, debug):
             dominant_colorname = average_color(dilation_img)
 
             # cv2.imshow("dilation_img", dilation_img)
-            cv2.imwrite("save_png/" + str(count).rjust(5, "0") + '_box_index' + str(box_index) + ".png", dilation_img)
+            cv2.imwrite(
+                "save_png/"
+                + str(count).rjust(5, "0")
+                + "_box_index"
+                + str(box_index)
+                + ".png",
+                dilation_img,
+            )
             box_index += 1
             # -- end 11.30 ---
-            if dominant_colorname == "white" :
+            if dominant_colorname == "white":
                 # print('box_index', box_index, box)
                 height = abs(box[0][1] - box[2][1])
                 width = abs(box[0][0] - box[2][0])
 
-                print(">"*10, " height, width=", height, width)
+                print(">" * 10, " height, width=", height, width)
                 # get rid of Oblique rectangle, count = 17
                 if width < 300 and width != 181:
 
                     cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
-                    print('box=', box, type(box))
+                    print("box=", box, type(box))
 
-            if debug == True and count in (0, 1, 2, 3, 4, 15):
-                mybox = np.zeros(shape=(4,2), dtype=np.int)
+            if debug == True and count in (0, 1, 2, 3, 4, 15, 16, 17):
+                mybox = np.zeros(shape=(4, 2), dtype=np.int)
                 mybox[0] = [910, 623]
                 mybox[1] = [674, 617]
                 mybox[2] = [685, 232]
                 mybox[3] = [921, 239]
-                print('mybox=', mybox, type(mybox))
+                print("mybox=", mybox, type(mybox))
                 cv2.drawContours(frame, [mybox], 0, (0, 255, 0), 2)
         cv2.imshow("frame", frame)
         # let the frame wait 2 seconds to disapear
@@ -318,8 +325,7 @@ if __name__ == "__main__":
         default="/",
         help="absolute path of folder needed to process",
     )
-    parser.add_argument('--debug', type=bool, default=False,
-                        help='use debug mode')
+    parser.add_argument("--debug", type=bool, default=False, help="use debug mode")
 
     args = parser.parse_args()
     p_type = args.type
