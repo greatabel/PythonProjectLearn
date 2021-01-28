@@ -39,3 +39,14 @@ print(f)
 print('\n数据排序')
 g = data.sort_values(by='c2', ascending=False)
 print(g)
+
+print('---数据运算---')
+data['c4'] = data['c3'] - data['c1']
+print(data)
+
+print('--数据删除--')
+a1 = data.drop(columns='c1')
+print(a1)
+b1 = data.drop(index=['r1', 'r3'])
+print(b1)
+
