@@ -23,3 +23,19 @@ print('选取多列：\n', c)
 print('-----按行选取------')
 d = data[1:3]
 print('选取第2～3行的数据，注意序号从0开始，左闭右开=>\n', d)
+
+d1 = data.iloc[1:3]
+print("data.iloc[1:3]=", d1)
+
+print('区块选择')
+e = data[ ['c1', 'c3'] ][0:2]
+e1 = data[ ['c1', 'c3'] ].iloc[0:2]
+print(e, '\n', e1)
+
+print('数据筛选')
+f = data[data['c1'] > 1]
+print(f)
+
+print('\n数据排序')
+g = data.sort_values(by='c2', ascending=False)
+print(g)
