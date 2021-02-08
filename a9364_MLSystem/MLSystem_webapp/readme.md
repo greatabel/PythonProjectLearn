@@ -21,5 +21,11 @@ pip3 install -r requirements.txt
 3.
 python3 wsgi.py
 
-4. 
+4.
+在命令行中来到MLSystem_webapp的平级目录，然后执行：
+jupyter notebook pricepredict.ipynb 
+
+5. 
 浏览器访问首页: http://127.0.0.1:5000/home
+
+
