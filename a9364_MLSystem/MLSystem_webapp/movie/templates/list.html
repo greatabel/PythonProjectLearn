@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
+</head>
+
+<body>
+	<div>
+	
+<span class = "label label-primary">已经上传成功的数据集列表如下:</span>
+	</div>
+
+    {% for file in files %}
+    <a href="{{ url_for('file_download', filename=file) }}">{{ file }}</a><br/>
+    {% endfor %}
+</body>
+
+</html>
