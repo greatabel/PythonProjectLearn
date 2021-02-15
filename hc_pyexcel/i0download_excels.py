@@ -6,9 +6,11 @@ import imaplib, email, os
 from datetime import datetime
 from email.header import decode_header
 
+# 抓取分析多少封邮件
+N = 5
+
 # https://zhuanlan.zhihu.com/p/94943212
 def fetch_attachment(inputmail):
-    print(inputmail, ' fetching')
     #提取了指定编号（最新一封）的邮件
     resp, data = conn.fetch (inputmail.split()[len(inputmail.split())-1],'(RFC822)')
     emailbody = data[0][1]
@@ -22,11 +24,11 @@ def fetch_attachment(inputmail):
         if part.get('Content-Disposition') is None:
             continue
         fileName = part.get_filename() 
-        
+
     #如果文件名为纯数字、字母时不需要解码，否则需要解码
         try:
             fileName = decode_header(fileName)[0][0].decode(decode_header(fileName)[0][1])
-            print(fileName, '#'*10)
+            # print(fileName, '#'*10)
         except:
             pass
     #如果获取到了文件，则将文件保存在制定的目录下
@@ -41,6 +43,7 @@ def fetch_attachment(inputmail):
                 print("附件已经下载，文件名为：" + fileName)
             else:
                 print("附件已经存在，文件名为：" + fileName)
+
 
 if __name__ == "__main__":
     path = os.getcwd()
@@ -66,15 +69,20 @@ if __name__ == "__main__":
 
     resp, mails = conn.select("INBOX")
     print(resp, mails)
-    # number of top emails to fetch
-    N = 3
+    # https://stackoverflow.com/questions/52054196/python-imaplib-search-email-with-date-and-time
+    
     # total number of emails
     num_of_total_email = int(mails[0])
 
     #提取了文件夹中所有邮件的编号，search功能在本邮箱中没有实现……
     # resp, mails = conn.search(None,'ALL')
+    counter = 0
     for i in range(num_of_total_email, num_of_total_email-N, -1):
+        print('处理第', counter, '封邮件')
+        counter += 1
+
         fetch_attachment(str(i))
+
     conn.close()
     conn.logout()
 
