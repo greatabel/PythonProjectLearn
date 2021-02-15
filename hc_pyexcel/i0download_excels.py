@@ -1,14 +1,18 @@
 from os import environ
 
 import imaplib, email, os
-import pandas as pd
-import numpy as np
+# import pandas as pd
+# import numpy as np
 from datetime import datetime
 from email.header import decode_header
 
 # https://zhuanlan.zhihu.com/p/94943212
 
 path = os.getcwd()
+directory = (datetime.today()).strftime('%Y-%m-%d')
+path = path + '/' + directory + '/'
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 #连接到qq企业邮箱，其他邮箱调整括号里的参数
 conn = imaplib.IMAP4_SSL("imap.exmail.qq.com", 993)
@@ -52,7 +56,7 @@ for part in mail.walk():
 #如果获取到了文件，则将文件保存在制定的目录下
     if fileName != '没有找到任何附件！':
         # filePath = os.path.join("C:\\文件夹名称", fileName)
-        filePath = path + '/' + fileName
+        filePath = path + fileName
 
         if not os.path.isfile(filePath):
             fp = open(filePath, 'wb')
