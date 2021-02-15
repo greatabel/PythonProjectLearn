@@ -6,18 +6,25 @@ import numpy as np
 from datetime import datetime
 from email.header import decode_header
 
+# https://zhuanlan.zhihu.com/p/94943212
+
+path = os.getcwd()
 
 #连接到qq企业邮箱，其他邮箱调整括号里的参数
 conn = imaplib.IMAP4_SSL("imap.exmail.qq.com", 993)
 
-hengchang_qyweixin_username = environ.get('qyweixin_username', 'test')
-hengchang_qyweixin_password = environ.get('qyweixin_password', 'test')
+hengchang_qyweixin_username = environ.get('hengchang_qyweixin_username', 'username')
+hengchang_qyweixin_password = environ.get('hengchang_qyweixin_password', 'password')
+print(hengchang_qyweixin_username, hengchang_qyweixin_password)
 #用户名、密码，登陆
 conn.login(hengchang_qyweixin_username, hengchang_qyweixin_password)
 # conn.login("username","password")
+
 #选定一个邮件文件夹
 #可以用conn.list()查看都有哪些文件夹。中文的文件夹名称可能是乱码，没关系，直接拷贝过来就行了。
-conn.select("folder_name")
+# print(conn.list())
+
+conn.select("INBOX")
 
 #提取了文件夹中所有邮件的编号，search功能在本邮箱中没有实现……
 resp, mails = conn.search(None,'ALL')
@@ -34,16 +41,18 @@ for part in mail.walk():
         continue
     if part.get('Content-Disposition') is None:
         continue
-    fileName = part.get_filename()  
-
+    fileName = part.get_filename() 
+    
 #如果文件名为纯数字、字母时不需要解码，否则需要解码
     try:
         fileName = decode_header(fileName)[0][0].decode(decode_header(fileName)[0][1])
+        print(fileName, '#'*10)
     except:
         pass
 #如果获取到了文件，则将文件保存在制定的目录下
     if fileName != '没有找到任何附件！':
-        filePath = os.path.join("C:\\文件夹名称", fileName)
+        # filePath = os.path.join("C:\\文件夹名称", fileName)
+        filePath = path + '/' + fileName
 
         if not os.path.isfile(filePath):
             fp = open(filePath, 'wb')
@@ -56,6 +65,6 @@ conn.close()
 conn.logout()
 
 #再用Pandas把数据读出来进行处理：
-Data = pd.read_excel("C:\\文件夹名称\\" + fileName)
+# Data = pd.read_excel("C:\\文件夹名称\\" + fileName)
 #此处省略一大堆的处理
 #最后用df.to_excel()函数，把新的df保存就可以了。
