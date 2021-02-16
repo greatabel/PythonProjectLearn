@@ -8,10 +8,10 @@ from datetime import datetime
 from email.header import decode_header
 
 # 抓取分析多少封邮件
-N = 5
+N = 8
 
 # https://zhuanlan.zhihu.com/p/94943212
-def fetch_attachment(inputmail):
+def fetch_attachment(conn, path, inputmail):
     # 提取了指定编号（最新一封）的邮件
     resp, data = conn.fetch(inputmail.split()[len(inputmail.split()) - 1], "(RFC822)")
     emailbody = data[0][1]
@@ -84,7 +84,7 @@ def download_all_excels():
         print("处理第", counter, "封邮件")
         counter += 1
 
-        fetch_attachment(str(i))
+        fetch_attachment(conn, path, str(i))
 
     conn.close()
     conn.logout()
