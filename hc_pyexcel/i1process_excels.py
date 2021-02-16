@@ -19,7 +19,14 @@ def read_template(target_excel):
 						usecols="A:P", header=None)
 
 	# table1 = pd.read_excel(template_excel, sheet_name=1, skiprows=[0,1])
-	print(df)
+
+
+	# df.at[0,2] = 100
+	# 输出部门名字
+	print(df[1])
+
+
+	df.to_excel(target_excel, index=False)
 
 
 def process_excel(target_excel):
