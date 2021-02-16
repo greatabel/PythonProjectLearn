@@ -47,11 +47,11 @@ def fetch_attachment(inputmail):
 
 if __name__ == "__main__":
     path = os.getcwd()
-    directory = (datetime.today()).strftime('%Y-%m-%d')
-    path = path + '/' + directory + '/'
+    directory = (datetime.today()).strftime('%Y-%m-%d')   
     if not os.path.exists(directory):
         os.makedirs(directory)
-
+        
+    path = path + '/' + directory + '/'
     #连接到qq企业邮箱，其他邮箱调整括号里的参数
     conn = imaplib.IMAP4_SSL("imap.exmail.qq.com", 993)
 
