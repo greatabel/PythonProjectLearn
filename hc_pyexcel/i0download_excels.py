@@ -48,7 +48,7 @@ def fetch_attachment(inputmail):
                 print("附件已经存在，文件名为：" + fileName)
 
 
-if __name__ == "__main__":
+def download_all_excels():
     path = os.getcwd()
     directory = (datetime.today()).strftime("%Y-%m-%d")
     if not os.path.exists(directory):
@@ -93,3 +93,11 @@ if __name__ == "__main__":
     # Data = pd.read_excel("C:\\文件夹名称\\" + fileName)
     # 此处省略一大堆的处理
     # 最后用df.to_excel()函数，把新的df保存就可以了。
+
+
+def main():
+    download_all_excels()
+
+
+if __name__ == "__main__":
+    main()
