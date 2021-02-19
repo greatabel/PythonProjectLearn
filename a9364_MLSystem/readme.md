@@ -2,12 +2,16 @@
 whole project based on python3
 (project should work at all versons above python3.5 [include python3.5] )
 
-create virtual environment:
+create virtual environment
+at Unix/MacOS run:
 python3 -m venv  mlsystem-env
+
+at windows run:
+python -m venv  mlsystem-env
 
 then enter virtual environment:
 Windows run:
-movie-env\Scripts\activate.bat
+mlsystem-env\Scripts\activate.bat
 
 Unix/MacOS run:
 source mlsystem-env/bin/activate
