@@ -22,6 +22,10 @@ app.debug = True
 login_manager = flask_login.LoginManager(app)
 user_pass = {}
 
+"""
+为将来做数据统计和可视化做准备的代码，暂时没有用到，暂时可以忽略
+"""
+
 
 @app.route("/statistics", methods=["GET"])
 def relationship():
@@ -33,9 +37,20 @@ def relationship():
     return d
 
 
+"""
+使用 https://flask-login.readthedocs.io/en/0.3.1/ 
+库进行用户登录凭证的验证
+"""
+
+
 @login_manager.user_loader
 def load_user(email):
     return user_pass.get(email, None)
+
+
+"""
+登录相关后端接口，验证凭证，根据是否通过进行跳转和提示
+"""
 
 
 @app.route("/login", methods=["POST"])
@@ -51,6 +66,11 @@ def login():
     else:
         print("login fail")
     return redirect(url_for("home_bp.home", pagenum=1))
+
+
+"""
+登录相关后端接口，验证凭证，根据是否通过进行跳转和提示
+"""
 
 
 @app.route("/register", methods=["POST"])
@@ -73,6 +93,11 @@ def register():
     return redirect(url_for("home_bp.home", pagenum=1))
 
 
+"""
+登出网站相关后端接口，根据是否通过进行跳转和提示
+"""
+
+
 @app.route("/logout")
 def logout():
     flask_login.logout_user()
@@ -80,6 +105,10 @@ def logout():
 
 
 reviews = []
+
+"""
+另外一个机器学习项目示例的数据展示准备，这次没有启用，暂时可以忽略
+"""
 
 
 @app.route("/review", methods=["GET", "POST"])
@@ -110,9 +139,19 @@ def unauthorized_handler():
 # --------------------------
 
 
+"""
+上传后数据相关页面的后台支持接口
+"""
+
+
 @app.route("/", methods=["GET"])
 def index():
     return rt("./index.html")
+
+
+"""
+上传后数据上传的真正接受接口
+"""
 
 
 @app.route("/file/upload", methods=["POST"])
@@ -124,6 +163,11 @@ def upload_part():  # 接收前端上传的一个分片
     upload_file = request.files["file"]
     upload_file.save("./upload/%s" % filename)  # 保存分片到本地
     return rt("./index.html")
+
+
+"""
+上传后数据上传分片的合并功能真正接受接口
+"""
 
 
 @app.route("/file/merge", methods=["GET"])
@@ -147,6 +191,11 @@ def upload_success():  # 按序读出分片内容，并写入新文件
     return rt("./index.html")
 
 
+"""
+上传后数据展示页面的后台支持接口
+"""
+
+
 @app.route("/file/list", methods=["GET"])
 def file_list():
     files = os.listdir("./upload/")  # 获取文件目录
@@ -154,6 +203,11 @@ def file_list():
     files.remove(".DS_Store")
     # files = map(lambda x: x if isinstance(x, unicode) else x.decode('utf-8'), files)  # 注意编码
     return rt("./list.html", files=files)
+
+
+"""
+上传后数据下载功能 的后台支持接口
+"""
 
 
 @app.route("/file/download/<filename>", methods=["GET"])
@@ -171,6 +225,8 @@ def file_download(filename):
 
 
 # --------------------------
-
+"""
+启动主程序功能
+"""
 if __name__ == "__main__":
     app.run(host="localhost", port=5000, threaded=False)
