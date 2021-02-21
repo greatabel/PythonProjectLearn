@@ -15,7 +15,7 @@ class Director:
         return self.__director_full_name
 
     def __repr__(self):
-        return f'<Director {self.__director_full_name}>'
+        return f"<Director {self.__director_full_name}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -30,8 +30,7 @@ class Director:
 
 
 class Genre:
-
-    def __init__(self, genre_name : str):
+    def __init__(self, genre_name: str):
         if genre_name == "" or type(genre_name) is not str:
             self.__genre_name = None
         else:
@@ -42,7 +41,7 @@ class Genre:
         return self.__genre_name
 
     def __repr__(self):
-        return f'<Genre {self.__genre_name}>'
+        return f"<Genre {self.__genre_name}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -57,7 +56,6 @@ class Genre:
 
 
 class Actor:
-
     def __init__(self, actor_full_name: str):
         if actor_full_name == "" or type(actor_full_name) is not str:
             self.__actor_full_name = None
@@ -78,7 +76,7 @@ class Actor:
         return colleague in self.__actors_this_one_has_worked_with
 
     def __repr__(self):
-        return f'<Actor {self.__actor_full_name}>'
+        return f"<Actor {self.__actor_full_name}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -93,7 +91,6 @@ class Actor:
 
 
 class Movie:
-
     def __set_title_internal(self, title: str):
         if title.strip() == "" or type(title) is not str:
             self.__title = None
@@ -209,13 +206,13 @@ class Movie:
         if val > 0:
             self.__runtime_minutes = val
         else:
-            raise ValueError(f'Movie.runtime_minutes setter: Value out of range {val}')
+            raise ValueError(f"Movie.runtime_minutes setter: Value out of range {val}")
 
     def __get_unique_string_rep(self):
         return f"{self.__title}, {self.__release_year}"
 
     def __repr__(self):
-        return f'<Movie {self.__get_unique_string_rep()}>'
+        return f"<Movie {self.__get_unique_string_rep()}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -232,7 +229,6 @@ class Movie:
 
 
 class Review:
-
     def __init__(self, movie: Movie, review_text: str, rating: int):
         if isinstance(movie, Movie):
             self.__movie = movie
@@ -267,14 +263,18 @@ class Review:
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        return other.movie == self.__movie and other.review_text == self.__review_text and other.rating == self.__rating and other.timestamp == self.__timestamp
+        return (
+            other.movie == self.__movie
+            and other.review_text == self.__review_text
+            and other.rating == self.__rating
+            and other.timestamp == self.__timestamp
+        )
 
     def __repr__(self):
-        return f'<Review of movie {self.__movie}, rating = {self.__rating}, timestamp = {self.__timestamp}>'
+        return f"<Review of movie {self.__movie}, rating = {self.__rating}, timestamp = {self.__timestamp}>"
 
 
 class User(UserMixin):
-
     def __init__(self, user_name: str, password: str):
         if user_name == "" or type(user_name) is not str:
             self.__user_name = None
@@ -319,7 +319,7 @@ class User(UserMixin):
             self.__reviews.append(review)
 
     def __repr__(self):
-        return f'<User {self.__user_name}>'
+        return f"<User {self.__user_name}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -333,9 +333,7 @@ class User(UserMixin):
         return hash(self.__user_name)
 
 
-
 class MovieFileCSVReader:
-
     def __init__(self, file_name: str):
         self.__file_name = file_name
         self.__dataset_of_movies = []
@@ -344,32 +342,32 @@ class MovieFileCSVReader:
         self.__dataset_of_genres = set()
 
     def read_csv_file(self):
-        with open(self.__file_name, mode='r', encoding='utf-8-sig') as csvfile:
+        with open(self.__file_name, mode="r", encoding="utf-8-sig") as csvfile:
             movie_file_reader = csv.DictReader(csvfile)
 
             for row in movie_file_reader:
-                movie = Movie(row['Title'], int(row['Year']))
-                movie.description = row['Description']
-                movie.runtime_minutes = int(row['Runtime (Minutes)'])
-                
-                director = Director(row['Director'])
+                movie = Movie(row["Title"], int(row["Year"]))
+                movie.description = row["Description"]
+                movie.runtime_minutes = int(row["Runtime (Minutes)"])
+
+                director = Director(row["Director"])
                 self.__dataset_of_directors.add(director)
                 movie.director = director
 
-                parsed_genres = row['Genre'].split(',')
+                parsed_genres = row["Genre"].split(",")
                 for genre_string in parsed_genres:
                     genre = Genre(genre_string)
                     self.__dataset_of_genres.add(genre)
                     movie.add_genre(genre)
 
-                parsed_actors = row['Actors'].split(',')
+                parsed_actors = row["Actors"].split(",")
                 for actor_string in parsed_actors:
                     actor = Actor(actor_string)
                     self.__dataset_of_actors.add(actor)
                     movie.add_actor(actor)
-                    
+
                 self.__dataset_of_movies.append(movie)
-                
+
     @property
     def dataset_of_movies(self) -> list:
         return self.__dataset_of_movies

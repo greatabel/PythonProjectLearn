@@ -7,9 +7,8 @@ from movie.adapters.repository import AbstractRepository, RepositoryException
 from movie.domain.model import Movie, Director, Actor, Genre
 
 
-
 def read_csv_file(filename: str):
-    with open(filename, encoding='utf-8-sig') as infile:
+    with open(filename, encoding="utf-8-sig") as infile:
         reader = csv.reader(infile)
 
         # Read first line of the the CSV file.
@@ -23,7 +22,7 @@ def read_csv_file(filename: str):
 
 
 def load_movies():
-    data_path = os.path.join('movie', 'adapters', 'data')
+    data_path = os.path.join("movie", "adapters", "data")
     # print(data_path, '#'*10)
     moive_list = []
     director1 = Director("Joss Whedon")
@@ -34,7 +33,7 @@ def load_movies():
 
     genre1 = Genre("fiction")
     genre2 = Genre("action")
-    for data_row in read_csv_file(os.path.join(data_path, 'news_movies.csv')):
+    for data_row in read_csv_file(os.path.join(data_path, "news_movies.csv")):
         # print(data_row, '#'*5)
         movie_key = int(data_row[0])
 
@@ -44,7 +43,7 @@ def load_movies():
             # date=date.fromisoformat(data_row[2]),
             release_year=data_row[2],
             # image_hyperlink=data_row[5],
-            id=movie_key
+            id=movie_key,
         )
         # add realted director
         if movie_key == 1:
@@ -80,7 +79,7 @@ def load_movies():
             movie.add_genre(genre2)
 
         moive_list.append(movie)
-        print(movie, 'in MemoryRepository',  movie.director)
+        print(movie, "in MemoryRepository", movie.director)
     return moive_list
 
 
@@ -89,8 +88,7 @@ class MemoryRepository(AbstractRepository):
 
     def __init__(self):
         self._movies = list()
-        
+
     def load_movies(self) -> List[Movie]:
         self._movies = load_movies()
         return self._movies
-
