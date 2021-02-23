@@ -2,7 +2,9 @@ from datetime import date, datetime
 from typing import List, Iterable
 from flask_login import UserMixin
 
-
+'''
+这是当时准备的第二个机器学习项目的数据处理模型，暂时没有启用，保留着
+'''
 class Director:
     def __init__(self, director_full_name: str):
         if director_full_name == "" or type(director_full_name) is not str:

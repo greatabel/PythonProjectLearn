@@ -9,7 +9,9 @@ from movie.domain.model import Director, User, Review, Movie
 
 home_blueprint = Blueprint("home_bp", __name__)
 
-
+'''
+这是为前台首页的展示橱窗页翻页用的，提供翻页功能数据
+'''
 class PageResult:
     def __init__(self, data, page=1, number=2):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
@@ -29,7 +31,9 @@ class PageResult:
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
 
-
+'''
+这是为前台首页的展示橱窗页翻页用的，提供翻页功能的接口
+'''
 @home_blueprint.route("/home/<int:pagenum>", methods=["GET"])
 @home_blueprint.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):

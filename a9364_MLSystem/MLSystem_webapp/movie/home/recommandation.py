@@ -3,7 +3,9 @@ import csv
 
 import pandas as pd
 
-
+'''
+这是当时准备的第二个机器学习项目，暂时没有启用
+'''
 def recommend(demo, ratings, pivot_ratings):
 
     missing_films = list(pivot_ratings[pivot_ratings[demo].isnull()].index)
