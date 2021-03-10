@@ -8,6 +8,7 @@ https://medium.com/inspired-to-program-%E3%85%82-%D9%88-%CC%91%CC%91/procedural-
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 
 
@@ -57,16 +58,26 @@ def generate_noise(width, height):
     return noise_map
 
 
+blue = [65,105,225]
+green = [34,139,34]
+beach = [238, 214, 175]
+snow = [255, 250, 250]
+mountain = [139, 137, 137]
+
+house_positions = []
 def add_color(world):
+
     color_world = np.zeros(world.shape+(3,))
     for i in range(shape[0]):
         for j in range(shape[1]):
             if world[i][j] < -0.05:
                 color_world[i][j] = snow
-            elif world[i][j] < 0:
+            elif world[i][j] < 0.1:
                 color_world[i][j] = mountain
+               
             elif world[i][j] < .20:
                 color_world[i][j] = green
+                house_positions.append((j,i))
             elif world[i][j] < 0.35:
                 color_world[i][j] = beach
             elif world[i][j] < 1.0:
@@ -83,12 +94,16 @@ seed = np.random.randint(0,100)
 seed = 126
 
 
-blue = [65,105,225]
-green = [34,139,34]
-beach = [238, 214, 175]
-snow = [255, 250, 250]
-mountain = [139, 137, 137]
 
+def hanging_line(point1, point2):
+    import numpy as np
+
+    a = (point2[1] - point1[1])/(np.cosh(point2[0]) - np.cosh(point1[0]))
+    b = point1[1] - a*np.cosh(point1[0])
+    x = np.linspace(point1[0], point2[0], 100)
+    y = a*np.cosh(x) + b
+
+    return (x,y)
 
 
 
@@ -97,6 +112,39 @@ world = np.array(img)
 color_world = add_color(world).astype(np.uint8)
 # Image.fromarray(color_world,'RGB').show()
 
+fig, ax = plt.subplots()
+
 plt.imshow(color_world)
+
+house_count = 5
+real_house_positions = []
+colors = ['red', 'blue', 'DarkKhaki', 'yellow', 'pink']
+for i in range(house_count):
+	# Create a Rectangle patch
+	rect = patches.Rectangle(house_positions[len(house_positions)*i//house_count], 10, 10, linewidth=5, 
+			edgecolor=colors[i], facecolor='none')
+	real_house_positions.append(house_positions[len(house_positions)*i//house_count])
+	# Add the patch to the Axes
+	ax.add_patch(rect)
+	# if i < house_count-1:
+	# 	plt.plot(house_positions[len(house_positions)*i//house_count], house_positions[len(house_positions)*(i+1)//house_count])
+
+x, y = zip(*real_house_positions)
+x = np.array(list(x))
+y = np.array(list(y))
+
+# #draw lines if you want to draw smooth lines
+# from scipy.interpolate import interp1d
+# x_new = np.linspace(x.min(), x.max(),500)
+# f = interp1d(x, y, kind='quadratic')
+# y_smooth=f(x_new)
+# plot.plot(x_new, y_smooth)
+
+plt.plot(x,y)
+
+
+
+
 plt.savefig('Result.png')
+# print(house_positions[0], house_positions[len(house_positions)//2], len(house_positions))
 
