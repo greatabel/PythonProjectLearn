@@ -53,7 +53,7 @@ def load_user(email):
 """
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
