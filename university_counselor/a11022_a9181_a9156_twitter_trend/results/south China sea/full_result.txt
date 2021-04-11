@@ -1,0 +1,769 @@
+1. Heat comparison
+8502  VS  4681
+
+2.
+
+tatal sentiment polarity: 62.80042042217039
+average sentiment polarity: 0.054704198974016016
+number of (positive VS neural VS nagtive): 42420 45652 27876
+
+ 3. related words related to this topic
+china 1471
+southchinasea 148
+taiwan 124
+beijing 95
+india 88
+philippines 61
+australia 59
+ccp 54
+japan 50
+vietnam 49
+hong kong 43
+china sea 41
+asean 38
+tibet 37
+@ globaltimesnews 35
+usa 32
+trump 30
+malaysia 27
+s claims 25
+biden 22
+asia 22
+indonesia 20
+pla 19
+youtube 18
+ccpchina 18
+secpompeo 18
+america 17
+duterte 16
+https 16
+xinjiang 16
+obama 15
+taiwanisnotchina 14
+hongkong 14
+south china sea 13
+russia 13
+germany 13
+unclos 13
+pompeo 13
+aircraft carriers 13
+# us 12
+usnavy 12
+huxijin_gt 12
+covid19 12
+washington 12
+uk 11
+us navy 10
+mofa_taiwan 10
+july 10
+china_amb_india 10
+international law 10
+france 10
+@ realdonaldtrump 9
+s maritime claims 9
+amti 9
+oh 9
+global 9
+tensions 9
+singapore 9
+boycottchina 9
+scs 8
+iran 8
+xi 8
+australian 8
+hk 8
+korea 8
+prc 8
+joe 8
+sea 8
+who 8
+south # 7
+manila 7
+news https 7
+ladakh 7
+covid-19 7
+xijinping 7
+reuters 7
+# us # 7
+taiwannationalday 7
+mongolia 7
+sea | 7
+indopacific 6
+googlenews 6
+africa 6
+@ scmpnews 6
+june 6
+indian border 6
+arbitral award 6
+don ’ t 6
+spokespersonchn 6
+huawei 6
+sea dispute 6
+ca n't 6
+us-china 6
+senkaku 6
+maritime 6
+brunei 6
+freetibet 6
+sea claims 6
+legal basis 6
+joebiden 5
+ph 5
+uighurs 5
+your 5
+re 5
+whole world 5
+military bases 5
+important aspects 5
+uyghurs 5
+malaysian 5
+potus 5
+cnn 5
+| @ 5
+gregpoling 5
+ 5
+@ iingwen @ 5
+paracel 5
+november 5
+nepal 5
+ccpvirus 5
+code 5
+conduct 5
+t 5
+chinaindiafaceoff 5
+eu 5
+indian navy 5
+military exercises 5
+sea # 5
+covid 5
+boycottchineseproducts 5
+maritime empire 5
+chinese communist party 4
+read 4
+typhoon 4
+territorial waters 4
+xhnews 4
+indopacom 4
+us 4
+taiwan strait 4
+afghanistan 4
+scottmorrisonmp 4
+strategy 4
+sea issue 4
+taipei 4
+taiwanese 4
+build 4
+rt 4
+iraq 4
+amid 4
+sea conference 4
+maritime claims 4
+august 4
+//t.co/c3tjsdqarx https 4
+military base 4
+economic tools 4
+impose costs 4
+s behavior 4
+right direction 4
+illicit activity. ” https 4
+join 4
+really 4
+adiz 4
+trade war 4
+tracker 4
+ll 4
+chinese navy 4
+watch 4
+stop 4
+pakistan 4
+sec 4
+northtaiwansea 4
+mailonline 4
+@ iingwen 4
+s # 4
+cambodia 4
+scmpnews 4
+uss ronald reagan 4
+s rejection 4
+pmoindia 4
+laos 4
+whitehouse 4
+ve 4
+wuhan 4
+chinavirus 4
+bomb 4
+liu 4
+pm 4
+companies 4
+wsj 4
+ccp_is_terrorist 4
+statedept 4
+roc 4
+uss nimitz 4
+chinesevirus 4
+freehongkong 4
+tensions https 4
+offshore resources 4
+sends 4
+never 3
+indonesian 3
+thewarmonitor 3
+sea conflict 3
+concentration camps 3
+xi jinping 3
+yahoo 3
+hunter 3
+persian gulf 3
+drills https 3
+ounce 3
+grams 3
+amazonuk 3
+ships 3
+scs_news 3
+oct 3
+sea islands 3
+listen 3
+himalayas 3
+fishing 3
+need 3
+s aggression 3
+phillipines 3
+canada 3
+indiachinafaceoff 3
+may 3
+donnie 3
+session 3
+us position 3
+according 3
+spratly 3
+donald trump 3
+//t.co/cisvidw9dl https 3
+aircraft carrier 3
+us7thfleet 3
+usarmy 3
+s expansionism 3
+trump2020 3
+dried 3
+sabah 3
+indian ocean 3
+does 3
+dragon 3
+mark esper 3
+pok 3
+cpec 3
+drsjaishankar 3
+artificial islands 3
+un convention 3
+@ realdonaldtrump @ 3
+territorial claims 3
+national day 3
+quad 3
+# southchinasea # 3
+@ globaltimesnews @ iingwen @ 3
+china-india 3
+fighter jets 3
+indo-pacific 3
+tibetpeople 3
+international court 3
+lac 3
+thailand 3
+south 3
+commercegov 3
+inner mongolia 3
+chinese officials 3
+wang yi 3
+chinese firms 3
+ladakhborder 3
+military drills 3
+europe 3
+@ nytimes 3
+chinese companies 3
+navigation operation 3
+sea disputes 3
+mainland china 3
+# southchinasea 3
+wo n't 3
+hey 3
+fires missiles 3
+china fires 3
+sending u.s 3
+message 3
+keep 3
+bohai 3
+state https 3
+spratlys 3
+u.s. sanctions 3
+contested 3
+smartnews 3
+adds 3
+hainan 3
+@ amermilnews 3
+icj 3
+fight ccp 3
+set 3
+remove 3
+punish ccp 3
+boycottmadeinchina 3
+indopac_info 3
+usaf 3
+chinavsworld 3
+xitler 3
+hah 3
+sovereign rights 3
+sea region 3
+regional stability 3
+coronavirus 3
+be 3
+sea row 3
+expansive claims 3
+us rejects 3
+freeuyghurs 3
+ussronaldreagan 3
+will 3
+cold war 3
+position 3
+unlawful 3
+region 3
+@ globaltimesnews @ 3
+sugar 3
+chini 3
+us aircraft carriers 3
+war games 3
+exercises 3
+china holds drills nearby 3
+us sends 3
+destroy 2
+sea etc 2
+andrewserickson 2
+sea conflict https 2
+mou 2
+energy cooperation 2
+concrete agreement 2
+@ jedrabena discusses 2
+sino-philippine jda 2
+alert 2
+luzonstrait 2
+taiwanstrait 2
+white house 2
+pm modi 2
+naval 2
+chinese communist party ’ s 2
+hunter biden 2
+large amounts 2
+major causes 2
+dried seafood large-sized squid 2
+putin 2
+” https 2
+via 2
+coldwar 2
+@ thespybrief 2
+chinamission2un 2
+exclusive 2
+economic zone 2
+fleet 2
+seems 2
+national security law 2
+warship 2
+nato 2
+bbcworld 2
+atlantic 2
+bri 2
+human rights 2
+au 2
+beijing takes 2
+skynewsaust 2
+eastchinasea 2
+s time 2
+greece 2
+humanrights 2
+s economy 2
+unilateral actions 2
+history 2
+making 2
+arab 2
+power struggle 2
+nile 2
+thrilling fiction 2
+egypt 2
+authorborg 2
+# iartg # asmsg # bookboost https 2
+chinese hackers 2
+us maritime patrol aircraft 2
+disputed 2
+los angeles 2
+scsc12 2
+killer 2
+paracels 2
+road initiatives 2
+asean summit 2
+philstarnews 2
+scott morrison 2
+especially 2
+rodrigo duterte 2
+southeast asian leaders 2
+greg poling 2
+zack cooper 2
+scs_disputes 2
+australian_navy 2
+chellaney 2
+propaganda 2
+trumpislosing 2
+initiative 2
+defense ties 2
+sea tensions mount https 2
+s island 2
+hi-res satellite imagery 2
+//t.co/bwvwyjnqpk https 2
+lines 2
+goni 2
+chinese dragon 2
+intellectual property rights 2
+luzon 2
+us defense secretary 2
+a2/d2 2
+maritime rights 2
+chinese https 2
+joe biden 2
+molave 2
+october 2
+s militarization 2
+april 2
+breaking 2
+reading 2
+aksai chin 2
+m 2
+independent country 2
+suga 2
+corona 2
+ca 2
+armenia 2
+talk 2
+gas exploration 2
+fonops 2
+china panic 2
+was 2
+world peace 2
+wwii 2
+csis 2
+learn 2
+demands us 'restrict 2
+naval operations 2
+north taiwan sea 2
+indiastandswithtaiwan 2
+nation 2
+s people 2
+ww2 2
+imagine 2
+@ timesofindia 2
+zackcooper 2
+ukraine 2
+wed 2
+ww3 2
+carpio 2
+international bodies 2
+@ narendramodi 2
+uyghur 2
+india.and 2
+cpc 2
+small countries 2
+remember 2
+sept 2
+indiachinastandoff 2
+nimitz 2
+milkteaalliance 2
+unga 2
+sea claims https 2
+y 2
+s unlawful maritime claims 2
+tsaiingwen 2
+going 2
+dragonfly 2
+hague 2
+own backyard 2
+southeast asian nations 2
+solomonyue 2
+war 2
+gilgit 2
+southeast asian countries 2
+s “ 2
+unitednations 2
+turkistan 2
+# japan # 2
+pangong 2
+pangongts 2
+macau 2
+peaceful 2
+nice 2
+september 2
+rogue 2
+rohingya 2
+@ statedeptspox @ 2
+wuhanvirus 2
+# pla # ccp # 2
+teodoro locsin 2
+tibbat 2
+icymi 2
+foreign minister 2
+capital 2
+@ zlj517 2
+current situation 2
+beltandroad 2
+u.k 2
+support # 2
+isn ’ t 2
+cold 2
+coc 2
+sweden 2
+norway 2
+no 2
+territorial disputes 2
+fonop 2
+nine-dash line 2
+scientific journals 2
+nguyen thuy anh 2
+nhk world-japan 2
+latest 2
+indiapushesbackchina 2
+yep 2
+thanks 2
+galwan 2
+valley clash 2
+us destroyers 2
+usandindia 2
+@ inquirerdotnet 2
+punishchina 2
+test fires 2
+so-called 'carrier killer 2
+nuts 2
+york 2
+actions 2
+defense secretary 2
+down 2
+yellow 2
+u.s. penalizes 2
+role 2
+nanjing 2
+medium-range missiles 2
+sanctions 2
+sea issue https 2
+firms active 2
+wall street journal 2
+hard 2
+vp 2
+entity list 2
+island chain 2
+china morning 2
+chinese foreign minister 2
+territorial dispute 2
+pak 2
+international tribunal 2
+tribunal ruling 2
+international institutions 2
+naval drills 2
+s interest 2
+ssbns 2
+aug 2
+live-fire drills 2
+rare 2
+well 2
+h-6j 2
+chinese bombers 2
+naval base 2
+us navy aircraft carriers 2
+ambcuitiankai 2
+south 'china 2
+jet 2
+don 2
+arbitral ruling 2
+ccpliedpeopledied 2
+herbologyn 2
+amazing 2
+sea row heats 2
+week https 2
+ip 2
+chinese counterpart 2
+s invasion 2
+govt 2
+h1 2
+sea – 2
+southeast asian coastal states 2
+maritime disputes 2
+uighur 2
+muslims 2
+xi jinping new coronavirus made in wuhan china 2
+coronavirus killed many people tibet massacre uighur massacre national security law for hong kong illegal military base of south china sea 2
+# coronavirus https 2
+dems 2
+wall 2
+canberra 2
+australians 2
+s @ 2
+thank 2
+international waters 2
+national security 2
+right 2
+west philippine sea 2
+southchinasea australia 2
+‘ invalid 2
+guardian 2
+us https 2
+chinazi 2
+chinese claims 2
+move 2
+friend 2
+call 2
+naval exercises 2
+humanrightsviolations 2
+sea part 2
+global commons 2
+mea 2
+vcs 2
+us aircraft 2
+carrier 2
+media 2
+aircraft carriers return 2
+cvn76 2
+aircraft carrier strike groups 2
+# china 2
+# chinavirus 2
+boycottchineseproduct 2
+britain 2
+unprecedented concern 2
+sea activities 2
+insider 2
+cyber attack 2
+bbc 2
+sea arbitration 2
+chinese territory 2
+mike pompeo 2
+plans 2
+palestine 2
+china hits 2
+epoch 2
+meghupdates 2
+mfa_china 2
+tank rejects reports 2
+chinese people 2
+s speech 2
+pdchina 2
+“ high-end ” exercises 2
+naval capabilities 2
+offensive operations 2
+war planes 2
+counter-attack https 2
+bhutan 2
+sea drills 2
+carriers 2
+us sends aircraft carriers 2
+ussnimitz 2
+people 's republic 2
+sends carriers 2
+president xi..jin 2
+pig evil deeds must stop 2
+reveal 2
+mystery 2
+covid-19 stop nexus 2
+terrorist groups stop 2
+uyghur genocide stop torture 2
+hongkong peoples stop illegal land 2
+neighbors stop intervention 2
+taiwan stop intervention 2
+afp 2
+prime 2
+hongkongprotests 2
+tibetisnotchina 2
+chinese oil major 2
+strikes 2
+nikkei 2
+tw 2
+bjp4delhi 2
+
+ 4. username often posts related topics
+AMTI 23
+Indo-Pacific News 8
+CSIS Southeast Asia 5
+North Scott 🇵🇭 🇺🇸 🌏 5
+Oceanner 4
+Global Times 4
+nednared 4
+Inquirer 4
+CANUK78 4
+Đặng-Vũ Chính 4
+Say No To Sino 4
+Intelfeedia 3
+Shehzad Younis 3
+Le Nam Giang 3
+Nikkei Asia 3
+Jeremy 3
+Chinada2064 3
+Sputnik 3
+Charlie B 3
+NavyDefenceBird 3
+RobotDefenceBird 2
+MIN HU sales manager 2
+South China Sea Connect 2
+Jack Foo @ 2
+Keep Free , Free Taiwan 🇹🇼🇺🇸🇯🇵🇦🇺🇮🇳 2
+WikiLeaks Today 🕵🏻 2
+SCS Probing Initiative 2
+Clive Anthony Boyce 2
+H. Ross Kawamura 2
+South China Sea News 2
+Book Club Pro1 2
+Matthew Borie 2
+mlg 2
+ORF 2
+Budgie 2
+
+
+
+
+Jim Stevenson 2
+Mark Collins 2
+Alt-Brain News [beta] 2
+Sidhant Sibal 2
+imetimes@ 2
+eyeontaiwan 2
+Eugene 2
+luke lee 2
+Kamalasmicrophone 2
+Mark Dominic 2
+Olympus Has Fallen Coup 2021 2
+Babel's cycle of crime.🐑🦌🐘🐳🦄🌾🩹🍉⚓👑紅土人 2
+9DASHLINE 2
+UH Mānoa CSEAS 2
+ZAQS World News 2
+小熊維尼 2
+Mitchel Hawkins 2
+Rex 2
+Benedict Exconde 2
+#DextrousNinja 2
+JOHNLEEMUSHROOM 2
+ICAS 2
+Crazy Satire 2
+Pacific Geopolitics 2
+Danil Bochkov / 博奇科夫 2
+Geoff Wade 2
+@murdochs_monkey 2
+David Yin 2
+S C Joshi 2
+Andy Vermaut 2
+shimon coen 2
+谷口吉美PC版🧧 2
+ASAC Schrader 2
+TOI World News 2
+Calliope Demopoulou 2
+Regional Warfare 🍁 2
+hugh cameron 2
+Zaldy Tor 2
+allysdad 2
+Eurasia Review 2
+mochablend7 2
+The Diplomat 2
+Lokman Karadag 洛克曼 2
+Nishant 2
+Saul of United 2
+Eric G del Rosario 2
+World Socialist Web Site 2
+Aacharya Kailas ASTROLOGER NUMEROLOGIST VAASTU EXP 2
+dway 2
