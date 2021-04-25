@@ -17,7 +17,8 @@
       <div class="indeterminate"></div>
     </div>
     <div style="position: relative" class="margin">
-      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video>
+      <!-- <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video> -->
+            <video src="bbt.mp4" id="inputVideo" autoplay muted loop playsinline></video>
       <canvas id="overlay" />
     </div>
 
@@ -84,15 +85,17 @@
 
       // try to access users webcam and stream the images
       // to the video element
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = $('#inputVideo').get(0)
-      videoEl.srcObject = stream
+      // const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+      // const videoEl = $('#inputVideo').get(0)
+      // videoEl.srcObject = stream
+            // start processing frames
+      onPlay($('#inputVideo').get(0))
     }
 
     function updateResults() {}
 
     $(document).ready(function() {
-      // renderNavBar('#navbar', 'webcam_face_landmark_detection')
+      renderNavBar('#navbar', 'webcam_face_landmark_detection')
       initFaceDetectionControls()
       run()
     })
