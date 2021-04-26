@@ -1,3 +1,6 @@
+0.
+配置好相关代理软件（第一次需要更新 国外cdn资源）
+
 1. 
 whole project based on python3
 (project should work at all versons above python3.5 [include python3.5] )
@@ -19,6 +22,7 @@ npm i
 npm start
 
 3.
-http://localhost:3000/abel
+浏览器访问：
+http://localhost:3000/newabel
 
 

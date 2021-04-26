@@ -23,6 +23,7 @@ app.get('/age_and_gender_recognition', (req, res) => res.sendFile(path.join(view
 app.get('/face_extraction', (req, res) => res.sendFile(path.join(viewsDir, 'faceExtraction.html')))
 app.get('/face_recognition', (req, res) => res.sendFile(path.join(viewsDir, 'faceRecognition.html')))
 app.get('/video_face_tracking', (req, res) => res.sendFile(path.join(viewsDir, 'videoFaceTracking.html')))
+app.get('/newabel', (req, res) => res.sendFile(path.join(viewsDir, 'newabel.html')))
 app.get('/webcam_face_detection', (req, res) => res.sendFile(path.join(viewsDir, 'webcamFaceDetection.html')))
 app.get('/webcam_face_landmark_detection', (req, res) => res.sendFile(path.join(viewsDir, 'webcamFaceLandmarkDetection.html')))
 app.get('/abel', (req, res) => res.sendFile(path.join(viewsDir, 'abel.html')))
