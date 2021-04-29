@@ -104,7 +104,7 @@ div[class*="release_year"] {
   <div class="row">
     <div class="col-md4">
               <figure>
-            <img src="/static/images/ChenXiaoXin_ems.png" class="img-fluid" style="height:80px;">
+            <img src="/static/images/ml.png" class="img-fluid" style="height:80px;">
         </figure>
     </div>
 
@@ -148,34 +148,29 @@ div[class*="release_year"] {
           <p>No need to buy hardware either for your tables or for your kitchen. Management and usage all directly from this page.</p>
        </div> -->
         <div class="col-md-4">
-          <h2>Register now</h2>
+          <h2>选择可视化</h2>
              <form class="form-horizontal" action="/review" method="POST">
-                   <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="movie_id" id="movie_id" placeholder="movie_id" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="movie_name" id="movie_name" placeholder="movie_name" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="rtext" id="rtext" placeholder="review text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="rating" id="rating" placeholder="review rating" class="form-control">
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="submit" value="submit" class="btn btn-primary btn-block">
-                    </div>
-                </div>
+<label>选择机器学习算法</label>
+<select class="form-control" multiple="multiple">
+<optgroup label="algirithm">
+<option>SVM</option>
+<option>CNN</option>
+<option>LSTM</option>
+
+</optgroup>
+</select>
+
+<label>选择结果展示</label>
+<select class="form-control" multiple="multiple">
+<optgroup label="data-visual">
+<option>数据统计分析</option>
+<option>饼图统计</option>
+<option>巨壮图</option>
+
+</optgroup>
+</select>
+
             </form> <!-- /form -->
         </div>
       </div>
