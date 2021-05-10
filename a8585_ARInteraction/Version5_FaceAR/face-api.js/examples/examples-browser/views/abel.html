@@ -59,7 +59,8 @@
 
       const ts = Date.now()
 
-      const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
+      const result = await faceapi.detectSingleFace(videoEl, options)
+      // const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
 
       updateTimeStats(Date.now() - ts)
 
@@ -71,7 +72,7 @@
         if (withBoxes) {
           faceapi.draw.drawDetections(canvas, resizedResult)
         }
-        faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+        // faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
       }
 
       setTimeout(() => onPlay())
@@ -79,9 +80,10 @@
 
     async function run() {
       // load face detection and face landmark models
-      await changeFaceDetector(TINY_FACE_DETECTOR)
-      await faceapi.loadFaceLandmarkModel('/')
-      changeInputSize(224)
+      // await changeFaceDetector(TINY_FACE_DETECTOR)
+      await changeFaceDetector(SSD_MOBILENETV1)
+      // await faceapi.loadFaceLandmarkModel('/')
+      // changeInputSize(224)
 
       // try to access users webcam and stream the images
       // to the video element

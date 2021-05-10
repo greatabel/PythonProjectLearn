@@ -170,7 +170,8 @@
 
     async function run() {
       // load face detection and face landmark models
-      await changeFaceDetector(TINY_FACE_DETECTOR)
+      // await changeFaceDetector(TINY_FACE_DETECTOR)
+      await changeFaceDetector(SSD_MOBILENETV1)
       await faceapi.loadFaceLandmarkModel('/')
       changeInputSize(416)
 
