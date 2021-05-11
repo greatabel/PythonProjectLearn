@@ -126,16 +126,18 @@ div[class*="release_year"] {
 
 
     <div class="container">
+      <h1>模型训练结果展示</h1>
       <!-- Example row of columns -->
       <div class="row">
 
-          {% for r in reviews %}
+          {% for r in images %}
+
+
 
         <div class="col-md-4">
-
-            <div name="title"> {{ r.movie.title|safe }}</div>  
-            <div class="release_year"> {{ r.review_text }} </div> 
-            <div class="release_year"> {{ r.rating }} </div> 
+        <figure>
+            <img src="/static/images/show/{{ r }}.png" class="img-fluid" style="height:250px;width:500px;">
+        </figure>
         </div>
 
            {% endfor %}
@@ -150,50 +152,11 @@ div[class*="release_year"] {
           <h2>Cost effective</h2>
           <p>No need to buy hardware either for your tables or for your kitchen. Management and usage all directly from this page.</p>
        </div> -->
-        <div class="col-md-4">
-          <h2>选择可视化</h2>
-             <form class="form-horizontal" action="/review" method="POST">
-
-<label>请选取特征列</label>
-<select class="form-control" multiple="multiple">
-<optgroup label="Feature Selection">
-<option>MS_SubClass</option>
-<option>Bsmt_Full_Bath</option>
-<option>Bsmt_Half_Bath</option>
-<option>Half_Bath</option>
-<option>Bedroom_AbvGr</option>
-<option>Kitchen_AbvGr</option>
-<option>Mo_Sold</option>
-<option>Year_Built</option>
-<option>Year_Remod/Add</option>
-<option>Low_Qual_Fin_SF</option>
-<option>Garage_Yr_Blt</option>
-
-</optgroup>
-</select>
 
 
-<label>选择模型训练阶段展示的算法图</label>
-<select class="form-control" multiple="multiple">
-<optgroup label="data-visual">
-<option>0_distplot_saleprice</option>
-<option>1Contrast heat map heat map</option>
-<option>2price_lotarea</option>
-<option>3importance</option>
-
-</optgroup>
-</select>
-
-            </form> <!-- /form -->
         </div>
       </div>
 
-    <br/>
-    <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="http://localhost:5000/result" class="next">Next &raquo;</a>
 
       <hr>
 

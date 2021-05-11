@@ -131,6 +131,17 @@ def review():
     )
 
 
+@app.route("/result", methods=["GET"])
+@flask_login.login_required
+def result():
+    # if request.method == "POST":
+
+    images = ['0_distplot_saleprice', '1Contrast heat map', '2price_lotarea', '3importance']
+    return rt(
+        "result.html",
+        images=images,
+    )
+
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return "Unauthorized"
