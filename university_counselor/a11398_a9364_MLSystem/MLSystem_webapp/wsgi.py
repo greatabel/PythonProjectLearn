@@ -183,7 +183,8 @@ def result():
     else:
         import copy
         new_historys = copy.deepcopy(historys)
-        new_historys.append(record)
+        # new_historys.append(record)
+        new_historys.insert(0,record)
         user_pass['train_history'] = new_historys
 
     return rt(

@@ -183,23 +183,40 @@ div[class*="release_year"] {
 
         </div>
 
-        <hr/>
+
         <hr>
-       <h1>训练结果的历史记录：</h1>
-       <div class="row">
-          {% for h in historys %}
+        <h1>训练结果的历史记录：</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户</th>
+                    <th>训练时间</th>
+                    <th>选择的算法图/模型</th>
+                    <th>结果展示</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for h in historys %}
+                <tr>
+                    <td> {{ loop.index }}  {{ h[0] }}</td>
+                    <td>{{ h[1] }}</td>
+                    <td>{{ h[2] }}</td>
+                    <td> 
+                      <button onclick="showHtmlDiv('{{ loop.index }}')" type="button"  class="btn btn-light" >详情</button>
+                      <div id="html-show-{{ loop.index }}" style="display:None">
+                        <p class="text-html" id="htmlContent">{{ h[3]}}
+                      </p>
+                      </div>
 
-
-
-        <div class="col-md-12">
-        {{ h }}
-        </div>
-           {% endfor %}
-
-        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
 
       </div>
+
 
 
 
@@ -214,6 +231,15 @@ div[class*="release_year"] {
     <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/jquery-3.5.1.min.js"></script>
 <script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
-
+<script type="text/javascript">
+  function showHtmlDiv(id) {
+  var htmlShow = document.getElementById("html-show-"+id);
+  if (htmlShow.style.display === "none") {
+    htmlShow.style.display = "block";
+  } else {
+    htmlShow.style.display = "none";
+  }
+}
+</script>
   </body>
 </html>
