@@ -130,15 +130,12 @@ reviews = []
 @flask_login.login_required
 def review():
     if request.method == "POST":
-
-        movie_name = request.form["movie_name"]
-        movie_id = request.form["movie_id"]
-        rtext = request.form["rtext"]
-        rating = request.form["rating"]
-
-        movie = Movie(movie_name, 1990, int(movie_id))
-        review = Review(movie, rtext, int(rating))
-        reviews.append(review)
+        data_visual_dict = request.form.getlist('data_visual')
+        model_name_dict = request.form.getlist('model_name')
+        print(data_visual_dict, '#'*5, model_name_dict)
+        # model_name = request.form["model_name"]
+        # data_visual = request.form["data_visual"]
+        # print('#'*10, data_visual, model_name)
 
     return rt(
         "review.html",

@@ -163,7 +163,7 @@ div[class*="release_year"] {
 
 <label>请选取特征列</label>
 <select class="form-control" multiple="multiple">
-<optgroup label="Feature Selection">
+<optgroup label="Feature-Selection">
 <option>MS_SubClass</option>
 <option>Bsmt_Full_Bath</option>
 <option>Bsmt_Half_Bath</option>
@@ -181,7 +181,7 @@ div[class*="release_year"] {
 
 
 <label>选择模型训练阶段展示的算法图</label>
-<select class="form-control" multiple="multiple">
+<select class="form-control" name="data_visual" id="data_visual" multiple="multiple">
 <optgroup label="data-visual">
 <option>0_distplot_saleprice</option>
 <option>1Contrast heat map heat map</option>
@@ -193,7 +193,7 @@ div[class*="release_year"] {
 
 
 <label>选择算法</label>
-<select class="form-control" multiple="multiple">
+<select class="form-control"  name="model_name" id="model_name" multiple="multiple">
 <optgroup label="data-model">
 <option>LR模型</option>
 <option>Ridge模型</option>
@@ -202,6 +202,14 @@ div[class*="release_year"] {
 
 </optgroup>
 </select>
+
+    <div class="form-group">
+        <div class="col-sm-9">
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="开始训练 Next &raquo;" class="btn btn-primary btn-block">
+        </div>
+    </div>
 
             </form> <!-- /form -->
         </div>
@@ -221,14 +229,14 @@ div[class*="release_year"] {
 
   </div> 
 
-    <br/>
+<!--     <br/>
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="http://localhost:5000/result" class="next">开始训练 Next &raquo;</a>
 
-      <hr>
+      <hr> -->
 
       <footer>
         <p>&copy; ChenXiaoXin</p>
