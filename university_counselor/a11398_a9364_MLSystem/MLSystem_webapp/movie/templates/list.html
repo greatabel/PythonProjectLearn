@@ -29,18 +29,7 @@
     <a href="{{ url_for('file_download', filename=file) }}">{{ file }}</a><br/>
     {% endfor %}
 
-    <hr/>
-    <a href="#" data-jq-dropdown="#jq-dropdown-1">选择算法或模型</a>
 
-
-    <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip">
-    <ul class="jq-dropdown-menu">
-        <li><a href="#1">LR模型</a></li>
-        <li><a href="#1">Ridge模型</a></li>
-        <li><a href="#1">Lasso模型</a></li>
-        <!-- <li><a href="#2">Collaborative Filtering 算法</a></li> -->
-
-    </ul>
 	</div>
 
 
@@ -50,16 +39,20 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="http://localhost:5000/review" class="next">Next &raquo;</a>
-<script type="text/javascript">
-	$('#jq-dropdown-1').on('show', function(event, dropdownData) {
+    <script type="text/javascript">
+        /*
+        
+    	$('#jq-dropdown-1').on('show', function(event, dropdownData) {
 
-}).on('hide', function(event, dropdownData) {
-    // console.log(dropdownData);
-    	var type = location.hash;
-    console.log(type);
-    alert('你已经选择上传好数据集，选择完模型，请点击Next，进入下一页')
-});
-</script>
+    }).on('hide', function(event, dropdownData) {
+        // console.log(dropdownData);
+        	var type = location.hash;
+        console.log(type);
+        alert('你已经选择上传好数据集，选择完模型，请点击Next，进入下一页')
+    });
+
+    */
+    </script>
 
 </body>
 

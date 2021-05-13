@@ -25,11 +25,13 @@ app.debug = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 db = SQLAlchemy(app)
 
-
+stored_user = None
 
 
 login_manager = flask_login.LoginManager(app)
 # user_pass = {}
+
+# https://pypi.org/project/sqlitedict/
 user_pass = SqliteDict('my_db.sqlite', autocommit=True)
 
 
@@ -67,6 +69,7 @@ def load_user(email):
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    global stored_user
     email = request.form.get("email")
     password = request.form.get("password")
     stored_user = user_pass.get(email, None)
