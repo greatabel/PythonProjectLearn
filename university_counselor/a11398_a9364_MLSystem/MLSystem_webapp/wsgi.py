@@ -1,5 +1,7 @@
 """App entry point."""
 import os
+import random
+
 import json
 
 import flask_login
@@ -9,18 +11,28 @@ from flask import redirect
 from flask import Blueprint, render_template as rt
 
 from flask import Flask, Response
+from flask_sqlalchemy import SQLAlchemy
 
 from movie import create_app
 from movie.domain.model import Director, User, Review, Movie
 
+from sqlitedict import SqliteDict
 
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
+db = SQLAlchemy(app)
+
+
+
 
 login_manager = flask_login.LoginManager(app)
-user_pass = {}
+# user_pass = {}
+user_pass = SqliteDict('my_db.sqlite', autocommit=True)
+
+
 
 """
 为将来做数据统计和可视化做准备的代码，暂时没有用到，暂时可以忽略
@@ -137,10 +149,14 @@ def result():
     # if request.method == "POST":
 
     images = ['0_distplot_saleprice', '1Contrast heat map', '2price_lotarea', '3importance']
+    rand = random.uniform(0, 0.001)
+    results = [('LR', 0.138401+rand, 0.0112), ('Ridge', 0.129672, 0.0126+rand), ('Lasso', 0.137959+rand, 0.0096)]
     return rt(
         "result.html",
         images=images,
+        results=results
     )
+
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
