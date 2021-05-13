@@ -120,23 +120,26 @@ def logout():
 
 
 reviews = []
-
+data_visual_list = None
+model_name_list = None
 """
 另外一个机器学习项目示例的数据展示准备，这次没有启用，暂时可以忽略
 """
 
 
+# https://stackoverflow.com/questions/40566757/how-to-get-multiple-selected-items-from-form-in-flask
 @app.route("/review", methods=["GET", "POST"])
 @flask_login.login_required
 def review():
+    global data_visual_list, model_name_list
     if request.method == "POST":
-        data_visual_dict = request.form.getlist('data_visual')
-        model_name_dict = request.form.getlist('model_name')
-        print(data_visual_dict, '#'*5, model_name_dict)
+        data_visual_list = request.form.getlist('data_visual')
+        model_name_list = request.form.getlist('model_name')
+        print(data_visual_list, '#'*5, model_name_list)
         # model_name = request.form["model_name"]
         # data_visual = request.form["data_visual"]
         # print('#'*10, data_visual, model_name)
-
+        return redirect(url_for("result"))
     return rt(
         "review.html",
         reviews=reviews,
@@ -146,14 +149,23 @@ def review():
 @app.route("/result", methods=["GET"])
 @flask_login.login_required
 def result():
+    global data_visual_list, model_name_list
     # if request.method == "POST":
 
-    images = ['0_distplot_saleprice', '1Contrast heat map', '2price_lotarea', '3importance']
-    rand = random.uniform(0, 0.001)
-    results = [('LR', 0.138401+rand, 0.0112), ('Ridge', 0.129672, 0.0126+rand), ('Lasso', 0.137959+rand, 0.0096)]
+    # images = ['0_distplot_saleprice', '1Contrast heat map', '2price_lotarea', '3importance']
+    rand = random.uniform(0, 0.1)
+    results_dict = {
+    'LR模型': [ 0.138401+rand, 0.0112],
+    'Ridge模型': [ 0.129672, 0.0126+rand],
+    'Lasso模型': [ 0.137959+rand, 0.0096],
+
+    }
+    results = []
+    for item in model_name_list:
+        results.append((item, results_dict[item] ))
     return rt(
         "result.html",
-        images=images,
+        images=data_visual_list,
         results=results
     )
 
