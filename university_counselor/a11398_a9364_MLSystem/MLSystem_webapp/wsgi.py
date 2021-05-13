@@ -1,7 +1,8 @@
 """App entry point."""
 import os
 import random
-
+import datetime
+import time
 import json
 
 import flask_login
@@ -10,7 +11,7 @@ from flask import url_for
 from flask import redirect
 from flask import Blueprint, render_template as rt
 
-from flask import Flask, Response
+from flask import Flask, Response, session
 from flask_sqlalchemy import SQLAlchemy
 
 from movie import create_app
@@ -76,6 +77,7 @@ def login():
     if stored_user and password == stored_user.password:
 
         flask_login.login_user(stored_user)
+        session['username'] =stored_user.user_name
         print(stored_user.is_active, "login")
         return redirect(url_for("review"))
     else:
@@ -94,6 +96,7 @@ def register():
     pw1 = request.form.get("password")
     pw2 = request.form.get("password2")
     if not pw1 == pw2:
+        session['username'] = email
         return redirect(url_for("home_bp.home", pagenum=1))
     # if DB.get_user(email):
     if email in user_pass:
@@ -139,6 +142,9 @@ def review():
         # model_name = request.form["model_name"]
         # data_visual = request.form["data_visual"]
         # print('#'*10, data_visual, model_name)
+
+        # 由于我们模型以及训练成功，模拟模拟训练不同的时间
+        time.sleep(random.randint(1, 3))
         return redirect(url_for("result"))
     return rt(
         "review.html",
@@ -163,11 +169,30 @@ def result():
     results = []
     for item in model_name_list:
         results.append((item, results_dict[item] ))
+
+    historys = user_pass.get('train_history', None)
+    print('historys=', historys, '#'*10)
+    from time import gmtime, strftime
+    nowdt = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    record = (session['username'], nowdt, data_visual_list, results)
+
+    if historys is None:
+        historys = []
+        print('historys is emppty' )        
+        user_pass['train_history'] = [record]
+    else:
+        import copy
+        new_historys = copy.deepcopy(historys)
+        new_historys.append(record)
+        user_pass['train_history'] = new_historys
+
     return rt(
         "result.html",
         images=data_visual_list,
-        results=results
+        results=results,
+        historys=historys
     )
+
 
 
 @login_manager.unauthorized_handler

@@ -183,10 +183,25 @@ div[class*="release_year"] {
 
         </div>
 
+        <hr/>
+        <hr>
+       <h1>训练结果的历史记录：</h1>
+       <div class="row">
+          {% for h in historys %}
+
+
+
+        <div class="col-md-12">
+        {{ h }}
+        </div>
+           {% endfor %}
+
+        </div>
+
+
       </div>
 
 
-      <hr>
 
       <footer>
         <p>&copy; ChenXiaoXin</p>
