@@ -307,18 +307,18 @@ class User(UserMixin):
     def reviews(self) -> list:
         return self.__reviews
 
-    @property
-    def time_spent_watching_movies_minutes(self) -> int:
-        return self.__time_spent_watching_movies_minutes
+    # @property
+    # def time_spent_watching_movies_minutes(self) -> int:
+    #     return self.__time_spent_watching_movies_minutes
 
-    def watch_movie(self, movie: Movie):
-        if isinstance(movie, Movie):
-            self.__watched_movies.append(movie)
-            self.__time_spent_watching_movies_minutes += movie.runtime_minutes
+    # def watch_movie(self, movie: Movie):
+    #     if isinstance(movie, Movie):
+    #         self.__watched_movies.append(movie)
+    #         self.__time_spent_watching_movies_minutes += movie.runtime_minutes
 
-    def add_review(self, review: Review):
-        if isinstance(review, Review):
-            self.__reviews.append(review)
+    # def add_review(self, review: Review):
+    #     if isinstance(review, Review):
+    #         self.__reviews.append(review)
 
     def __repr__(self):
         return f"<User {self.__user_name}>"

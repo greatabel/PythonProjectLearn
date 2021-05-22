@@ -12,18 +12,37 @@ from flask import redirect
 from flask import Blueprint, render_template as rt
 
 from flask import Flask, Response, session
+from flask import Blueprint,  jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 from movie import create_app
 from movie.domain.model import Director, User, Review, Movie
 
 from sqlitedict import SqliteDict
+from flask_docs import ApiDoc
 
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
+
+# 本地加载
+# app.config['API_DOC_CDN'] = False
+
+# 禁用文档页面
+# app.config['API_DOC_ENABLE'] = False
+
+# 需要显示文档的 Api
+app.config["API_DOC_MEMBER"] = ["api", "platform"]
+
+ApiDoc(app, title="Sample App", version="1.0.0")
+
+api = Blueprint("api", __name__)
+platform = Blueprint("platform", __name__)
+
+#--结束文档设置 --
+
 db = SQLAlchemy(app)
 
 stored_user = None
@@ -42,9 +61,25 @@ user_pass = SqliteDict('my_db.sqlite', autocommit=True)
 """
 
 
-@app.route("/statistics", methods=["GET"])
+@api.route("/statistics", methods=["GET"])
 def relationship():
-    # static/data/test_data.json
+    """Add some data
+    @@@
+    ### args
+    |  args | nullable | request type | type |  remarks |
+    |-------|----------|--------------|------|----------|
+    | title |  false   |    body      | str  | blog title    |
+    | name  |  false   |    body      | str  | person's name |
+    ### request
+    ```json
+    {"title": "xxx", "name": "xxx"}
+    ```
+    ### return
+    ```json
+    {"code": xxxx, "msg": "xxx", "data": null}
+    ```
+    """
+
     filename = os.path.join(app.static_folder, "data.json")
     with open(filename) as test_file:
         d = json.load(test_file)
@@ -68,8 +103,18 @@ def load_user(email):
 """
 
 
-@app.route("/login", methods=["POST", "GET"])
+@api.route("/login", methods=["POST", "GET"])
 def login():
+    """login function
+
+    login function 
+
+    Args:
+        email, password
+
+    Returns:
+        edirect "home_bp.home"
+    """
     global stored_user
     email = request.form.get("email")
     password = request.form.get("password")
@@ -90,8 +135,22 @@ def login():
 """
 
 
-@app.route("/register", methods=["POST"])
+@api.route("/register", methods=["POST"])
 def register():
+    """register function
+
+    @@@
+    #### args
+
+    | args | nullable | type | remark |
+    |--------|--------|--------|--------|
+    |    email    |    password    |    password2   
+   
+    #### return
+    - ##### json
+    > redirect(url_for("home_bp.home", pagenum=1))
+    @@@
+    """
     email = request.form.get("email")
     pw1 = request.form.get("password")
     pw2 = request.form.get("password2")
@@ -116,8 +175,20 @@ def register():
 """
 
 
-@app.route("/logout")
+@api.route("/logout")
 def logout():
+    """logout function
+
+    @@@
+    #### args
+
+
+   
+    #### return
+    - ##### json
+    > redirect(url_for("home_bp.home", pagenum=1))
+    @@@
+    """
     flask_login.logout_user()
     return redirect(url_for("home_bp.home", pagenum=1))
 
@@ -293,5 +364,8 @@ def file_download(filename):
 """
 启动主程序功能
 """
+app.register_blueprint(api, url_prefix="/api")
+app.register_blueprint(platform, url_prefix="/platform")
+
 if __name__ == "__main__":
     app.run(host="localhost", port=5000, threaded=False)
