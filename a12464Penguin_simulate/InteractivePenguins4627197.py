@@ -6,7 +6,7 @@ from pylab import *
 import matplotlib.pyplot as plt
 import math
 import random
-import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 ######################  functions are defined here ###########################
 # You need to rewrite the body of each of the functions below to achieve its purpose
@@ -51,9 +51,10 @@ mean_dict = {
 
 def draw_temp(mylist):
 # Dataset
-    x = np.array(range(0, 30))
+    # x = np.array(range(0, 30))
+    x = list(range(0, 30))
     y = mylist
-    print('-'*10, x, '@'*10, y, '#'*10)
+    # print('-'*10, x, '@'*10, y, '#'*10)
     # Plotting the Graph
     plt.plot(x, y)
     plt.title("Curve plotted using the given points")
@@ -73,10 +74,14 @@ def average_winter_temp(month,day):
     return t
 
 
-def winter_temp(month, day):
+def winter_temp(month, day, hour=0):
     t = average_winter_temp(month, day)
+    # print('t=', t)
     while True:
-        rand_t = random.randint(mean_dict[month][2],mean_dict[month][1])
+        rand_t = t + random.randint(mean_dict[month][2],mean_dict[month][1])/20
+        # rand_t = t
+        ran_h = randint(0, 2) * hour/ 24
+        rand_t = rand_t + ran_h
         if abs(rand_t - t) < 10:
             break
     return rand_t
@@ -85,12 +90,13 @@ def winter_temp(month, day):
 def generate_days_temp(month):
     mylist = []
     for i in range(30):
-        t = winter_temp(month, 1)
+        t = winter_temp(month, i)
         mylist.append(t)
     return mylist
 
 def wind_chill(T, v):
-    return 1
+    a = 13.112 + 0.6215*T - 11.37*math.pow(v, 0.16) + 0.3965*math.pow(v, 0.16)
+    return a
 
 
 ######################  main body of the code  ###########################
@@ -106,13 +112,14 @@ With this exhibition we aim to instil in our patrons a sense of wonder
 at the abilities displayed by animals to withstand harsh environments. 
 --------
 We support two browsing modes:
-1. Science Rookie
-2. Science Enthusiast
+0. Science Rookie
+1. Science Enthusiast
 """
-    patron_type = 1
+    patron_type = 0
     patron_type = input(
-        welcome_str + "Dear patrons, you can choose your type (1 or 2):"
+        welcome_str + "Dear patrons, you can choose your type (0 or 1):"
     )
+    patron_type = int(patron_type)
     introd = """
 Penguins are flightless birds, with flippers instead of wings, adapted to living in a marine environment. 
 The emperor penguin is the only bird that breeds during the Antarctic winter. 
@@ -134,16 +141,40 @@ Please choose a month to see temperatures(for example:  5m, 6m, 7m, 8m, 9m):?
     month = input(
          introd_temperatures
     )
-    if patron_type == 1:
-        print('just 1')
+    if patron_type == 0:
+        print('let us continue')
     else:
         mylist = generate_days_temp('5m')
         draw_temp(mylist)
 
+    day = 0
+    day = input(
+        "Dear patrons, you can input a day of your choosed month (1~30):"
+    )
+    hour = 0
+    hour = input(
+        "Dear patrons, you can input an hour of your choosed day (1~24):"
+    )
+    temperature = winter_temp(month, int(day), int(hour))
+    print('temperature we predict is: ', temperature)
+    speed = 0
+    speed = input(
+        "Dear patrons, you can input speed of weed (unit is km/h):"
+    )
+    at = wind_chill(temperature, int(speed))
+    print('The wind chill we predict is: ', at)
+
 
 
 def main():
-    greeting()
+    while True:
+        greeting()
+        user_input = input("Would you like to continue to choose month(y/n):")
+        if user_input == "n":
+            print('*'*20)
+            print('Thank you for using our platform, see you next time')
+            print('*'*20)
+            break
 
 
 if __name__ == "__main__":
