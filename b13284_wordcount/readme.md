@@ -16,3 +16,5 @@ pip3 install --upgrade -r requirements.txt
 
 
 5.
+默认在命令下：python3 i0word_cloud.py 
+传入参数： python3 i0word_cloud.py --background_img=colorful-sheep.png

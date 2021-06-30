@@ -6,8 +6,23 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 import matplotlib.pyplot as plt
 import nltk
+import argparse
+
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='输入背景图')
+    parser.add_argument('--background_img', type=str, default='colorful-elephant.png',
+
+                        help="background image to generate word cloud.")
+
+    
+    args = parser.parse_args()
+    return args
 
 def  main():
+	args = parse_args()
+	print('background_img=', args.background_img)
 	# --- read method 1 : read dataset of winemag-data-130k-v2.csv ----
 	df = pd.read_csv("Data/demo.csv", index_col=0)
 	# print(df)
@@ -68,7 +83,7 @@ def  main():
 
 	# bg_name = "colorful-sheep.png"
 
-	bg_name = "colorful-elephant.png"
+	bg_name = args.background_img
 
 	target_name = "result_"+ bg_name
 	bg = np.array(Image.open("Resource/"+bg_name))
