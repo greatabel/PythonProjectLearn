@@ -1,4 +1,4 @@
 var DATA = {
-'data2021':1641, 'data2020':1824,'total_sentiment_polarity':1.24, 'average_sentiment_polarity':0.07,'num_positive':606, 'num_neural':1010,'num_nagtive':101, 'data2021':1641 };
-var RELATED_WORDS = {'senkaku':18,'japan':12,'china':9,'taiwan':4,'japanese territory':3,'tibet':2,'senkakuislands':2,'takeshima':2, };
-var WHO_TWEETS = {'ひろちい0':5,'name':1,'⛩️令和時代の日本を清らかに🎌':1,'Hans Solo':1,'Caravaggio2016_疲れたおじさん':1,'Xy5Z89🇩🇪🇪🇺':1,'フルベビアイス3':1,'swa011':1,'Donald Wong':1,'アナンケの白いお髭(Anankes white beard)':1, };
+'data2021':485, 'data2020':3245,'total_sentiment_polarity':-0.45, 'average_sentiment_polarity':-0.05,'num_positive':153, 'num_neural':204,'num_nagtive':153, 'data2021':485 };
+var RELATED_WORDS = {'senkaku':8,'japan':4,'china':4,'japanese territory':2,'taiwan':2, };
+var WHO_TWEETS = {'ひろちい0':2,'フルベビアイス3':1,'Breaking Market News':1,'Chris Chapman 🏳️‍🌈クリス':1,'🇯🇵日本 心太郎':1,'724098':1,'Nikkei Asia':1,'Ayman Rashdan Wong':1, };

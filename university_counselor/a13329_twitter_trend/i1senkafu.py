@@ -1,12 +1,13 @@
 from csv_operation import csv_reader
 from sentiment import anlaysis
 
-
-data2020 = csv_reader("2021_04_05_senkaku.csv", "data")
+# twint -s "senkaku islands" --since 2020-04-01  -o senkaku.csv --csv
+# twint -s "south China sea" --since 2021-06-01  -o southchinasea.csv --csv
+data2020 = csv_reader("2021-06senkaku.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020_04_05senkafu.csv", "data")
+data2019 = csv_reader("2020_04-06sankaku.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 
@@ -26,7 +27,8 @@ compare_txt = "'data2021':" + str(len(data2020)) + ", 'data2020':" + str(len(dat
 js_txt += compare_txt
 
 
-data2020full = csv_reader("2021_04_05_senkaku.csv", "data")
+# data2020full = csv_reader("2021-06senkaku.csv", "data")
+data2020full = data2020
 
 print("\n2. sentiment anlaysis")
 total_sentiment = 0
@@ -42,7 +44,8 @@ wordfreq = {}
 
 usernamefreq = {}
 
-split = 101
+split = 51
+# pick_twlist = data2020full[0::split]
 pick_twlist = data2020full[0::split]
 for tw in pick_twlist:
     text = tw[10]
@@ -71,6 +74,8 @@ for tw in pick_twlist:
     if username not in usernamefreq:
         usernamefreq[username] = 0
     usernamefreq[username] += 1
+
+print('@'*30, usernamefreq)
 
 print("tatal sentiment polarity:", total_sentiment)
 print("average sentiment polarity:", total_sentiment / len(pick_twlist))
@@ -110,8 +115,10 @@ index = 0
 print("\n 4. username often posts related topics")
 js_txt += 'var WHO_TWEETS = {'
 a2_sorted_keys = sorted(usernamefreq, key=usernamefreq.get, reverse=True)
+# print('#'*20, usernamefreq)
+
 for r in a2_sorted_keys:
-    if usernamefreq[r] >= 1:
+    if usernamefreq[r] >= 1 and r not in ('name'):
         print(r, usernamefreq[r])
         if index < 10:
             js_txt += "'" + r + "':" + str(usernamefreq[r]) + ','

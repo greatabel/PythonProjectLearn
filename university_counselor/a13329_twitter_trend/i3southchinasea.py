@@ -2,11 +2,11 @@ from csv_operation import csv_reader
 from sentiment import anlaysis
 
 
-data2020 = csv_reader("2021_04_05southchinasea.csv", "data")
+data2020 = csv_reader("2021-06southchinasea.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020_04_05southchinasea.csv", "data")
+data2019 = csv_reader("2020_04_06southchinasea.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 
@@ -26,7 +26,8 @@ compare_txt = "'data2020':" + str(len(data2020)) + ", 'data2019':" + str(len(dat
 js_txt += compare_txt
 
 
-data2020full = csv_reader("2021_04_05southchinasea.csv", "data")
+# data2020full = csv_reader("2021_04_05southchinasea.csv", "data")
+data2020full = data2020
 
 print("\n2. sentiment anlaysis")
 total_sentiment = 0

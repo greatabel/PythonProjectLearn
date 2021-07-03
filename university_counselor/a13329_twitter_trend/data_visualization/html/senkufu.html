@@ -112,7 +112,7 @@ svg.append("text")
     .attr("x", width*5/7)
     .attr("y", 0 - (margin.top / 3))
     .attr("text-anchor", "middle")
-    .text("senkufu 2021 vs 2021 fever-comparison[4m and 5m]");  
+    .text("senkufu 2020(4m~6m) vs 2021 fever-comparison[6m]");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
@@ -341,7 +341,7 @@ svg.append("g")
 svg.append("text")
     .attr("class", "title")
     .attr("x", width*3/7)
-    .attr("y", 0 - (margin.top / 3))
+    .attr("y", 0 - (margin.top * 4/ 7))
     .attr("text-anchor", "middle")
     .text("senkufu 2021 Who Tweets Most");  
 // Create rectangles
