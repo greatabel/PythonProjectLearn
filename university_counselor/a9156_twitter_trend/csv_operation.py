@@ -11,6 +11,6 @@ def csv_reader(filename, directory="./"):
 		reader = csv.reader(csvfile, delimiter="\n", quotechar="|")
 		mylist = []
 		for row in reader:
-			if row[0] != '"':
+			if len(row)>0 and row[0] != '"':
 				mylist.append(row[0].split("\t"))
 		return mylist

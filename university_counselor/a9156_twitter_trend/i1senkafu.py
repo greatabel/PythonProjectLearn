@@ -3,11 +3,11 @@ from sentiment import anlaysis
 
 # twint -s "senkaku islands" --since 2020-04-01  -o senkaku.csv --csv
 # twint -s "south China sea" --since 2021-06-01  -o southchinasea.csv --csv
-data2020 = csv_reader("2021-06senkaku.csv", "data")
+data2020 = csv_reader("2021-07senkaku.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020_04-06sankaku.csv", "data")
+data2019 = csv_reader("2020-07senkaku.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 

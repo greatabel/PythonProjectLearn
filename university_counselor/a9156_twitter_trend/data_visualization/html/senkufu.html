@@ -60,8 +60,8 @@
     }
 
     var widget = SimpleWidget({color: "#6495ed"})
-            .headline("senkufu Data-visiualization")
-            .description("senkufu trend data mining and visualization");
+            .headline("score history Data-visiualization")
+            .description("score data mining and visualization");
     widget.render();
 
 
@@ -109,10 +109,10 @@ svg.append("g")
 
 svg.append("text")
     .attr("class", "title")
-    .attr("x", width*5/7)
+    .attr("x", width*3/7)
     .attr("y", 0 - (margin.top / 3))
     .attr("text-anchor", "middle")
-    .text("senkufu 2020(4m~6m) vs 2021 fever-comparison[6m]");  
+    .text("senkufu 2020(7m) vs 2021 fever-comparison[7m]");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
