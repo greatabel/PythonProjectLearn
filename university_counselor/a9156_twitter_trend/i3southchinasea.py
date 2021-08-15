@@ -2,11 +2,11 @@ from csv_operation import csv_reader
 from sentiment import anlaysis
 
 
-data2020 = csv_reader("2021-06southchinasea.csv", "data")
+data2020 = csv_reader("2021-07_processed_southchinasea.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020_04_06southchinasea.csv", "data")
+data2019 = csv_reader("2020-07_processed_southchinasea.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 

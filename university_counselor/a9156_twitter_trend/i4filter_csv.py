@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
  https://stackoverflow.com/questions/16286991/converting-yyyy-mm-dd-hhmmss-date-time
 
 '''
-targe_filename = "2020_04-2021-05_SouthChinaSea.csv"
+targe_filename = "2021-07southchinasea.csv"
 
 path = "data/" + targe_filename
 
@@ -35,7 +35,8 @@ def process(lines):
 
         # print(lines[i], '#'*10)
 
-        if '2020-04' in lines[i] or '2020-05' in lines[i]:
+        # if '2020-07' in lines[i] or '2020-05' in lines[i]:
+        if '2021-07' in lines[i]:
             rows.append(lines[i])
             print(lines[i], '@'*10)
         # else:

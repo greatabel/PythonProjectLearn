@@ -1,4 +1,4 @@
 var DATA = {
-'data2020':7271, 'data2019':32656,'total_sentiment_polarity':4.2, 'average_sentiment_polarity':0.06,'num_positive':2929, 'num_neural':2323,'num_nagtive':2020, 'data2019':32656 };
-var RELATED_WORDS = {'southchinasea':7,'china sea':7,'australia':5,'malaysia':5,'beijing':4,'philippines':4,'sea https':3,'asean':3,'⁦ @':3,'amti':3, };
-var WHO_TWEETS = {'AMTI':4,'GreatPowerPolitics':2, };
+'data2020':8092, 'data2019':42480,'total_sentiment_polarity':2.78, 'average_sentiment_polarity':0.03,'num_positive':3232, 'num_neural':3636,'num_nagtive':1313, 'data2019':42480 };
+var RELATED_WORDS = {'india':10,'sea https':8,'southchinasea':6,'beijing':5,'asean':4,'america':4,'uk':4,'elizabeth':4,'germany':4,'august':4, };
+var WHO_TWEETS = {'AMTI':4,'GENERAL TOM S. GATES ★ Live Leak 🦅🇺🇸':3, };
