@@ -8,6 +8,8 @@ abel_env
 env
 mlsystem-env
 
+university_counselor/a9156_twitter_trend/data/
+
 bodypix_resnet50_float_model-stride16
 
 # C extensions
