@@ -15,4 +15,10 @@ pip install --upgrade -r requirements.txt
 
 5.
 terminal底下运行：
-Enter "cd guess_number" to move inside the project folder, then start the server with "otree devserver".
+Enter "cd myproject" to move inside the project folder, 
+then start the server with:
+in terminal, input: otree devserver
+
+6.
+主要参考
+https://zhuanlan.zhihu.com/p/81214979
