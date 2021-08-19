@@ -28,9 +28,9 @@ with open("hot.pickle", "rb") as handle:
 
 
 
-for key, value in hot_dict.items():
+for key in sorted(hot_dict):
     # print(key, '#',value)
-
+    value = hot_dict[key]
     print('choose:', key, '#',value)
     dates.append(key)
     hots.append(value)
