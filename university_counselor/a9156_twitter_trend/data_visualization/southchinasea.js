@@ -1,4 +1,4 @@
 var DATA = {
-'data2020':8092, 'data2019':42480,'total_sentiment_polarity':2.78, 'average_sentiment_polarity':0.03,'num_positive':4232, 'num_neural':5636,'num_nagtive':913, 'data2019':42480 };
-var RELATED_WORDS = {'india':10,'sea https':8,'southchinasea':6,'beijing':5,'asean':4,'america':4,'uk':4,'elizabeth':4,'germany':4,'august':4, };
-var WHO_TWEETS = {'AMTI':4,'GENERAL TOM S. GATES ★ Live Leak 🦅🇺🇸':3, };
+'data2020':3979, 'data2019':23419,'total_sentiment_polarity':3.87, 'average_sentiment_polarity':0.1,'num_positive':2222, 'num_neural':1111,'num_nagtive':707, 'data2019':23419 };
+var RELATED_WORDS = {'australia':4,'india':4,'sea https':3,'milley':3,'trump':3,'southchinasea':3,'arabian':2,'philippines':2,'asean':2,'indopacific':2, };
+var WHO_TWEETS = {'Bob Lumby':3,'Nikkei Asia':2,'norobiik':1,'Chris Cavas':1,'Gerry Doyle':1,'AMTI':1,'Shashank Joshi':1,'Jeff Kemp':1,'APPALACHISTAN GHOST❌':1, };

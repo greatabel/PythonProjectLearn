@@ -1,13 +1,13 @@
 from csv_operation import csv_reader
 from sentiment import anlaysis
 
-# twint -s "senkaku islands" --since 2020-04-01  -o senkaku.csv --csv
-# twint -s "south China sea" --since 2021-06-01  -o southchinasea.csv --csv
-data2020 = csv_reader("2021-07senkaku.csv", "data")
+# twint -s "senkaku islands" --since 2021-08-01  -o senkaku.csv --csv
+# twint -s "south China sea" --since 2021-08-01  -o southchinasea.csv --csv
+data2020 = csv_reader("2021-08senkaku.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020-07senkaku.csv", "data")
+data2019 = csv_reader("2020-08senkaku.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 
@@ -44,13 +44,13 @@ wordfreq = {}
 
 usernamefreq = {}
 
-split = 51
+split = 101
 # pick_twlist = data2020full[0::split]
 pick_twlist = data2020full[0::split]
 for tw in pick_twlist:
     text = tw[10]
     username = tw[8]
-    # print(text, "\n@@@username=", username, "\n")
+    print('text=',text, "\n@@@username=", username, "\n")
     words, sentiment_tw = anlaysis(text)
     print(sentiment_tw)
     total_sentiment += sentiment_tw

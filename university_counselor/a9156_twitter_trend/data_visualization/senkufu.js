@@ -1,4 +1,4 @@
 var DATA = {
-'data2021':1010, 'data2020':344,'total_sentiment_polarity':1.81, 'average_sentiment_polarity':0.09,'num_positive':255, 'num_neural':714,'num_nagtive':51, 'data2021':1010 };
-var RELATED_WORDS = {'senkaku':15,'china':7,'senkaku_islands':6,'japan':6,'japanese territory':2,'jamaica':2,'mexico':2,'brazil':2,'argentine':2,'peru':2, };
-var WHO_TWEETS = {'swa011':6,'ひろちい0':3,'⛩️令和時代の日本を清らかに🎌':1,'Bitesize World News':1,'truth_jpn':1,'フルベビアイス3':1,'HC_Tokyo':1,'413X':1,'Luke Austin':1,'Gary':1, };
+'data2021':306, 'data2020':1323,'total_sentiment_polarity':1.3, 'average_sentiment_polarity':0.04,'num_positive':80, 'num_neural':200,'num_nagtive':30, 'data2021':306 };
+var RELATED_WORDS = {'senkaku':25,'china':19,'japan':17,'senkaku_islands':14,'meiji':5,'japanese territory':4,'taiwan':4,'この海域':3,'cest':3,'automatique':3, };
+var WHO_TWEETS = {'swa011':14,'ひろちい0':4,'🇯🇵日本 心太郎':2,'寝そべり Stand With Hong Kong 🖐️👆':1,'ANTARES':1,'Aaron Kidd':1,'David Soiza':1,'Błażej Sajduk':1,'Ritzy':1,'aki':1, };

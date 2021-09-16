@@ -2,11 +2,11 @@ from csv_operation import csv_reader
 from sentiment import anlaysis
 
 
-data2020 = csv_reader("2021-07_processed_southchinasea.csv", "data")
+data2020 = csv_reader("2021-08southchinasea.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 
 print("-*-" * 10)
-data2019 = csv_reader("2020-07_processed_southchinasea.csv", "data")
+data2019 = csv_reader("2020-08southchinasea.csv", "data")
 print(data2019[0], "#" * 10, data2019[1], "#" * 10, " \n", data2019[2])
 
 
@@ -111,7 +111,7 @@ print("\n 4. username often posts related topics")
 js_txt += 'var WHO_TWEETS = {'
 a2_sorted_keys = sorted(usernamefreq, key=usernamefreq.get, reverse=True)
 for r in a2_sorted_keys:
-    if usernamefreq[r] > 1:
+    if usernamefreq[r] >= 1:
         print(r, usernamefreq[r])
         if index < 10:
             js_txt += "'" + r + "':" + str(usernamefreq[r]) + ','

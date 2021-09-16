@@ -167,7 +167,8 @@ def main():
                 positions[key][1],
                 c=animal_obj.colour,
                 linewidths=1,
-                marker=animal_obj.shape_on_plot,
+                # marker=animal_obj.shape_on_plot,
+                marker='s',
                 edgecolor="green",
                 s=animal_obj.size,
             )
@@ -183,7 +184,8 @@ def main():
                     child_y,
                     c=animal_obj.colour,
                     linewidths=1,
-                    marker=animal_obj.shape_on_plot,
+                    # marker=animal_obj.shape_on_plot,
+                    marker='s',
                     edgecolor="yellow",
                     s=animal_obj.size // 2,
                 )
