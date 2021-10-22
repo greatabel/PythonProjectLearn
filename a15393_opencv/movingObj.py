@@ -23,7 +23,7 @@ def main():
 
 
 def partI(video_path):
-	cam = cv2.VideoCapture('video/'+video_path)
+	cam = cv2.VideoCapture(video_path)
 
 	# Gaussian Mixture-based Background
 	# Detecting moving pixels using background modelling and subtraction
@@ -67,6 +67,9 @@ def partI(video_path):
 		output = cv2.connectedComponentsWithStats(
 			img_dilation, 4, cv2.CV_32S)
 		(numLabels, labels, stats, centroids) = output
+
+		num_car = 0
+		num_human = 0
 		for i in range(0, numLabels):
 			# if this is the first component then we examine the
 			# *background* (typically we would just ignore this
@@ -97,7 +100,18 @@ def partI(video_path):
 			cv2.rectangle(img_2, (x, y), (x+w, y+h), (0,255,0), 2)
 
 
-			print('#'*10, 'w, h=', w, h)
+			ratio = w / h
+			if ratio > 1.1 and ratio < 1.5 and w > 100:
+				num_car += 1
+				# print('@'*10, 'w, h=', w, h, 'ratio=', ratio, area)
+			if ratio  > 0.5 and ratio < 1:
+				num_human += 1
+				# print('#'*10, 'w, h=', w, h, 'ratio=', ratio, area)
+		print(numLabels , " objects (", num_human , " persons, ", num_car , " car and ," ,
+			numLabels-num_human-num_car," others)")
+
+		num_car = 0
+		num_human = 0
 		plt.subplot(2, 2, 4)
 		plt.imshow(img_2)
 
@@ -116,7 +130,7 @@ def partI(video_path):
 
 def partII(video_path):
 	# cam = cv2.VideoCapture('video/carpark_f6_compressed.avi')
-	cam = cv2.VideoCapture('video/'+video_path)
+	cam = cv2.VideoCapture(video_path)
 	# cam = cv2.VideoCapture('video/Trafficlights_compressed.avi')
 
 	# http://blog.topspeedsnail.com/archives/10511
