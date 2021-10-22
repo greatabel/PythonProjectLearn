@@ -34,17 +34,19 @@ while True:
     i = 0
 
     j = 0
+    # count the w,h ,circulate area of human, use the area to evaluate the distance
     myareas = []
     for face_x,face_y,face_w,face_h in faces:
         myareas.append(face_w*face_h)
     myareas.sort(reverse=True)
     print('myareas=', myareas)
+
     # find top 5 max area if not up to 5, then last area
     threshold_area = 0
     if len(myareas) >= 5:
         threshold_area = myareas[4]
 
-
+    # not consider distance way
     for face_x,face_y,face_w,face_h in faces:
         cv2.rectangle(img_2, (face_x, face_y), (face_x+face_w, face_y+face_h), (0,255,0), 2)
         cv2.rectangle(img_3, (face_x, face_y), (face_x+face_w, face_y+face_h), (0,255,0), 2)
@@ -63,7 +65,7 @@ while True:
             lineType=cv2.LINE_AA,
         )
         i += 1
-
+        # consider distance way:
         if j < 5 and face_w * face_h >= threshold_area:
             cv2.putText(
                 img_4,
