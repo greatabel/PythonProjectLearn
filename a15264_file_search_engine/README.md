@@ -1,14 +1,7 @@
 0.
-esseract安装
-
-由于Textshot的OCR识别需要调用tesseract后端引擎，所以，首先需要安装tesseract。
-
-Windows版安装可以直接访问下载链接[1].
-
-Mac下可以使用Homebrew进行安装，
-
-brew install tesseract
-brew install poppler
+在mac系统：
+brew install ghostscript tcl-tk
+brew install libmagic
 
 1.
 安装python3.6 以上版本

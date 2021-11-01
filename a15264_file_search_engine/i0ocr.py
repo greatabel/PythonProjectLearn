@@ -8,6 +8,11 @@ from pdfreader import PDFDocument, SimplePDFViewer
 import re
 
 name = '16.QSY1002.1-2013健康、安全与环境管理体系第1部分：规范'
+
+
+name = 'QSY1142-2008 井下作业设计规范'
+name = 'QSYXJ0059-2009(2014)采气井口及集气站操作规范'
+
 file_name = 'data/'+ name + '.pdf'
 
 def translate(str):
