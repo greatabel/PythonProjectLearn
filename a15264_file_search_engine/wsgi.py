@@ -179,7 +179,7 @@ def home(pagenum=1):
             #             search_list.append(movie)
             #             break
         print("search_list=", search_list, "=>" * 5)
-        return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user)
+        return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user, keyword=keyword)
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
