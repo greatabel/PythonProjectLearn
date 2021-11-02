@@ -113,12 +113,12 @@ class StudentWork(db.Model):
 
 ### -------------start of home
 def replace_html_tag(text, word):
-    new_word = '<font color="red">' + word + '</font>'
+    new_word = '<font color="red">' + word + "</font>"
     len_w = len(word)
     len_t = len(text)
     for i in range(len_t - len_w, -1, -1):
-        if text[i: i + len_w] == word:
-            text = text[:i] + new_word + text[i + len_w:]
+        if text[i : i + len_w] == word:
+            text = text[:i] + new_word + text[i + len_w :]
     return text
 
 
@@ -428,9 +428,6 @@ def logout():
 
 
 reviews = []
-
-
-
 
 
 @login_manager.unauthorized_handler
