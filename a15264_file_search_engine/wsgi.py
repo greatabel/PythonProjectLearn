@@ -112,6 +112,14 @@ class StudentWork(db.Model):
 
 
 ### -------------start of home
+def replace_html_tag(text, word):
+    new_word = '<font color="red">' + word + '</font>'
+    len_w = len(word)
+    len_t = len(text)
+    for i in range(len_t - len_w, -1, -1):
+        if text[i: i + len_w] == word:
+            text = text[:i] + new_word + text[i + len_w:]
+    return text
 
 
 class PageResult:
@@ -149,22 +157,29 @@ def home(pagenum=1):
         search_list = []
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
-        # if keyword is not None:
-        #     for movie in notice_list:
-        #         if movie.director.director_full_name == keyword:
-        #             search_list.append(movie)
+        if keyword is not None:
+            for blog in blogs:
+                if keyword in blog.title or keyword in blog.text:
+                    blog.title = replace_html_tag(blog.title, keyword)
+                    print(blog.title)
+                    blog.text = replace_html_tag(blog.text, keyword)
 
-        #         for actor in movie.actors:
-        #             if actor.actor_full_name == keyword:
-        #                 search_list.append(movie)
-        #                 break
+                    search_list.append(blog)
+            # for movie in notice_list:
+            #     if movie.director.director_full_name == keyword:
+            #         search_list.append(movie)
 
-        #         for gene in movie.genres:
-        #             if gene.genre_name == keyword:
-        #                 search_list.append(movie)
-        #                 break
-        print("search_list=", search_list, "#" * 5)
-        return rt("home.html", listing=PageResult(blogs, pagenum, 2), user=user)
+            #     for actor in movie.actors:
+            #         if actor.actor_full_name == keyword:
+            #             search_list.append(movie)
+            #             break
+
+            #     for gene in movie.genres:
+            #         if gene.genre_name == keyword:
+            #             search_list.append(movie)
+            #             break
+        print("search_list=", search_list, "=>" * 5)
+        return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user)
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
