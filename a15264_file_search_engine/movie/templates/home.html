@@ -80,22 +80,19 @@ div[class*="release_year"] {
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
       <li class="nav-item active">
         <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
 
                 <div class="form-group">
                   <input type="text" name="keyword" placeholder="请输入关键字进行搜索" class="form-control" autofocus>&nbsp;
                 </div>
-          
-              <input type="submit" value="Search" class="btn btn-success">
+            &nbsp;&nbsp;
+              <input type="submit" value="搜索一下" class="btn btn-success">
         </form>
       </li>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            {% if session['logged_in'] %}
       <li class="nav-item active">
          <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
@@ -131,13 +128,25 @@ div[class*="release_year"] {
       <div class="container">
 
 
-<div class="container">
-   <h1>石油领域垂直搜索引擎</h1>
 
+<div class="media">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="media-left">
+        <h1 class="media-heading">石油领域</h1>
 
+    </div>
+    <span class="media-left">
+        <img src="/static/images/company.png" style="height:43px;width:54px;">
+    </span>
+    <div class="media-body">
+        <h1 class="media-heading">垂直搜索引擎</h1>
 
-
+    </div>
 </div>
+
 
 
       </div>
@@ -146,7 +155,8 @@ div[class*="release_year"] {
     <div class="container">
 
        <div class="row">
-       <div class="col-md-8"> <div class="release_year">搜索结果如下</div>
+       <div class="col-md-12"> <div class="release_year">Page 1 of about all results (0.34 seconds) </div>
+       <br/>
        </div>
        </div>
 
@@ -157,7 +167,7 @@ div[class*="release_year"] {
         <div class="col-md-12">
         <span>{{ r.title }}</span> 
         <br/>
-        <a href="/blogs/{{r.id}}">{{ r.text }}</a>
+        <a href="/blogs/{{r.id}}">{{ r.text[:500] }} ... </a>
 
             <div name="title"> </div>  
             <br/>
@@ -171,7 +181,7 @@ div[class*="release_year"] {
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-8"> <div class="release_year">石油领域垂直搜索引擎 theory：</div>
+       <div class="col-md-12"> <div class="release_year">石油领域介绍：</div>
        </div>
        </div>
       <!-- Example row of columns -->
@@ -260,7 +270,7 @@ div[class*="release_year"] {
 <br/>
 
       <footer>
-        <p>&copy; Momoko 2021</p>
+        <p>&copy; 六斤桃 2021</p>
       </footer>
     </div> <!-- /container -->
 
