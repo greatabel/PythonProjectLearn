@@ -28,14 +28,6 @@ app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
 # --- total requirement ----
-# 1. 应该实现一个flask 的web服务和 redis等非关系型数据库通讯，
-# 存储原来的地点之间键值对关系，存储以前的临接点相邻边的存储结构
-# 2. 实现flask web 封装api ：上面的 键值对和临界点边结果进行（新增，修改，删除）操作
-# 3. 编写web 界面UI 调用第2步的api，可以让有权限的用户进行上面的操作
-# 4. 网站管理员和普通用户权限管理，登录功能
-# 5. 修改原有jspath的手机app，原有的在线data.js功能修改成 js库后台请求 http request api的方式实时更新数据
-# 6. 还有一个图片服务，flask端还要实现图片的上传、存储和对path 进行关联
-# 7. 手机jspath的所有图片服务改成从 后端请求
 
 
 # ---start  数据库 ---
@@ -358,7 +350,17 @@ def relationship():
     with open(filename) as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
-    return d
+    return jsonify(d)
+
+@app.route('/index_a/')
+def index():
+    return rt('index-A.html')
+       
+
+@app.route('/index_b/')
+def index_b():
+    return rt('index-B.html')
+        
 
 
 @login_manager.user_loader
