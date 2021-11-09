@@ -8,6 +8,7 @@ brew install libmagic
 
 2. 
 安装pip3 
+（如果网速慢 可以pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package  把some-package替换成自己的慢的包 )
 
 3.
 可选  可以不做（创建python3虚拟目录，隔绝不同版本库之间相互影响）
