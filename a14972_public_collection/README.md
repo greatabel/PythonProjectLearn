@@ -29,4 +29,7 @@ python3 i0scrapy_huanqiu.py
 抓取本地天津新闻
 python3  i1scrapy_localnews.py
 
+（没有外网爬虫代理前，可以不做。假设有了外网爬虫，可以抓取twitter上中文圈舆情:)
+进入i2Scrapy/twitter_scrapy 工程 在命令行下: python3 i0my_tw_downloader.py
+
 7.
