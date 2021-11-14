@@ -4,6 +4,7 @@ from sentiment import anlaysis
 # twint -s "Nezha" --since 2021-01-01  -o Nezha.csv --csv
 # twint -s "senkaku islands" --since 2021-08-01  -o senkaku.csv --csv
 # twint -s "south China sea" --since 2021-08-01  -o southchinasea.csv --csv
+# proxychains4 twint -s "中国经济" --since 2021-11-10  -o china_economy.csv --csv
 data2020 = csv_reader("2021-08senkaku.csv", "data")
 print(data2020[0], "#" * 10, data2020[1], "#" * 10, " \n", data2020[2])
 

@@ -28,3 +28,5 @@ python3 i0scrapy_huanqiu.py
 
 抓取本地天津新闻
 python3  i1scrapy_localnews.py
+
+7.
