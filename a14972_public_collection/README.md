@@ -15,7 +15,7 @@ pip install --upgrade -r requirements.txt
 
 5.
 模拟运行在:
-命令行底下运行: python3 i5wsgi.py
+命令行底下运行: python3 i6wsgi.py
 
 6.
 可视化部分在：

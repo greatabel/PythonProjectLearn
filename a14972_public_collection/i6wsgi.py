@@ -18,6 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
+from i5data import *
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -133,6 +134,27 @@ class PageResult:
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
 
+
+#-------big screen -------------------
+
+@app.route('/big_screen')
+def big_screen():
+    data = SourceData()
+    return rt('big_screen.html', form=data, title=data.title)
+
+
+@app.route('/corp')
+def corp():
+    data = CorpData()
+    return rt('big_screen.html', form=data, title=data.title)
+
+
+@app.route('/job')
+def job():
+    data = JobData()
+    return rt('big_screen.html', form=data, title=data.title)
+
+#-------big screen -------------------
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
