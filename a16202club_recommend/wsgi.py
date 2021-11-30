@@ -48,6 +48,7 @@ class User(db.Model):
     nickname = db.Column(db.String(80))
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
+    personal_hobby = db.Column(db.String(300))
 
     def __init__(self, username, password):
         self.username = username
@@ -56,7 +57,7 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    课程数据模型
+    社团内容数据模型
     """
 
     # 主键ID
@@ -74,7 +75,7 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
+
 class TeacherWork(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -182,6 +183,7 @@ def home(pagenum=1):
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
+
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
@@ -259,7 +261,25 @@ def query_note(id):
 
 ### -------------end of home
 
+@app.route("/recommend", methods=["GET", "DELETE"])
+def recommend():
+    """
+    查询课程详情、删除课程
+    """
+    if request.method == "GET":
 
+        # 渲染课程详情页面
+        return rt("recommend.html")
+
+@app.route("/recommend_club", methods=["GET", "DELETE"])
+def recommend_club():
+    """
+    查询课程详情、删除课程
+    """
+    if request.method == "GET":
+
+        # 渲染课程详情页面
+        return rt("recommend_club.html")
 ### -------------start of profile
 
 
