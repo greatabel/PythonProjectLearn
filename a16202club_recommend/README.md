@@ -1,7 +1,4 @@
-0.
-在mac系统：
-brew install ghostscript tcl-tk
-brew install libmagic
+在mac/ubuntu18.04系统上
 
 1.
 安装python3.6 以上版本
@@ -35,10 +32,12 @@ username: greatabel1@126.com
 password: abel
 你也可以自己注册和登录
 
+管理员可以管理社团实体（名称，介绍等）
+管理员账号: admin@126.com
+管理员密码：admin
+
 7.
 个人主页： http://localhost:5000/profile
 
-修改编辑地点的后台管理页：
+修改编辑社团的后台管理页：
 http://localhost:5000/blogs
-可以点击 add doc连接，自己从pdf上copy文字输入到列表中；
-或者命令行下：python3 i0ocr.py (记得修改14行的文件名，获得processeddata的text，目前60-70%准确度)然后再复制黏贴
