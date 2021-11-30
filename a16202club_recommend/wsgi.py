@@ -323,6 +323,7 @@ def update_profile(id):
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
+        personal_hobby = request.form["personal_hobby"]
 
         # 更新课程
         user = User.query.filter_by(id=id).update(
@@ -331,6 +332,7 @@ def update_profile(id):
                 "nickname": nickname,
                 "school_class": school_class,
                 "school_grade": school_grade,
+                "personal_hobby": personal_hobby,
             }
         )
         # 提交才能生效
@@ -407,6 +409,8 @@ def login():
 
             if email in admin_list:
                 session["isadmin"] = True
+            else:
+                session["isadmin"] = False
             session["userid"] = data.id
 
             print("login sucess", "#" * 20, session["logged_in"])
