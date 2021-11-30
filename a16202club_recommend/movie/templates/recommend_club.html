@@ -81,7 +81,7 @@ div[class*="release_year"] {
     <div class="jumbotron">
       <div class="container">
         <h1>根据个人喜好的社团推荐</h1>
-        <p>You can view/search movie on our website</p>
+        <p>Content-Based Recommendations</p>
       </div>
     </div>
 
@@ -94,17 +94,17 @@ div[class*="release_year"] {
 
         <div class="col-md-8">
 
-        <img src="/static/images/demo.png" class="img-fluid" >
-        Accoriding to data above, 
-        We recommend for user[Toby] such movie according by <b>Collaborative Filtering Algorithm</b>:
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
+        根据情绪爱好的基于内容的推荐算法，我们推荐社团:
+        <span style="color:blue">  {{max_title }}</span>
 
-                  {% for c in choosed %}
-
-
-            <div class="release_year"> {{ c|safe }}</div>  
+                 
 
 
-           {% endfor %}
+            <!-- <div class="release_year"> </div>   -->
+
+
+
         </div>
 
 
@@ -167,6 +167,7 @@ div[class*="release_year"] {
       <hr>
 
       <footer>
+        <br/><br/>
         <p>&copy; 小荷才露尖尖角 2021</p>
       </footer>
     </div> <!-- /container -->

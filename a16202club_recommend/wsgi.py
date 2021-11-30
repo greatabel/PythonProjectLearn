@@ -18,6 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
+import jellyfish
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -62,9 +63,9 @@ class Blog(db.Model):
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 课程标题
+    # 社团标题
     title = db.Column(db.String(100))
-    # 课程正文
+    # 社团正文
     text = db.Column(db.Text)
 
     def __init__(self, title, text):
@@ -187,7 +188,7 @@ def home(pagenum=1):
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建课程文章
+    创建社团文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -197,61 +198,61 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-        # 创建一个课程对象
+        # 创建一个社团对象
         blog = Blog(title=title, text=text)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到课程列表页面
+        # 创建完成之后重定向到社团列表页面
         return redirect("/blogs")
 
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询课程列表
+    查询社团列表
     """
     blogs = Blog.query.all()
-    # 渲染课程列表页面目标文件，传入blogs参数
+    # 渲染社团列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新课程
+    更新社团
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的社团标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新课程
+        # 更新社团
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到社团详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除课程
+        # 删除社团
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -264,42 +265,64 @@ def query_note(id):
 @app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
 
-        # 渲染课程详情页面
+
+
+        # 渲染社团详情页面
         return rt("recommend.html")
 
 @app.route("/recommend_club", methods=["GET", "DELETE"])
 def recommend_club():
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
+        id = session["userid"]
+        user = User.query.filter_by(id=id).first_or_404()
+        tname = user.personal_hobby
+        source = Blog.query.all()
+        max_c1 = 0
+        max_title = ''
+        for blog in source:
+            sname = blog.text
 
-        # 渲染课程详情页面
-        return rt("recommend_club.html")
+            c0 = jellyfish.levenshtein_distance(sname, tname)
+            c1 = jellyfish.jaro_distance(sname, tname)
+            c1 = round(c1, 4)
+            c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
+            # https://en.wikipedia.org/wiki/Hamming_distance
+            c3 = jellyfish.hamming_distance(sname, tname)
+            print(c0, c1, c2, c3, '@'*10)
+            if c1 > max_c1:
+                max_c1 = c1
+                max_title = blog.title
+
+        print('@'*20, max_title)
+        # 渲染社团详情页面
+        return rt("recommend_club.html", max_title=max_title)
 ### -------------start of profile
 
 
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除课程
+        # 删除社团
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -310,22 +333,22 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新课程
+    更新社团
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询社团详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的社团标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
         personal_hobby = request.form["personal_hobby"]
 
-        # 更新课程
+        # 更新社团
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -337,7 +360,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到社团详情页面
         return redirect("/profile")
 
 
@@ -347,14 +370,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
