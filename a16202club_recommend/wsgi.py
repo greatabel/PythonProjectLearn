@@ -18,6 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
+import recommandation
 import jellyfish
 # from movie.domain.model import Director, Review, Movie
 
@@ -268,16 +269,17 @@ def recommend():
     查询社团详情、删除社团
     """
     if request.method == "GET":
+        choosed = recommandation.main()
+        print('给予离线交互数据进行协同推荐')
+        print(choosed, '#'*20)
+        print('给予离线交互数据进行协同推荐')
+        return rt("recommend.html", choosed=choosed)
 
-
-
-        # 渲染社团详情页面
-        return rt("recommend.html")
 
 @app.route("/recommend_club", methods=["GET", "DELETE"])
 def recommend_club():
     """
-    查询社团详情、删除社团
+    基于内容的推荐，根据文本相似度levenshtein_distance各种距离尽显比较
     """
     if request.method == "GET":
         id = session["userid"]
