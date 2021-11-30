@@ -171,7 +171,12 @@ def home(pagenum=1):
             #             search_list.append(movie)
             #             break
         print("search_list=", search_list, "=>" * 5)
-        return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user, keyword=keyword)
+        return rt(
+            "home.html",
+            listing=PageResult(search_list, pagenum, 10),
+            user=user,
+            keyword=keyword,
+        )
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
@@ -352,15 +357,15 @@ def relationship():
     print(type(d), "#" * 10, d)
     return jsonify(d)
 
-@app.route('/index_a/')
-def index():
-    return rt('index-A.html')
-       
 
-@app.route('/index_b/')
+@app.route("/index_a/")
+def index():
+    return rt("index-A.html")
+
+
+@app.route("/index_b/")
 def index_b():
-    return rt('index-B.html')
-        
+    return rt("index-B.html")
 
 
 @login_manager.user_loader
