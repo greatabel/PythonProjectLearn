@@ -1,5 +1,6 @@
 # numpy
 # matplotlib
+Django
 click
 coverage
 Flask

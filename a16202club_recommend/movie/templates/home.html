@@ -186,8 +186,19 @@ div[class*="release_year"] {
 
           {% for r in listing %}
       <div class="row">
-        <div class="col-md-12">
-        <span>{{ r.title|safe }}</span> 
+
+        <div class="col-md-4">
+        <figure>
+            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+        </figure>
+            <div name="title"> </div>  
+
+        </div>
+
+
+        <div class="col-md-8">
+        <span><h4>{{ r.title|safe }} </h4> </span> 
+        <br/>
         <br/>
         <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
 
@@ -195,6 +206,10 @@ div[class*="release_year"] {
             <br/>
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
         </div>
+
+
+
+
         </div>
            {% endfor %}
         
@@ -203,7 +218,7 @@ div[class*="release_year"] {
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-12"> <div class="release_year">社团领域介绍：</div>
+       <div class="col-md-12"> <div class="release_year">社团领域采风：</div>
        </div>
        </div>
       <!-- Example row of columns -->
@@ -213,11 +228,21 @@ div[class*="release_year"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/common/{{r.id }}.jpg" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+
         </div>
+
+<!-- 
+              <div class="container">
+        <div class="col-md-4 px-0">
+            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid">
+            <div name="title"> {{ r.title|safe }}</div>  
+            <div class="release_year">release_year </div> 
+        </div>
+     </div> -->
+
 
            {% endfor %}
 

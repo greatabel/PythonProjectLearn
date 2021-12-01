@@ -41,3 +41,6 @@ password: abel
 
 修改编辑社团的后台管理页：
 http://localhost:5000/blogs
+
+8.
+学校如果提供的社团数据是pdf的，可以用i0ocr.py脚本进行ocr处理
