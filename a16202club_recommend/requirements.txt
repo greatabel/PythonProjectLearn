@@ -1,5 +1,5 @@
-# numpy
-# matplotlib
+numpy
+matplotlib
 Django
 click
 coverage

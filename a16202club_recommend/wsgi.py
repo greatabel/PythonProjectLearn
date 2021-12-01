@@ -3,6 +3,8 @@ import os
 import sys
 import json
 
+import django
+
 import flask_login
 from flask_cors import CORS
 
@@ -20,6 +22,8 @@ from movie import create_app
 
 import recommandation
 import jellyfish
+
+import datetime
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -66,7 +70,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # 社团标题
     title = db.Column(db.String(100))
-    # 社团正文
+    # 社团内容
     text = db.Column(db.Text)
 
     def __init__(self, title, text):
@@ -107,6 +111,10 @@ class StudentWork(db.Model):
 
 
 ### -------------start of home
+@app.context_processor
+def inject_today_date():
+    return {'today_date': datetime.date.today()}
+    
 def replace_html_tag(text, word):
     new_word = '<font color="red">' + word + "</font>"
     len_w = len(word)
@@ -135,6 +143,8 @@ class PageResult:
 
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
+
+
 
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
