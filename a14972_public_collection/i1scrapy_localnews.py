@@ -9,6 +9,7 @@ headers = {
 }
 response = requests.get('https://www.baidu.com/s?wd=天津&lm=1', headers=headers)
 
+
 r = response.text
 html = etree.HTML(r, etree.HTMLParser())
 r1 = html.xpath('//h3')
@@ -16,7 +17,10 @@ r2 = html.xpath('//*[@class="c-abstract"]')
 r3 = html.xpath('//*[@class="t"]/a/@href')
 
 for i in range(10):
+	print('i=', i)
 	if len(r1) > 0:
+	    if not (len(r1) > i and len(r2) > i and len(r3) > i):
+	    	break
 	    r11 = r1[i].xpath('string(.)')
 	    r22 = r2[i].xpath('string(.)')
 	    r33 = r3[i]
