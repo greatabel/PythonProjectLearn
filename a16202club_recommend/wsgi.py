@@ -24,6 +24,7 @@ import recommandation
 import jellyfish
 
 import datetime
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -81,7 +82,6 @@ class Blog(db.Model):
         self.text = text
 
 
-
 class TeacherWork(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -113,8 +113,9 @@ class StudentWork(db.Model):
 ### -------------start of home
 @app.context_processor
 def inject_today_date():
-    return {'today_date': datetime.date.today()}
-    
+    return {"today_date": datetime.date.today()}
+
+
 def replace_html_tag(text, word):
     new_word = '<font color="red">' + word + "</font>"
     len_w = len(word)
@@ -143,8 +144,6 @@ class PageResult:
 
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
-
-
 
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
@@ -193,7 +192,6 @@ def home(pagenum=1):
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
-
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
@@ -273,6 +271,7 @@ def query_note(id):
 
 ### -------------end of home
 
+
 @app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
     """
@@ -280,9 +279,9 @@ def recommend():
     """
     if request.method == "GET":
         choosed = recommandation.main()
-        print('给予离线交互数据进行协同推荐')
-        print(choosed, '#'*20)
-        print('给予离线交互数据进行协同推荐')
+        print("给予离线交互数据进行协同推荐")
+        print(choosed, "#" * 20)
+        print("给予离线交互数据进行协同推荐")
         return rt("recommend.html", choosed=choosed)
 
 
@@ -297,7 +296,7 @@ def recommend_club():
         tname = user.personal_hobby
         source = Blog.query.all()
         max_c1 = 0
-        max_title = ''
+        max_title = ""
         for blog in source:
             sname = blog.text
 
@@ -307,14 +306,16 @@ def recommend_club():
             c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
             # https://en.wikipedia.org/wiki/Hamming_distance
             c3 = jellyfish.hamming_distance(sname, tname)
-            print(c0, c1, c2, c3, '@'*10)
+            print(c0, c1, c2, c3, "@" * 10)
             if c1 > max_c1:
                 max_c1 = c1
                 max_title = blog.title
 
-        print('@'*20, max_title)
+        print("@" * 20, max_title)
         # 渲染社团详情页面
         return rt("recommend_club.html", max_title=max_title)
+
+
 ### -------------start of profile
 
 

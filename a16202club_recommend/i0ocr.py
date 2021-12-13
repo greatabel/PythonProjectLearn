@@ -10,7 +10,6 @@ import re
 name = "需要ocr的文本名称"
 
 
-
 file_name = "data/" + name + ".pdf"
 
 
