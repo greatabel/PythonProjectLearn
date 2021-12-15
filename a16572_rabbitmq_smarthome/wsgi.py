@@ -21,7 +21,7 @@ from flask_cors import CORS
 from movie import create_app
 
 import recommandation
-import jellyfish
+# import jellyfish
 
 import datetime
 
@@ -271,8 +271,8 @@ def device_control():
     else:
         # 获取请求的smarthome标题和正文
         title = request.form["title"]
-        print('from front-end=', title)
-
+        print('received from front-end =', title)
+        print('#'*20)
 
         # 渲染smarthome详情页面
     return rt("device_control.html", max_title="")

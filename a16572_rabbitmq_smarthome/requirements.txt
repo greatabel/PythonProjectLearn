@@ -1,12 +1,8 @@
-numpy
-matplotlib
-Django
+pika==1.1.0
 click
 coverage
 Flask
-html-similarity
 itsdangerous
-pandas
 pytest
 python-dotenv
 pytest-cov
@@ -15,4 +11,3 @@ flask-cors
 Flask-Login
 flask_sqlalchemy
 requests
-jellyfish
