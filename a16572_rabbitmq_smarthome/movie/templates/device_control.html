@@ -81,7 +81,7 @@ div[class*="release_year"] {
     <div class="jumbotron">
       <div class="container">
         <h1>device_control</h1>
-        <p>send msg through rabbitmq to smart devices</p>
+        <p>send msg through rabbitmq to micro-wave</p>
       </div>
     </div>
 
@@ -92,17 +92,19 @@ div[class*="release_year"] {
 
 
 
-        <div class="col-md-8">
+        <div class="col-md-3">
 
         <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
 
-        <span style="color:blue">  {{max_title }}</span>
+       <div class="container">
+        <h4>microwave on</h4>
+        <form method="post">
+             <input type="text" name="title"  value="microwave_on" style="display:none">
+            <input type="submit" value="turn-on" >
+        </form>
+     </div>
 
                  
-
-
-            <!-- <div class="release_year"> </div>   -->
-
 
 
         </div>
@@ -111,16 +113,75 @@ div[class*="release_year"] {
 
 
 
+
+
+
+        <div class="col-md-3">
+
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
+
+       <div class="container">
+        <h4>microwave off</h4>
+        <form method="post">
+             <input type="text" name="title"  value="microwave_off" style="display:none">
+            <input type="submit" value="turn-off" >
+        </form>
+     </div>
+
+                 
+
+
+        </div>
+
+
+        <div class="col-md-3">
+
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
+
+       <div class="container">
+        <h4>microwave select</h4>
+        <form method="post">
+             <input type="text" name="title"  value="microwave_select" style="display:none">
+            <input type="submit" value="turn-select" >
+        </form>
+     </div>
+
+                 
+
+
+        </div>
+
+
+        <div class="col-md-3">
+
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
+
+       <div class="container">
+        <h4>microwave cook</h4>
+        <form method="post">
+             <input type="text" name="title"  value="microwave_cook" style="display:none">
+            <input type="submit" value="turn-cook" >
+        </form>
+     </div>
+
+                 
+
+
+        </div>
+
+      </div>
+
+
     
 
 
 
 <!--         <div class="col-md-4">
-          <h2>Cost effective</h2>
+          <h4>Cost effective</h4>
           <p>No need to buy hardware either for your tables or for your kitchen. Management and usage all directly from this page.</p>
        </div> -->
 <!--         <div class="col-md-4">
-          <h2>add now</h2>
+          <h4>add now</h4>
              <form class="form-horizontal" action="/review" method="POST">
                    <div class="form-group">
                     <div class="col-sm-9">

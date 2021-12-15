@@ -260,7 +260,7 @@ def query_note(id):
 #         return rt("recommend.html", choosed=choosed)
 
 
-@app.route("/device_control", methods=["GET", "DELETE"])
+@app.route("/device_control", methods=["GET", "POST"])
 def device_control():
     """
     基于内容的推荐，根据文本相似度levenshtein_distance各种距离尽显比较
@@ -268,11 +268,14 @@ def device_control():
     if request.method == "GET":
         id = session["userid"]
         user = User.query.filter_by(id=id).first_or_404()
-
+    else:
+        # 获取请求的smarthome标题和正文
+        title = request.form["title"]
+        print('from front-end=', title)
 
 
         # 渲染smarthome详情页面
-        return rt("device_control.html", max_title="")
+    return rt("device_control.html", max_title="")
 
 
 ### -------------start of profile
@@ -462,30 +465,30 @@ def unauthorized_handler():
 
 
 # --------------------------
-@app.route("/assignwork", methods=["GET"])
-def assignwork():
-    return rt("index.html")
+# @app.route("/assignwork", methods=["GET"])
+# def assignwork():
+#     return rt("index.html")
 
 
-@app.route("/teacher_work", methods=["POST"])
-def teacher_work():
+# @app.route("/teacher_work", methods=["POST"])
+# def teacher_work():
 
-    detail = request.form.get("detail")
-    print("#" * 20, detail, "@" * 20)
-    with open("movie/static/data.js", "w") as file:
-        file.write(detail)
+#     detail = request.form.get("detail")
+#     print("#" * 20, detail, "@" * 20)
+#     with open("movie/static/data.js", "w") as file:
+#         file.write(detail)
 
-    return redirect(url_for("assignwork"))
-
-
-@app.route("/student_work", methods=["POST"])
-def student_work():
-    return redirect(url_for("student_index"))
+#     return redirect(url_for("assignwork"))
 
 
-@app.route("/student_index", methods=["GET"])
-def student_index():
-    return rt("student_index.html")
+# @app.route("/student_work", methods=["POST"])
+# def student_work():
+#     return redirect(url_for("student_index"))
+
+
+# @app.route("/student_index", methods=["GET"])
+# def student_index():
+#     return rt("student_index.html")
 
 
 # @app.route("/", methods=["GET"])
