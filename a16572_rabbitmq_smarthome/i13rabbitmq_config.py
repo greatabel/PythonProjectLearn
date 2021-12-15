@@ -14,7 +14,7 @@ placeid_bound_dict = {
 	'VM_0': (43, 94),
 }
 
-AI_SERVER_NUMBER = environ.get('AI_SERVER_NAME', 'AI_SERVER_2')
+AI_SERVER_NUMBER = environ.get('AI_SERVER_NAME', 'VM_0')
 AI_SERVER_NUMBER_placeid_start = placeid_bound_dict[AI_SERVER_NUMBER][0]
 AI_SERVER_NUMBER_placeid_end = placeid_bound_dict[AI_SERVER_NUMBER][1]
 
@@ -23,7 +23,7 @@ servernumber_rabbitIP = {
 	'AI_SERVER_2': '10.248.68.59',
 	'AI_SERVER_1': '10.248.68.244',
 	'AI_SERVER_0': '10.248.68.203',
-	'VM_0': '10.248.68.249'
+	'VM_0': '127.0.0.1'
 }
 
 

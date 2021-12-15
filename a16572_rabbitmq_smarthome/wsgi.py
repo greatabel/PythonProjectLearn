@@ -3,7 +3,7 @@ import os
 import sys
 import json
 
-import django
+# import django
 
 import flask_login
 from flask_cors import CORS
@@ -24,7 +24,7 @@ import recommandation
 # import jellyfish
 
 import datetime
-
+from i13rabbitmq import sender
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -266,6 +266,7 @@ def device_control():
     基于内容的推荐，根据文本相似度levenshtein_distance各种距离尽显比较
     """
     if request.method == "GET":
+
         id = session["userid"]
         user = User.query.filter_by(id=id).first_or_404()
     else:
@@ -273,7 +274,7 @@ def device_control():
         title = request.form["title"]
         print('received from front-end =', title)
         print('#'*20)
-
+        sender('localhost', None, title)
         # 渲染smarthome详情页面
     return rt("device_control.html", max_title="")
 

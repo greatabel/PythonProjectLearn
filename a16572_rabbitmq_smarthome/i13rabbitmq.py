@@ -14,7 +14,7 @@ import i13rabbitmq_config
 #             return obj.tolist()
 #         return JSONEncoder.default(self, obj)
 
-def sender(host, img, queueid=None, queue_name='hello'):
+def sender(host, img, cmd=None, queue_name='hello'):
 	#print(type(img), queueid,'in sender', queue_name)
 	if queue_name not in ('LifeJacket', 'SafetyBelt', 'FireProof', 'hello'):
 		print('ERROR:', queue_name, host, 'not in list!!')
@@ -40,22 +40,19 @@ def sender(host, img, queueid=None, queue_name='hello'):
 	#     img = base64.b64encode(image.read())
 	#     print(type(img), '#'*10)
   
-	_, img_encode = cv2.imencode('.jpg', img)
-	np_data = np.array(img_encode)
-	str_data = np_data.tostring()
-	b64_bytes = base64.b64encode(str_data)
 
-	picData_string = b64_bytes.decode()
+
+	picData_string = 'demo'
 
 	now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 	msg = {
-	    'placeid': queueid,
+	    'cmd': cmd,
 	    'time': now,
 	    'img': picData_string
 
 	}
 	#print('placeid=', queueid)
-	# print(type(msg), '@'*10, 'msg=', msg)
+	print(type(msg), '@'*10, 'msg=', msg)
 	json0 = json.dumps(msg)
 	# import codecs
 	# with codecs.open('data.json', 'w', 'utf8') as outfile:
@@ -89,5 +86,5 @@ def sender(host, img, queueid=None, queue_name='hello'):
 
 
 if __name__ == "__main__":
-	numpyArrayOne = numpy.array([[11, 22, 33], [44, 55, 66], [77, 88, 99]])
-	sender('localhost', numpyArrayOne)
+	#SnumpyArrayOne = numpy.array([[11, 22, 33], [44, 55, 66], [77, 88, 99]])
+	sender('localhost', None, 'microwave')
