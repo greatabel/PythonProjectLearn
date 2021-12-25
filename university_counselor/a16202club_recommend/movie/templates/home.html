@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
 
     <title>社团领域推荐系统</title>
 
@@ -70,6 +71,7 @@ div[class*="release_year"] {
 
       <li class="nav-item active">
         <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
+      
       </li>
 
       <li class="nav-item active">
@@ -167,6 +169,7 @@ div[class*="release_year"] {
 
        <div class="row">
          <div class="col-md-12"> <div class="release_year">Page 1 of about all results (0.34 seconds) </div>
+         
          <br/>
          </div>
        </div>
@@ -210,10 +213,13 @@ div[class*="release_year"] {
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           人数: {{ range(140, 151) | random }}
+
+                      &nbsp;&nbsp;&nbsp;
+                   <button class="clicked">加入</button>
             </p>
 
 
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+ 
         </div>
 
 
@@ -353,6 +359,8 @@ function relocate_dashboard()
      location.href = "http://localhost:5000/review";
 } 
 
+
+
 $( document ).ready(function() {
      console.log( "ready!" );
 
@@ -365,6 +373,19 @@ $( document ).ready(function() {
              // $("body").textSearch(search_txt);
           }
     }); 
+
+var buttons = document.getElementsByTagName("button");
+console.log('###', buttons);
+
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", (function(button) {
+    return function() {
+      // var a = button.parentElement.querySelector("h3 a");
+      // a.innerHTML = 'clicked';
+      button.innerHTML = '已加';
+    };
+  })(buttons[i]));
+}
 
 
 
