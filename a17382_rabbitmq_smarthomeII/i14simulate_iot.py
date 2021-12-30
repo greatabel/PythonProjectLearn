@@ -26,6 +26,7 @@ from termcolor import colored, cprint
 import i13rabbitmq_config
 #https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
 
+# 参数设置，暂时没有开启使用，使用了默认选项，将来可以在多物联网设备时候带上参数
 def parse_args():
     parser = argparse.ArgumentParser(description='Train YOLO networks with random input shape.')
     parser.add_argument('--network', type=str, default='yolo3_darknet53_voc',
@@ -55,7 +56,7 @@ class IOT_Simulator(object):
     
 
 
-
+    # 物联网设备的一些数据功能模拟，比如传感器
     def prediction(self, frame,  rect, default_enter_rule, queueid, timeID):
 
         warning_signal, x = None, None
@@ -64,7 +65,7 @@ class IOT_Simulator(object):
 
 
 
-
+# 包装类
 class IOT_Wrapper(object):
     def __init__(self, arguments_parser):
         """
@@ -130,7 +131,7 @@ class IOT_Wrapper(object):
         return picData_string
 
     def running(self):
-
+        # 收到消息之后的回调功能，主要是模拟物联网设备的反馈
         def callback(ch, method, properties, body):
             start_time = time.time()
             obj_json = self.getJsonObj(body=body)
@@ -156,7 +157,7 @@ class IOT_Wrapper(object):
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-        # Register the consume function
+        # Register the consume function 注册函数给消费者
         self.ch.basic_consume(queue=self.qn_in,on_message_callback=callback,auto_ack=False,exclusive=False,
                       consumer_tag=None,
                       arguments=None)

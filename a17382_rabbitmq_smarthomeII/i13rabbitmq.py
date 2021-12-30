@@ -8,12 +8,7 @@ import base64
 import datetime
 import i13rabbitmq_config
 
-# class NumpyArrayEncoder(JSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, numpy.ndarray):
-#             return obj.tolist()
-#         return JSONEncoder.default(self, obj)
-
+# 消息发送部分
 def sender(host, img, cmd=None, queue_name='hello'):
 	#print(type(img), queueid,'in sender', queue_name)
 	if queue_name not in ('LifeJacket', 'SafetyBelt', 'FireProof', 'hello'):
@@ -72,19 +67,9 @@ def sender(host, img, cmd=None, queue_name='hello'):
 
 
 
-# def my_callback_with_extended_args(ch, method, properties, body, host, log_queue):
-#     print('#'*20)
-#     print(type(log_queue))
-#     print(ch, method, properties, host)
-#     msg = json.loads(body)
-#     numpy_data = numpy.asarray(msg["img"])
-#     # print(" [x] Received %r" % msg)
-#     # imgdata = base64.b64decode(msg['img'])
-#     print(msg['placeid'], '@'*10, msg['time'])
-#     print(type(numpy_data), '#'*10)
-#     cv2.imwrite("filename.png", numpy_data)
 
 
+# 单独测试模块时候使用，其实暂时没用到
 if __name__ == "__main__":
 	#SnumpyArrayOne = numpy.array([[11, 22, 33], [44, 55, 66], [77, 88, 99]])
 	sender('localhost', None, 'microwave')
