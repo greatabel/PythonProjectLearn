@@ -20,7 +20,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
-import recommandation
+# import recommandation
 # import jellyfish
 
 import datetime
@@ -263,7 +263,7 @@ def query_note(id):
 @app.route("/device_control", methods=["GET", "POST"])
 def device_control():
     """
-    基于内容的推荐，根据文本相似度levenshtein_distance各种距离尽显比较
+    物联网设备反馈api，真正使用api像rabbitmq发送消息
     """
     if request.method == "GET":
 
