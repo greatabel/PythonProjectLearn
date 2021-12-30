@@ -11,8 +11,6 @@ from random import choice, random
 import csv
 import ast
 
-import i11qy_wechat
-
 import pika
 import json
 import numpy
@@ -21,6 +19,9 @@ import numpy as np
 import socket
 
 import argparse
+import sys
+from termcolor import colored, cprint
+
 
 import i13rabbitmq_config
 #https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
@@ -96,9 +97,9 @@ class IOT_Wrapper(object):
 
         # Queue name declaration
         self.qn_in ='hello'
-        self.qn_out = 'WarningMsg'
-        self.msg_ch.queue_declare(queue=self.qn_out, durable=True, arguments={'x-max-length': 5})
-        self.arguments_parser = arguments_parser
+        # self.qn_out = 'WarningMsg'
+        # self.msg_ch.queue_declare(queue=self.qn_out, durable=True, arguments={'x-max-length': 5})
+        # self.arguments_parser = arguments_parser
         # Init Detector
         self.detector = IOT_Simulator(arguments_parser=arguments_parser)
 
@@ -110,13 +111,7 @@ class IOT_Wrapper(object):
         obj_json = json.loads(data_string)
         return obj_json
 
-    def getOpencvImg(self, obj_json):
-        # get image bytes string
-        img = base64.b64decode(obj_json['img'].encode())
-        # get image array
-        img_opencv = cv2.imdecode(np.fromstring(img, np.uint8), 1)
-        h, w, c = img_opencv.shape
-        return img_opencv, h, w, c
+
 
 
     def serialize(self, detectionResults):
@@ -139,46 +134,33 @@ class IOT_Wrapper(object):
         def callback(ch, method, properties, body):
             start_time = time.time()
             obj_json = self.getJsonObj(body=body)
-            sceneId = str(obj_json["placeid"])
+            cmd = str(obj_json["cmd"])
             timeID =  str(obj_json["time"])
-            img_opencv, h, w, c = self.getOpencvImg(obj_json)
-            # print(queue_rtsp_dict, '^'*20)
-            rect = None 
-            if queue_rtsp_dict.get(int(sceneId), None)[7] != None and \
-                queue_rtsp_dict.get(int(sceneId), None)[7].strip() != '':
-                print('#'*30, 'rect')
-                rect = ast.literal_eval(queue_rtsp_dict.get(int(sceneId), None)[7])
-            default_enter_rule = queue_rtsp_dict.get(int(sceneId), None)[8]
-            # Prediction
-            warning_signal, myframe = self.detector.prediction(img_opencv, rect, default_enter_rule, sceneId, timeID)
-            if warning_signal is not None:
-                picData_string = self.enodeImgBase64(myframe)
-                response_dict = {
-                     'protocol': '1.0.0',
-                     'alertType': warning_signal,
-                     'sceneId': sceneId,
-                     'sceneName': queue_rtsp_dict[int(sceneId)][5],
-                     'timestamp': timeID,
-                     'img': picData_string,
-                }
-                # dumps json obj
-                response_dict = json.dumps(response_dict, sort_keys=True, indent=2)
-                #print("response_dict=", response_dict)
-                self.msg_ch.basic_publish(exchange='', routing_key=self.qn_out, body=response_dict)
 
+            print('#'*20, 'received cmd from rabbitmq:', cmd, '#'*5, timeID)
+            device = colored('I am microwave device', 'red', attrs=['reverse', 'blink'])
+            if 'microwave' in cmd:
+                if cmd == 'microwave_on':
+                    device = colored('I am microwave device', 'green', attrs=['reverse', 'blink'])
+                    print(device, 'is turning on right now')
+                elif cmd == 'microwave_off':
+                    device = colored('I am microwave device', 'red', attrs=['reverse', 'blink'])
+                    print(device, 'is turning off power right now')
+                elif cmd == 'microwave_select':
+                    device = colored('I am microwave device', 'yellow', attrs=['reverse', 'blink'])
+                    print(device, 'is being selected right now')
+                elif cmd == 'microwave_cook':
+                    device = colored('I am microwave device', 'cyan', attrs=['reverse', 'blink'])
+                    print(device, 'is start to cook food right now')
 
             ch.basic_ack(delivery_tag=method.delivery_tag)
-            cost_time = time.time()-start_time
-            #print('callback:%f ms'%(cost_time*1000))
-            #print(' ')
-            if watch_dog_open_flag:
-                socket_client_obj.connect_to_server()
+
 
         # Register the consume function
         self.ch.basic_consume(queue=self.qn_in,on_message_callback=callback,auto_ack=False,exclusive=False,
                       consumer_tag=None,
                       arguments=None)
-        print('[*] human_hat Waiting for logs. To exit press CTRL+C')
+        print('[*] iot Waiting for logs. To exit press CTRL+C')
         # Starting consuming
         self.ch.start_consuming()
 
@@ -189,6 +171,6 @@ if __name__ == '__main__':
 
 
     args = parse_args()
-    human_hat_Wrapper = IOT_Wrapper(arguments_parser=args)
-    human_hat_Wrapper.running()
+    iot_Wrapper = IOT_Wrapper(arguments_parser=args)
+    iot_Wrapper.running()
 
