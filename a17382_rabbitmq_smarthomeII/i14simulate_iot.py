@@ -10,7 +10,7 @@ from random import choice, random
 
 import csv
 import ast
-import i13process_frame
+
 import i11qy_wechat
 
 import pika
@@ -188,7 +188,7 @@ class IOT_Wrapper(object):
 if __name__ == '__main__':
 
 
-    args = i13process_frame.parse_args()
+    args = parse_args()
     human_hat_Wrapper = IOT_Wrapper(arguments_parser=args)
     human_hat_Wrapper.running()
 
