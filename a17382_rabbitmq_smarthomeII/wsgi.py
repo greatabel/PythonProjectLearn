@@ -100,7 +100,7 @@ def replace_html_tag(text, word):
             text = text[:i] + new_word + text[i + len_w :]
     return text
 
-
+# 为翻页做数据封装
 class PageResult:
     def __init__(self, data, page=1, number=2):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
@@ -120,7 +120,7 @@ class PageResult:
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
 
-
+# 翻页的前端处理
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
@@ -168,7 +168,7 @@ def home(pagenum=1):
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
-
+# 物联网设备介绍的添加
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
@@ -190,7 +190,7 @@ def create_blog():
         # 创建完成之后重定向到smarthome列表页面
         return redirect("/blogs")
 
-
+# 物联网页展示部分list页
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
