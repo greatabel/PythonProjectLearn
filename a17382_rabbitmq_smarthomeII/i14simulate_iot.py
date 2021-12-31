@@ -104,7 +104,7 @@ class IOT_Wrapper(object):
         # Init Detector
         self.detector = IOT_Simulator(arguments_parser=arguments_parser)
 
-
+    # 方便从rabbitmq中反序列化出来对象
     def getJsonObj(self, body):
         # get json string from binary body
         data_string = bytes.decode(body)
@@ -114,14 +114,15 @@ class IOT_Wrapper(object):
 
 
 
-
+        # 对消息进行序列化，方便在网上传输
     def serialize(self, detectionResults):
 
         detectionResults = pickle.dumps(detectionResults)
         detectionResults = base64.b64encode(detectionResults)
         detectionResults = bytes.decode(detectionResults, encoding='utf-8')
         return detectionResults
-        
+    
+    # 暂时用不上，主要是传递到rabbitmq 如果带有图片的情况
     def enodeImgBase64(self, img):
         _, img_encode = cv2.imencode('.jpg', img)
         np_data = np.array(img_encode)
@@ -153,7 +154,7 @@ class IOT_Wrapper(object):
                 elif cmd == 'microwave_cook':
                     device = colored('I am microwave device', 'cyan', attrs=['reverse', 'blink'])
                     print(device, 'is start to cook food right now')
-
+            # 当读取了队列消息后，给队列消除里面的消息
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
 

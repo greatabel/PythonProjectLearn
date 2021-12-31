@@ -64,7 +64,7 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    smarthome内容数据模型
+    smarthome内容数据模型，home页展示的数据其实来自这个表
     """
 
     # 主键ID

@@ -3,10 +3,11 @@ from os import environ
 
 FactoryName = environ.get('FactoryName', '我的测试工厂')
 
+# 配置rabbitmq的channel的属性
 QUEUE_SIZE = 5
 ARGUMENTS = {'x-max-length': QUEUE_SIZE, "x-queue-mode": "lazy"}
 
-
+# 方便多机器部署
 placeid_bound_dict = {
 	'AI_SERVER_2': (0, 42),
 	'AI_SERVER_1': (43, 94),
@@ -30,7 +31,7 @@ servernumber_rabbitIP = {
 AI_SERVER_RABBIT_IP = servernumber_rabbitIP[AI_SERVER_NUMBER]
 VM_0_RABBIT_IP = servernumber_rabbitIP['VM_0']
 
-
+# 当前机器从哪台机器读取
 Where_This_Server_ReadFrom = AI_SERVER_RABBIT_IP
 # 临时因为ai-1 要处理最大路数，暂时不在这台机器上读取视频流，从机架虚拟机读取 
 if AI_SERVER_NUMBER == "AI_SERVER_1":
