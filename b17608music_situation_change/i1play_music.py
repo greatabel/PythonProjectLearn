@@ -1,6 +1,6 @@
 import simpleaudio as sa
 
-wave_obj = sa.WaveObject.from_wave_file('data/1q.wav')
+wave_obj = sa.WaveObject.from_wave_file('data/1s.wav')
 # load the file
 
 # wave_obj = sa.WaveObject.from_wave_file("alarm.wav")
