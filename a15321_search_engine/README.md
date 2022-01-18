@@ -1,7 +1,11 @@
 0.
-在mac系统：
-brew install ghostscript tcl-tk
-brew install libmagic
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+
+docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+
 
 1.
 安装python3.6 以上版本
