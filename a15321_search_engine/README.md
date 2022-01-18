@@ -1,16 +1,4 @@
-0.
 
-(可选) docker 安装elasticsearch
-docker pull docker.elastic.co/elasticsearch/elasticsearch:7.16.3
-
-docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.16.3
-
-
-测试：curl -X GET "localhost:9200/_cat/nodes?v=true&pretty"
-参考文档： https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
--
-
-单独在python2.7 下面pip install crawley
 
 1.
 安装python3.6 以上版本
@@ -51,3 +39,19 @@ password: abel
 http://localhost:5000/blogs
 可以点击 add doc连接，自己从pdf上copy文字输入到列表中；
 或者命令行下：python3 i0ocr.py (记得修改14行的文件名，获得processeddata的text，目前60-70%准确度)然后再复制黏贴
+
+
+---------- ---------- 可选项 ---------- ---------- 
+8.
+
+(可选) docker 安装elasticsearch
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+
+docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+
+
+测试：curl -X GET "localhost:9200/_cat/nodes?v=true&pretty"
+参考文档： https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+-
+
+单独在python2.7 下面pip install crawley
