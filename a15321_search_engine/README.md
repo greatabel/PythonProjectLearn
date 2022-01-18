@@ -1,11 +1,16 @@
 0.
+
+(可选) docker 安装elasticsearch
 docker pull docker.elastic.co/elasticsearch/elasticsearch:7.16.3
 
 docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.16.3
 
 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+测试：curl -X GET "localhost:9200/_cat/nodes?v=true&pretty"
+参考文档： https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+-
 
+单独在python2.7 下面pip install crawley
 
 1.
 安装python3.6 以上版本
