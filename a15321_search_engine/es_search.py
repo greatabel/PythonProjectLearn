@@ -4,7 +4,7 @@
 import requests
 from os import environ
 import json
-import simplejson
+
 import subprocess
 
 import requests

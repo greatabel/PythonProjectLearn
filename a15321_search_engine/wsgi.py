@@ -18,6 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
+import es_search
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -157,6 +158,10 @@ def home(pagenum=1):
                     blog.text = replace_html_tag(blog.text, keyword)
 
                     search_list.append(blog)
+
+            if len(search_list) == 0 and keyword in ['天气', '心情']:
+                es_content = es_search.mysearch(keyword)
+                search_list.append(es_content)
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)
