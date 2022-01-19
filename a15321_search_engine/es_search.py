@@ -1,5 +1,5 @@
 #coding = utf-8
-# https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
+# es 调用搜索封装
 
 import requests
 from os import environ
