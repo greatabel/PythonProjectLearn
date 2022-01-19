@@ -35,15 +35,23 @@ password: abel
 7.
 个人主页： http://localhost:5000/profile
 
-修改编辑地点的后台管理页：
-http://localhost:5000/blogs
-可以点击 add doc连接，自己从pdf上copy文字输入到列表中；
-或者命令行下：python3 i0ocr.py (记得修改14行的文件名，获得processeddata的text，目前60-70%准确度)然后再复制黏贴
+
 
 
 ---------- ---------- 可选项 ---------- ---------- 
-8.
+从步骤8开始都是可选项，不是必须
+---------- ---------- 可选项 ---------- ---------- 
 
+8.
+修改编辑内容的后台管理页：
+http://localhost:5000/blogs
+增加出去爬虫之外的数据导入，比如pdf文本导入到系统或者es中：
+可以点击 add doc连接，自己从pdf上copy文字输入到列表中；
+或者命令行下：python3 i0ocr.py (记得修改14行的文件名，获得processeddata的text，目前60-70%准确度)然后再复制黏贴
+
+9.
+因为我在关系型数据库搜不到时候，会从es中读取。
+如果想部署好备用的es：
 (可选) docker 安装elasticsearch
 docker pull docker.elastic.co/elasticsearch/elasticsearch:7.16.3
 
@@ -55,3 +63,10 @@ docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=sing
 -
 
 单独在python2.7 下面pip install crawley
+
+
+10.
+数据已经下载好，放在data文件夹下，可以不用再下载。
+如果想下载：
+下载对应自己电脑系统版本的chromedriver 放在 downloader/i2SGScrapy/
+可以运行抓取爬虫：i0scrapy_huanqiu.py
