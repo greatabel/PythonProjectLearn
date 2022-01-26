@@ -1,0 +1,13 @@
+termcolor
+gluoncv
+imutils
+mxnet
+#mxnet-cu100
+torch
+torchvision
+requests_toolbelt
+simplejson
+sklearn
+opencv-python
+webcolors
+
