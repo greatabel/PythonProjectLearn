@@ -16,4 +16,4 @@ flask_sqlalchemy
 requests
 
 #termcolor
-pdfreader
+#pdfreader
