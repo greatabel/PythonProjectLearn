@@ -15,7 +15,7 @@ Node_coords = {'ap':(-7.3,15),
                'hub2':(0.2,10),
 }
 
-dataset = pd.read_csv("data/processed.csv",header = [0,1,2])
+dataset = pd.read_csv("data/i1processed_localhall.csv",header = [0,1,2])
 features = np.asarray(dataset.iloc[:,3:])
 labels = np.asarray(dataset["Relative Position"])
 headers = list(dataset)
@@ -145,5 +145,5 @@ if create_mean_csv:
         mean_csv[head] = network_rssi_mean
     
     df = pd.DataFrame(mean_csv)
-    df.to_csv('i2processed_average_positions.csv', na_rep = '100', index = False)
+    df.to_csv('data/i2processed_average_positions.csv', na_rep = '100', index = False)
 
