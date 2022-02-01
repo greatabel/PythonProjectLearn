@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# import net
+
 import pprint
 from sklearn.neighbors import KNeighborsClassifier as kNN
 from i0positions import Positions
@@ -35,12 +35,13 @@ print('-'*30)
 print(clf)
 clf.fit(features,labels)
 
-# wifi_monitor = net.wifi_mon(interface = 'wlp2s0')
+# wifi_monitor = net.wifi_mon(interface = 'ap')
 stop = False
 while not stop:
     try:
         # cells = net.parse_scan(None, wifi_monitor)
         #print(cells)
+        # unit test mock some test data
         cells = [{'bssid': '00:0b:6b:de:ea:36', 'frequency': '2437',
         'signal level': '-37', 'flags': '[WPA-PSK-TKIP][WPA2-PSK-TKIP][ESS]',
         'ssid': 'hub0', 'distance': '0.858'},
@@ -51,13 +52,14 @@ while not stop:
         'signal level': '-37', 'flags': '[WPA-PSK-TKIP][WPA2-PSK-TKIP][ESS]',
         'ssid': 'hub2', 'distance': '0.658'}]
         # net.print_known_cells(cells)
-        for i in range(len(found_networks)): found_networks[i] = 100
+        for i in range(len(found_networks)): 
+            found_networks[i] = 1
         for cell in cells:
             mac = cell['bssid']
             if mac not in networks: continue
             rssi = cell['signal level']
             found_networks[networks.index(mac)] = rssi 
-        
+        print('-'*20, found_networks, '-'*20)
         position = clf.predict([found_networks])[0]
         pos = Positions[str(position)]
         pos_x = pos['Position_X']

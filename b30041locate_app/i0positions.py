@@ -1,4 +1,3 @@
-# {'Relative_Position': {'Position_X': 'node10ap', 'Position_Y': 2412}}
 Positions = {}
 Positions['1'] = {'Position_X': -7, 'Position_Y': 15}
 Positions['2'] = {'Position_X': -6, 'Position_Y': 15}
