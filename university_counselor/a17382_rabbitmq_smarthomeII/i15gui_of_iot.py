@@ -21,9 +21,9 @@ k = 0
 label = tk.Label(root, text="0", bd="5", fg="red", font=("Arial", 15))
 label.place(x=10, y=5, width=40, height=30)
 button1 = tk.Button(
-    root, text="stop receiving signal", command=do_job, fg="red", font=("Arial", 15)
+    root, text="stop receiving rabbitmq", command=do_job, fg="red", font=("Arial", 15)
 )
-button1.place(x=100, y=5, width=60, height=30)
+button1.place(x=100, y=5, width=160, height=30)
 t = Timer(1, hello)
 t.start()
 root.mainloop()
