@@ -1,11 +1,20 @@
 from threading import Timer
 import tkinter as tk
 
+import pickle
 
 def hello():
     global k, t
     k += 1
-    label["text"] = str(k)
+
+    # --------- share data -------
+    fp = open("shared.pkl")
+    shared = pickle.load(fp)
+    r = shared["microwave"]
+    print(r)
+    # --------- share data end -------
+
+    label["text"] = str(k) + ':' + r
     t = Timer(1, hello)
     t.setDaemon(True)
     t.start()

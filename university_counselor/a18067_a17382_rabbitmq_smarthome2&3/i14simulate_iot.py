@@ -24,6 +24,8 @@ from termcolor import colored, cprint
 
 
 import i13rabbitmq_config
+import pickle
+
 
 # https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
 
@@ -155,6 +157,13 @@ class IOT_Wrapper(object):
 
             print("#" * 20, "received cmd from rabbitmq:", cmd, "#" * 5, timeID)
             device = colored("I am microwave device", "red", attrs=["reverse", "blink"])
+
+            # --------- share data -------
+            shared = {"microwave": cmd}
+            fp = open("shared.pkl","w")
+            pickle.dump(shared, fp)
+            # --------- share data end -------
+
             if "microwave" in cmd:
                 if cmd == "microwave_on":
                     device = colored(
