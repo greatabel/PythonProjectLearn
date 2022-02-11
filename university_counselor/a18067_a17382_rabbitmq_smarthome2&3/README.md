@@ -24,7 +24,9 @@ pip install --upgrade -r requirements.txt
 模拟运行在:
 python3 wsgi.py
 
-
+再开2个命令行分别进入虚拟环境，运行：
+python3 i14simulate_iot.py
+python3 i15gui_of_iot.py
 
 6.
 浏览器访问：
