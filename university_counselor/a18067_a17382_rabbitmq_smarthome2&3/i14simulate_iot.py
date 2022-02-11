@@ -160,7 +160,7 @@ class IOT_Wrapper(object):
 
             # --------- share data -------
             shared = {"microwave": cmd}
-            fp = open("shared.pkl","w")
+            fp = open("shared.pkl","wb")
             pickle.dump(shared, fp)
             # --------- share data end -------
 
