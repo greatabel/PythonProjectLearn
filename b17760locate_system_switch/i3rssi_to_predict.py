@@ -7,6 +7,21 @@ from sklearn.neighbors import KNeighborsClassifier as kNN
 from i0positions import Positions
 import i1netmode
 
+
+def rmse(predictions, targets):
+    predictions = np.array(predictions)
+    targets = np.array(targets)
+    return np.sqrt(((predictions - targets) ** 2).mean())
+
+
+# 相对误差
+def relative_func(predictions, targets):
+    print("@" * 20, predictions, targets)
+    predictions = np.array(predictions)
+    targets = np.array(targets)
+    return np.sqrt((predictions ** 2 + targets ** 2).mean())
+
+
 plt.ion()
 fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
 i1netmode.plot_atmosphere(ax)
@@ -67,6 +82,7 @@ while not stop:
                 "distance": "0.658",
             },
         ]
+        cell_realpositon = [-6, 15]
         # net.print_known_cells(cells)
         for i in range(len(found_networks)):
             found_networks[i] = 1
@@ -78,10 +94,24 @@ while not stop:
             found_networks[networks.index(mac)] = rssi
         print("-" * 20, found_networks, "-" * 20)
         position = clf.predict([found_networks])[0]
+
         pos = Positions[str(position)]
         pos_x = pos["Position_X"]
         pos_y = pos["Position_Y"]
         # plt.plot(pos_x, pos_y, marker='o', markersize=10, color="black")
+        print("pos_x=", pos_x, "pos_y=", pos_y, "=>" * 20)
+        accuracy_error = rmse([pos_x, pos_y], cell_realpositon)
+
+        relative = relative_func([pos_x, pos_y], cell_realpositon)
+        relative_error = accuracy_error / relative
+        print(
+            "accuracy_error=",
+            accuracy_error,
+            "relative_error=",
+            relative_error,
+            "accuracy=",
+            (1 - relative_error),
+        )
 
         marker = ax.scatter(pos_x, pos_y, marker="o", color="red")
         fig.canvas.draw()
@@ -97,3 +127,7 @@ while not stop:
         plt.show()
 
 # wifi_monitor.close()
+"""
+accuracy_error= 0.7071067811865476 relative_error= 0.0432337701167117 accuracy= 0.9567662298832883
+
+"""

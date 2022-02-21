@@ -153,10 +153,10 @@ if create_mean_csv:
     df = pd.DataFrame(mean_csv)
     df.to_csv("data/i2processed_average_positions.csv", na_rep="100", index=False)
 
-'''
+"""
 [  1.11697398 -37.72039195]
 [  0.66802839 -35.55425655]
 [  2.35996152 -37.62381845]
 [  3.20808451 -29.93974698]
 
-'''
+"""
