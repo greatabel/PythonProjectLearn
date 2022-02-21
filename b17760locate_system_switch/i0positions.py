@@ -1,4 +1,5 @@
 Positions = {}
+
 Positions["1"] = {"Position_X": -7, "Position_Y": 15}
 Positions["2"] = {"Position_X": -6, "Position_Y": 15}
 Positions["3"] = {"Position_X": -5, "Position_Y": 15}

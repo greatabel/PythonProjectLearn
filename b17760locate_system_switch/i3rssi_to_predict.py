@@ -90,7 +90,7 @@ while not stop:
         print("Position: {}".format(position))
 
     except KeyboardInterrupt:
-        print("=====STOPPED======")
+        print("=====停止======")
         stop = True
         i1netmode.plot_atmosphere(ax)
         plt.ioff()
