@@ -30,7 +30,7 @@ found_networks = [0] * len(networks)
 # plt.plot(a)
 
 clf = kNN(n_neighbors=2)
-print("-" * 30)
+print("=====开始======")
 print(clf)
 clf.fit(features, labels)
 

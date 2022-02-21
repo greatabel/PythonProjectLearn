@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--simulate wifi strength predict position-->
+        <!--根据多hub模拟位置预测-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Advertising" customModuleProvider="target" sceneMemberID="viewController">
@@ -152,7 +152,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3yP-QJ-wtu" secondAttribute="bottom" constant="165" id="wup-UM-wnd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="simulate wifi strength predict position" id="QEH-Dt-Xru"/>
+                    <navigationItem key="navigationItem" title="根据多hub模拟位置预测" id="QEH-Dt-Xru"/>
                     <connections>
                         <outlet property="newspaperLabel" destination="Ix7-o1-6pz" id="h0g-Uk-L6Z"/>
                         <outlet property="newspaperSlider" destination="1AI-W4-2BM" id="JOH-aP-aQE"/>
