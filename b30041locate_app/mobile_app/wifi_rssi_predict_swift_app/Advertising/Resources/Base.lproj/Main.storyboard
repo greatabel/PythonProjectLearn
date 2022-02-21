@@ -116,7 +116,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gh0-Pw-xTg">
                                         <rect key="frame" x="0.0" y="170.5" width="345" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <color key="textColor" systemColor="darkTextColor"/>
+                                        <color key="textColor" systemColor="systemPinkColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -129,6 +129,15 @@
                                     <segue destination="XVd-YF-d9L" kind="show" id="i6B-GD-zIM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2r9-hL-5L5">
+                                <rect key="frame" x="118" y="432" width="131.5" height="31"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="test this position"/>
+                                <connections>
+                                    <action selector="test_this_position:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G6Q-2W-Wob"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -137,6 +146,8 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3yP-QJ-wtu" secondAttribute="trailing" constant="102" id="MAf-8a-dkn"/>
                             <constraint firstItem="3yP-QJ-wtu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="93" id="QK7-Rq-3X9"/>
                             <constraint firstItem="fWy-15-fN4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Sbg-hO-EZM"/>
+                            <constraint firstItem="3yP-QJ-wtu" firstAttribute="top" secondItem="2r9-hL-5L5" secondAttribute="bottom" constant="8" id="Twc-7g-nOM"/>
+                            <constraint firstItem="2r9-hL-5L5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="ok7-pA-xFL"/>
                             <constraint firstItem="fWy-15-fN4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="pwy-Fc-mDi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3yP-QJ-wtu" secondAttribute="bottom" constant="165" id="wup-UM-wnd"/>
                         </constraints>
@@ -216,11 +227,14 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
