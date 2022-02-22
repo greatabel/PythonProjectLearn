@@ -16,6 +16,7 @@ def relative_func(predictions, targets):
     return np.sqrt((predictions ** 2 + targets ** 2).mean())
 
 
+# data/i3gps_error.csv 处理
 # x为到房间大厅原点（正中间大门的距离）
 x = [1, 2, 3, 4, 5, 6, 7, 8, 20, 30]
 x = np.array(x)
