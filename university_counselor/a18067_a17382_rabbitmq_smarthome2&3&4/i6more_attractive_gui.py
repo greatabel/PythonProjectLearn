@@ -33,7 +33,7 @@ if __name__ == "__main__":
     root.geometry("600x300")
 
     r0 = load_data()
-    bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
+    bg = ImageTk.PhotoImage(Image.open("images/" + r0 + ".png"))  
     # Show image using label
     label1 = Label(root, image = bg)
     label1.place(x = 0,y = 0)
