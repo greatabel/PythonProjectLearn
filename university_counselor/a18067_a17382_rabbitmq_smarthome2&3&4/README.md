@@ -26,7 +26,7 @@ python3 wsgi.py
 
 再开2个命令行分别进入虚拟环境，运行：
 python3 i14simulate_iot.py
-python3 i15gui_of_iot.py
+python3 i6more_attractive_gui.py
 
 6.
 浏览器访问：

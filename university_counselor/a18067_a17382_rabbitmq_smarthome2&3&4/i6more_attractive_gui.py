@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 
 
 root = tk.Tk()
-root.geometry("600x300")
+root.geometry("700x700")
 img_microwave_on = ImageTk.PhotoImage(Image.open("images/microwave_on.png"))  
 img_microwave_off = ImageTk.PhotoImage(Image.open("images/microwave_off.png"))
 img_fridge_on = ImageTk.PhotoImage(Image.open("images/fridge_on.png"))
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # bg = ImageTk.PhotoImage(Image.open("images/microwave_on.png"))  
     # Show image using label
     label1 = Label(root, image = img_microwave_on)
-    label1.place(x = 0,y = 0)
+    label1.place(x = 0,y = 100)
   
 
     k = 0
