@@ -28,7 +28,7 @@ def do_job():
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("500x100")
+    root.geometry("600x300")
 
 
     bg = ImageTk.PhotoImage(Image.open("images/microwave.png"))  
