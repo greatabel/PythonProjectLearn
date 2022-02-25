@@ -20,6 +20,12 @@ def hello():
     k += 1
     r = load_data()
     label["text"] = str(k) + ':' + r
+
+    bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
+    # Show image using label
+    label1 = Label(root, image = bg)
+
+
     t = Timer(1, hello)
     t.setDaemon(True)
     t.start()
@@ -32,8 +38,8 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("600x300")
 
-    r0 = load_data()
-    bg = ImageTk.PhotoImage(Image.open("images/" + r0 + ".png"))  
+    r = load_data()
+    bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
     # Show image using label
     label1 = Label(root, image = bg)
     label1.place(x = 0,y = 0)
