@@ -12,3 +12,4 @@ Flask-Login
 flask_sqlalchemy
 requests
 termcolor
+Pillow
