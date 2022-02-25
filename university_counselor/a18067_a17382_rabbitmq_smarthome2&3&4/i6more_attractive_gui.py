@@ -10,6 +10,10 @@ root = tk.Tk()
 root.geometry("600x300")
 img_microwave_on = ImageTk.PhotoImage(Image.open("images/microwave_on.png"))  
 img_microwave_off = ImageTk.PhotoImage(Image.open("images/microwave_off.png"))
+img_fridge_on = ImageTk.PhotoImage(Image.open("images/fridge_on.png"))
+img_fridge_off = ImageTk.PhotoImage(Image.open("images/fridge_off.png"))
+img_cooker_on = ImageTk.PhotoImage(Image.open("images/cooker_on.png"))
+img_cooker_off = ImageTk.PhotoImage(Image.open("images/cooker_off.png"))
 
 def load_data():
     # --------- share data -------
@@ -32,6 +36,14 @@ def hello():
         label1.configure(image=img_microwave_off)
     elif r == "microwave_on":
         label1.configure(image=img_microwave_on)
+    elif r == "fridge_on":
+        label1.configure(image=img_fridge_on)
+    elif r == "fridge_off":
+        label1.configure(image=img_fridge_off)
+    elif r == "cooker_on":
+        label1.configure(image=img_cooker_on)
+    elif r == "cooker_off":
+        label1.configure(image=img_cooker_off)
     # label1.place(x = 0,y = 0)
 
     t = Timer(1, hello)
