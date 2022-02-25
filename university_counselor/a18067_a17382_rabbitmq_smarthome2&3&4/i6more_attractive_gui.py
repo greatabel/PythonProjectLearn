@@ -6,6 +6,11 @@ import pickle
 from PIL import ImageTk, Image
 
 
+root = tk.Tk()
+root.geometry("600x300")
+img_microwave_on = ImageTk.PhotoImage(Image.open("images/microwave_on.png"))  
+img_microwave_off = ImageTk.PhotoImage(Image.open("images/microwave_off.png"))
+
 def load_data():
     # --------- share data -------
     fp = open("shared.pkl", "rb")
@@ -16,15 +21,18 @@ def load_data():
     return r
 
 def hello():
-    global k, t
+    global k, t, root,label1
     k += 1
     r = load_data()
     label["text"] = str(k) + ':' + r
 
-    bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
+    # bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
     # Show image using label
-    label1 = Label(root, image = bg)
-
+    if r == "microwave_off":
+        label1.configure(image=img_microwave_off)
+    elif r == "microwave_on":
+        label1.configure(image=img_microwave_on)
+    # label1.place(x = 0,y = 0)
 
     t = Timer(1, hello)
     t.setDaemon(True)
@@ -35,13 +43,14 @@ def do_job():
     t.cancel()
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    root.geometry("600x300")
+    # root = tk.Tk()
+    # root.geometry("600x300")
 
-    r = load_data()
-    bg = ImageTk.PhotoImage(Image.open("images/" + r + ".png"))  
+
+  
+    # bg = ImageTk.PhotoImage(Image.open("images/microwave_on.png"))  
     # Show image using label
-    label1 = Label(root, image = bg)
+    label1 = Label(root, image = img_microwave_on)
     label1.place(x = 0,y = 0)
   
 
