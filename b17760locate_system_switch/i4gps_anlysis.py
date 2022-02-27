@@ -22,7 +22,8 @@ x = [1, 2, 3, 4, 5, 6, 7, 8, 20, 30]
 x = np.array(x)
 print("x is :\n", x)
 # gps误差测量的数据（米)
-num = [19.4, 23.6, 30.5, 13.4, 34.9, 35.1, 54.2, 32.3, 60, 80]
+
+num = [89.4, 73.6, 50.5, 43.4, 44.9, 35.1, 24.2, 22.3, 15, 10]
 
 y = np.array(num)
 print("y is :\n", y)
@@ -53,8 +54,8 @@ print(
 # 绘图
 plot1 = plt.plot(x, y, "s", label="original values")
 plot2 = plt.plot(x, yvals, "r", label="polyfit values")
-plt.xlabel("x")
-plt.ylabel("y")
+plt.xlabel("distance-from-reference-point")
+plt.ylabel("gps-distance-error")
 plt.legend(loc=4)  # 指定legend的位置右下角
 plt.title("polyfitting")
 plt.show()
