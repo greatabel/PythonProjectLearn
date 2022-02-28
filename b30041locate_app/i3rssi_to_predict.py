@@ -83,6 +83,11 @@ while not stop:
         pos_y = pos["Position_Y"]
         # plt.plot(pos_x, pos_y, marker='o', markersize=10, color="black")
 
+        # 为了app做切换，多生成几组数据
+        # print('#'*20, pos_x, pos_y)
+        # pos_x = 3
+        # pos_y = 15
+
         marker = ax.scatter(pos_x, pos_y, marker="o", color="red")
         fig.canvas.draw()
         marker = ax.scatter(pos_x, pos_y, marker="o", color="black")

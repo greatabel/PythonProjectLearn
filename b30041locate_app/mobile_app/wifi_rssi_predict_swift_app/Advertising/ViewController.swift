@@ -10,12 +10,14 @@ final class ViewController: UIViewController {
   @IBOutlet private var radioLabel: UILabel!
   @IBOutlet private var newspaperLabel: UILabel!
   @IBOutlet private var salesLabel: UILabel!
-  private let numberFormatter = NumberFormatter()
+    
+    @IBOutlet weak var myImageView: UIImageView!
+    private let numberFormatter = NumberFormatter()
   private let advertising = Advertising()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    myImageView.image = UIImage(named:"default")
     numberFormatter.numberStyle = .decimal
     numberFormatter.maximumFractionDigits = 1
     
@@ -44,6 +46,9 @@ final class ViewController: UIViewController {
       radioSlider.value = Float(hub1)
       newspaperSlider.value = Float(hub2)
       salesLabel.text = numberFormatter.string(from: distance as NSNumber)
+      var image_str = "predict"
+      image_str += String(arc4random_uniform(3))
+      myImageView.image = UIImage(named: image_str)
     }
   
     @IBAction func sliderValueChanged(_ sender: UISlider? = nil) {
