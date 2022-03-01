@@ -57,14 +57,14 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    课程数据模型
+    博客数据模型
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 课程标题
+    # 博客标题
     title = db.Column(db.String(100))
-    # 课程正文
+    # 博客正文
     text = db.Column(db.Text)
 
     def __init__(self, title, text):
@@ -75,7 +75,7 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
+# 管理员当前布置博客的表
 class TeacherWork(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -207,7 +207,7 @@ def home(pagenum=1):
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建课程文章
+    创建博客文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -217,61 +217,61 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-        # 创建一个课程对象
+        # 创建一个博客对象
         blog = Blog(title=title, text=text)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到课程列表页面
+        # 创建完成之后重定向到博客列表页面
         return redirect("/blogs")
 
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询课程列表
+    查询博客列表
     """
     blogs = Blog.query.all()
-    # 渲染课程列表页面目标文件，传入blogs参数
+    # 渲染博客列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新课程
+    更新博客
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询博客详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的博客标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新课程
+        # 更新博客
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到博客详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询课程详情、删除课程
+    查询博客详情、删除博客
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询博客详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染博客详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除课程
+        # 删除博客
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -288,20 +288,20 @@ def query_note(id):
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询课程详情、删除课程
+    查询博客详情、删除博客
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询课程详情
+        # 到数据库查询博客详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染课程详情页面
+        # 渲染博客详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除课程
+        # 删除博客
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -312,21 +312,21 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新课程
+    更新博客
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询博客详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的博客标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
-        # 更新课程
+        # 更新博客
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -337,7 +337,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到博客详情页面
         return redirect("/profile")
 
 
@@ -347,14 +347,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询课程详情、删除课程
+    查询博客详情、删除博客
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询博客详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染博客详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204

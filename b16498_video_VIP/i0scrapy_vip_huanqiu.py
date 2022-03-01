@@ -7,7 +7,7 @@ import os
 import requests
 import csv
 
-chrome_path = "/Users/greatabel/AbelProject/PythonProjectLearn/a14972_puublic_collection/chrome/chromedriver"
+chrome_path = "/Users/greatabel/AbelProject/PythonProjectLearn/b16498_video_VIP/chrome/chromedriver"
 data_folder = "data"
 
 
