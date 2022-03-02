@@ -465,6 +465,21 @@ def unauthorized_handler():
 
 
 # --------------------------
+@app.route("/recommend", methods=["GET", "DELETE"])
+def recommend():
+    """
+
+    """
+    if request.method == "GET":
+        choosed = None
+        print("给予离线交互数据进行协同推荐")
+        print(choosed, "#" * 20)
+        print("给予离线交互数据进行协同推荐")
+        # return rt("recommend.html", choosed=choosed)
+        return rt("recommend.html", choosed=choosed)
+
+
+
 @app.route("/assignwork", methods=["GET"])
 def assignwork():
     return rt("index.html")

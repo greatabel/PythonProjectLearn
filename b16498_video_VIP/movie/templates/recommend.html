@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Movie-Recommandation machine learning by HuaXin</title>
+    <title>网红(liziqi)多元线性回归分析 by guobingrui</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -80,8 +80,8 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Movie-Recommandation machine learning by HuaXin</h1>
-        <p>You can view/search movie on our website</p>
+        <h1>网红(liziqi)多元线性回归分析 by guobingrui</h1>
+        <p>You can view/search result on our website</p>
       </div>
     </div>
 
@@ -92,25 +92,29 @@ div[class*="release_year"] {
 
 
 
-        <div class="col-md-8">
+        <div class="col-md-12">
 
-        <img src="/static/images/demo.png" class="img-fluid" >
-        Accoriding to data above, 
-        We recommend for user[Toby] such movie according by <b>Collaborative Filtering Algorithm</b>:
+        <img src="/static/images/i3fan_growth.png" class="img-fluid" >
+        <img src="/static/images/i3predict.png" class="img-fluid" >
+        <img src="/static/images/i3predict_accuracy.png" class="img-fluid" >
 
-                  {% for c in choosed %}
-
-
-            <div class="release_year"> {{ c|safe }}</div>  
-
-
-           {% endfor %}
         </div>
 
+      </div>
+
+
+  <div class="row">
 
 
 
-
+        <div class="col-md-12" style="font-weight: bold; color: red;">
+          结论：
+          P>|t|      [0.025      0.975]
+          R2:  0.13756735901807993
+          说明拟合效果较好。从系数中可以看出评论对关注影响最大，接下来转发，最后是 点赞。评论需要操作更耗时，如 果评论了就说明有较大好感度，也就更愿意点击关注。点赞耗时最少， 操作简单。李子柒(liziqi)虽然停更了youtube，
+          但是海外热度仍然呈现平稳波动，而且youtube新关注人数还在增长，说明liziqi在海外影响力已经稳定
+        </div>
+      </div>
     
 
 
@@ -167,7 +171,7 @@ div[class*="release_year"] {
       <hr>
 
       <footer>
-        <p>&copy; HuaXin 2021</p>
+        <p>&copy; guobingrui 2021</p>
       </footer>
     </div> <!-- /container -->
 
