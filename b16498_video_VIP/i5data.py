@@ -3,9 +3,9 @@ import json
 class SourceDataDemo:
 
     def __init__(self):
-        self.title = '全网红人大数据可视化展板'
-        self.counter = {'name': 'twitter中文圈讨论中国经济', 'value': 250}
-        self.counter2 = {'name': '环球政治军事数据', 'value': 310}
+        self.title = 'liziqi大数据可视化展板'
+        self.counter = {'name': '粉丝讨论', 'value': 41000}
+        self.counter2 = {'name': '日常更新', 'value': 5000}
         self.echart1_data = {
             'title': 'twitter情绪分布',
             'data': [
@@ -18,11 +18,11 @@ class SourceDataDemo:
         self.echart2_data = {
             'title': 'twitter中文圈关联词分布',
             'data': [
-                {"name": "national gallery", "value": 10},
+                {"name": "歌曲", "value": 10},
                 {"name": "art", "value": 4},
-                {"name": "中国崛起", "value": 3},
-                {"name": "南海", "value": 3},
-                {"name": "australia", "value": 2},
+                {"name": "中国", "value": 3},
+                {"name": "生活", "value": 3},
+                {"name": "娱乐", "value": 2},
        
             ]
         }
@@ -37,13 +37,13 @@ class SourceDataDemo:
             ]
         }
         self.echarts3_2_data = {
-            'title': '职业分布',
+            'title': '网红视频分布',
             'data': [
-                {"name": "电子商务", "value": 10},
-                {"name": "教育", "value": 20},
-                {"name": "IT/互联网", "value": 20},
-                {"name": "金融", "value": 30},
-                {"name": "freelancer", "value": 40},
+                {"name": "娱乐", "value": 10},
+                {"name": "旅游", "value": 20},
+                {"name": "做饭", "value": 20},
+                {"name": "经济", "value": 30},
+                {"name": "生活", "value": 40},
                 {"name": "其他", "value": 50},
             ]
         }
@@ -192,5 +192,5 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = '全网红人大数据可视化展板'
+        self.title = 'liziqi大数据可视化展板'
 
