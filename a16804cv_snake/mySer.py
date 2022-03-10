@@ -2,15 +2,7 @@ from utils import COLOR, DIRECTION
 
 
 class AnalysisData:
-    """分析颜色以及方向信息，给下位机传字符通信
-
-    Returns：
-        a: 绿色，左转
-        b: 绿色，右转
-        c: 红色，左转
-        d: 红色，右转
-        e: 没有检测到箭头
-    """
+    #分析颜色以及方向信息，给下位机传字符通信
 
     def __init__(self, ret, color, dirt):
         self.ret = ret

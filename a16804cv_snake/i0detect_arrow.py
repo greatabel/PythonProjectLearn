@@ -18,12 +18,11 @@ if __name__ == "__main__":
     """
 
     video_path = "video/demo.mp4"
-    # 打开摄像头
-    # capture = cv2.VideoCapture(0)  
+  
     capture = cv2.VideoCapture(video_path)
 
-    # 串口通信
-    # ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    # 打开摄像头
+    # capture = cv2.VideoCapture(0)
 
     try:
         results = []
@@ -42,6 +41,7 @@ if __name__ == "__main__":
                 frame
             ).recognizeColor()
 
+            # cv2.imshow("image_", image_)
             # 判断方向
             dirt_ = direction.JudgeDirection(image_).judgeDirection()
             print(dirt_, "#" * 20)

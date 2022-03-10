@@ -32,13 +32,14 @@ class RecognizeColor:
 
     @staticmethod
     def __getBox(image):
+
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
         image = cv2.dilate(image, kernel)  # 膨胀图像
         contours, hierarchy = cv2.findContours(
             image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
         )
-        cv2.imshow("getBox", image)
-        cv2.waitKey(1)
+        # cv2.imshow("getBox", image)
+        # cv2.waitKey(1)
 
         maxArea = 400
         index = 0
@@ -61,6 +62,10 @@ class RecognizeColor:
         > 两张二值图比较白色部分大小，相对较大的为该种颜色
 
         """
+
+        # 显示原始视频帧
+        cv2.imshow("orginal_frame", self.frame)
+
         b, g, r = cv2.split(self.frame)
         img_red = cv2.subtract(r, g)
         img_green = cv2.subtract(g, r)
@@ -83,11 +88,14 @@ class RecognizeColor:
         elif red_nums == green_nums:
             self.ret = False
 
+        cv2.imshow("img_green", img_green)
+        
         self.img = (
             (
                 self.__getBox(img_red)
                 if (self.color == COLOR.RED)
-                else self.__getBox(img_green)
+                else 
+                    self.__getBox(img_green)
             )
             if (self.color != COLOR.OTHER)
             else cv2.inRange(

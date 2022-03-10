@@ -22,4 +22,7 @@ class DIRECTION(Enum):
 
     LEFT = 0
     RIGHT = 1
-    OTHER = 2
+    UP = 2
+    DOWN = 3
+    OTHER = 4
+
