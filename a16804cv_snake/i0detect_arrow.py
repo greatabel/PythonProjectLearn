@@ -6,7 +6,7 @@ import numpy
 import color
 import direction
 import mySer
-
+import pickle
 
 
 if __name__ == "__main__":
@@ -54,6 +54,12 @@ if __name__ == "__main__":
 
             # print(ret_.__str__() + " " + color_.__str__() + " " + dirt_.__str__() + " " + result)
             print(ret_.__str__() + " " + color_.__str__() + " " + dirt_.__str__() + " ")
+            # print(dirt_.__str__(), dirt_, '*'*20)
+            # --------- share data -------
+            shared = {"direction": dirt_}
+            fp = open("shared.pkl","wb")
+            pickle.dump(shared, fp)
+            # --------- share data end -------
 
             # cv2.imshow("frame", frame)
             # if image_.shape[0] != 0:

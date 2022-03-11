@@ -3,6 +3,9 @@ import sys,random
 import pygame
 from pygame.color import THECOLORS as COLORS
 from pygame.locals import *
+import pickle
+from utils import DIRECTION as DIRCT
+
 
 
 def draw_background():
@@ -174,19 +177,25 @@ if __name__ == "__main__":
                 elif event.key == K_DOWN:
                     if head in ['left','right']:
                         head = 'down'
+        # --------- share data -------
+        fp = open("shared.pkl", "rb")
+        shared = pickle.load(fp)
+        r = shared["direction"]
+        print('GUI back thread is receving:', r)
+        # --------- share data end -------
 
         # update data
         if not pause and not dead:
             count_time += frame*level
             first = snake_list[0]
             snake_list[1:] = snake_list[:-1]
-            if head == 'up':
+            if head == 'up' or r == DIRCT.UP:
                 snake_list[0] = [first[0],first[1]-SNAKE_WIDTH]
-            elif head == 'down':
+            elif head == 'down' or r == DIRCT.DOWN:
                 snake_list[0] = [first[0],first[1]+SNAKE_WIDTH]
-            elif head == 'left':
+            elif head == 'left' or r == DIRCT.LEFT:
                 snake_list[0] = [first[0]-SNAKE_WIDTH,first[1]]
-            elif head == 'right':
+            elif head == 'right' or r == DIRCT.RIGHT:
                 snake_list[0] = [first[0]+SNAKE_WIDTH,first[1]]
 
         # background
@@ -207,7 +216,7 @@ if __name__ == "__main__":
             draw_dead()
         # flip
         pygame.display.flip()
-
+        print('@'*20, int(frame/level*1000))
         # pause 20ms
         pygame.time.delay(int(frame/level*1000))
 
