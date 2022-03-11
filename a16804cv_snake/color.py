@@ -5,20 +5,6 @@ from utils import COLOR, COLOR_BOUNDARY
 
 
 class RecognizeColor:
-    """判断箭头颜色
-    1. 提取红色和绿色，得到二值化图
-
-    Args:
-        frame: (numpy) 捕获待检测颜色的图片
-
-    Returns:
-        ret: (boolean)图片是否有红色或绿色区域
-            如果没有，则返回false
-        color: (utils.COLOR)返回检测到的箭头颜色
-            如果没有，则返回COLOR.OTHER
-        img: (numpy)检测到的包含箭头的矩形框，二值图
-            如果没有，则返回None
-    """
 
     def __init__(self, frame):
 
@@ -64,7 +50,7 @@ class RecognizeColor:
         """
 
         # 显示原始视频帧
-        cv2.imshow("orginal_frame", self.frame)
+        #cv2.imshow("orginal_frame", self.frame)
 
         b, g, r = cv2.split(self.frame)
         img_red = cv2.subtract(r, g)
@@ -88,8 +74,13 @@ class RecognizeColor:
         elif red_nums == green_nums:
             self.ret = False
 
-        cv2.imshow("img_green", img_green)
-        
+        img = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        grayImageBGRspace = cv2.cvtColor(img_green,cv2.COLOR_GRAY2BGR)
+        imgHor = numpy.hstack((img, grayImageBGRspace))
+        #cv2.imshow("img_green", img_green)
+        cv2.imshow("imgHor", imgHor)
+
         self.img = (
             (
                 self.__getBox(img_red)

@@ -2,7 +2,8 @@ from utils import COLOR, DIRECTION
 
 
 class AnalysisData:
-    #分析颜色以及方向信息，给下位机传字符通信
+    #分析颜色以及方向信息，给pickle进行传输
+
 
     def __init__(self, ret, color, dirt):
         self.ret = ret
