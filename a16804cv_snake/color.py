@@ -23,7 +23,7 @@ class RecognizeColor:
         image = cv2.dilate(image, kernel)  # 膨胀图像
         contours, hierarchy = cv2.findContours(
             image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
-        )
+        )[-2:]
         # cv2.imshow("getBox", image)
         # cv2.waitKey(1)
 
