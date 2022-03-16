@@ -2,6 +2,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+import platform
+sys = platform.system()
+print('sys=', sys)
+if 'win' in sys and sys != 'Darwin':
+    print("OS is Windows!!!")
+    import matplotlib
+    matplotlib.use('Qt5Agg')
 import pprint
 from sklearn.neighbors import KNeighborsClassifier as kNN
 from i0positions import Positions

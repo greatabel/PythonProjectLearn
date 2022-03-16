@@ -1,6 +1,16 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+
+import platform
+sys = platform.system()
+print('sys=', sys)
+if 'win' in sys and sys != 'Darwin':
+    print("OS is Windows!!!")
+    import matplotlib
+    matplotlib.use('Qt5Agg')
+
+
 from matplotlib.patches import Rectangle
 import matplotlib as mpl
 import pprint
