@@ -17,7 +17,12 @@ pip install --upgrade -r requirements.txt
 模拟运行在:
 命令行底下运行: python3 i6wsgi.py
 
+
+# ------------ ------------ ------------ ------------ 
+
 6.
+（********可选********）
+
 可视化部分在：
 b18607_partyhistory_platform/movie/static/i4data_visualization
 
@@ -27,8 +32,8 @@ b18607_partyhistory_platform/movie/static/i4data_visualization
 在mac系统：
 下载直接在命令行运行：
 
-抓取百度党史新闻
+抓取百度党史新闻，然后进行筛选
 python3  i1scrapy_localnews.py
 
-
-
+可以抓取环球网相关新闻，然后进行筛选
+python3  i0scrapy_huanqiu.py
