@@ -3,29 +3,29 @@ import json
 
 class SourceDataDemo:
     def __init__(self):
-        self.title = "舆情大数据可视化展板"
-        self.counter = {"name": "twitter中文圈讨论中国经济", "value": 250}
-        self.counter2 = {"name": "环球政治军事数据", "value": 310}
+        self.title = "党史大数据可视化展板"
+        self.counter = {"name": "平台历史数据", "value": 50}
+        self.counter2 = {"name": "环球政治数据", "value": 10}
         self.echart1_data = {
-            "title": "twitter情绪分布",
+            "title": "平台情绪分布",
             "data": [
-                {"name": "num_positive", "value": 120},
+                {"name": "num_positive", "value": 20},
                 {"name": "num_neural", "value": 30},
-                {"name": "num_nagtive", "value": 100},
+                {"name": "num_nagtive", "value": 10},
             ],
         }
         self.echart2_data = {
-            "title": "twitter中文圈关联词分布",
+            "title": "平台中文圈关联词分布",
             "data": [
-                {"name": "national gallery", "value": 10},
-                {"name": "art", "value": 4},
+                {"name": "伟大复兴", "value": 10},
+                {"name": "强国", "value": 4},
                 {"name": "中国崛起", "value": 3},
                 {"name": "南海", "value": 3},
-                {"name": "australia", "value": 2},
+                {"name": "学习", "value": 2},
             ],
         }
         self.echarts3_1_data = {
-            "title": "年龄分布",
+            "title": "平台用户年龄分布",
             "data": [
                 {"name": "0岁以下", "value": 47},
                 {"name": "20-29岁", "value": 52},
@@ -35,7 +35,7 @@ class SourceDataDemo:
             ],
         }
         self.echarts3_2_data = {
-            "title": "职业分布",
+            "title": "平台用户职业分布",
             "data": [
                 {"name": "电子商务", "value": 10},
                 {"name": "教育", "value": 20},
@@ -86,7 +86,7 @@ class SourceDataDemo:
                     ],
                 },
                 {
-                    "name": "本地天津新闻数",
+                    "name": "本地新闻数",
                     "value": [
                         5,
                         3,
@@ -143,9 +143,9 @@ class SourceDataDemo:
         self.echart5_data = {
             "title": "新闻地域分布",
             "data": [
-                {"name": "天津", "value": 19},
-                {"name": "美国", "value": 12},
-                {"name": "欧洲", "value": 10},
+                {"name": "广州", "value": 19},
+                {"name": "北京", "value": 12},
+                {"name": "欧美", "value": 10},
                 {"name": "其他", "value": 9},
             ],
         }
@@ -153,29 +153,29 @@ class SourceDataDemo:
             "title": "新闻地域分布比例",
             "data": [
                 {
-                    "name": "天津",
-                    "value": 64,
+                    "name": "广州",
+                    "value": 14,
                     "value2": 36,
                     "color": "01",
                     "radius": ["59%", "70%"],
                 },
                 {
-                    "name": "美国",
-                    "value": 76,
+                    "name": "北京",
+                    "value": 26,
                     "value2": 24,
                     "color": "02",
                     "radius": ["49%", "60%"],
                 },
                 {
-                    "name": "欧洲",
-                    "value": 80,
+                    "name": "欧美",
+                    "value": 8,
                     "value2": 20,
                     "color": "03",
                     "radius": ["39%", "50%"],
                 },
                 {
                     "name": "其他",
-                    "value": 82,
+                    "value": 18,
                     "value2": 18,
                     "color": "04",
                     "radius": ["29%", "40%"],
@@ -289,4 +289,4 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = "舆情大数据可视化展板"
+        self.title = "党史大数据可视化展板"

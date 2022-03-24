@@ -23,8 +23,8 @@ pip install --upgrade -r requirements.txt
 6.
 （********可选********）
 
-可视化部分在：
-b18607_partyhistory_platform/movie/static/i4data_visualization
+可视化配置部分部分在：
+i5data.py
 
 7.
 （********可选********）

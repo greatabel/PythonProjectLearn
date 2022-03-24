@@ -19,7 +19,7 @@ from flask_cors import CORS
 from movie import create_app
 
 from i5data import *
-
+from i2chatbot_demo import Chinese_bot
 # 党史知识录入
 # https://www.thn21.com/help/54547.html
 
@@ -106,6 +106,25 @@ class StudentWork(db.Model):
         self.answer = answer
         self.score = score
         self.course_id = course_id
+
+
+
+# start 聊天机器人
+
+@app.route("/chatbot")
+def chatbot():
+    return rt("chatbot.html")
+
+@app.route("/get")
+def get_bot_response():
+    userText = request.args.get('msg')
+    print('$'*20, userText)
+    r = str(Chinese_bot.get_response(userText))
+    if '马克思' in userText:
+        r = "马克思主义，英文是Marxism，是马克思主义理论体系的简称，是关于全世界无产阶级和全人类彻底解放的学说"
+    print('@-'*20, r)
+    return r
+# end   聊天机器人
 
 
 ### -------------start of home
