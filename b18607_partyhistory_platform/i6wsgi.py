@@ -20,6 +20,9 @@ from movie import create_app
 
 from i5data import *
 
+# 党史知识录入
+# https://www.thn21.com/help/54547.html
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
