@@ -1,3 +1,5 @@
+在mac/ubuntu18.04系统上测试过，windows应该可以，但是没测试过windows
+
 1.
 安装python3.6 以上版本
 
@@ -37,3 +39,11 @@ python3  i1scrapy_localnews.py
 
 可以抓取环球网相关新闻，然后进行筛选
 python3  i0scrapy_huanqiu.py
+
+
+已经注册好的账号 可以直接登录：
+http://localhost:5000/home
+
+username: greatabel1@126.com 
+password: abel
+你也可以自己注册和登录

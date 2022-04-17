@@ -1,5 +1,0 @@
-numpy
-matplotlib
-termcolor
-pdfreader
-chatterbot==1.0.4
