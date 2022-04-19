@@ -2,19 +2,14 @@ import os
 import pytest
 
 from movie import create_app
-from movie.adapters import memory_repository
-from movie.adapters.memory_repository import MemoryRepository
+
 
 
 TEST_DATA_PATH = os.path.join("movie", "tests", "data")
 # TEST_DATA_PATH = os.path.join('C:', os.sep, 'Users', 'iwar006', 'Documents', 'Python dev', 'COVID-19', 'tests', 'data')
 
 
-@pytest.fixture
-def in_memory_repo():
-    repo = MemoryRepository()
 
-    return repo
 
 
 @pytest.fixture

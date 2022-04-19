@@ -1,6 +1,6 @@
 from datetime import date
 
-from movie.domain.model import Movie, User, Review
+from wsgi import  User
 
 import pytest
 
@@ -10,6 +10,6 @@ def user():
     return User('dbowie', '1234567890')
 
 def test_user(user):
-    assert user.user_name == 'dbowie'
+    assert user.username == 'dbowie'
 
 
