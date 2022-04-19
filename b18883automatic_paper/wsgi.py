@@ -18,7 +18,8 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
-import es_search
+# import es_search
+import jellyfish
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -220,8 +221,33 @@ def circulate_scores():
     查询课程列表
     """
     blogs = Blog.query.all()
+    scores = []
+
+    for b in blogs:
+        title = b.title
+        right_answer = b.right_answer
+        student_answer = b.student_answer
+
+
+        s = 5
+        if '单选题' in title:
+            s = 10
+        elif '多选题' in title:
+            s = 15
+        elif '计算题' in title:
+            s = 20
+        elif '设计题' in title:
+            s = 25
+        c0 = jellyfish.levenshtein_distance(right_answer, student_answer)
+        c1 = jellyfish.jaro_distance(right_answer, student_answer)
+
+        print('title=', title)
+        print(right_answer, 'V'*10, student_answer, 'similarity=', c1, c0)
+        scores.append(s*c1)
+    total = sum(scores)
     # 渲染课程列表页面目标文件，传入blogs参数
-    return rt("circulate_scores.html", blogs=blogs)
+    print(scores)
+    return rt("circulate_scores.html", blogs=blogs, scores=scores, total=total)
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():

@@ -1,5 +1,5 @@
 <h3><a href="/home">< home</a></h3>
-<h1>文档列表</h1>
+<h1>本次考试自动评分</h1>
 <!-- Jinja模板语法 -->
 
 
@@ -7,8 +7,11 @@
 <hr/>
 {% if blogs %}
     {% for blog in blogs%}
-        <h3><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h3>
+        <h3><a href="/blogs/{{blog.id}}">{{blog.title}}</a> &nbsp; <span style="color: blue">{{ scores[loop.index-1] }}</span>
+         </h3>
     {% endfor %}
+    <br/>
+    <span style="color: red"> 总分数: {{ total }} </span>
 {% else %}
     <p>no doc, let's create doc~</p>
     <a href="/blogs/create">to create doc</a>
