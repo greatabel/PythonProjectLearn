@@ -1,0 +1,15 @@
+<h1>update doc</h1>
+<!-- HTML表单 -->
+<form action="/blogs/answer/{{blog.id}}" method="POST">
+        <h3>{{blog.title}}</h3>
+    <p>{{blog.text}}</p>
+
+    <label>你的答案:</label>
+    <!-- <input type="text" name="student_answer" value=""  > -->
+
+    <textarea name="student_answer" cols="40" rows="5"></textarea>
+
+    <br><br>
+
+    <input type="submit" value="提交">
+</form>
