@@ -74,7 +74,11 @@ div[class*="release_year"] {
 
         {% if  user.nickname == 'sulu'  %}
       <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> 题目列表(管理员可见) <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/blogs"> 题目列表<span class="sr-only">(current)</span></a>
+      </li>
+
+        <li class="nav-item active">
+        <a class="nav-link" href="/scores"> 自动打分(管理员可见) <span class="sr-only">(current)</span></a>
       </li>
       {% endif %}
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -199,11 +203,11 @@ div[class*="release_year"] {
       <!-- Example row of columns -->
       <div class="row">
 
-          {% for r in listing %}
+          {% for r in range(2) %}
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{r+1 }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->

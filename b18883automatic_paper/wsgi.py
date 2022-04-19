@@ -213,6 +213,16 @@ def create_blog():
         return redirect("/blogs")
 
 
+# 自动打分系统
+@app.route("/scores", methods=["GET"])
+def circulate_scores():
+    """
+    查询课程列表
+    """
+    blogs = Blog.query.all()
+    # 渲染课程列表页面目标文件，传入blogs参数
+    return rt("circulate_scores.html", blogs=blogs)
+
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
