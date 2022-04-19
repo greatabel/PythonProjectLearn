@@ -33,7 +33,8 @@ password: abel
 你也可以自己注册和登录
 
 学生测试账号:
-
+username:test@126.com   
+password: test
 7.
 个人主页： http://localhost:5000/profile
 
