@@ -18,11 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
-# import es_search
-import jellyfish
-import random
-from random import seed, randrange, sample, choice
-import struct
+import es_search
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -61,56 +57,51 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    试卷数据模型
+    课程数据模型
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 试卷标题
+    # 课程标题
     title = db.Column(db.String(100))
-    # 试卷正文
+    # 课程正文
     text = db.Column(db.Text)
 
-    right_answer = db.Column(db.Text)
-    student_answer = db.Column(db.Text)
-
-    def __init__(self, title, text, right_answer, student_answer):
+    def __init__(self, title, text):
         """
         初始化方法
         """
         self.title = title
         self.text = text
-        self.right_answer = right_answer
-        self.student_answer = student_answer
 
 
-# # 老师当前布置作业的表
-# class TeacherWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(80), unique=True)
-#     detail = db.Column(db.String(500))
-#     answer = db.Column(db.String(5000))
-#     course_id = db.Column(db.Integer)
+# 老师当前布置作业的表
+class TeacherWork(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), unique=True)
+    detail = db.Column(db.String(500))
+    answer = db.Column(db.String(5000))
+    course_id = db.Column(db.Integer)
 
-#     def __init__(self, title, detail, answer, course_id):
-#         self.title = title
-#         self.detail = detail
-#         self.answer = answer
-#         self.course_id = course_id
+    def __init__(self, title, detail, answer, course_id):
+        self.title = title
+        self.detail = detail
+        self.answer = answer
+        self.course_id = course_id
 
 
-# class StudentWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     userid = db.Column(db.Integer)
-#     answer = db.Column(db.String(5000))
-#     score = db.Column(db.DECIMAL(10, 2))
-#     course_id = db.Column(db.Integer)
+class StudentWork(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer)
+    answer = db.Column(db.String(5000))
+    score = db.Column(db.DECIMAL(10, 2))
+    course_id = db.Column(db.Integer)
 
-#     def __init__(self, userid, answer, score, course_id):
-#         self.userid = userid
-#         self.answer = answer
-#         self.score = score
-#         self.course_id = course_id
+    def __init__(self, userid, answer, score, course_id):
+        self.userid = userid
+        self.answer = answer
+        self.score = score
+        self.course_id = course_id
 
 
 ### -------------start of home
@@ -125,12 +116,12 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=4):
+    def __init__(self, data, page=1, number=2):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
         ]
-        self.totalpage = len(data) // number + 1
+        self.totalpage = len(data) // number
         print("totalpage=", self.totalpage)
 
     def __iter__(self):
@@ -191,135 +182,10 @@ def home(pagenum=1):
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
-def double2bin(x):
-    packedbytes = struct.pack('!d', x)
-
-    binaries = [bin(i) for i in packedbytes]
-
-    stripped = [s.replace('0b', '') for s in binaries]
-
-    padded = [s.rjust(8, '0') for s in stripped]
-
-    return ' '.join(padded)
-
-
-def question_10_float_1() :
-
-    x = randrange(0, 128, 1)  # f = z * x / y
-    y = 256  # f = z * x / y
-    z = choice([-1, 1])  # f = z * x / y
-    t = ''
-    if (z < 0) :
-        t = '-'
-
-    f = z * float(2*x+1) / float(y)
-    f2 = f * f
-
-
-    #q = '某十进制数为 ' + t + str(x) + 'x10^(' + str(y) + ') = ' + str(f) + '。' + \
-    q = '某十进制数为 ' + str(f) + '。' + \
-        '请问其IEEE双精度二进制表示是什么？\n'
-        #'请问其IEEE双精度二进制表示是什么？请问该数平方的IEEE双精度二进制表示是什么？\n'
-
-
-    s = '该数IEEE双精度二进制表示为：' + double2bin(f) + '\n' + \
-        '该数平方IEEE双精度二进制表示为：' + double2bin(f2) + '\n'
-
-    return (q, s)
-
-
-# 需要更大题库和随机性 可以在里面添加题目数量就行
-single_choice_title = ["在计算机中,正在运行的程序存放在哪儿?","在下列存储器中,访问速度最快的是什么?",
- "下列不属于系统软件的是?"]
-single_choice_text = ["A. 内存 B. 软盘 C. 光盘", "A.硬盘 B.随机存储器", 
-    "A. 汇编程序 B. 电子表格处理软件"]
-single_choice_right_answer = ['A', 'B', "B"]
-
-design_title = ["论述计算机网络安全",
- "自己组装一个台式微型计算机"]
-desing_text = ["论述计算机网络安全的主要因素有哪些", "自己组装一个台式微型计算机，必须选购的电脑组件,试着说明"]
-desing_right_answer = ["(1)网络内部人员操作失误;(2)来自网络外部的恶意攻击;(3)网络软件的漏洞和“后门” ", 
-     "(1)CPU(或者中央处理器或者CPU和CPU风扇)(2)内存(3)硬盘(或者外存储器)(4)显示器(显示器和显卡)(5)鼠标和键盘(或者其他输入设备)(6)机箱"
-    ]
-
-# 计算题随机题目内参数随机例子, 需要更大题库和随机性 可以在里面添加题目数量就行
-q1 = question_10_float_1()
-q2 = question_10_float_1()
-q3 = question_10_float_1()
-# print(q1, '#'*10, q2)
-
-circultate_tiltes = [q1[0], q2[0], q3[0] ]
-circultate_texts = [q1[0], q2[0] , q3[0]]
-circultate_right_answer  = [q1[1],q2[1], q3[1]]
-# print(circultate_tiltes, '@'*10)
-# print(circultate_texts, '@'*10)
-# print(circultate_right_answer, '@'*10)
-
-@app.route("/self_generate_blogs", methods=["GET", "POST"])
-def self_generate_blogs():
-    """
-    创建试卷文章
-    """
-    generate_length = 2
-
-    hard_rate = 0.9
-
-    choosed_list = []
-    for i in range(generate_length):
-        choosed = random.randint(0, len(single_choice_title)-1)
-        print('单选题 choosed=', choosed)
-        if choosed not in choosed_list:
-            title = "(单选题)" + single_choice_title[choosed]
-            text= single_choice_text[choosed]
-            right_answer = single_choice_right_answer[choosed]
-            choosed_list.append(choosed)
-
-            blog = Blog(title=title, text=text, right_answer=right_answer, student_answer='')
-            print(blog.title, blog.text, ' #-# '*5, ' In self_generate_blogs')
-            db.session.add(blog)
-            # 必须提交才能生效
-            db.session.commit()
-
-    design_num = int(generate_length*hard_rate//3)
-    if design_num == 0:
-        design_num = 1
-    print(design_num, '-'*20)
-    for i in range(design_num):
-        choosed = random.randint(0, design_num-1)
-        if choosed not in choosed_list:
-            title = "(设计题)" + design_title[choosed]
-            text= desing_text[choosed]
-            right_answer = desing_right_answer[choosed]
-            choosed_list.append(choosed)
-
-            blog = Blog(title=title, text=text, right_answer=right_answer, student_answer='')
-            print(blog.title, blog.text, ' ## '*5, ' In self_generate_blogs')
-            db.session.add(blog)
-            # 必须提交才能生效
-            db.session.commit()
-
-    print('添加随机参数计算题','@'*20, len(circultate_tiltes))
-    for i in range(generate_length):
-        choosed = random.randint(0, len(circultate_tiltes)-1)
-        print('计算题 choosed=', choosed)
-        if choosed not in choosed_list:
-            title = "(计算题)" + circultate_tiltes[choosed]
-            text= circultate_texts[choosed]
-            right_answer = circultate_right_answer[choosed]
-            choosed_list.append(choosed)
-
-            blog = Blog(title=title, text=text, right_answer=right_answer, student_answer='')
-            print(blog.title, blog.text, ' #-# '*5, ' In self_generate_blogs')
-            db.session.add(blog)
-            # 必须提交才能生效
-            db.session.commit()
-
-    return redirect("/blogs")
-
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建试卷文章
+    创建课程文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -329,128 +195,61 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-        right_answer = request.form["right_answer"]
-        # student_answer = request.form["student_answer"]
-
-
-        # 创建一个试卷对象
-        blog = Blog(title=title, text=text, right_answer=right_answer, student_answer='')
+        # 创建一个课程对象
+        blog = Blog(title=title, text=text)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到试卷列表页面
+        # 创建完成之后重定向到课程列表页面
         return redirect("/blogs")
 
-
-# 自动打分系统
-@app.route("/scores", methods=["GET"])
-def circulate_scores():
-    """
-    查询试卷列表
-    """
-    blogs = Blog.query.all()
-    scores = []
-
-    for b in blogs:
-        title = b.title
-        right_answer = b.right_answer
-        student_answer = b.student_answer
-
-
-        s = 5
-        if '单选题' in title:
-            s = 10
-        elif '多选题' in title:
-            s = 15
-        elif '计算题' in title:
-            s = 20
-        elif '设计题' in title:
-            s = 25
-        elif '计算题' in title:
-            s = 20
-        c0 = jellyfish.levenshtein_distance(right_answer, student_answer)
-        c1 = jellyfish.jaro_distance(right_answer, student_answer)
-
-        print('title=', title)
-        print(right_answer, 'V'*10, student_answer, 'similarity=', c1, c0)
-        scores.append(s*c1)
-    total = sum(scores)
-    # 渲染试卷列表页面目标文件，传入blogs参数
-    print(scores)
-    return rt("circulate_scores.html", blogs=blogs, scores=scores, total=total)
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询试卷列表
+    查询课程列表
     """
     blogs = Blog.query.all()
-    # 渲染试卷列表页面目标文件，传入blogs参数
+    # 渲染课程列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新试卷
+    更新课程
     """
     if request.method == "GET":
-        # 根据ID查询试卷详情
+        # 根据ID查询课程详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的试卷标题和正文
+        # 获取请求的课程标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新试卷
+        # 更新课程
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到试卷详情页面
+        # 修改完成之后重定向到课程详情页面
         return redirect("/blogs/{id}".format(id=id))
-
-
-
-@app.route("/blogs/answer/<id>", methods=["GET", "POST"])
-def answer_note(id):
-    """
-    更新试卷
-    """
-    if request.method == "GET":
-        # 根据ID查询试卷详情
-        blog = Blog.query.filter_by(id=id).first_or_404()
-        # 渲染修改笔记页面HTML模板
-        return rt("answer_blog.html", blog=blog)
-    else:
-        # 获取请求的试卷标题和正文
-        student_answer = request.form["student_answer"]
-
-
-
-        # 更新试卷
-        blog = Blog.query.filter_by(id=id).update({"student_answer": student_answer})
-        # 提交才能生效
-        db.session.commit()
-        # 修改完成之后重定向到试卷详情页面
-        # return redirect("/blogs/{id}".format(id=id))
-        return redirect("/home")
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询试卷详情、删除试卷
+    查询课程详情、删除课程
     """
     if request.method == "GET":
-        # 到数据库查询试卷详情
+        # 到数据库查询课程详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染试卷详情页面
+        # 渲染课程详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除试卷
+        # 删除课程
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -467,20 +266,20 @@ def query_note(id):
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询试卷详情、删除试卷
+    查询课程详情、删除课程
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询试卷详情
+        # 到数据库查询课程详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染试卷详情页面
+        # 渲染课程详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除试卷
+        # 删除课程
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -491,21 +290,21 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新试卷
+    更新课程
     """
     if request.method == "GET":
-        # 根据ID查询试卷详情
+        # 根据ID查询课程详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的试卷标题和正文
+        # 获取请求的课程标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
-        # 更新试卷
+        # 更新课程
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -516,7 +315,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到试卷详情页面
+        # 修改完成之后重定向到课程详情页面
         return redirect("/profile")
 
 
@@ -526,14 +325,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询试卷详情、删除试卷
+    查询课程详情、删除课程
     """
     if request.method == "GET":
-        # 到数据库查询试卷详情
+        # 到数据库查询课程详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染试卷详情页面
+        # 渲染课程详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
@@ -579,7 +378,6 @@ def load_user(email):
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
-    print('login=>', email, password)
     try:
         data = User.query.filter_by(username=email, password=password).first()
         print(data, "@" * 10)
@@ -645,30 +443,30 @@ def unauthorized_handler():
 
 
 # --------------------------
-# @app.route("/assignwork", methods=["GET"])
-# def assignwork():
-#     return rt("index.html")
+@app.route("/assignwork", methods=["GET"])
+def assignwork():
+    return rt("index.html")
 
 
-# @app.route("/teacher_work", methods=["POST"])
-# def teacher_work():
+@app.route("/teacher_work", methods=["POST"])
+def teacher_work():
 
-#     detail = request.form.get("detail")
-#     print("#" * 20, detail, "@" * 20)
-#     with open("movie/static/data.js", "w") as file:
-#         file.write(detail)
+    detail = request.form.get("detail")
+    print("#" * 20, detail, "@" * 20)
+    with open("movie/static/data.js", "w") as file:
+        file.write(detail)
 
-#     return redirect(url_for("assignwork"))
-
-
-# @app.route("/student_work", methods=["POST"])
-# def student_work():
-#     return redirect(url_for("student_index"))
+    return redirect(url_for("assignwork"))
 
 
-# @app.route("/student_index", methods=["GET"])
-# def student_index():
-#     return rt("student_index.html")
+@app.route("/student_work", methods=["POST"])
+def student_work():
+    return redirect(url_for("student_index"))
+
+
+@app.route("/student_index", methods=["GET"])
+def student_index():
+    return rt("student_index.html")
 
 
 # @app.route("/", methods=["GET"])
