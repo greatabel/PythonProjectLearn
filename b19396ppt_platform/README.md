@@ -29,11 +29,20 @@ python3 wsgi.py
 
 http://localhost:5000/home
 
-已经注册好的账号 可以直接登录：
+已经注册好的管理员账号 可以直接登录：
+管理员1
 username: greatabel1@126.com 
 password: abel
 你也可以自己注册和登录
 
+管理员2
+username: admin@126.com
+password: admin
+
+-------------------
+一般用户测试账号:
+username:test@126.com   
+password: test
 7.
 个人主页： http://localhost:5000/profile
 

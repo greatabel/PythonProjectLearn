@@ -38,8 +38,9 @@ CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
 db = SQLAlchemy(app)
 
+last_upload_filename = None
 # --- end   数据库 ---
-admin_list = ["admin@126.com"]
+admin_list = ["admin@126.com", "greatabel1@126.com"]
 
 
 class User(db.Model):
@@ -118,7 +119,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=2):
+    def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -399,6 +400,7 @@ def login():
 
             if email in admin_list:
                 session["isadmin"] = True
+                print('@'*20, 'setting isadmin')
             session["userid"] = data.id
 
             print("login sucess", "#" * 20, session["logged_in"])
@@ -455,20 +457,29 @@ def unauthorized_handler():
 
 
 # --------------------------
-@app.route("/assignwork", methods=["GET"])
-def assignwork():
+@app.route("/add_ppt", methods=["GET"])
+def add_ppt():
     return rt("index.html")
 
 
-@app.route("/teacher_work", methods=["POST"])
-def teacher_work():
+@app.route("/upload_ppt", methods=["POST"])
+def upload_ppt():
 
-    detail = request.form.get("detail")
-    print("#" * 20, detail, "@" * 20)
-    with open("movie/static/data.js", "w") as file:
-        file.write(detail)
+    # detail = request.form.get("detail")
+    # 从表单请求体中获取请求数据
 
-    return redirect(url_for("assignwork"))
+    title = request.form.get("title")
+    text = request.form.get("detail")
+
+    # 创建一个课程对象
+    blog = Blog(title=title, text=text)
+    db.session.add(blog)
+    # 必须提交才能生效
+    db.session.commit()
+    # 创建完成之后重定向到课程列表页面
+    # return redirect("/blogs")
+
+    return redirect(url_for("add_ppt"))
 
 
 @app.route("/student_work", methods=["POST"])
@@ -499,8 +510,10 @@ def upload_part():  # 接收前端上传的一个分片
 
 @app.route("/file/merge", methods=["GET"])
 def upload_success():  # 按序读出分片内容，并写入新文件
-
+    global last_upload_filename
     target_filename = request.args.get("filename")  # 获取上传文件的文件名
+    last_upload_filename = target_filename
+    print('last_upload_filename=', last_upload_filename)
     task = request.args.get("task_id")  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
     with open("./upload/%s" % target_filename, "wb") as target_file:  # 创建新文件

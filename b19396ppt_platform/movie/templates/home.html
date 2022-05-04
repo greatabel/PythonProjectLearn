@@ -72,10 +72,20 @@ div[class*="release_year"] {
         <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
       </li>
 
-        {% if session['isadmin'] %}
       <li class="nav-item active">
-        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/add_ppt"> 添加PPT <span class="sr-only">(current)</span></a>
       </li>
+        {% if session['isadmin'] %}
+
+          <li class="nav-item active">
+        <a class="nav-link" href="/blogs"> 管理ppt <span class="sr-only">(current)</span></a>
+      </li>
+
+  <!--     <li class="nav-item active">
+        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
+      </li> -->
+
+
       {% endif %}
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -177,7 +187,7 @@ div[class*="release_year"] {
 
           {% for r in listing %}
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
         <span>{{ r.title|safe }}</span> 
         <br/>
         <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
@@ -185,6 +195,11 @@ div[class*="release_year"] {
             <div name="title"> </div>  
             <br/>
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
+        </div>
+        <div class="col-md-4">
+        <figure>
+            <img src="/static/images/ppt_cover/{{ range(1, 10) | random }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
+        </figure>
         </div>
         </div>
            {% endfor %}
@@ -194,7 +209,7 @@ div[class*="release_year"] {
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-12"> <div class="release_year">PointPoint介绍：</div>
+       <div class="col-md-12"> <div class="release_year">PointPoint平台介绍：</div>
        </div>
        </div>
       <!-- Example row of columns -->
