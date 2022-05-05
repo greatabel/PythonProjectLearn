@@ -39,6 +39,7 @@ password: test
 个人主页： http://localhost:5000/profile
 
 
+知识图谱访问: http://localhost:5000/index_a/
 
 
 ---------- ---------- 可选项 ---------- ---------- 
