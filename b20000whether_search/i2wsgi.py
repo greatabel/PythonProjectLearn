@@ -20,7 +20,9 @@ from movie import create_app
 
 import es_search
 from i0whtether_bot import get_whether
-
+import pandas as pd
+import csv
+import time
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -36,6 +38,7 @@ CORS(app)
 # ---start  数据库 ---
 #  如果想更换为mysql/postgresql 可以修改这里
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
+
 db = SQLAlchemy(app)
 
 last_upload_filename = None
@@ -78,33 +81,33 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
-class TeacherWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    detail = db.Column(db.String(500))
-    answer = db.Column(db.String(5000))
-    course_id = db.Column(db.Integer)
 
-    def __init__(self, title, detail, answer, course_id):
-        self.title = title
-        self.detail = detail
-        self.answer = answer
-        self.course_id = course_id
+# class TeacherWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String(80), unique=True)
+#     detail = db.Column(db.String(500))
+#     answer = db.Column(db.String(5000))
+#     course_id = db.Column(db.Integer)
+
+#     def __init__(self, title, detail, answer, course_id):
+#         self.title = title
+#         self.detail = detail
+#         self.answer = answer
+#         self.course_id = course_id
 
 
-class StudentWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    answer = db.Column(db.String(5000))
-    score = db.Column(db.DECIMAL(10, 2))
-    course_id = db.Column(db.Integer)
+# class StudentWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     userid = db.Column(db.Integer)
+#     answer = db.Column(db.String(5000))
+#     score = db.Column(db.DECIMAL(10, 2))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, userid, answer, score, course_id):
-        self.userid = userid
-        self.answer = answer
-        self.score = score
-        self.course_id = course_id
+#     def __init__(self, userid, answer, score, course_id):
+#         self.userid = userid
+#         self.answer = answer
+#         self.score = score
+#         self.course_id = course_id
 
 
 ### -------------start of home
@@ -138,10 +141,81 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
+# 获取city对应列表
+def read_city_kv():
+    k_v = {}
+    csv_file = 'data/i0citycode_cityname.csv'
+    with open(csv_file, 'r') as read_obj:
+        # pass the file object to reader() to get the reader object
+        csv_reader = csv.reader(read_obj)
+        # Iterate over each row in the csv using reader object
+        for row in csv_reader:
+            # row variable is a list that represents a row in csv
+            v, k = row[0].split('\t')
+            # print(v,k)
+            k_v[k] = v
+    # print(k_v)
+    return k_v
+
+cityname_code = read_city_kv()
+
+import time
+def compare_time(time1,time2):
+    s_time = time.mktime(time.strptime(time1,"%Y/%m/%d %H:%M:%S"))
+    e_time = time.mktime(time.strptime(time2,"%Y/%m/%d %H:%M:%S"))
+    # print 's_time is:',s_time
+    # print 'e_time is:',e_time
+    return int(s_time) - int(e_time)
+
+
+# 出发机场,到达机场,航班编号,计划起飞时间,计划到达时间,实际起飞时间,实际到达时间,飞机编号,航班是否取消,需验证标识
+def read_flight():
+    mylist = []
+    csv_file = 'data/i1flight.csv'
+    with open(csv_file, 'r') as read_obj:
+        # pass the file object to reader() to get the reader object
+        csv_reader = csv.reader(read_obj)
+        # Iterate over each row in the csv using reader object
+        for row in csv_reader:
+            # row variable is a list that represents a row in csv
+            # print(row)
+            p3 = ''
+            p4 = ''
+            p5 = ''
+            p6 = ''
+            if row[3] != '':
+                time_tuple_3 = time.localtime(int(row[3]))
+                p3 = time.strftime("%Y/%m/%d %H:%M:%S", time_tuple_3)
+                # print("北京时间：", t3)
+            if row[4] != '':
+                time_tuple_4 = time.localtime(int(row[4]))
+                p4 = time.strftime("%Y/%m/%d %H:%M:%S", time_tuple_4)
+            if row[5] != '':
+                time_tuple_5 = time.localtime(int(row[5]))
+                p5 = time.strftime("%Y/%m/%d %H:%M:%S", time_tuple_5)
+            if row[6] != '':
+                time_tuple_6 = time.localtime(int(row[6]))
+                p6 = time.strftime("%Y/%m/%d %H:%M:%S", time_tuple_6)
+
+            # result = compare_time(p3,'2017/06/25 00:00:00')
+            # print('result', result)
+            if p3 > '2017/06/25 10:00:00' and p3 < '2017/06/25 24:00:00':
+                mylist.append([row[0], row[1],row[2],p3, p4, p5, p6, row[7] ])
+    return mylist
+
+
+flights = read_flight()
+print(len(flights),flights[:10])
+
+history_whether_625 = {'上海':"小雨转雷阵雨,22,26,2017/6/25",
+'武汉': "阵雨转阴,23,30,2017/6/25",
+'北京':"多云,20,31,2017/6/25"}
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
+    global cityname_code, flights, history_whether_625
+    print(cityname_code)
     print("home " * 10)
     keyword = ''
     blogs = Blog.query.all()
@@ -153,26 +227,36 @@ def home(pagenum=1):
     print("in home", user, "blogs=", len(blogs), "*" * 20)
     if request.method == "POST":
         search_list = []
+        filter_flights = []
         # 查询对应城市的天气
         keyword = request.form["keyword"]
         print("keyword=", keyword, "@-@" * 10)
         if keyword is not None:
-            for blog in blogs:
-                if keyword in blog.title or keyword in blog.text:
-                    blog.title = replace_html_tag(blog.title, keyword)
-                    print(blog.title)
-                    blog.text = replace_html_tag(blog.text, keyword)
 
-                    search_list.append(blog)
-
+            # 实时api
             realtime_api = get_whether(keyword)
             print('realtime_api', '->', realtime_api)
+
+            # citycode
+            citycode = None
+            if keyword in cityname_code:
+                citycode = cityname_code[keyword]
+                print('cityname_code=', citycode)
+                for row in flights:
+                    # [['PEK', 'CAN', 'CA1351', '2017/06/01 07:35:00', '2017/06/01 10:55:00', '', '', '2277']]
+                    if row[0] == citycode:
+                        filter_flights.append(row)
+            print('filter_flights=',len(filter_flights), filter_flights[0:3])
 
         print("search_list=", search_list, "=>" * 5)
         # return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user, keyword=keyword,
         #         realtime_whether=keyword +'实时天气:'+'晴朗')
+        msg = ''
+        if keyword == '上海':
+            msg = '上海管制区航班延误黄色预警提示：6月26日上海管制区部分航路预计10:00至20:00受雷雨天气影响，通行能力下降30%左右。【空中交通网】'
         return rt("home.html", listing=None, user=user, keyword=keyword,
-                realtime_whether=keyword +'实时天气:'+'晴朗'+realtime_api)
+                realtime_whether=keyword +'实时天气:'+'晴朗'+realtime_api, filter_flights=filter_flights,
+                old_whether=history_whether_625[keyword], msg=msg)
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user, realtime_whether=keyword +'实时天气:晴朗')

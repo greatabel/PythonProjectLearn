@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ppt综合平台</title>
+    <title>whether综合平台</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -142,8 +142,8 @@ div[class*="release_year"] {
 
 <div class="media">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+
         <span style="color:red;font-size: 120%">{{realtime_whether}} </span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -206,7 +206,56 @@ div[class*="release_year"] {
            {% endfor %}
 {% else %}
     .
-{% endif %}      
+{% endif %}
+<hr/>
+历史记录中的对应天气: {{ old_whether }}
+<hr/>
+历史资料后来验证：<span style="color:red">{{ msg }} </span>
+<hr/>
+{% if filter_flights is not none %}  
+
+  <table id="table"
+                    data-toggle="table"
+                    data-filter-control="true"
+                    data-show-search-clear-button="true"
+                    data-sortable="true"
+                    classes="table-sm"
+                    data-pagination="true"
+                    data-show-columns="true"
+                    data-show-columns-toggle-all="true"
+                    class="table-responsive">
+                    <thead>
+                        <tr>
+                            <!--special characters and spaces not allowed in data-field name-->
+                            <th data-field="columnA" data-filter-control="input" data-sortable="true">出发机场</th>
+                            <th data-field="columnB" data-filter-control="select" data-sortable="true">到达机场</th>
+                            <th data-field="columnC" data-filter-control="input" data-sortable="true">航班编号</th>
+                            <th data-field="columnC" data-filter-control="input" data-sortable="true">计划起飞时间</th>
+                            <th data-field="columnC" data-filter-control="input" data-sortable="true">计划到达时间</th>
+                            <th data-field="columnC" data-filter-control="input" data-sortable="true">实际起飞时间</th>
+                            <th data-field="columnC" data-filter-control="input" data-sortable="true">实际到达时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in filter_flights %}
+                        <tr>
+                            <!--special characters and spaces not allowed in data-field name-->
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+{% else %}
+    &nbsp;
+{% endif %}
 <br/><br/>
 <br/><br/>
 <br/><br/>
