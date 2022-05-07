@@ -23,6 +23,7 @@ from i0whtether_bot import get_whether
 import pandas as pd
 import csv
 import time
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -145,7 +146,7 @@ class PageResult:
 def read_city_kv():
     k_v = {}
     csv_file = 'data/i0citycode_cityname.csv'
-    with open(csv_file, 'r') as read_obj:
+    with open(csv_file, 'r',encoding='utf-8') as read_obj:
         # pass the file object to reader() to get the reader object
         csv_reader = csv.reader(read_obj)
         # Iterate over each row in the csv using reader object
@@ -172,7 +173,7 @@ def compare_time(time1,time2):
 def read_flight():
     mylist = []
     csv_file = 'data/i1flight.csv'
-    with open(csv_file, 'r') as read_obj:
+    with open(csv_file, 'r', encoding='utf-8') as read_obj:
         # pass the file object to reader() to get the reader object
         csv_reader = csv.reader(read_obj)
         # Iterate over each row in the csv using reader object
