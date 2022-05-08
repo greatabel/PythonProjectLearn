@@ -29,8 +29,8 @@ def recommend(demo, ratings, pivot_ratings):
     print("该用户我推荐：", list(rec.index))
 
 
-def main():
-    print("main")
+def main(demo='Abel'):
+    print("main", demo)
     data_path = os.path.join("app", "home")
 
     mypath = "data/talkshow_rating.csv"
@@ -46,7 +46,7 @@ def main():
     sm = pivot_ratings.corr()
     print(sm.to_string())
     # 协同过滤推荐
-    demo = "Abel"
+    # demo = "Abel"
     # print(colored('1. 找出该用户为打分的电影 =>', 'red', attrs=['reverse', 'blink']))
     missing_films = list(pivot_ratings[pivot_ratings[demo].isnull()].index)
     print(missing_films)

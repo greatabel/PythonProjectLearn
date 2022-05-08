@@ -267,7 +267,10 @@ def recommend():
     查询ppt item 推荐
     """
     if request.method == "GET":
-        choosed = recommandation.main()
+        id = session["userid"]
+        user = User.query.filter_by(id=id).first_or_404()
+        print('*'*20, user.nickname, '*'*20)
+        choosed = recommandation.main(user.nickname)
         print("给予离线交互数据进行协同推荐")
         print(choosed, "#" * 20)
         print("给予离线交互数据进行协同推荐")
@@ -370,14 +373,14 @@ def relationship():
     print(type(d), "#" * 10, d)
     return jsonify(d)
 
-@app.route('/index_a/')
-def index():
-    return rt('index-A.html')
+# @app.route('/index_a/')
+# def index():
+#     return rt('index-A.html')
        
 
-@app.route('/index_b/')
-def index_b():
-    return rt('index-B.html')
+# @app.route('/index_b/')
+# def index_b():
+#     return rt('index-B.html')
         
 
 
