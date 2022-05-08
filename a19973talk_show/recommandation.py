@@ -32,8 +32,8 @@ def recommend(demo, ratings, pivot_ratings):
 def main():
     print("main")
     data_path = os.path.join("app", "home")
-    # mypath = os.path.join(data_path, 'movie_rating.csv')
-    mypath = "data/ppt_rating.csv"
+
+    mypath = "data/talkshow_rating.csv"
     print(mypath)
     ratings = pd.read_csv(mypath)
 
