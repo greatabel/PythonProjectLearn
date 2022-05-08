@@ -237,7 +237,8 @@ def home(pagenum=1):
             # 实时api
             realtime_api = get_whether(keyword)
             print('realtime_api', '->', realtime_api)
-
+            if realtime_api == 'error':
+                realtime_api = '晴朗'
             # citycode
             citycode = None
             if keyword in cityname_code:
@@ -256,7 +257,7 @@ def home(pagenum=1):
         if keyword == '上海':
             msg = '上海管制区航班延误黄色预警提示：6月26日上海管制区部分航路预计10:00至20:00受雷雨天气影响，通行能力下降30%左右。【空中交通网】'
         return rt("home.html", listing=None, user=user, keyword=keyword,
-                realtime_whether=keyword +'实时天气:'+'晴朗'+realtime_api, filter_flights=filter_flights,
+                realtime_whether=keyword +'实时天气:'+realtime_api, filter_flights=filter_flights,
                 old_whether=history_whether_625[keyword], msg=msg)
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
