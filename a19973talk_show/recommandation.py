@@ -53,7 +53,7 @@ def main(demo='Abel'):
     # print(colored('2. 找出该用户已打分的平均分=>', 'red', attrs=['reverse', 'blink']))
 
     mean_score = pivot_ratings[demo].mean()
-    print(mean_score)
+    print('mean_score=',mean_score)
     # print(colored('3. 处理原始表，加上相似性列，筛选出未打分 =>',
     #               'red', attrs=['reverse', 'blink']))
     remain_films = ratings[ratings["title"].isin(missing_films)]

@@ -21,6 +21,15 @@ from movie import create_app
 import es_search
 
 import recommandation
+
+# vgg16 image like recommend
+import numpy as np
+from PIL import Image
+from feature_extractor import FeatureExtractor
+from datetime import datetime
+
+from pathlib import Path
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -31,6 +40,16 @@ app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
 # --- total requirement ----
+
+# Read image features
+fe = FeatureExtractor()
+features = []
+img_paths = []
+for feature_path in Path("movie/static/feature").glob("*.npy"):
+    features.append(np.load(feature_path))
+    img_paths.append(Path("static/img") / (feature_path.stem + ".jpg"))
+features = np.array(features)
+
 
 
 # ---start  数据库 ---
@@ -188,7 +207,7 @@ def home(pagenum=1):
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建ppt文章
+    创建talkshow文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -210,7 +229,7 @@ def create_blog():
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询ppt列表
+    查询talkshow列表
     """
     blogs = Blog.query.all()
     # 渲染ppt列表页面目标文件，传入blogs参数
@@ -220,7 +239,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新ppt
+    更新talkshow
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -243,7 +262,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询ppt详情、删除ppt
+    查询talkshow详情、删除ppt
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -275,6 +294,37 @@ def recommend():
         print(choosed, "#" * 20)
         print("给予离线交互数据进行协同推荐")
         return rt("recommend.html", choosed=choosed)
+
+
+@app.route("/picture_search", methods=["GET", "POST"])
+def picture_search():
+    if request.method == "POST":
+        file = request.files["query_img"]
+
+        # Save query image
+        img = Image.open(file.stream)  # PIL image
+        uploaded_img_path = (
+            "movie/static/uploaded/"
+            + datetime.now().isoformat().replace(":", ".")
+            + "_"
+            + file.filename
+        )
+        img.save(uploaded_img_path)
+
+        # Run search
+        query = fe.extract(img)
+        dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
+        ids = np.argsort(dists)[:3]  # Top 10 likely
+        # print('ids=', ids)
+        # print(np.array(img_paths)[ids])
+        scores = [(dists[id], img_paths[id]) for id in ids]
+        uploaded_img_path = uploaded_img_path.replace('movie/','')
+        print('uploaded_img_path', uploaded_img_path)
+        return rt(
+            "picture_search.html", query_path=uploaded_img_path, scores=scores
+        )
+    else:
+        return rt("picture_search.html")
 
 ### -------------start of profile
 
