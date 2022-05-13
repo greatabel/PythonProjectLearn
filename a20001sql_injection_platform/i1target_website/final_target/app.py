@@ -9,6 +9,7 @@ from flask import g
 app = Flask(__name__)
 app.debug = True
 
+# https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/
 DATABASE = 'campus_data.db'
 
 def get_db():

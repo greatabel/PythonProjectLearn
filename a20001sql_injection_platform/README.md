@@ -10,19 +10,20 @@
 可选  可以不做（创建python3虚拟目录，隔绝不同版本库之间相互影响）
 https://docs.python.org/zh-cn/3/tutorial/venv.html
 
+
 4.
 4.1
 terminal底下进入工程目录下，在requirements.txt同级目录下运行：
 pip install --upgrade -r requirements.txt
 
+
 5.
-打开一个命令行窗口，cd进入i1target_website/final_target
+运行目标靶场
+打开一个命令行窗口，cd进入i1target_website/final_target 文件夹
 然后执行: python3 app.py 
 
-模拟运行在:
-python3 wsgi.py
-
-
+新开另一个命令行窗口，在a20001sql_injection_platform目录下执行:
+python3 i4wsgi.py
 
 
 
@@ -54,6 +55,19 @@ password: test
 sqlmap安装(macbook): 
 https://codeantenna.com/a/DTCXKTs1fW
 
+9.
+(可选)
+运行final_target以外的其他目标靶场：
+cd到 i1target_website下，重复第四步的代码，
+安装好目标靶场相关的requirements.txt
+分别进入L1-L6运行不同
+python3 L1.py 
+python3 L2.py 
+...
+python3 L6.py 
+等目标站点
+
+10.
 
 
 
