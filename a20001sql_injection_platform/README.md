@@ -32,6 +32,7 @@ python3 i4wsgi.py
 
 http://localhost:5000/home
 
+
 已经注册好的管理员账号 可以直接登录：
 管理员1
 username: greatabel1@126.com 
@@ -68,6 +69,18 @@ python3 L6.py
 等目标站点
 
 10.
+（可选）scrapy爬虫抓取所有url和网址，寻找注入点，并且保存为本地文件
+scrapy runspider i2scrapy_bot.py > data/i0urls.txt
+
+11.
+python3 i3sqlmap_handler.py
+然后输入 目标站点注入点，比如：localhost:8000/scp3
+
+12.
+访问
+http://localhost:5000/home
+可以看到自动导入的报告
+
 
 
 

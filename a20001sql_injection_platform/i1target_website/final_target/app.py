@@ -48,11 +48,21 @@ def scp2(index_id=""):
     return r
 
 
-@app.route('/scp3/')
+@app.route('/scp3/',methods=['GET','POST'])
 @app.route('/scp3/<index_id>')
 def scp3(index_id=""):
     # input :http://www.baidu.com
     query_value = request.args.get('query')
+    if query_value is not None:
+        print(query_value, 'query_value')
+        cur = get_db().cursor()
+
+        cur.execute("INSERT INTO teacher_work (title, detail, answer) VALUES (?, ?, ?)",
+                    (query_value, 'Content for the first post', 't')
+                    )
+
+        get_db().commit()
+
     index =  " is here"
 
     teacher_works = []
@@ -63,7 +73,8 @@ def scp3(index_id=""):
     r = make_response(
         render_template('scp3.html', query_value=query_value,index=index,teacher_works=teacher_works)
         )
-    r.headers.set('Content-Security-Policy', "default-src * 'unsafe-inline'; connect-src 'self' 'nonce-987654321' ")
+
+    # r.headers.set('Content-Security-Policy', "default-src * 'unsafe-inline'; connect-src 'self' 'nonce-987654321' ")
     return r
 
 if __name__ == '__main__':

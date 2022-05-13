@@ -13,8 +13,8 @@
     <h3>{{blog.title}}</h3>
     <p>{{blog.text}}</p>
 
-    <span>ppt 下载url:</span>
-        <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
+<!--     <span>ppt 下载url:</span>
+        <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/> -->
     <hr/>
 
      {% if session['isadmin'] %}

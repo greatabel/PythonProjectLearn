@@ -15,5 +15,7 @@ Flask-Login
 flask_sqlalchemy
 requests
 
+scrapy==2.6.1
+
 #termcolor
 #pdfreader
