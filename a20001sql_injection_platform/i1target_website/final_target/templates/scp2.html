@@ -1,0 +1,50 @@
+<html>
+<html>
+  <head>
+
+    <link rel="stylesheet" href="/static/game-frame-styles.css" />
+  </head>
+ 
+  <body id="level1">
+
+      <div>
+      <form action="" method="GET">
+      <input id="query" name="query" value="Enter query here..."
+        onfocus="this.value=''">
+      <input id="button" type="submit" value="SCP2.0">
+    </form>
+
+      <p style="font-weight: bold;">sql-Inject/scp target website {{index}}</p>
+      <a href="{{ query_value }}">click here</a>
+  </div>
+
+  <hr/>
+
+  {% if teacher_works is not none %}  
+          {% for r in teacher_works %}
+      <div class="row">
+        <div class="col-md-8">
+        <span>{{ r[0]|safe }}</span> 
+        <br/>
+        <span>{{ r[1]|safe  }} ... </span>
+
+            <div name="title"> </div>  
+            <br/>
+            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+        </div>
+        <div class="col-md-4">
+
+  <!--       <figure>
+            <img src="/static/images/ppt_cover/{{ range(1, 5) | random }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
+        </figure> -->
+
+        </div>
+        </div>
+           {% endfor %}
+{% else %}
+    .
+{% endif %}
+
+
+  </body>
+</html>

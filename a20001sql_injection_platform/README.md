@@ -1,5 +1,4 @@
 
-
 1.
 安装python3.6 以上版本
 
@@ -17,6 +16,9 @@ terminal底下进入工程目录下，在requirements.txt同级目录下运行�
 pip install --upgrade -r requirements.txt
 
 5.
+打开一个命令行窗口，cd进入i1target_website/final_target
+然后执行: python3 app.py 
+
 模拟运行在:
 python3 wsgi.py
 
@@ -43,8 +45,16 @@ password: admin
 一般用户测试账号:
 username:test@126.com   
 password: test
+
 7.
 个人主页： http://localhost:5000/profile
+
+8.
+(可选)
+sqlmap安装(macbook): 
+https://codeantenna.com/a/DTCXKTs1fW
+
+
 
 
 
