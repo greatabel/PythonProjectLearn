@@ -25,20 +25,22 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 # ChatterBot的语言独立设计使其可以接受任何语言的培训。
 # 通过搜索与输入匹配的最接近的已知语句来选择最接近的匹配响应，然后根据机器人与之通信的人发出每个响应的频率，将最有可能的响应返回给该语句。
 
-Chinese_bot = ChatBot('Ron Obvious')
+Chinese_bot = ChatBot('Example')
 # Create a new trainer for the chatbot
 trainer = ChatterBotCorpusTrainer(Chinese_bot)
 # Train the chatbot based on the english corpus
-trainer.train("chatterbot.corpus.chinese")
+# trainer.train("chatterbot.corpus.chinese")
+trainer.train("chatterbot.corpus.english")
 
 
 # # 测试一下
 # question = '亲，在吗'
-# print(question)
-# response = Chinese_bot.get_response(question)
-# print(response)
-# print("\n")
-# question = '有红色的吗？'
-# print(question)
-# response = Chinese_bot.get_response(question)
-# print(response)
+question = 'How are you?'
+print(question)
+response = Chinese_bot.get_response(question)
+print(response)
+print("\n")
+question = 'Is there anything to eat?'
+print(question)
+response = Chinese_bot.get_response(question)
+print(response)
