@@ -14,12 +14,12 @@ plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
 # y2 = np.cos(x) / 3 + 2 + a
 x = np.random.uniform(low=0.1, high=0.99, size=(50,))
 
-y = x * 0.8 + np.random.uniform(low=0.1, high=0.3, size=(50,))
+y = x * 0.8 + np.random.uniform(low=0.1, high=0.2, size=(50,))
 # x = [0.1, 0.2, 0.3, 0.8]
 # y = (x - 3)**3 - 3*x + r
-# plt.plot(x, y, color='blue',label='Correlation')
+plt.plot(x, y, color='blue',label='Correlation')
 
-plt.scatter(x, y,color='blue',label='Correlation')
+# plt.scatter(x, y,color='blue',label='Correlation')
 
 # plt.show()
 # plt.plot(x,y2,color='blue',label='Accurary')
