@@ -2,6 +2,7 @@
 # matplotlib
 click
 coverage
+eventextraction
 Flask
 html-similarity
 itsdangerous

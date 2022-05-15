@@ -20,7 +20,9 @@ from movie import create_app
 
 import es_search
 
-import recommandation
+import random
+from eventextraction import EventsExtraction
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -261,17 +263,17 @@ def query_note(id):
 
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询ppt item 推荐
-    """
-    if request.method == "GET":
-        choosed = recommandation.main()
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
-        return rt("recommend.html", choosed=choosed)
+# @app.route("/recommend", methods=["GET", "DELETE"])
+# def recommend():
+#     """
+#     查询ppt item 推荐
+#     """
+#     if request.method == "GET":
+#         choosed = recommandation.main()
+#         print("给予离线交互数据进行协同推荐")
+#         print(choosed, "#" * 20)
+#         print("给予离线交互数据进行协同推荐")
+#         return rt("recommend.html", choosed=choosed)
 
 ### -------------start of profile
 
@@ -405,6 +407,32 @@ def event_extract():
         # 从表单请求体中获取请求数据
         title = request.form["title"]
         text = request.form["text"]
+
+        print('-'*20)
+        print(text)
+        # 算法1: https://github.com/liuhuanyong/ComplexEventExtraction
+        extractor = EventsExtraction()
+        # # content = '''虽然新冠疫情很严重，但我觉得中国可以挺住。
+        # 虽然经济形势很严重，但我觉得中国可以挺住。
+        # 虽然面临困难，但我觉得中国可以挺住。
+        # '''
+        datas = extractor.extract_main(text)
+
+        print(datas)
+        stats = extractor.stats(datas)
+        print(stats)
+        myitems = []
+        for item in datas:
+            seed = random.randint(0, 3)
+            print('>'*20, item, type(item['tuples']))
+            print(item.keys())
+            print(item['tuples']['pre_part'],  item['tuples']['post_part '])
+            my =  {"word1": item['tuples']['pre_part'], "word2": item['tuples']['post_part '],  "freq": seed*2.5}
+            myitems.append(my)
+
+        with open('upload/'+title +'.json', 'w') as f:
+            json.dump(myitems, f)
+        print('-'*20)
 
         # 创建一个ppt对象
         blog = Blog(title=title, text=text)
