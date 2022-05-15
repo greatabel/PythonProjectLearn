@@ -88,74 +88,20 @@ div[class*="release_year"] {
   </div>
 </nav>
 
-<!--  {% if session['isadmin'] %}
-<h3><a href="/blogs">< doc list</a></h3>
- {% else %}
-<h3><a href="/home">< home</a></h3>
-   {% endif %} -->
 
-<h1>事件详情</h1>
-<br/>
-<div>
-     {% if session['isadmin'] %}
-    <a href="/blogs/update/{{blog.id}}" id="{{blog.id}}">更新</a>
-     {% endif %}
+<h1>事件抽取</h1>
+<!-- HTML表单 -->
+<form action="/event_extract" method="POST">
+    <label>数据集名称</label>
+    <input type="text" name="title">
+    <br><br>
+    <label>数据集内容:</label>
+    <!-- <input type="text" name="text"> -->
+    <textarea rows="4" cols="70" type="text" name="text" > </textarea>
+    <br><br>
+    <input type="submit" value="事件抽取">
+</form>
 
-    <h3>{{blog.title}}</h3>
-    <p>{{blog.text}}</p>
-
-<br/>
-
-   <figure>
-<img src="/static/images/app_data/{{blog.id // 2 }}.png" class="img-fluid" style="height:250px;width:500px;">
-        </figure>
-<br/>
-    <span>事件 下载url:</span>
-        <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
-    <hr/>
-
-<br/>
-
-    <span>设置知识图谱:</span>
-        <a href="/statistics?title={{ blog.title }}"> 设置</a><br/>
-    <span>查看知识图谱书籍:</span>
-        <a href="/index_a">查看</a><br/>
-<br/>
-    <hr/>
-
-     {% if session['isadmin'] %}
-    <a href="#" class="btn-delete" id="{{blog.id}}">删除</a>
-     {% endif %}
-</div>
-
-<!-- 先引入jquery，下面要用到-->
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<!--发送ajax请求删除课程 -->
-<script type="text/javascript">
-    $('a.btn-delete').on('click',function(evt){
-        // 通知浏览器不要执行与事件关联的默认动作
-        evt.preventDefault();
-        // 获取课程ID
-        var blogid = $(this).attr('id');
-        $.ajax({
-            // 请求URL
-            url: "/blogs/" + blogid,
-            // 请求方法类型
-            type: "DELETE",
-            contentType:"application/json",
-            // 删除成功响应函数
-            success:function(resp){
-                // 在当前页面打开课程列表页面
-                window.open("/blogs","_self");
-            },
-            // 删除失败响应函数
-            error:function(resp){
-                // 删除失败，给出错误提示
-                alert("delete doc fail！详情：" + resp.message);
-            }
-        })
-    });
-</script>
 
   </body>
 </html>

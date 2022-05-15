@@ -75,6 +75,11 @@ div[class*="release_year"] {
       <li class="nav-item active">
         <a class="nav-link" href="/add_ppt"> 添加知识图谱 <span class="sr-only">(current)</span></a>
       </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/event_extract"> 事件抽取 <span class="sr-only">(current)</span></a>
+      </li>
+
         {% if session['isadmin'] %}
 
           <li class="nav-item active">
@@ -200,7 +205,7 @@ div[class*="release_year"] {
         <figure>
      <!--        <img src="/static/images/ppt_cover/{{ range(1, 10) | random }}.jpeg"
              class="img-fluid" style="height:150px;width:200px;"> -->
-            <img src="/static/images/ppt_cover/{{ r.id // 6 }}.jpeg"
+            <img src="/static/images/ppt_cover/{{ r.id % 6 }}.jpeg"
              class="img-fluid" style="height:150px;width:200px;">
         </figure>
         </div>
@@ -212,7 +217,7 @@ div[class*="release_year"] {
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-12"> <div class="release_year">PointPoint平台介绍：</div>
+       <div class="col-md-12"> <div class="release_year">事件平台介绍：</div>
        </div>
        </div>
       <!-- Example row of columns -->
@@ -222,10 +227,10 @@ div[class*="release_year"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id // 6}}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{r.id % 6 }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+            <!-- <div class="release_year">{{r.id}}</div>  -->
         </div>
 
            {% endfor %}

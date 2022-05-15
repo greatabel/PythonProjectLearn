@@ -360,12 +360,25 @@ user_pass = {}
 #     i0bash_caller.open_client("")
 #     return {}, 200
 
+last_json_file = None
 
 @app.route("/statistics", methods=["GET"])
 def relationship():
+    global last_json_file
+    print('in relationship', '#'*20)
+    title = request.args.get("title")
+    print(title, '>'*10)
+    # id = 1
     # static/data/test_data.json
-    filename = os.path.join(app.static_folder, "data.json")
-    with open(filename) as test_file:
+    # blog = Blog.query.filter_by(id=id).first_or_404()
+    # print('blog=',blog)
+    if title is not None:
+        filename = os.path.join("./upload/", title)
+        print('filename=>', filename)
+        last_json_file = filename
+    # else:
+    #     filename = os.path.join(app.static_folder, "data.json")
+    with open(last_json_file) as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
     return jsonify(d)
@@ -379,7 +392,27 @@ def index():
 def index_b():
     return rt('index-B.html')
         
+# 事件抽取
+@app.route("/event_extract", methods=["GET", "POST"])
+def event_extract():
+    """
+    创建
+    """
+    if request.method == "GET":
+        # 如果是GET请求，则渲染创建页面
+        return rt("event_extract.html")
+    else:
+        # 从表单请求体中获取请求数据
+        title = request.form["title"]
+        text = request.form["text"]
 
+        # 创建一个ppt对象
+        blog = Blog(title=title, text=text)
+        db.session.add(blog)
+        # 必须提交才能生效
+        db.session.commit()
+        # 创建完成之后重定向到ppt列表页面
+        return redirect("/blogs")
 
 @login_manager.user_loader
 def load_user(email):
