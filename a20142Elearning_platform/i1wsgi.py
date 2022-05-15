@@ -78,33 +78,33 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
-class TeacherWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    detail = db.Column(db.String(500))
-    answer = db.Column(db.String(5000))
-    course_id = db.Column(db.Integer)
+# # 老师当前布置作业的表
+# class TeacherWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String(80), unique=True)
+#     detail = db.Column(db.String(500))
+#     answer = db.Column(db.String(5000))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, title, detail, answer, course_id):
-        self.title = title
-        self.detail = detail
-        self.answer = answer
-        self.course_id = course_id
+#     def __init__(self, title, detail, answer, course_id):
+#         self.title = title
+#         self.detail = detail
+#         self.answer = answer
+#         self.course_id = course_id
 
 
-class StudentWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    answer = db.Column(db.String(5000))
-    score = db.Column(db.DECIMAL(10, 2))
-    course_id = db.Column(db.Integer)
+# class StudentWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     userid = db.Column(db.Integer)
+#     answer = db.Column(db.String(5000))
+#     score = db.Column(db.DECIMAL(10, 2))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, userid, answer, score, course_id):
-        self.userid = userid
-        self.answer = answer
-        self.score = score
-        self.course_id = course_id
+#     def __init__(self, userid, answer, score, course_id):
+#         self.userid = userid
+#         self.answer = answer
+#         self.score = score
+#         self.course_id = course_id
 
 
 ### -------------start of home
@@ -220,7 +220,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新ppt
+    更新cousre
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -243,7 +243,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询ppt详情、删除ppt
+    查询cousre详情、删除cousre
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -264,7 +264,7 @@ def query_note(id):
 @app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
     """
-    查询ppt item 推荐
+    查询cousre item 推荐
     """
     if request.method == "GET":
         choosed = recommandation.main()
@@ -279,7 +279,7 @@ def recommend():
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询ppt详情、删除ppt
+    查询cousre详情、删除ppt
     """
 
     id = session["userid"]
