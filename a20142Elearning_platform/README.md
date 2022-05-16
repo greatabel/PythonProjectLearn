@@ -41,8 +41,16 @@ password: admin
 一般用户测试账号:
 username:test@126.com   
 password: test
+
 7.
 个人主页： http://localhost:5000/profile
 
 
+8.
 
+（可选）scrapy爬虫抓取所有url和网址，寻找注入点，并且保存为本地文件
+scrapy runspider i2scrapy_attacker_bot.py > resources/i0urls.txt
+
+11.
+python3 i3sqlmap_handler.py
+然后输入 目标站点注入点，比如：localhost:5000/home
