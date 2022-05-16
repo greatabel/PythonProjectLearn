@@ -46,7 +46,7 @@ def fullVulnerabilityScan():
         # SQLMAP
         print("#" * 20, "SQLMAP")
         print(f"{blue}{bold}Crawling every URL and find SQL Vulnerability.\n{reset}")
-        os.system(f"sqlmap -u {domainName} --all --batch > data/i1sqlmap.txt")
+        os.system(f"sqlmap -u {domainName} --all --batch > resources/i1sqlmap.txt")
 
         # cmd = ["ls", "-la"]
 

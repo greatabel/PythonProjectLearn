@@ -49,7 +49,7 @@ password: test
 8.
 
 （可选）scrapy爬虫抓取所有url和网址，寻找注入点，并且保存为本地文件
-scrapy runspider i2scrapy_attacker_bot.py > resources/i0urls.txt
+scrapy runspider i2scrapy_attacker_bot.py > resources/i0looking_for_injection_urls.txt
 
 11.
 python3 i3sqlmap_handler.py

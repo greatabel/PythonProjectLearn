@@ -2,7 +2,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import Spider
 from scrapy.http import Request
 
-DOMAIN = "localhost:5000/home/"
+DOMAIN = "localhost:5000/home"
 # DOMAIN = 'localhost:8000/scp2/'
 
 URL = "http://%s" % DOMAIN

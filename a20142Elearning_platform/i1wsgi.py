@@ -16,6 +16,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, Response
 from flask import jsonify
 from flask_cors import CORS
+from flask import make_response
+
+from flask_wtf.csrf import CSRFProtect
+
+
 from movie import create_app
 
 import es_search
@@ -30,12 +35,17 @@ app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
+
+# 防御点3: CSRF攻击模拟 防御
+# CSRFProtect(app)
+
 # --- total requirement ----
 
 
 # ---start  数据库 ---
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
+# 防御点1: 防止入sql-inject ，不实用sql注入，sqlchemy让代码ORM化，安全执行
 db = SQLAlchemy(app)
 
 last_upload_filename = None
@@ -290,7 +300,10 @@ def query_profile():
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
         # 渲染ppt详情页面
-        return rt("profile.html", user=user)
+        r = make_response(rt("profile.html", user=user))
+        # 防御点2：xss攻击，实用csp方式： https://content-security-policy.com/  
+        r.headers.set('Content-Security-Policy', "default-src * 'unsafe-inline'; connect-src 'self' 'nonce-987654321' ")
+        return r
     else:
         # 删除ppt
         user = User.query.filter_by(id=id).delete()
