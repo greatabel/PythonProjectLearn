@@ -401,7 +401,12 @@ def event_extract():
     创建
     """
     if request.method == "GET":
-        # 如果是GET请求，则渲染创建页面
+#         extractor = EventsExtraction()
+#         # 如果是GET请求，则渲染创建页面
+
+#         datas = extractor.extract_main(text)
+
+#         print(datas)
         return rt("event_extract.html")
     else:
         # 从表单请求体中获取请求数据
@@ -416,24 +421,36 @@ def event_extract():
         # 虽然经济形势很严重，但我觉得中国可以挺住。
         # 虽然面临困难，但我觉得中国可以挺住。
         # '''
+# 
         datas = extractor.extract_main(text)
 
         print(datas)
         stats = extractor.stats(datas)
         print(stats)
         myitems = []
+        index = 0
         for item in datas:
-            seed = random.randint(0, 3)
+
+            seed = random.randint(0, 4)
             print('>'*20, item, type(item['tuples']))
             print(item.keys())
-            print(item['tuples']['pre_part'],  item['tuples']['post_part '])
+            print(item['tuples']['pre_part'], '_'*10, item['tuples']['post_part '])
             my =  {"word1": item['tuples']['pre_part'], "word2": item['tuples']['post_part '],  "freq": seed*2.5}
             myitems.append(my)
+
+            sample =  {"word1": item['tuples']['post_part '], "word2": item['tuples']['pre_part'],  "freq": seed*4}
+            myitems.append(sample)
+
+
+
+
 
         with open('upload/'+title +'.json', 'w') as f:
             json.dump(myitems, f)
         print('-'*20)
 
+        if ".json" not in title: 
+            title += ".json"
         # 创建一个ppt对象
         blog = Blog(title=title, text=text)
         db.session.add(blog)
