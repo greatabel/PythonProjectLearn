@@ -3,11 +3,11 @@ import json
 class SourceDataDemo:
 
     def __init__(self):
-        self.title = 'liziqi大数据可视化展板'
-        self.counter = {'name': '粉丝讨论', 'value': 41000}
-        self.counter2 = {'name': '日常更新', 'value': 5000}
+        self.title = '李子柒/papi酱/办公室小野-大数据可视化展板'
+        self.counter = {'name': '粉丝讨论总数', 'value': 41000}
+        self.counter2 = {'name': '日常更新总数', 'value': 5000}
         self.echart1_data = {
-            'title': 'twitter情绪分布',
+            'title': 'twitter对中国网红情绪分布',
             'data': [
                 {"name": "num_positive", "value": 120},
                 {"name": "num_neural", "value": 30},
@@ -66,12 +66,12 @@ class SourceDataDemo:
                       '18', '19', '20', '21', '22', '23', '24'],
         }
         self.echart5_data = {
-            'title': '新闻地域分布',
+            'title': '外网网红热力指数对比',
             'data': [
-                {"name": "天津", "value": 19},
-                {"name": "美国", "value": 12},
-                {"name": "欧洲", "value": 10},
-                {"name": "其他", "value": 9},
+                {"name": "李子柒", "value": 290},
+                {"name": "papi酱", "value": 100},
+                {"name": "办公室小野", "value": 60},
+
             ]
         }
         self.echart6_data = {
@@ -192,5 +192,5 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = 'liziqi大数据可视化展板'
+        self.title = '李子柒/papi酱/办公室小野-大数据可视化展板'
 

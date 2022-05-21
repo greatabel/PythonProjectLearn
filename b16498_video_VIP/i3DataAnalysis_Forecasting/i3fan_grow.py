@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import csv
 from datetime import datetime
+import random 
 
 filename = "../data/fan_increase.csv"
 
@@ -14,6 +15,7 @@ def main():
             current_date = datetime.strptime(row[0], "%Y-%m-%d")  # 将日期数据转换为datetime对象
             dates.append(current_date)  # 存储日期
             newfan = int(row[1])  # 将字符串转换为数字
+            # r = random.randint(0, abs(newfan//2))
             myfans.append(newfan)  # 存储新增粉丝
 
     # 根据数据绘制图形

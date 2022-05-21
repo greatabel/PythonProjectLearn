@@ -60,15 +60,16 @@
     }
 
     var widget = SimpleWidget({color: "#6495ed"})
-            .headline("twitter全网红人数据可视化(liziqi/李子柒)")
+            .headline("twitter全网红人数据可视化(李子柒/papi酱/办公室小野)")
             .description("score data mining and visualization");
     widget.render();
 
 
 function group_chart(inputdata){
 let data = {
-    "2020": inputdata.data2020,
-    "2021"  : inputdata.data2021
+    "李子柒": inputdata.李子柒,
+    "papi酱": inputdata.papi酱,
+    "办公室小野"  : inputdata.办公室小野
 };
 let margin = {top: 30, right: 20, bottom: 30, left: 40};
 let svgWidth = 720, svgHeight = 300;
@@ -109,10 +110,10 @@ svg.append("g")
 
 svg.append("text")
     .attr("class", "title")
-    .attr("x", width*2/7)
+    .attr("x", width*4/7)
     .attr("y", 0 - (margin.top / 2))
     .attr("text-anchor", "middle")
-    .text("place 2020(9m) vs 2021 fever-comparison[9m]");  
+    .text("twitter讨论数量对比");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
@@ -402,6 +403,12 @@ bars.append("text")
    </div>
 
 <hr>
+<span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+总体社交网络对网红的态度分析</span>
 
 <div id="my_dataviz"></div>
 
