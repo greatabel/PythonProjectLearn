@@ -39,7 +39,7 @@ def scp2(index_id=""):
     index =  " is here"
     teacher_works = []
     for t in query_db('select * from teacher_work'):
-        print(t[0],'#'*10, t[1])
+        print('目标站点->',t[0],'#'*10, t[1])
         teacher_works.append(t)
     r = make_response(
         render_template('scp2.html', query_value=query_value,index=index, teacher_works=teacher_works)
@@ -67,7 +67,7 @@ def scp3(index_id=""):
 
     teacher_works = []
     for t in query_db('select * from teacher_work'):
-        print(t[0],'#'*10, t[1])
+        print('目标站点倍扫描->',t[0],'#'*10, t[1])
         teacher_works.append(t)
 
     r = make_response(
