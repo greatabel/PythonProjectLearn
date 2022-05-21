@@ -41,6 +41,8 @@ div[class*="release_year"] {
 }
 
 
+
+
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
     <script type="text/javascript" src="/static/d3/d3.js"></script>
@@ -95,7 +97,7 @@ div[class*="release_year"] {
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
       <li class="nav-item active">
         <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
@@ -156,7 +158,8 @@ div[class*="release_year"] {
 
     </div>
     <span class="media-left">
-        <img src="/static/images/company.png" style="height:63px;width:104px;">
+        <img src="/static/images/company.png" style="opacity: 0.4;height:63px;width:63px;">
+
     </span>
     <div class="media-body">
         <h1 class="media-heading">综合平台</h1>
@@ -195,7 +198,7 @@ div[class*="release_year"] {
         <div class="col-md-8">
         <span>{{ r.title|safe }}</span> 
         <br/>
-        <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
+        <a href="/blogs/{{r.id}}">{{ r.text[:300]|safe  }} ... </a>
 
             <div name="title"> </div>  
             <br/>
@@ -206,10 +209,12 @@ div[class*="release_year"] {
      <!--        <img src="/static/images/ppt_cover/{{ range(1, 10) | random }}.jpeg"
              class="img-fluid" style="height:150px;width:200px;"> -->
             <img src="/static/images/ppt_cover/{{ r.id % 6 }}.jpeg"
-             class="img-fluid" style="height:150px;width:200px;">
+             class="img-fluid" style="height:200px;width:340px;">
         </figure>
         </div>
         </div>
+
+        <hr/>
            {% endfor %}
         
 <br/><br/>
@@ -223,14 +228,14 @@ div[class*="release_year"] {
       <!-- Example row of columns -->
       <div class="row">
 
-          {% for r in listing %}
+          {% for i in range(2) %}
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id % 6 }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{ i }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
-            <!-- <div class="release_year">{{r.id}}</div>  -->
+
         </div>
 
            {% endfor %}

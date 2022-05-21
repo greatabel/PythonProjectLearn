@@ -380,7 +380,10 @@ def relationship():
         last_json_file = filename
     # else:
     #     filename = os.path.join(app.static_folder, "data.json")
-    with open(last_json_file) as test_file:
+    print('os.name=', os.name)
+
+    # with open(last_json_file) as test_file:
+    with open(last_json_file, 'r',encoding='utf-8') as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
     return jsonify(d)
@@ -445,7 +448,7 @@ def event_extract():
 
 
 
-        with open('upload/'+title +'.json', 'w') as f:
+        with open('upload/'+title +'.json', 'w',encoding='utf-8') as f:
             json.dump(myitems, f)
         print('-'*20)
 
