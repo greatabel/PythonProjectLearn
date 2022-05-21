@@ -73,10 +73,12 @@ div[class*="release_year"] {
       </li>
 
         {% if session['isadmin'] %}
-      <li class="nav-item active">
+ <!--      <li class="nav-item active">
         <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
-      </li>
+      </li> -->
       {% endif %}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -134,13 +136,13 @@ div[class*="release_year"] {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <div class="media-left">
         <h1 class="media-heading">全网红人大数据</h1>
 
     </div>
     <span class="media-left">
-        <img src="/static/images/company.png" style="height:43px;width:54px;">
+           <img src="/static/images/company.png" style="opacity: 0.6;height:63px;width:63px;">
     </span>
     <div class="media-body">
         <h1 class="media-heading">数据分析系统</h1>
@@ -177,7 +179,7 @@ div[class*="release_year"] {
 
           {% for r in listing %}
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
         <span>{{ r.title|safe }}</span> 
         <br/>
         <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
@@ -185,6 +187,11 @@ div[class*="release_year"] {
             <div name="title"> </div>  
             <br/>
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
+        </div>
+        <div class="col-md-4">
+        <figure>
+            <img src="/static/images/ppt_cover/{{ r.id % 4 }}.jpeg" class="img-fluid" style="height:150px;width:270px;">
+        </figure>
         </div>
         </div>
            {% endfor %}
@@ -200,14 +207,14 @@ div[class*="release_year"] {
       <!-- Example row of columns -->
       <div class="row">
 
-          {% for r in listing %}
+          {% for i in range(2) %}
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{ i+1 }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+
         </div>
 
            {% endfor %}
