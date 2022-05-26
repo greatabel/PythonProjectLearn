@@ -15,6 +15,6 @@ flask-cors
 Flask-Login
 flask_sqlalchemy
 requests
-
+jellyfish
 #termcolor
 #pdfreader
