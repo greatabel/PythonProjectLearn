@@ -15,7 +15,7 @@ template_condition = [
 ]
 
 template_event = [
-    ('太多', '太少'),
+    ('人类都资源是不是太多了呢', '也许恰恰相反, 或许是太少'),
     ('小幅提涨','成交不多'),
     ('多了','少了'),
     ('缓慢','步伐坚定'),
@@ -32,6 +32,7 @@ template_event = [
 
 
 ]
+
 def main():
 
 
@@ -65,4 +66,5 @@ def main():
 
     return rows
 
-main()
+if __name__ == "__main__":
+    main()
