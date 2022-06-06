@@ -41,7 +41,7 @@ password: admin
 
 -------------------
 一般用户测试账号:
-username:test@126.com   
+username:test@126.com
 password: test
 7.
 个人主页： http://localhost:5000/profile

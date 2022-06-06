@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>相声详情</title>
+    <title>用户详情</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -54,9 +54,11 @@ div[class*="release_year"] {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-
+         {% if session['isadmin'] %}
+        <a class="nav-link" href="/users">back to manangment <span class="sr-only">(current)</span></a>
+         {% else %}
      <a class="nav-link" href="/home/1">Home <span class="sr-only">(current)</span></a>
-
+       {% endif %}
 
       </li>
 
@@ -86,25 +88,66 @@ div[class*="release_year"] {
   </div>
 </nav>
 
+<!--  {% if session['isadmin'] %}
+<h3><a href="/users">< doc list</a></h3>
+ {% else %}
+<h3><a href="/home">< home</a></h3>
+   {% endif %} -->
+
+<h1>用户详情</h1>
+<br/>
+<div>
+     {% if session['isadmin'] %}
+    <a href="/user/update/{{user.id}}" id="{{user.id}}">更新</a>
+     {% endif %}
+
+    <p>name: {{user.username}}</p>
+    <p>nickname:{{user.nickname}}</p>
+    <p>password:{{user.password}}</p>
+
+<br/>
+
+   <figure>
+<img src="/static/images/app_data/{{user.id // 2 }}.png" class="img-fluid" style="height:250px;width:500px;">
+        </figure>
+<br/>
 
 
-<!-- <h3><a href="/home">< home</a></h3> -->
-<h1>相声管理列表</h1>
-<!-- Jinja模板语法 -->
+    <hr/>
 
-<h5><a href="/blogs/create">添加相声</a></h5>
+     {% if session['isadmin'] %}
+    <a href="#" class="btn-delete" id="{{user.id}}">删除</a>
+     {% endif %}
+</div>
 
-<hr/>
-{% if blogs %}
-    {% for blog in blogs%}
-        <h4><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h4>
-    {% endfor %}
-{% else %}
-    <p>no doc, let's create doc~</p>
-    <a href="/blogs/create">to create doc</a>
-{% endif %}
-
-
+<!-- 先引入jquery，下面要用到-->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--发送ajax请求删除课程 -->
+<script type="text/javascript">
+    $('a.btn-delete').on('click',function(evt){
+        // 通知浏览器不要执行与事件关联的默认动作
+        evt.preventDefault();
+        // 获取课程ID
+        var userid = $(this).attr('id');
+        $.ajax({
+            // 请求URL
+            url: "/users/" + userid,
+            // 请求方法类型
+            type: "DELETE",
+            contentType:"application/json",
+            // 删除成功响应函数
+            success:function(resp){
+                // 在当前页面打开课程列表页面
+                window.open("/users","_self");
+            },
+            // 删除失败响应函数
+            error:function(resp){
+                // 删除失败，给出错误提示
+                alert("delete doc fail！详情：" + resp.message);
+            }
+        })
+    });
+</script>
 
   </body>
 </html>
