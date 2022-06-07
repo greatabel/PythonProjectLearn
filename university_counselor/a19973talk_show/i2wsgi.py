@@ -375,6 +375,11 @@ def picture_search():
         scores = [(dists[id], img_paths[id]) for id in ids]
         uploaded_img_path = uploaded_img_path.replace('movie/','')
         print('uploaded_img_path', uploaded_img_path)
+        if len(scores) > 0 and scores[0][0] >= 1:
+            print('not very similar')
+            return rt("picture_search.html")
+                
+
         return rt(
             "picture_search.html", query_path=uploaded_img_path, scores=scores
         )
