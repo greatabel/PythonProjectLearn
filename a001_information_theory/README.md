@@ -17,4 +17,4 @@ pip install --upgrade -r requirements.txt
 
 5.
 模拟运行在:
-python3 wsgi.py
+python3 i1huffman_main.py
