@@ -22,8 +22,6 @@ python3 wsgi.py
 
 
 
-
-
 6.
 浏览器访问：
 
