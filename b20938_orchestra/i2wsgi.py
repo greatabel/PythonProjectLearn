@@ -69,13 +69,15 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(80))
     nickname = db.Column(db.String(80))
+    role = db.Column(db.String(80))
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
 
-    def __init__(self, username, password, nickname=''):
+    def __init__(self, username, password, nickname='',role=''):
         self.username = username
         self.password = password
         self.nickname = nickname
+        self.role = role
 
 
 class Blog(db.Model):
@@ -98,33 +100,33 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
-class TeacherWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    detail = db.Column(db.String(500))
-    answer = db.Column(db.String(5000))
-    course_id = db.Column(db.Integer)
+# # 老师当前布置作业的表
+# class TeacherWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String(80), unique=True)
+#     detail = db.Column(db.String(500))
+#     answer = db.Column(db.String(5000))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, title, detail, answer, course_id):
-        self.title = title
-        self.detail = detail
-        self.answer = answer
-        self.course_id = course_id
+#     def __init__(self, title, detail, answer, course_id):
+#         self.title = title
+#         self.detail = detail
+#         self.answer = answer
+#         self.course_id = course_id
 
 
-class StudentWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    answer = db.Column(db.String(5000))
-    score = db.Column(db.DECIMAL(10, 2))
-    course_id = db.Column(db.Integer)
+# class StudentWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     userid = db.Column(db.Integer)
+#     answer = db.Column(db.String(5000))
+#     score = db.Column(db.DECIMAL(10, 2))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, userid, answer, score, course_id):
-        self.userid = userid
-        self.answer = answer
-        self.score = score
-        self.course_id = course_id
+#     def __init__(self, userid, answer, score, course_id):
+#         self.userid = userid
+#         self.answer = answer
+#         self.score = score
+#         self.course_id = course_id
 
 
 ### -------------start of home
@@ -305,9 +307,10 @@ def create_user():
         username = request.form["username"]
         nickname = request.form["nickname"]
         password = request.form["password"]
+        role = request.form["role"]
 
         # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password)
+        user = User(username=username, nickname=nickname,password=password,role=role)
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
@@ -427,6 +430,7 @@ def update_profile(id):
         # 获取请求的ppt标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
+        role = request.form["role"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
@@ -435,6 +439,7 @@ def update_profile(id):
             {
                 "password": password,
                 "nickname": nickname,
+                "role": role,
                 "school_class": school_class,
                 "school_grade": school_grade,
             }

@@ -98,11 +98,12 @@ div[class*="release_year"] {
 <br/>
 <div>
      {% if session['isadmin'] %}
-    <a href="/user/update/{{user.id}}" id="{{user.id}}">更新</a>
+    <a href="/profiles/update/{{user.id}}" id="{{user.id}}">更新</a>
      {% endif %}
 
-    <p>name: {{user.username}}</p>
+    <p>email/phone: {{user.username}}</p>
     <p>nickname:{{user.nickname}}</p>
+    <p>role:{{user.role}}</p>
     <p>password:{{user.password}}</p>
 
 <br/>
