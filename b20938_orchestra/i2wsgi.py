@@ -99,6 +99,28 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
+class Attendance(db.Model):
+    """
+    ppt数据模型
+    """
+
+    # 主键ID
+    id = db.Column(db.Integer, primary_key=True)
+    nickname = db.Column(db.String(80))
+    # ppt标题
+    mydate = db.Column(db.String(100))
+    # ppt正文
+    start = db.Column(db.Text)
+    end = db.Column(db.Text)
+
+    def __init__(self, nickname, mydate, start, end):
+        """
+        初始化方法
+        """
+        self.nickname = nickname
+        self.mydate = mydate
+        self.start = start
+        self.end = end
 
 # # 老师当前布置作业的表
 # class TeacherWork(db.Model):
@@ -205,6 +227,41 @@ def home(pagenum=1):
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
+
+
+
+@app.route("/attendances", methods=["GET"])
+def list_attendances():
+    """
+    查询考勤列表
+    """
+    attendances = Attendance.query.all()
+    # 渲染ppt列表页面目标文件，传入blogs参数
+    return rt("list_attendances.html", attendances=attendances)
+
+
+@app.route("/attendances/create", methods=["GET", "POST"])
+def create_attendance():
+    """
+    创建talkshow文章
+    """
+    if request.method == "GET":
+        # 如果是GET请求，则渲染创建页面
+        return rt("create_ attendance.html")
+    else:
+        # 从表单请求体中获取请求数据
+        nickname = request.form["nickname"]
+        mydate = request.form["mydate"]
+        start = request.form["start"]
+        end = request.form["end"]
+
+        # 创建一个ppt对象
+        attendance = Attendance(nickname=nickname, mydate=mydate, start=start, end=end)
+        db.session.add(attendance)
+        # 必须提交才能生效
+        db.session.commit()
+        # 创建完成之后重定向到ppt列表页面
+        return redirect("/attendances")
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
