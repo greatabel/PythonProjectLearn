@@ -308,6 +308,7 @@ def create_user():
         nickname = request.form["nickname"]
         password = request.form["password"]
         role = request.form["role"]
+        school_grade = request.form["school_grade"]
 
         # 创建一个ppt对象
         user = User(username=username, nickname=nickname,password=password,role=role)
