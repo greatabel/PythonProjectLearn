@@ -22,6 +22,12 @@ import json
 
 第三个功能就是我进行录音，比如输出!shittalk1 就会输出我在这里面录的内容，!shittalk2就会输出那里面的内容
 
+
+!play taylorswift
+
+!play jaychou
+
+!play https://www.youtube.com/watch?v=u9Gl-Q1u-54
 '''
 
 # -----start 读取json文件
