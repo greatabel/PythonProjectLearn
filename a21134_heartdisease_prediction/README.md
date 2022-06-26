@@ -18,8 +18,11 @@ pip install --upgrade -r requirements.txt
 
 5.
 模拟运行在:
-python3 wsgi.py
+python3 i2wsgi.py
 
+另开一个窗口:
+jupyter notebook i1prediction.ipynb
+然后访问：http://localhost:8888/notebooks/i1prediction.ipynb
 
 
 6.

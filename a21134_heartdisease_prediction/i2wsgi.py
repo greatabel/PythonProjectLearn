@@ -254,38 +254,40 @@ def home(pagenum=1):
 
 
 
-# @app.route("/attendances", methods=["GET"])
-# def list_attendances():
-#     """
-#     查询考勤列表
-#     """
-#     attendances = Attendance.query.all()
-#     # 渲染心脏病列表页面目标文件，传入blogs参数
-#     return rt("list_attendances.html", attendances=attendances)
+@app.route("/predict_illness", methods=["GET", "POST"])
+def predict_illness():
+    """
+    创建 age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target
+    """
+    if request.method == "GET":
+        # 如果是GET请求，则渲染创建页面
+        return rt("predict_illness.html")
+    else:
+        # 从表单请求体中获取请求数据
+        age = request.form["age"]
+        sex = request.form["sex"]
+        cp = request.form["cp"]
+        trestbps = request.form["trestbps"]
+        chol = request.form["chol"]
+        fbs = request.form["fbs"]
+        restecg = request.form["restecg"]
+        thalach = request.form["thalach"]
+        exang = request.form["exang"]
+        oldpeak = request.form["oldpeak"]
+        slope = request.form["slope"]
+        ca = request.form["ca"]
+        thal = request.form["thal"]
+        target = request.form["target"]
 
-
-# @app.route("/attendances/create", methods=["GET", "POST"])
-# def create_attendance():
-#     """
-#     创建talkshow文章
-#     """
-#     if request.method == "GET":
-#         # 如果是GET请求，则渲染创建页面
-#         return rt("create_ attendance.html")
-#     else:
-#         # 从表单请求体中获取请求数据
-#         nickname = request.form["nickname"]
-#         mydate = request.form["mydate"]
-#         start = request.form["start"]
-#         end = request.form["end"]
-
-#         # 创建一个心脏病对象
-#         attendance = Attendance(nickname=nickname, mydate=mydate, start=start, end=end)
-#         db.session.add(attendance)
-#         # 必须提交才能生效
-#         db.session.commit()
-#         # 创建完成之后重定向到心脏病列表页面
-#         return redirect("/attendances")
+        # 创建一个心脏病对象
+        blog = Blog(age=age,sex=sex,cp=cp,trestbps=trestbps,
+            chol=chol,fbs=fbs,restecg=restecg,thalach=thalach,exang=exang,oldpeak=oldpeak,
+            slope=slope,ca=ca,thal=thal,target=target)
+        db.session.add(blog)
+        # 必须提交才能生效
+        db.session.commit()
+        # 创建完成之后重定向到心脏病列表页面
+        return redirect("/home")
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
@@ -434,56 +436,9 @@ def query_user(id):
         return "", 204
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询心脏病 item 推荐
-    """
-    if request.method == "GET":
-        id = session["userid"]
-        user = User.query.filter_by(id=id).first_or_404()
-        print('*'*20, user.nickname, '*'*20)
-        choosed = recommandation.main(user.nickname)
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
-        return rt("recommend.html", choosed=choosed)
 
 
-@app.route("/picture_search", methods=["GET", "POST"])
-def picture_search():
-    if request.method == "POST":
-        file = request.files["query_img"]
 
-        # Save query image
-        img = Image.open(file.stream)  # PIL image
-        uploaded_img_path = (
-            "movie/static/uploaded/"
-            + datetime.now().isoformat().replace(":", ".")
-            + "_"
-            + file.filename
-        )
-        img.save(uploaded_img_path)
-
-        # Run search
-        query = fe.extract(img)
-        dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:3]  # Top 10 likely
-        # print('ids=', ids)
-        # print(np.array(img_paths)[ids])
-        scores = [(dists[id], img_paths[id]) for id in ids]
-        uploaded_img_path = uploaded_img_path.replace('movie/','')
-        print('uploaded_img_path', uploaded_img_path)
-        if len(scores) > 0 and scores[0][0] >= 1:
-            print('not very similar')
-            return rt("picture_search.html")
-                
-
-        return rt(
-            "picture_search.html", query_path=uploaded_img_path, scores=scores
-        )
-    else:
-        return rt("picture_search.html")
 
 ### -------------start of profile
 
