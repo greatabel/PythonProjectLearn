@@ -82,45 +82,69 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    ppt数据模型
+    心脏病数据模型 age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # ppt标题
-    title = db.Column(db.String(100))
-    # ppt正文
-    text = db.Column(db.Text)
+    # 心脏病标题
+    age = db.Column(db.Integer)
+    sex = db.Column(db.Integer)
+    cp = db.Column(db.Integer)
+    trestbps = db.Column(db.Integer)
+    chol = db.Column(db.Integer)
+    fbs = db.Column(db.Integer)
+    restecg = db.Column(db.Integer)
+    thalach = db.Column(db.Integer)
+    exang = db.Column(db.Integer)
+    oldpeak = db.Column(db.Integer)
+    slope = db.Column(db.Integer)
+    ca = db.Column(db.Integer)
+    thal = db.Column(db.Integer)
+    target = db.Column(db.Integer)
 
-    def __init__(self, title, text):
+
+    def __init__(self, age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target):
         """
         初始化方法
         """
-        self.title = title
-        self.text = text
+        self.age = age
+        self.sex = sex
+        self.cp = cp
+        self.trestbps = trestbps
+        self.chol = chol
+        self.fbs = fbs
+        self.restecg = restecg
+        self.thalach = thalach
+        self.exang = exang
+        self.oldpeak = oldpeak
+        self.slope = slope
+        self.ca = ca
+        self.thal = thal
+        self.target = target
 
-class Attendance(db.Model):
-    """
-    ppt数据模型
-    """
+# class Attendance(db.Model):
+#     """
+#     心脏病数据模型
+#     """
 
-    # 主键ID
-    id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(80))
-    # ppt标题
-    mydate = db.Column(db.String(100))
-    # ppt正文
-    start = db.Column(db.Text)
-    end = db.Column(db.Text)
+#     # 主键ID
+#     id = db.Column(db.Integer, primary_key=True)
+#     nickname = db.Column(db.String(80))
+#     # 心脏病标题
+#     mydate = db.Column(db.String(100))
+#     # 心脏病正文
+#     start = db.Column(db.Text)
+#     end = db.Column(db.Text)
 
-    def __init__(self, nickname, mydate, start, end):
-        """
-        初始化方法
-        """
-        self.nickname = nickname
-        self.mydate = mydate
-        self.start = start
-        self.end = end
+#     def __init__(self, nickname, mydate, start, end):
+#         """
+#         初始化方法
+#         """
+#         self.nickname = nickname
+#         self.mydate = mydate
+#         self.start = start
+#         self.end = end
 
 # # 老师当前布置作业的表
 # class TeacherWork(db.Model):
@@ -163,7 +187,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=4):
+    def __init__(self, data, page=1, number=5):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -230,59 +254,73 @@ def home(pagenum=1):
 
 
 
-@app.route("/attendances", methods=["GET"])
-def list_attendances():
-    """
-    查询考勤列表
-    """
-    attendances = Attendance.query.all()
-    # 渲染ppt列表页面目标文件，传入blogs参数
-    return rt("list_attendances.html", attendances=attendances)
+# @app.route("/attendances", methods=["GET"])
+# def list_attendances():
+#     """
+#     查询考勤列表
+#     """
+#     attendances = Attendance.query.all()
+#     # 渲染心脏病列表页面目标文件，传入blogs参数
+#     return rt("list_attendances.html", attendances=attendances)
 
 
-@app.route("/attendances/create", methods=["GET", "POST"])
-def create_attendance():
-    """
-    创建talkshow文章
-    """
-    if request.method == "GET":
-        # 如果是GET请求，则渲染创建页面
-        return rt("create_ attendance.html")
-    else:
-        # 从表单请求体中获取请求数据
-        nickname = request.form["nickname"]
-        mydate = request.form["mydate"]
-        start = request.form["start"]
-        end = request.form["end"]
+# @app.route("/attendances/create", methods=["GET", "POST"])
+# def create_attendance():
+#     """
+#     创建talkshow文章
+#     """
+#     if request.method == "GET":
+#         # 如果是GET请求，则渲染创建页面
+#         return rt("create_ attendance.html")
+#     else:
+#         # 从表单请求体中获取请求数据
+#         nickname = request.form["nickname"]
+#         mydate = request.form["mydate"]
+#         start = request.form["start"]
+#         end = request.form["end"]
 
-        # 创建一个ppt对象
-        attendance = Attendance(nickname=nickname, mydate=mydate, start=start, end=end)
-        db.session.add(attendance)
-        # 必须提交才能生效
-        db.session.commit()
-        # 创建完成之后重定向到ppt列表页面
-        return redirect("/attendances")
+#         # 创建一个心脏病对象
+#         attendance = Attendance(nickname=nickname, mydate=mydate, start=start, end=end)
+#         db.session.add(attendance)
+#         # 必须提交才能生效
+#         db.session.commit()
+#         # 创建完成之后重定向到心脏病列表页面
+#         return redirect("/attendances")
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建talkshow文章
+    创建 age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
         return rt("create_blog.html")
     else:
         # 从表单请求体中获取请求数据
-        title = request.form["title"]
-        text = request.form["text"]
+        age = request.form["age"]
+        sex = request.form["sex"]
+        cp = request.form["cp"]
+        trestbps = request.form["trestbps"]
+        chol = request.form["chol"]
+        fbs = request.form["fbs"]
+        restecg = request.form["restecg"]
+        thalach = request.form["thalach"]
+        exang = request.form["exang"]
+        oldpeak = request.form["oldpeak"]
+        slope = request.form["slope"]
+        ca = request.form["ca"]
+        thal = request.form["thal"]
+        target = request.form["target"]
 
-        # 创建一个ppt对象
-        blog = Blog(title=title, text=text)
+        # 创建一个心脏病对象
+        blog = Blog(age=age,sex=sex,cp=cp,trestbps=trestbps,
+            chol=chol,fbs=fbs,restecg=restecg,thalach=thalach,exang=exang,oldpeak=oldpeak,
+            slope=slope,ca=ca,thal=thal,target=target)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到ppt列表页面
+        # 创建完成之后重定向到心脏病列表页面
         return redirect("/blogs")
 
 
@@ -292,7 +330,7 @@ def list_notes():
     查询talkshow列表
     """
     blogs = Blog.query.all()
-    # 渲染ppt列表页面目标文件，传入blogs参数
+    # 渲染心脏病列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
@@ -302,36 +340,36 @@ def update_note(id):
     更新talkshow
     """
     if request.method == "GET":
-        # 根据ID查询ppt详情
+        # 根据ID查询心脏病详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的ppt标题和正文
+        # 获取请求的心脏病标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新ppt
+        # 更新心脏病
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到ppt详情页面
+        # 修改完成之后重定向到心脏病详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询talkshow详情、删除ppt
+    查询talkshow详情、删除心脏病
     """
     if request.method == "GET":
-        # 到数据库查询ppt详情
+        # 到数据库查询心脏病详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染ppt详情页面
+        # 渲染心脏病详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除ppt
+        # 删除心脏病
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -347,7 +385,7 @@ def list_users():
     """
     users = User.query.all()
     print('users=', users)
-    # 渲染ppt列表页面目标文件，传入blogs参数
+    # 渲染心脏病列表页面目标文件，传入blogs参数
     return rt("list_users.html", users=users)
 
 
@@ -367,28 +405,28 @@ def create_user():
         role = request.form["role"]
         school_grade = request.form["school_grade"]
 
-        # 创建一个ppt对象
+        # 创建一个心脏病对象
         user = User(username=username, nickname=nickname,password=password,role=role)
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到ppt列表页面
+        # 创建完成之后重定向到心脏病列表页面
         return redirect("/users")
 
 @app.route("/users/<id>", methods=["GET", "DELETE"])
 def query_user(id):
     """
-    查询talkshow详情、删除ppt
+    查询talkshow详情、删除心脏病
     """
     if request.method == "GET":
-        # 到数据库查询ppt详情
+        # 到数据库查询心脏病详情
         user = User.query.filter_by(id=id).first_or_404()
         print(id, user, "in query_user", "@" * 20)
-        # 渲染ppt详情页面
+        # 渲染心脏病详情页面
         return rt("query_user.html", user=user)
     else:
         print('delete user')
-        # 删除ppt
+        # 删除心脏病
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -399,7 +437,7 @@ def query_user(id):
 @app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
     """
-    查询ppt item 推荐
+    查询心脏病 item 推荐
     """
     if request.method == "GET":
         id = session["userid"]
@@ -453,20 +491,20 @@ def picture_search():
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询ppt详情、删除ppt
+    查询心脏病详情、删除心脏病
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询ppt详情
+        # 到数据库查询心脏病详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染ppt详情页面
+        # 渲染心脏病详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除ppt
+        # 删除心脏病
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -477,22 +515,22 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新ppt
+    更新心脏病
     """
     if request.method == "GET":
-        # 根据ID查询ppt详情
+        # 根据ID查询心脏病详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的ppt标题和正文
+        # 获取请求的心脏病标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         role = request.form["role"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
-        # 更新ppt
+        # 更新心脏病
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -504,7 +542,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到ppt详情页面
+        # 修改完成之后重定向到心脏病详情页面
         return redirect("/profile")
 
 
@@ -514,14 +552,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询ppt详情、删除ppt
+    查询心脏病详情、删除心脏病
     """
     if request.method == "GET":
-        # 到数据库查询ppt详情
+        # 到数据库查询心脏病详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染ppt详情页面
+        # 渲染心脏病详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
@@ -633,13 +671,13 @@ def unauthorized_handler():
 
 
 # --------------------------
-@app.route("/add_ppt", methods=["GET"])
-def add_ppt():
+@app.route("/add_心脏病", methods=["GET"])
+def add_心脏病():
     return rt("index.html")
 
 
-@app.route("/upload_ppt", methods=["POST"])
-def upload_ppt():
+@app.route("/upload_心脏病", methods=["POST"])
+def upload_心脏病():
 
     # detail = request.form.get("detail")
     # 从表单请求体中获取请求数据
@@ -647,15 +685,15 @@ def upload_ppt():
     title = request.form.get("title")
     text = request.form.get("detail")
 
-    # 创建一个ppt对象
+    # 创建一个心脏病对象
     blog = Blog(title=title, text=text)
     db.session.add(blog)
     # 必须提交才能生效
     db.session.commit()
-    # 创建完成之后重定向到ppt列表页面
+    # 创建完成之后重定向到心脏病列表页面
     # return redirect("/blogs")
 
-    return redirect(url_for("add_ppt"))
+    return redirect(url_for("add_心脏病"))
 
 
 @app.route("/student_work", methods=["POST"])
@@ -737,7 +775,7 @@ def file_download(filename):
 def custom_static(filename):
     print("#" * 20, filename, " in custom_static", app.root_path)
     return send_from_directory(
-        "/Users/abel/Downloads/AbelProject/FlaskRepository/ppt_platform/upload/",
+        "/Users/abel/Downloads/AbelProject/FlaskRepository/心脏病_platform/upload/",
         filename,
     )
 

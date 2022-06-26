@@ -89,16 +89,69 @@ div[class*="release_year"] {
 
 
 <!-- <h3><a href="/home">< home</a></h3> -->
-<h1>心脏病管理列表</h1>
+<h1>心脏病记录管理列表</h1>
 <!-- Jinja模板语法 -->
 
-<h5><a href="/blogs/create">添加心脏病</a></h5>
+<h5><a href="/blogs/create">添加心脏病记录</a></h5>
 
 <hr/>
+<!--  age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target  -->
 {% if blogs %}
-    {% for blog in blogs%}
-        <h4><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h4>
-    {% endfor %}
+<table style='table-layout:fixed;'  class="StandardTable" cellpadding="0" cellspacing="0" width="100%" border="1">
+    <thead>
+        <tr>
+
+            <th>age</th>
+            <th>sex</th>
+            <th>cp</th>
+            <th>trestbps</th>
+            <th>chol</th>
+            <th>fbs</th>
+
+
+            <th>操作</th>
+        <tr>
+    </thead>
+ {% for blog in blogs%}
+    <tbody>
+          
+        <tr>
+
+
+            <td>{{ blog.age|safe }}</td>
+             <td> <br/>{{ blog.sex|safe  }} <br/></td>
+             <td> <br/>{{ blog.cp|safe  }} <br/></td>
+             <td> <br/>{{ blog.trestbps|safe  }} <br/></td>
+             <td> <br/>{{ blog.chol|safe  }} <br/></td>
+             <td> <br/>{{ blog.fbs|safe  }} <br/></td>
+
+
+             <td> 
+                &nbsp;
+            <button type="button" class="btn btn-primary">
+
+             <a href="/blogs/{{blog.id}}" style="color:inherit">查看 </a>
+            </button>
+            &nbsp;
+
+            <button type="button" class="btn btn-warning">
+
+             <a href="/blogs/update/{{blog.id}}" style="color:inherit">修改 </a>
+            </button>
+            &nbsp;
+
+            <button type="button" class="btn btn-danger">
+
+             <a href="" class="btn-delete" id="{{blog.id}}">删除</a>
+            </button>
+              </td>
+
+        </tr>
+
+    </tbody>
+     {% endfor %}
+</table>
+
 {% else %}
     <p>no doc, let's create doc~</p>
     <a href="/blogs/create">to create doc</a>
@@ -107,4 +160,34 @@ div[class*="release_year"] {
 
 
   </body>
+  <script src="/static/jquery-3.5.1.min.js"></script>
+<script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $('a.btn-delete').on('click',function(evt){
+        // 通知浏览器不要执行与事件关联的默认动作
+        evt.preventDefault();
+        // 获取课程ID
+        var blogid = $(this).attr('id');
+        $.ajax({
+            // 请求URL
+            url: "/blogs/" + blogid,
+            // 请求方法类型
+            type: "DELETE",
+            contentType:"application/json",
+            // 删除成功响应函数
+            success:function(resp){
+                // 在当前页面打开课程列表页面
+                window.open("/blogs","_self");
+            },
+            // 删除失败响应函数
+            error:function(resp){
+                // 删除失败，给出错误提示
+                alert("delete doc fail！详情：" + resp.message);
+            }
+        })
+    });
+
+
+</script>
 </html>

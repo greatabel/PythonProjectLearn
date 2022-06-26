@@ -73,13 +73,13 @@ div[class*="release_year"] {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/add_ppt"> 添加病人 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/add_ppt"> 心脏病预测 <span class="sr-only">(current)</span></a>
       </li>
         {% if session['isadmin'] %}
 
-     <!--      <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> 管理病人 <span class="sr-only">(current)</span></a>
-      </li> -->
+          <li class="nav-item active">
+        <a class="nav-link" href="/blogs"> 管理医疗记录 <span class="sr-only">(current)</span></a>
+      </li>
 
           <li class="nav-item active">
         <a class="nav-link" href="/users"> 管理病人 <span class="sr-only">(current)</span></a>
@@ -195,25 +195,52 @@ div[class*="release_year"] {
        </div>
           
 
-          {% for r in listing %}
-      <div class="row">
-        <div class="col-md-8">
-        <span>{{ r.title|safe }}</span> 
-        <br/>
-        <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
 
-            <div name="title"> </div>  
-            <br/>
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
-        </div>
-        <div class="col-md-4">
-        <figure>
-            <img src="/static/images/ppt_cover/{{ range(1, 6) | random }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
-        </figure>
-        </div>
-        </div>
-           {% endfor %}
-        
+{% if listing %}
+<table style='table-layout:fixed;'  class="StandardTable" cellpadding="0" cellspacing="0" width="100%" border="1">
+    <thead>
+        <tr>
+
+            <th>age</th>
+            <th>sex</th>
+            <th>cp</th>
+            <th>trestbps</th>
+            <th>chol</th>
+            <th>fbs</th>
+
+
+
+        <tr>
+    </thead>
+ {% for blog in listing%}
+    <tbody>
+          
+        <tr>
+
+
+            <td>{{ blog.age|safe }}</td>
+             <td> <br/>{{ blog.sex|safe  }} <br/></td>
+             <td> <br/>{{ blog.cp|safe  }} <br/></td>
+             <td> <br/>{{ blog.trestbps|safe  }} <br/></td>
+             <td> <br/>{{ blog.chol|safe  }} <br/></td>
+             <td> <br/>{{ blog.fbs|safe  }} <br/></td>
+
+
+             
+
+        </tr>
+
+    </tbody>
+     {% endfor %}
+</table>
+
+{% else %}
+    <p>no doc, let's create doc~</p>
+    <a href="/blogs/create">to create doc</a>
+{% endif %}
+
+
+
 <br/><br/>
 <br/><br/>
 <br/><br/>
