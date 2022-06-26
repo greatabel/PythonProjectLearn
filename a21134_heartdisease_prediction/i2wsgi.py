@@ -257,7 +257,8 @@ def home(pagenum=1):
 @app.route("/predict_illness", methods=["GET", "POST"])
 def predict_illness():
     """
-    创建 age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target
+    https://cloud.tencent.com/developer/article/1692491
+    use model
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
