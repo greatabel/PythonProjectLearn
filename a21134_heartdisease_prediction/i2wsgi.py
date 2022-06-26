@@ -24,9 +24,10 @@ import recommandation
 
 # vgg16 image like recommend
 import numpy as np
-from PIL import Image
+# from PIL import Image
 # from feature_extractor import FeatureExtractor
 from datetime import datetime
+import pickle
 
 # from pathlib import Path
 
@@ -278,17 +279,26 @@ def predict_illness():
         slope = request.form["slope"]
         ca = request.form["ca"]
         thal = request.form["thal"]
-        target = request.form["target"]
 
-        # 创建一个心脏病对象
-        blog = Blog(age=age,sex=sex,cp=cp,trestbps=trestbps,
-            chol=chol,fbs=fbs,restecg=restecg,thalach=thalach,exang=exang,oldpeak=oldpeak,
-            slope=slope,ca=ca,thal=thal,target=target)
-        db.session.add(blog)
-        # 必须提交才能生效
-        db.session.commit()
+        preict = None
+        #load model
+        f = open('saved_model/rfc.pickle','rb')
+        rfc = pickle.load(f)
+        f.close()
+
+        # 预测
+        r = None
+        sample1 = [45,1,0,104,208,0,0,148,1,3.0,1,0,2]
+        sample1 = [age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal]
+        print('预测sample1：','->'*20, sample1)
+        if rfc.predict([sample1]) == 0:
+            r = '[SAFE] not detext heart disease by ML'
+
+        else:
+            r = ' [WARNING] detext heart disease by ML'
+        print(r)
         # 创建完成之后重定向到心脏病列表页面
-        return redirect("/home")
+        return rt("predict_illness.html", r=r, sample1=sample1)
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])

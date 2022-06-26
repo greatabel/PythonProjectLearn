@@ -1,47 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户详情</title>
+
+    <!-- Bootstrap core CSS -->
+    <style type="text/css">
+#tbl_div div {
+  visibility:hidden;
+    display:none;
+}
+
+div[name*="title"] {
+/*  background: #ffff00;*/
+  font-weight: bold;
+  font-size: 150%;
+  text-align: center;
+}
+
+div[class*="release_year"] {
+/*  background: #ffff00;*/
+  color:blue;
+  font-weight: bold;
+  font-size: 90%;
+  text-align: center;
+}
+
+
+
+    </style>
+    <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+<bddy>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+
+     <a class="nav-link" href="/home/1">Home <span class="sr-only">(current)</span></a>
+
+
+      </li>
+
+      <li class="nav-item active">
+        <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+
+                <div class="form-group">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" name="keyword" placeholder="search" class="form-control" autofocus>&nbsp;
+                </div>
+          
+              <input type="submit" value="Search" class="btn btn-success">
+        </form>
+      </li>
+
+      <li class="nav-item active">
+
+      </li>
+
+
+    </ul>
+
+  </div>
+</nav>
+
+
 <h1>Heart disease prediction based on indicators</h1>
 <!-- HTML表单 age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target  -->
 <form action="/predict_illness" method="POST">
-    <label>age</label>
+
+  
+
+<table style='table-layout:fixed;'  class="StandardTable" cellpadding="0" cellspacing="0" width="80%" border="1">
+
+
+    <tbody>
+          
+        <tr>
+
+
+            <td>     <label>age</label>
     <input type="text" name="age">
-    <br><br>
-    <label>sex</label>
+           </td>
+
+           <td>
+                 <label>sex</label>
     <input type="text" name="sex">
-    <br><br>
-    <label>cp</label>
+           </td>
+
+        </tr>
+        <tr>
+
+
+            <td>         <label>cp</label>
     <input type="text" name="cp">
-    <br><br>
-    <label>trestbps</label>
+           </td>
+           
+           <td>
+                     <label>trestbps</label>
     <input type="text" name="trestbps">
-    <br><br>
-    <label>chol</label>
+           </td>
+
+        </tr>
+
+        <tr>
+
+
+            <td>         <label>chol</label>
     <input type="text" name="chol">
-    <br><br>
-    <label>fbs</label>
+           </td>
+           
+           <td>
+                      <label>fbs</label>
     <input type="text" name="fbs">
-    <br><br>
-    <label>restecg</label>
+           </td>
+
+        </tr>
+
+        <tr>
+        <td>   
+ <label>restecg</label>
     <input type="text" name="restecg">
-    <br><br>
-    <label>thalach</label>
+           </td>
+           
+           <td>
+                     <label>thalach</label>
     <input type="text" name="thalach">
-    <br><br>
-    <label>exang</label>
+           </td>
+
+        </tr>
+
+        <tr>
+              <td>   
+ <label>exang</label>
     <input type="text" name="exang">
-    <br><br>
-    <label>oldpeak</label>
+           </td>
+           
+           <td>
+                 <label>oldpeak</label>
     <input type="text" name="oldpeak">
-    <br><br>
+           </td>
+
+        </tr>
+        <tr>
+            <td>
     <label>slope</label>
     <input type="text" name="slope">
-    <br><br>
-    <label>ca</label>
+           </td>
+           
+           <td>
+                    <label>ca</label>
     <input type="text" name="ca">
-    <br><br>
-    <label>thal</label>
+           </td>
+
+        </tr>
+        <tr>
+            <td>
+ <label>thal</label>
     <input type="text" name="thal">
+           </td>
+           
+           <td>
+                     
+           </td>
+
+        </tr>       
+
+    </tbody>
+
+</table>
     <br><br>
-    <label>target</label>
-    <input type="text" name="target">
-    <br><br>
-    <input type="submit" value="predict">
+    &nbsp;&nbsp;<input type="submit" value="predict"  class="btn btn-success">
+
+
 </form>
+
+<h4> based on input {{ sample1 }}. We use ML to predict as following: </h4>
+<h3> predict result: <span style="background-color: yellow;">{{ r }} </span> </h3>
