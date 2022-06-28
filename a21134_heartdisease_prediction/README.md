@@ -21,8 +21,9 @@ pip install --upgrade -r requirements.txt
 python3 i2wsgi.py
 
 另开一个窗口:
-jupyter notebook i1prediction.ipynb
-然后访问：http://localhost:8888/notebooks/i1prediction.ipynb
+jupyter notebook i1prediction.ipynb  --port 8888
+# 
+然后访问：http://localhost:8888/notebooks/i1prediction.ipynb 
 
 
 6.
