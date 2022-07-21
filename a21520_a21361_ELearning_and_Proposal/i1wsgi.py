@@ -24,6 +24,8 @@ from flask_wtf.csrf import CSRFProtect
 from movie import create_app
 
 import es_search
+import logging
+
 
 # import recommandation
 
@@ -35,6 +37,17 @@ import es_search
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
+
+
+handler = logging.FileHandler('flask.log', encoding='UTF-8')
+handler.setLevel(logging.DEBUG) # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+logging_format = logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+handler.setFormatter(logging_format)
+app.logger.addHandler(handler)
+
+
+
 CORS(app)
 
 # 防御点3: CSRF攻击模拟 防御
@@ -153,6 +166,8 @@ class PageResult:
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
     print("home " * 10)
+    app.logger.info('home info log')
+
     blogs = Blog.query.all()
     user = None
     if "userid" in session:
