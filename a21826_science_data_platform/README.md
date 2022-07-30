@@ -18,6 +18,8 @@ pip install --upgrade -r requirements.txt
 模拟运行在:
 python3 i1wsgi.py
 
+打开另一个命令行，运行：
+juypter notebook i0spark_ml.ipynb 
 
 
 6.

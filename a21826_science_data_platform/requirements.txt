@@ -1,5 +1,8 @@
-# numpy
-# matplotlib
+numpy
+matplotlib
+termcolor
+pandas
+jupyterlab
 click
 coverage
 Flask
