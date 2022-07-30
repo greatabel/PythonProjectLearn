@@ -84,7 +84,7 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    ppt数据模型
+    科研实体 数据模型
     """
 
     # 主键ID
