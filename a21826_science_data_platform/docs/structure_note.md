@@ -1,11 +1,18 @@
-
+# --- 整体的流程 ----
 我们的前后端主要基于：flask+sqlchemy + numpy+ html5+vue+jquery技术栈
+
+对于科学数据集的管理：是flask 后端+ flask cros ,前端vue+bootstrap+ jinja 接受之后，传递到后端sqlchemy进行存储
+大数据部分主要是echart+jquery+vue 经过数据集的分析，得出json三元组之后，然后和前端的ajax+js进行互动，可以进行拉伸和展示，进行各种主题直接的分析
+挑选某一个特定数据集，专门进行大数据分析和探索，这部分主要是基于python3/spark/spark sql 进行的数据集探索，具体使用了sklearn进行机器学习相关模型构建
 
 整体上主要是从前端Jinja的template页面触发事件，然后通过Flask API传递到pika中间件，pika然后传递到rabbitmq
 Flask 是一个基于 Python 的轻量级 Web 框架，WSGI 工具箱采用 Werkzeug，模板引擎使用 Jinja2。由于其不依赖于特殊的工具或库，并且没有数据抽象层、表单验证或是其他任何已有多种库可以胜任的功能，从而保持核心简单、易于扩展，而被定义为"微"框架。但是，Flask 可以通过扩展来添加应用功能。并且 Flask 具有自带开发用服务器和 debugger、集成单元测试和 RESTful 请求调度 (request dispatching)、支持 secure cookie 的特点。我们就主要使用Flask的网站部分和wsgi写API部分
 
 
+
+
 # --- 分个介绍 ----
+
 Jinja2 是基于 Python 的模版引擎，支持 Unicode，具有集成的沙箱执行环境并支持选择自动转义。Jinja2 拥有强大的自动 HTML 转移系统，可以有效的阻止跨站脚本攻击；通过模版继承机制，对所有模版使用相似布局；通过在第一次加载时将源码转化为 Python 字节码从而加快模版执行时间。我们的网站看得到的页面部分是这块开发。
 
 Flask

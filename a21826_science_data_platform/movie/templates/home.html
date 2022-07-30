@@ -73,12 +73,12 @@ div[class*="release_year"] {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/add_ppt"> Add-Course <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/add_ppt"> Add-DataSet <span class="sr-only">(current)</span></a>
       </li>
         {% if session['isadmin'] %}
 
           <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> Manage-Course <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/blogs"> Manage-DataSet <span class="sr-only">(current)</span></a>
       </li>
 
   <!--     <li class="nav-item active">
@@ -192,8 +192,7 @@ div[class*="release_year"] {
         <br/>
         <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
 
-            <div name="title"> </div>  
-            <br/>
+
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
         </div>
         <div class="col-md-4">
@@ -202,6 +201,56 @@ div[class*="release_year"] {
         </figure>
         </div>
         </div>
+
+      <div class="row">
+       <div class="col-md-4">
+                <span>身份标识信息: {{ r.identity|safe  }} </span>  
+                
+       </div>
+
+       <div class="col-md-4">
+                <span>学科分类: {{ r.subject_classification|safe  }} </span>  
+       </div>
+        <div class="col-md-4">
+                        <span>数据采集时间: {{ r.collect_time|safe  }} </span>  
+                
+        </div>
+
+     </div>
+
+      <div class="row">
+       <div class="col-md-4">
+                <span>研究方向: {{ r.direction|safe  }} </span>  
+                
+       </div>
+
+       <div class="col-md-4">
+                <span>所属单位: {{ r.author_department|safe  }} </span>  
+       </div>
+        <div class="col-md-4">
+                <span>发布时间: {{ r.release_time|safe  }} </span>  
+  
+        </div>
+
+     </div>
+
+      <div class="row">
+       <div class="col-md-4">
+                <span>数据类型: {{ r.data_type|safe  }} </span>  
+                
+       </div>
+
+       <div class="col-md-4">
+                <span>存储位置: {{ r.storage_url|safe  }} </span>  
+       </div>
+        <div class="col-md-4">
+                <span>访问权限: {{ r.acess|safe  }} </span>  
+  
+        </div>
+
+     </div>
+
+     <hr/>
            {% endfor %}
         
 <br/><br/>

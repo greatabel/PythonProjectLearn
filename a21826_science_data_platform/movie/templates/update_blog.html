@@ -1,4 +1,4 @@
-<h1>update doc</h1>
+<h1>更新数据集描述</h1>
 <!-- HTML表单 -->
 <form action="/blogs/update/{{blog.id}}" method="POST">
     <label>title：</label>
@@ -7,6 +7,43 @@
     <label>detail：</label>
     <!-- <input type="text" name="text" value="{{blog.text}}"> -->
     <textarea rows="4" cols="70" type="text" name="text" >{{blog.text}}</textarea>
+    <br><br>
+
+    <label>身份标识信息</label>
+    <input type="text" name="identity" value="{{blog.identity}}">
+    <br><br>
+    <label>学科分类</label>
+    <input type="text" name="subject_classification" value="{{blog.subject_classification}}">
+    <br><br>
+    <label>数据采集时间</label>
+    <input type="text" name="collect_time" value="{{blog.collect_time}}">
+    <br><br>
+    <label>研究方向</label>
+    <input type="text" name="direction" value="{{blog.direction}}">
+    <br><br>
+    <label>关键词</label>
+    <input type="text" name="keywords" value="{{blog.keywords}}">
+    <br><br>
+    <label>作者</label>
+    <input type="text" name="author" value="{{blog.author}}">
+    <br><br>
+    <label>所属单位</label>
+    <input type="text" name="author_department" value="{{blog.author_department}}">
+    <br><br>
+    <label>发布时间</label>
+    <input type="text" name="release_time" value="{{blog.release_time}}">
+    <br><br>
+    <label>数据类型</label>
+    <input type="text" name="data_type" value="{{blog.data_type}}">
+    <br><br>
+    <label>存储位置</label>
+    <input type="text" name="storage_url" value="{{blog.storage_url}}">
+    <br><br>
+    <label>访问权限</label>
+    <input type="text" name="acess" value="{{blog.acess}}">
+    <br><br>
+
+
 
     <br><br>
     <input type="submit" value="提交">

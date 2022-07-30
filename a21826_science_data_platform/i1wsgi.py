@@ -93,7 +93,18 @@ class Blog(db.Model):
     title = db.Column(db.String(100))
     # ppt正文
     text = db.Column(db.Text)
-
+    identity = db.Column(db.String(100))
+    subject_classification = db.Column(db.String(100))
+    collect_time = db.Column(db.String(100))
+    direction = db.Column(db.String(100))
+    keywords = db.Column(db.String(100))
+    author = db.Column(db.String(100))
+    author_department = db.Column(db.String(100))
+    release_time = db.Column(db.String(100))
+    data_type = db.Column(db.String(100))
+    storage_url = db.Column(db.String(100))
+    acess = db.Column(db.String(100))
+          
     def __init__(self, title, text):
         """
         初始化方法
@@ -263,8 +274,24 @@ def update_note(id):
         title = request.form["title"]
         text = request.form["text"]
 
+        identity = request.form["identity"]
+        subject_classification = request.form["subject_classification"]
+        collect_time = request.form["collect_time"]
+        direction = request.form["direction"]
+        keywords = request.form["keywords"]
+        author = request.form["author"]
+        author_department = request.form["author_department"]
+        release_time = request.form["release_time"]
+        data_type = request.form["data_type"]
+        storage_url = request.form["storage_url"]
+        acess = request.form["acess"]
         # 更新ppt
-        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
+        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text,
+            "identity":identity, "subject_classification":subject_classification, "collect_time":collect_time, 
+            "direction":direction, "keywords":keywords, "author":author, 
+            "author_department":author_department, "release_time":release_time, "data_type":data_type, 
+            "storage_url":storage_url, "acess":acess 
+            })
         # 提交才能生效
         db.session.commit()
         # 修改完成之后重定向到ppt详情页面
