@@ -3,6 +3,7 @@ matplotlib
 termcolor
 pandas
 jupyterlab
+
 click
 coverage
 Flask
@@ -20,3 +21,4 @@ requests
 
 #termcolor
 #pdfreader
+#jupyter
