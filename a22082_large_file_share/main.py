@@ -101,19 +101,19 @@ if __name__ == "__main__":
     """
 
     if have 3 servers：
-    python3 main.py --ip 192.168.0.1,192.168.0.2 --encryption yes
+    python3 main.py --ip 192.168.0.1,192.168.0.2 
 
     at office:
 
     on osx:
-    python3 main.py --ip 10.248.10.117 --encryption yes
+    python3 main.py --ip 10.248.10.129 
     on ubuntu server:
-    python3 main.py --ip 10.248.33.4 --encryption yes
+    python3 main.py --ip 10.248.10.118 
 
     at home:
     on osx:
-    python3 main.py --ip 192.168.2.102 --encryption yes
+    python3 main.py --ip 192.168.2.102 
     on ubuntu server:
-    python3 main.py --ip 192.168.2.101 --encryption yes
+    python3 main.py --ip 192.168.2.101 
     
     """
