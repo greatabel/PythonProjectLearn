@@ -108,7 +108,7 @@ if __name__ == "__main__":
     on osx:
     python3 main.py --ip 10.248.10.129 
     on ubuntu server:
-    python3 main.py --ip 10.248.10.118 
+    python3 main.py --ip 10.248.33.229
 
     at home:
     on osx:
