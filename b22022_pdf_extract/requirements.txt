@@ -1,0 +1,6 @@
+termcolor
+pdfreader
+requests
+# numpy
+# matplotlib
+

@@ -1,0 +1,247 @@
+
+ q
+/Saturation ri
+/GS2 gs
+ BT
+/F1 1 Tf
+12 0 0 12 294.65 21.8188 Tm
+/Cs8 cs
+1 scn
+0 Tc
+0 Tw
+(1) Tj
+/F2 1 Tf
+-22.192 61.1303 TD
+0.025 Tc
+0.149 Tw
+[(Hong K) 39.8 (ong Exc) 14.9 (hang) 9.8 (es and Clearing Limited and ) 59.8 (The Stoc) 19.8 (k Exc) 14.9 (hang) 9.8 (e of Hong K) 39.8 (ong Limited take no )] TJ
+0 -1.3333 TD
+0.0256 Tc
+0.2494 Tw
+[(r) 36.7 (esponsibility f) 19.6 (o) -0.1 (r the contents of this announcement, make no r) 36.7 (epr) 36.7 (esentation as to its accur) 44.8 (acy or )] TJ
+ T*
+0.025 Tc
+0.0864 Tw
+[(completeness and expr) 36.9 (essl) 9.8 (y disc) 19.8 (laim an) 9.8 (y lia) 19.8 (bility w) 19.8 (hatsoe) 14.9 (ver f) 19.8 (or an) 9.8 (y loss ho) 19.8 (wsoe) 14.9 (ver arising fr) 44.9 (om or in )] TJ
+ T*
+0 Tw
+[(r) 36.9 (eliance upon the w) 19.8 (hole or an) 9.8 (y part of the contents of this announcement.)] TJ
+/F3 1 Tf
+18 0 0 18 117.622 670.3969 Tm
+(CHINA NEW ECONOMY FUND LIMITED) Tj
+/G1 1 Tf
+4.3344 -1.2843 TD
+0.0333 Tc
+(\n7-¾ö³Þ\b"®!) Tj
+/F2 1 Tf
+12 0 0 12 90.7324 631.3828 Tm
+0.025 Tc
+[(\(an exempted compan) 9.8 (y incorpor) 44.9 (ated in the Cayman Islands with limited lia) 19.8 (bility\))] TJ
+/F3 1 Tf
+13.4996 -1.3333 TD
+(\(Stock Code: 80\)) Tj
+14 0 0 14 195.138 581.7208 Tm
+(Resignation and Appointment of) Tj
+-1.0745 -1.3478 TD
+(Independent Non-executive Directors) Tj
+ ET
+/Cs8 CS
+1 SCN
+0 J
+0 j
+1 w
+10 M
+[] 0 d
+ q
+1 0 0 1 28.346 541.78 cm
+0 0 m
+539.583 0 l
+ S
+1 0 0 1 0.5 -156.508 cm
+0 0 m
+0 156.008 l
+ S
+1 0 0 1 538.583 0 cm
+0 0 m
+0 156.008 l
+ S
+1 0 0 1 -539.083 -0.5 cm
+0 0 m
+539.583 0 l
+ S
+ Q
+ BT
+/F1 1 Tf
+12 0 0 12 37.3504 523.3038 Tm
+(The Board announces that with effect from 22 October 2014:–) Tj
+0 -2.6667 TD
+0.0519 Tw
+[(\(1\) ) -321.9 (Mr. Siu Kam Chau has resigned as an independent non-executive director, chairmen of the audit )] TJ
+1.8898 -1.3333 TD
+0.104 Tw
+(committee and the remuneration committee as well as member of the nomination committee of ) Tj
+ T*
+0 Tw
+(the Company; and) Tj
+-1.8898 -2.6667 TD
+0.0339 Tw
+[(\(2\) ) -339.9 (Mr. Lam Chun Ho has been appointed as an independent non-executive director, chairmen of the )] TJ
+1.8898 -1.3333 TD
+0.0085 Tw
+(audit committee and the remuneration committee as well as member of the nomination committee ) Tj
+ T*
+0 Tw
+(of the Company.) Tj
+/F3 1 Tf
+-2.6401 -3.3199 TD
+(RESIGNATION OF INDEPENDENT NON-EXECUTIVE DIRECTOR) Tj
+/F1 1 Tf
+0 -2.6667 TD
+0.0408 Tw
+(The board of directors \(the “Board”\) of China New Economy Fund Limited \(the “Company”\) announces ) Tj
+0 -1.3333 TD
+0.0372 Tw
+(that Mr. Siu Kam Chau \(“Mr. Siu”\) has resigned as an independent non-executive director, the chairmen ) Tj
+ T*
+0.0458 Tw
+(of the audit committee and the remuneration committee as well as member of the nomination committee ) Tj
+ T*
+0 Tw
+(of the Company with effect from 22 October 2014 due to pursuance of his own business.) Tj
+0 -2.6667 TD
+0.0006 Tw
+(Mr. Siu has confirmed that he has no disagreement with the Board and there is no matter in relation to his ) Tj
+0 -1.3333 TD
+0 Tw
+(resignation that needs to be brought to the attention of the shareholders of the Company.) Tj
+0 -2.6667 TD
+0.0469 Tw
+(The Board would like to express its gratitude to Mr. Siu for his valuable efforts and contributions to the ) Tj
+0 -1.3333 TD
+0 Tw
+(Company during his tenure of office.) Tj
+/F3 1 Tf
+0 -2.6667 TD
+(APPOINTMENT OF INDEPENDENT NON-EXECUTIVE DIRECTOR) Tj
+/F1 1 Tf
+ T*
+0.1935 Tw
+(Following the resignation of Mr. Siu as an independent non-executive director of the Company, the ) Tj
+0 -1.3333 TD
+0.0355 Tw
+(Board is pleased to announce that Mr. Lam Chun Ho \(“Mr. Lam”\) has been appointed as an independent ) Tj
+ T*
+0.0735 Tw
+(non-executive director, the chairmen of the audit committee and the remuneration committee as well as ) Tj
+ T*
+0 Tw
+(the member of the nomination committee of the Company with effect from 22 October 2014.) Tj
+ ET
+ Q
+ q
+/Saturation ri
+/GS2 gs
+ BT
+/F1 1 Tf
+12 0 0 12 294.65 21.8188 Tm
+/Cs8 cs
+1 scn
+0 Tc
+0 Tw
+(2) Tj
+-22.192 61.1303 TD
+0.025 Tc
+0.1188 Tw
+(Mr. Lam Chun Ho, aged 32, graduated from Hong Kong Baptist University with a bachelor degree of ) Tj
+0 -1.3333 TD
+0.1515 Tw
+(Business Administration in Accounting. Mr. Lam is an associate member of the Hong Kong Institute ) Tj
+ T*
+0.0755 Tw
+(of Certificate Public Accountants and he has over 8 years’ experience in the field of auditing, financial ) Tj
+ T*
+0.0284 Tc
+0.2466 Tw
+[(reporting and financial management. Mr. )] TJ
+19.0615 0 TD
+0.028 Tc
+0.247 Tw
+[(Lam is currently a manager )] TJ
+13.2402 0 TD
+[(of a local corporate service )] TJ
+-32.3017 -1.3333 TD
+0.025 Tc
+0 Tw
+(company.) Tj
+0 -2.6667 TD
+0.0942 Tw
+(Mr. Lam has entered into a service contract with the Company for an initial term of three years which ) Tj
+0 -1.3333 TD
+0.176 Tw
+(is subject to retirement by rotation and re-election at the forthcoming annual general meeting of the ) Tj
+ T*
+0.1048 Tw
+(Company in accordance with the Rules Governing the Listing of Securities on The Stock Exchange of ) Tj
+ T*
+0.0883 Tw
+(Hong Kong Limited \(the “Listing Rules”\). Mr Lam is entitled to receive a director’s fee of US$15,000 ) Tj
+ T*
+0.0427 Tw
+(per annum which is determined by the Board or its delegated committee with reference to his duties and ) Tj
+ T*
+0 Tw
+(responsibilities as well as the prevailing market conditions.) Tj
+0 -2.6667 TD
+0.1262 Tw
+(As at the date of this announcement, Mr. Lam does not have any interest in any shares or underlying ) Tj
+0 -1.3333 TD
+0.0441 Tw
+(shares of the Company pursuant to Part XV of the Securities and Futures Ordinance \(Chapter 571 of the ) Tj
+ T*
+0.1381 Tw
+(Laws of Hong Kong\). He does not have any relationship with any directors or senior management or ) Tj
+ T*
+0 Tw
+(substantial shareholders or controlling shareholders of the Company.) Tj
+0 -2.6667 TD
+0.0231 Tw
+(Save as disclosed above, Mr. Lam has not held any directorship in any other public companies which are ) Tj
+0 -1.3333 TD
+0.0239 Tw
+(listed in Hong Kong or overseas in the last three years preceding the date of this announcement. There is ) Tj
+ T*
+0.0716 Tw
+(no other information which is discloseable pursuant to any of the requirements under Rules 13.51\(2\)\(h\) ) Tj
+ T*
+0.0069 Tw
+(to 13.51\(2\)\(v\) of the Listing Rules, and there are no other matters relating to the appointment of Mr. Lam ) Tj
+ T*
+0 Tw
+(that need to be brought to the attention of the shareholders of the Company.) Tj
+0 -2.6667 TD
+(The Board would like to welcome Mr. Lam for joining as a member of the Board.) Tj
+27.1408 -2.6667 TD
+(By Order of the Board) Tj
+/F3 1 Tf
+-3.1975 -1.3333 TD
+(China New Economy Fund Limited) Tj
+3.153 -1.3333 TD
+(Craig Blaser Lindsay) Tj
+/F2 1 Tf
+-7.6474 -1.3333 TD
+[(Chairman, Chief Executive Of) 9.8 (f) -29.8 (icer and Executive Dir) 36.9 (ector)] TJ
+/F1 1 Tf
+-19.4489 -2.6667 TD
+(Hong Kong, 22 October 2014) Tj
+/F2 1 Tf
+ T*
+0.1939 Tw
+[(As at the date of this announcement, the Dir) 36.9 (ector) 9.8 (s of the Compan) 9.8 (y ar) 36.9 (e Mr) 110.8 (. LINDSA) 69.8 (Y Cr) 44.9 (aig Blaser) 110.8 (, )] TJ
+0 -1.3333 TD
+0.0625 Tw
+[(Mr) 110.8 (. GU Xu and Mr) 110.8 (. CHAN Cheong ) 99.9 (Y) 91.8 (ee as executive dir) 36.9 (ector) 9.8 (s, Mr) 110.8 (. D) 34.9 (ALL) 59.8 (Y Do) 24.9 (yle ) 59.8 (Ainsw) 9.8 (orth, Mr) 110.8 (. ) 59.8 (A) 69.8 (Y) 49.8 (OUB )] TJ
+ T*
+0 Tw
+[(F) 75 (aris Ibr) 44.9 (ahim ) 59.8 (T) 91.8 (aha and Mr) 110.8 (. LAM Chun Ho as independent non-executive dir) 36.9 (ector) 9.8 (s.)] TJ
+ ET
+ Q
