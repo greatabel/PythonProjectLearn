@@ -16,6 +16,13 @@ terminal底下进入工程目录下，在requirements.txt同级目录下运行�
 pip install --upgrade -r requirements.txt
 
 5.
+需要处理的pdf都放在data文件夹即可，默认处理pdf
+
 模拟运行在:
 python3 i0ocr.py
+
+6.
+（可选项）
+遇到没有遇到的关键词或者pdf搜索的检索情况
+修改地i0ocr.py 99行的extract，添加更多case 情况，会越多越全
 

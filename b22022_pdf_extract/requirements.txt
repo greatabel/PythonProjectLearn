@@ -1,5 +1,7 @@
 termcolor
-pdfreader
+#pdfreader
+PyPDF2 
+
 requests
 # numpy
 # matplotlib
