@@ -187,6 +187,8 @@ div[class*="release_year"] {
 
           {% for r in listing %}
       <div class="row">
+        <div class="col-md-1">
+        </div>
         <div class="col-md-8">
         <span>{{ r.title|safe }}</span> 
         <br/>
@@ -196,7 +198,7 @@ div[class*="release_year"] {
             <br/>
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
         <figure>
             <img src="/static/images/ppt_cover/{{ range(1, 8) | random }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
         </figure>
