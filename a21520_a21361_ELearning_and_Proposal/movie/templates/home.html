@@ -241,6 +241,19 @@ div[class*="release_year"] {
        </div> -->
         <div class="col-md-4">
           <h2>Register now</h2>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li> <font color="red">{{ message }}</font> </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
              <form class="form-horizontal" action="/register" method="POST">
                 <div class="form-group">
                     <div class="col-sm-9">

@@ -19,7 +19,7 @@ from flask_cors import CORS
 from flask import make_response
 
 from flask_wtf.csrf import CSRFProtect
-
+from flask import flash
 
 from movie import create_app
 
@@ -468,8 +468,11 @@ def register():
     if not pw1 == pw2:
         return redirect(url_for("home", pagenum=1))
     # if DB.get_user(email):
-    if email in user_pass:
+    data = User.query.filter_by(username=email).first()
+    # if email in user_pass:
+    if data is not None:
         print("already existed user")
+        flash('already existed user')
         return redirect(url_for("home", pagenum=1))
     # salt = PH.get_salt()
     # hashed = PH.get_hash(pw1 + salt)
