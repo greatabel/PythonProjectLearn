@@ -89,15 +89,15 @@ div[class*="release_year"] {
 
 
 <!-- <h3><a href="/home">< home</a></h3> -->
-<h1>manage course</h1>
+<h1>&nbsp;&nbsp;&nbsp;&nbsp; manage course</h1>
 <!-- Jinja模板语法 -->
 
-<h5><a href="/add_ppt">add course</a></h5>
+<h5><a href="/add_ppt">&nbsp;&nbsp;&nbsp;&nbsp; add course</a></h5>
 
 <hr/>
 {% if blogs %}
     {% for blog in blogs%}
-        <h4><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h4>
+        <h4><a href="/blogs/{{blog.id}}"> &nbsp;&nbsp;&nbsp;&nbsp;{{blog.title}}</a></h4>
     {% endfor %}
 {% else %}
     <p>no doc, let's create doc~</p>
