@@ -18,9 +18,9 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
-import es_search
+# import es_search
 
-import recommandation
+# import recommandation
 
 # vgg16 image like recommend
 import numpy as np
@@ -82,7 +82,7 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    ppt数据模型
+    乐部名称和详细描述 数据模型
     """
 
     # 主键ID
@@ -122,33 +122,7 @@ class Attendance(db.Model):
         self.start = start
         self.end = end
 
-# # 老师当前布置作业的表
-# class TeacherWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(80), unique=True)
-#     detail = db.Column(db.String(500))
-#     answer = db.Column(db.String(5000))
-#     course_id = db.Column(db.Integer)
 
-#     def __init__(self, title, detail, answer, course_id):
-#         self.title = title
-#         self.detail = detail
-#         self.answer = answer
-#         self.course_id = course_id
-
-
-# class StudentWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     userid = db.Column(db.Integer)
-#     answer = db.Column(db.String(5000))
-#     score = db.Column(db.DECIMAL(10, 2))
-#     course_id = db.Column(db.Integer)
-
-#     def __init__(self, userid, answer, score, course_id):
-#         self.userid = userid
-#         self.answer = answer
-#         self.score = score
-#         self.course_id = course_id
 
 
 ### -------------start of home
@@ -243,7 +217,7 @@ def list_attendances():
 @app.route("/attendances/create", methods=["GET", "POST"])
 def create_attendance():
     """
-    创建talkshow文章
+    创建乐团文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -267,7 +241,7 @@ def create_attendance():
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建talkshow文章
+    创建乐团文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -289,7 +263,7 @@ def create_blog():
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询talkshow列表
+    查询乐团列表
     """
     blogs = Blog.query.all()
     # 渲染ppt列表页面目标文件，传入blogs参数
@@ -299,7 +273,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新talkshow
+    更新乐团
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -322,7 +296,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询talkshow详情、删除ppt
+    查询乐团详情、删除ppt
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -354,7 +328,7 @@ def list_users():
 @app.route("/users/create", methods=["GET", "POST"])
 def create_user():
     """
-    创建talkshow文章
+    创建乐团成员
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -378,7 +352,7 @@ def create_user():
 @app.route("/users/<id>", methods=["GET", "DELETE"])
 def query_user(id):
     """
-    查询talkshow详情、删除ppt
+    查询user详情、删除ppt
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -396,56 +370,7 @@ def query_user(id):
         return "", 204
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询ppt item 推荐
-    """
-    if request.method == "GET":
-        id = session["userid"]
-        user = User.query.filter_by(id=id).first_or_404()
-        print('*'*20, user.nickname, '*'*20)
-        choosed = recommandation.main(user.nickname)
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
-        return rt("recommend.html", choosed=choosed)
 
-
-@app.route("/picture_search", methods=["GET", "POST"])
-def picture_search():
-    if request.method == "POST":
-        file = request.files["query_img"]
-
-        # Save query image
-        img = Image.open(file.stream)  # PIL image
-        uploaded_img_path = (
-            "movie/static/uploaded/"
-            + datetime.now().isoformat().replace(":", ".")
-            + "_"
-            + file.filename
-        )
-        img.save(uploaded_img_path)
-
-        # Run search
-        query = fe.extract(img)
-        dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:3]  # Top 10 likely
-        # print('ids=', ids)
-        # print(np.array(img_paths)[ids])
-        scores = [(dists[id], img_paths[id]) for id in ids]
-        uploaded_img_path = uploaded_img_path.replace('movie/','')
-        print('uploaded_img_path', uploaded_img_path)
-        if len(scores) > 0 and scores[0][0] >= 1:
-            print('not very similar')
-            return rt("picture_search.html")
-                
-
-        return rt(
-            "picture_search.html", query_path=uploaded_img_path, scores=scores
-        )
-    else:
-        return rt("picture_search.html")
 
 ### -------------start of profile
 
@@ -453,7 +378,7 @@ def picture_search():
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询ppt详情、删除ppt
+    个人主页的显示
     """
 
     id = session["userid"]
@@ -477,7 +402,7 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新ppt
+    更新profle
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -511,20 +436,7 @@ def update_profile(id):
 ### -------------end of profile
 
 
-@app.route("/course/<id>", methods=["GET"])
-def course_home(id):
-    """
-    查询ppt详情、删除ppt
-    """
-    if request.method == "GET":
-        # 到数据库查询ppt详情
-        blog = Blog.query.filter_by(id=id).first_or_404()
-        teacherWork = TeacherWork.query.filter_by(course_id=id).first()
-        print(id, blog, "in query_blog", "@" * 20)
-        # 渲染ppt详情页面
-        return rt("course.html", blog=blog, teacherWork=teacherWork)
-    else:
-        return "", 204
+
 
 
 login_manager = flask_login.LoginManager(app)
