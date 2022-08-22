@@ -110,10 +110,13 @@ div[class*="release_year"] {
 <img src="/static/images/app_data/{{blog.id // 4 }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
 <br/>
-    <span>ppt 下载url:</span>
+    <span>csv下载url:</span>
         <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
     <hr/>
 
+    <span>在线编辑csv:</span>
+        <a href="{{ url_for('list_rows', csv_name=blog.title) }}">{{blog.title}}</a><br/>
+    <hr/>
      {% if session['isadmin'] %}
     <a href="#" class="btn-delete" id="{{blog.id}}">Delete</a>
      {% endif %}

@@ -26,6 +26,7 @@ from movie import create_app
 import es_search
 import logging
 
+import csv
 
 # import recommandation
 
@@ -318,6 +319,26 @@ def query_user(id):
         # 返回204正常响应，否则页面ajax会报错
         return "", 204
 
+
+## -- start 在线文档 ----
+
+@app.route("/list_rows/<csv_name>", methods=["GET"])
+def list_rows(csv_name):
+    """
+    查询用户列表
+    """
+    data = []
+    filepath = 'upload/' + csv_name
+    with open(filepath) as file:
+        csv_file = csv.reader(file)
+        for row in csv_file:
+            data.append(row)
+    print('data=', data)
+    # 渲染ppt列表页面目标文件，传入blogs参数
+    return rt("list_csv_rows.html", data=data)
+
+
+## -- edn   在线文档 ----
 
 ### -------------end of home
 @app.route("/recommend", methods=["GET", "DELETE"])
