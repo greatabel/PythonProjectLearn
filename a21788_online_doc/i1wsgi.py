@@ -321,24 +321,57 @@ def query_user(id):
 
 
 ## -- start 在线文档 ----
-
-@app.route("/list_rows/<csv_name>", methods=["GET"])
-def list_rows(csv_name):
-    """
-    查询用户列表
-    """
+def get_csv(csv_name):
     data = []
     filepath = 'upload/' + csv_name
     with open(filepath) as file:
         csv_file = csv.reader(file)
         for row in csv_file:
             data.append(row)
+    return data
+
+
+@app.route("/list_rows/<csv_name>", methods=["GET"])
+def list_rows(csv_name):
+    """
+    查询用户列表
+    """
+    data = get_csv(csv_name)
     print('data=', data)
     # 渲染ppt列表页面目标文件，传入blogs参数
-    return rt("list_csv_rows.html", data=data)
+    return rt("list_csv_rows.html", data=data, csv_name=csv_name)
 
 
+
+@app.route("/rows/update/<csv_name>/<id>", methods=["GET", "POST"])
+def update_row(csv_name=None, id=None):
+    """
+    更新cousre
+    """
+    if request.method == "GET":
+        # 根据ID查询ppt详情
+        # blog = Blog.query.filter_by(id=id).first_or_404()
+        print(csv_name, id, '>'*20)
+        data = get_csv(csv_name)
+        row = data[int(id)]
+        print('row=', row)
+        # 渲染修改笔记页面HTML模板
+        return rt("update_row.html", row=row)
+    else:
+        # 获取请求的ppt标题和正文
+        row = request.form["row"]
+        # text = request.form["text"]
+
+        # 更新ppt
+        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
+        # 提交才能生效
+        db.session.commit()
+        # 修改完成之后重定向到ppt详情页面
+        return redirect("/blogs/{id}".format(id=id))
 ## -- edn   在线文档 ----
+
+
+
 
 ### -------------end of home
 @app.route("/recommend", methods=["GET", "DELETE"])
