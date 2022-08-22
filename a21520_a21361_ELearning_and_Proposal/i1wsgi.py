@@ -27,7 +27,7 @@ import es_search
 import logging
 
 
-# import recommandation
+import recommandation
 
 # from movie.domain.model import Director, Review, Movie
 
