@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-
+import random
 import flask_login
 from flask_cors import CORS
 
@@ -302,6 +302,15 @@ def recommend():
         print("给予离线交互数据进行协同推荐")
         print(choosed, "#" * 20)
         print("给予离线交互数据进行协同推荐")
+
+        # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
+        blogs = Blog.query.all()
+        r_index = random.randint(0, len(blogs))
+        cold_r = blogs[r_index].title
+
+        
+        print(cold_r, '#####in cold start')
+        choosed.append(cold_r)
         return rt("recommend.html", choosed=choosed)
 
 

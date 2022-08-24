@@ -29,6 +29,12 @@ div[class*="release_year"] {
   text-align: center;
 }
 
+.bg_rgba {
+  background-image: url(/static/images/bg.png);
+  background-color: rgba(255, 255, 255, 0.786);
+  background-blend-mode: overlay;
+
+}
 
 
     </style>
@@ -41,7 +47,8 @@ div[class*="release_year"] {
     <![endif]-->
 
   </head>
-  <body>
+
+<body class="bg_rgba">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -80,7 +87,7 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>elearning-course-Recommandation machine learning</h1>
+        <h1 style="">elearning-course-Recommandation machine learning</h1>
         <p>You can view/search elearning-course on our website</p>
       </div>
     </div>
@@ -92,11 +99,20 @@ div[class*="release_year"] {
 
 
 
-        <div class="col-md-8">
+        <div class="col-md-6">
 
-        <img src="/static/images/demo.png" class="img-fluid" >
-        Accoriding to data above, 
-        We recommend for user[Abel] such elearning-course according by <b>Collaborative Filtering Algorithm</b>:
+        <img src="/static/images/demo.png" width="540" height="325"  >
+        
+       
+        </div>
+      <div class="col-md-6">
+        <img src="/static/images/demo.gif" width="540" height="325"  >
+      </div>
+
+ <div class="col-md-12">
+
+   Accoriding to data above, 
+        We recommend for current user such elearning-course according by <span style="color:red"> <b>Collaborative Filtering Algorithm</b></span>:
 
                   {% for c in choosed %}
 
@@ -105,10 +121,8 @@ div[class*="release_year"] {
 
 
            {% endfor %}
-        </div>
 
-
-
+ </div>
 
 
     
