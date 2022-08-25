@@ -8,8 +8,8 @@
             padding: 0;
         }
         .main {
-            width: 1000px;
-            height: 600px;
+            width: 1400px;
+            height: 800px;
             background-color: #f4f4f4;
         }
         #keyword{
@@ -61,6 +61,13 @@
             background-color: white;
             border-radius: 5px;
         }
+
+                .bg_rgba {
+  background-image: url(/static/images/bg.png);
+  background-color: rgba(255, 255, 255, 0.786);
+  background-blend-mode: overlay;
+
+}
     </style>
 <style type="text/css">
 * {
@@ -103,9 +110,9 @@ a:active {
     }
 </style>
 </head>
-<body>
-<div id="float_banner"><a href="http://localhost:5000/index_a/">居中视角</a>&nbsp;&nbsp;&nbsp;
-    <a id="now" href="http://localhost:5000/index_b/">平铺视角</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="location.reload()">Refresh</a></div> 
+<body class="bg_rgba">
+<div id="float_banner"><a href="http://localhost:5000/index_a/">Center_View</a>&nbsp;&nbsp;&nbsp;
+    <a id="now" href="http://localhost:5000/index_b/">Flat_View</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="location.reload()">Refresh</a></div> 
 <div class='main'>
     <div id="keyword">
 

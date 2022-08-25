@@ -184,14 +184,14 @@ d3.json("http://localhost:5000/statistics",function(error,root){
                 d3.select(this).append('tspan')//添加tspan用来方便时使用绝对或相对坐标来调整文本
                     .attr('x',0)
                     .attr('y',2)
-                    .text(function(){return d.name+"实体";});
+                    .text(function(){return d.name+" Entity";});
             }
             //如果小于8个字符，不换行
             else if(d.name.length+2<=8){
                 d3.select(this).append('tspan')
                     .attr('x',0)
                     .attr('y',2)
-                    .text(function(){return d.name+"实体";});
+                    .text(function(){return d.name+" Entity";});
             }else if(d.name.length+2>=16){//大于16个字符时，将14个字后的内容显示为。。。
                 var top=d.name.substring(0,8);
                 var bot=d.name.substring(8,14)+"...";

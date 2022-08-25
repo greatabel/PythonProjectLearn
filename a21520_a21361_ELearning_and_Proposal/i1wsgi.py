@@ -305,7 +305,7 @@ def recommend():
 
         # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
         blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs))
+        r_index = random.randint(0, len(blogs)-1)
         cold_r = blogs[r_index].title
 
         
