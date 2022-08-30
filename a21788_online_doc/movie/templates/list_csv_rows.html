@@ -33,6 +33,7 @@ div[class*="release_year"] {
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/static/table.css'>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -95,61 +96,36 @@ div[class*="release_year"] {
 <!-- <h5><a href="/users/create">添加</a></h5> -->
 
 <hr/>
-<!-- {% if users %}
-    {% for user in users%}
-        <h4><a href="/users/{{user.id}}">{{user.username}} | {{user.nickname}}</a></h4>
-        
 
-    {% endfor %}
-{% else %}
-    <p>no doc, let's create doc~</p>
-    <a href="/users/create">to create doc</a>
-{% endif %} -->
+<div class="container">
+  <table class="table">
+      <thead class="table-info">
+         {% for cell in data[0] %}
+          <th>{{ cell }}</th>
+          {% endfor %}
+          <th>Operation</th>
+      </thead>
 
-
-{% if data %}
-<table style='table-layout:fixed;'  class="StandardTable" cellpadding="0" cellspacing="0" width="100%" border="1">
-    <thead>
+      <tbody>
+        {% for row in data[1:] %}
         <tr>
 
-            <th class="col-10">行内容</th>
+        {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
 
-
-            <th class="col-2" >操作</th>
-        <tr>
-    </thead>
- {% for row in data %}
-    <tbody>
-          
-        <tr>
-
-
-            <td class="col-10" >{{ row |safe }}</td>
-         
-
-             <td class="col-2" >  
-                &nbsp;
-
-            &nbsp;
-
+          <td> 
             <button type="button" class="btn btn-warning">
 
-             <a href="/rows/update/{{ csv_name }}/{{ loop.index -1 }}" style="color:inherit">修改 </a>
+             <a href="/rows/update/{{ csv_name }}/{{ loop.index }}" style="color:inherit">修改 </a>
             </button>
-            &nbsp;
-
-              </td>
+          </td>
 
         </tr>
+        {% endfor %}
 
-    </tbody>
-     {% endfor %}
-</table>
+</div>
 
-{% else %}
-    <p>no doc, let's create doc~</p>
-    <a href="/users/create">to create doc</a>
-{% endif %}
 
 
 <script src="/static/jquery-3.5.1.min.js"></script>

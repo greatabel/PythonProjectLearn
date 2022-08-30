@@ -337,7 +337,8 @@ def list_rows(csv_name):
     查询用户列表
     """
     data = get_csv(csv_name)
-    print('data=', data)
+    # print('data=', data)
+    print('row type=', type(data[0]))
     # 渲染ppt列表页面目标文件，传入blogs参数
     return rt("list_csv_rows.html", data=data, csv_name=csv_name)
 
@@ -359,15 +360,31 @@ def update_row(csv_name=None, id=None):
         return rt("update_row.html", row=row)
     else:
         # 获取请求的ppt标题和正文
-        row = request.form["row"]
-        # text = request.form["text"]
+        print('request.form->', request.form)
+        row = request.form.getlist("row_items")
+        print('in post', csv_name, row)
+        print(csv_name, 'row ',id, 'update','->'*10,row)
 
-        # 更新ppt
-        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
-        # 提交才能生效
-        db.session.commit()
+        filepath = 'upload/' + csv_name
+        with open(filepath) as inf:
+            reader = csv.reader(inf.readlines())
+
+        with open(filepath, 'w') as outf:
+            writer = csv.writer(outf)
+            index = 0
+            for line in reader:
+                index += 1
+
+                if index == int(id)+1:
+                    print('find it')
+                    writer.writerow(row)
+                    break
+                else:
+                    writer.writerow(line)
+            writer.writerows(reader)
+
         # 修改完成之后重定向到ppt详情页面
-        return redirect("/blogs/{id}".format(id=id))
+        return redirect("/list_rows/{csv_name}".format(csv_name=csv_name))
 ## -- edn   在线文档 ----
 
 
