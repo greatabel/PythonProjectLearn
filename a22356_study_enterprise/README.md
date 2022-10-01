@@ -31,9 +31,6 @@ username: greatabel1@126.com
 password: abel
 你也可以自己注册和登录
 
-管理员2
-username: admin@126.com
-password: admin
 
 -------------------
 一般用户测试账号:(geust_test)

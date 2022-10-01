@@ -74,13 +74,17 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(80))
     nickname = db.Column(db.String(80))
+    role = db.Column(db.String(80))
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, nickname='',role='',school_class='',school_grade=''):
         self.username = username
         self.password = password
-
+        self.nickname = nickname
+        self.role = role
+        self.school_class = school_class
+        self.school_grade = school_grade
 
 class Blog(db.Model):
     """
@@ -317,9 +321,11 @@ def create_user():
         password = request.form["password"]
         role = request.form["role"]
         school_grade = request.form["school_grade"]
+        school_class = request.form["school_class"]
 
         # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password,role=role,school_grade=school_grade)
+        user = User(username=username, nickname=nickname,password=password,role=role,school_grade=school_grade,
+            school_class=school_class)
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
@@ -419,7 +425,7 @@ def update_profile(id):
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
-
+        role = request.form["role"]
         # 更新ppt
         user = User.query.filter_by(id=id).update(
             {
@@ -427,6 +433,7 @@ def update_profile(id):
                 "nickname": nickname,
                 "school_class": school_class,
                 "school_grade": school_grade,
+                "role": role,
             }
         )
         # 提交才能生效
