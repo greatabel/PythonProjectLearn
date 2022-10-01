@@ -31,14 +31,6 @@ div[class*="release_year"] {
 
 
 
-.bg_rgba {
-  background-image: url(/static/images/bg.png);
-  background-color: rgba(255, 255, 255, 0.786);
-  background-blend-mode: overlay;
-
-}
-
-
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
 
@@ -50,7 +42,7 @@ div[class*="release_year"] {
 
   </head>
 
-<body class="bg_rgba">
+<bddy>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -96,49 +88,108 @@ div[class*="release_year"] {
 
 
 
-<h1>My Profile</h1>
-<div>
-    
-    
-    <h5>(not changeable)email/phone: {{user.username}}</h5>
-    <hr/>
-    <h5>姓名: {{user.nickname}}</h5>
-    <hr/>
-    <h5>部门: {{user.school_class}}</h5>
-    <hr/>
-    <h5>科室: {{user.school_grade}}</h5>
-    <hr/>
-    <p>密码: ******** </p>
+<!-- <h3><a href="/home">< home</a></h3> -->
+<h1>用户管理列表</h1>
+<!-- Jinja模板语法 -->
 
-    <br/>
-    <a href="/profiles/update/{{user.id}}" id="{{user.id}}">Update Profile</a>
-</div>
+<h5><a href="/users/create">添加用户</a></h5>
 
-<!-- 先引入jquery，下面要用到-->
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<!--发送ajax请求删除课程 -->
+<hr/>
+<!-- {% if users %}
+    {% for user in users%}
+        <h4><a href="/users/{{user.id}}">{{user.username}} | {{user.nickname}}</a></h4>
+        
+
+    {% endfor %}
+{% else %}
+    <p>no doc, let's create doc~</p>
+    <a href="/users/create">to create doc</a>
+{% endif %} -->
+
+
+{% if users %}
+<table style='table-layout:fixed;'  class="StandardTable" cellpadding="0" cellspacing="0" width="100%" border="1">
+    <thead>
+        <tr>
+
+            <th>usernmae</th>
+            <th>nickname</th>
+            <th>角色</th>
+
+            <th>操作</th>
+        <tr>
+    </thead>
+ {% for user in users%}
+    <tbody>
+          
+        <tr>
+
+
+            <td>{{ user.username|safe }}</td>
+             <td> <br/>{{ user.nickname|safe  }} <br/></td>
+             <td> <br/>{{ user.role|safe  }} <br/></td>
+
+             <td> 
+                &nbsp;
+            <button type="button" class="btn btn-primary">
+
+             <a href="/users/{{user.id}}" style="color:inherit">查看 </a>
+            </button>
+            &nbsp;
+
+            <button type="button" class="btn btn-warning">
+
+             <a href="/profiles/update/{{user.id}}" style="color:inherit">修改 </a>
+            </button>
+            &nbsp;
+
+            <button type="button" class="btn btn-danger">
+
+             <a href="" class="btn-delete" id="{{user.id}}">删除</a>
+            </button>
+              </td>
+
+        </tr>
+
+    </tbody>
+     {% endfor %}
+</table>
+
+{% else %}
+    <p>no doc, let's create doc~</p>
+    <a href="/users/create">to create doc</a>
+{% endif %}
+
+
+<script src="/static/jquery-3.5.1.min.js"></script>
+<script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
     $('a.btn-delete').on('click',function(evt){
         // 通知浏览器不要执行与事件关联的默认动作
         evt.preventDefault();
         // 获取课程ID
-        var userid = $(this).attr('id');
+        var blogid = $(this).attr('id');
         $.ajax({
             // 请求URL
-            url: "/profiles/" + userid,
+            url: "/users/" + blogid,
             // 请求方法类型
             type: "DELETE",
             contentType:"application/json",
             // 删除成功响应函数
             success:function(resp){
                 // 在当前页面打开课程列表页面
-                window.open("/profiles","_self");
+                window.open("/users","_self");
             },
             // 删除失败响应函数
             error:function(resp){
                 // 删除失败，给出错误提示
-                alert("删除课程失败！详情：" + resp.message);
+                alert("delete doc fail！详情：" + resp.message);
             }
         })
     });
+
+
 </script>
+  </body>
+</html>

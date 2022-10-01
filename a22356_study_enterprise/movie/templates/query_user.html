@@ -31,14 +31,6 @@ div[class*="release_year"] {
 
 
 
-.bg_rgba {
-  background-image: url(/static/images/bg.png);
-  background-color: rgba(255, 255, 255, 0.786);
-  background-blend-mode: overlay;
-
-}
-
-
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
 
@@ -50,7 +42,7 @@ div[class*="release_year"] {
 
   </head>
 
-<body class="bg_rgba">
+<bddy>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -62,9 +54,11 @@ div[class*="release_year"] {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-
+         {% if session['isadmin'] %}
+        <a class="nav-link" href="/users">back to manangment <span class="sr-only">(current)</span></a>
+         {% else %}
      <a class="nav-link" href="/home/1">Home <span class="sr-only">(current)</span></a>
-
+       {% endif %}
 
       </li>
 
@@ -94,24 +88,39 @@ div[class*="release_year"] {
   </div>
 </nav>
 
+<!--  {% if session['isadmin'] %}
+<h3><a href="/users">< doc list</a></h3>
+ {% else %}
+<h3><a href="/home">< home</a></h3>
+   {% endif %} -->
 
-
-<h1>My Profile</h1>
+<h1>用户详情</h1>
+<br/>
 <div>
-    
-    
-    <h5>(not changeable)email/phone: {{user.username}}</h5>
-    <hr/>
-    <h5>姓名: {{user.nickname}}</h5>
-    <hr/>
-    <h5>部门: {{user.school_class}}</h5>
-    <hr/>
-    <h5>科室: {{user.school_grade}}</h5>
-    <hr/>
-    <p>密码: ******** </p>
+     {% if session['isadmin'] %}
+    <a href="/profiles/update/{{user.id}}" id="{{user.id}}">更新</a>
+     {% endif %}
 
-    <br/>
-    <a href="/profiles/update/{{user.id}}" id="{{user.id}}">Update Profile</a>
+    <p>email/phone: {{user.username}}</p>
+    <p>姓名:{{user.nickname}}</p>
+    <p>部门:{{user.role}}</p>
+    <p>科室:{{user.school_grade}}</p>
+    <p>password:{{user.password}}</p>
+
+
+<br/>
+
+   <figure>
+<img src="/static/images/app_data/{{user.id // 2 }}.png" class="img-fluid" style="height:250px;width:500px;">
+        </figure>
+<br/>
+
+
+    <hr/>
+
+     {% if session['isadmin'] %}
+    <a href="#" class="btn-delete" id="{{user.id}}">删除</a>
+     {% endif %}
 </div>
 
 <!-- 先引入jquery，下面要用到-->
@@ -125,20 +134,23 @@ div[class*="release_year"] {
         var userid = $(this).attr('id');
         $.ajax({
             // 请求URL
-            url: "/profiles/" + userid,
+            url: "/users/" + userid,
             // 请求方法类型
             type: "DELETE",
             contentType:"application/json",
             // 删除成功响应函数
             success:function(resp){
                 // 在当前页面打开课程列表页面
-                window.open("/profiles","_self");
+                window.open("/users","_self");
             },
             // 删除失败响应函数
             error:function(resp){
                 // 删除失败，给出错误提示
-                alert("删除课程失败！详情：" + resp.message);
+                alert("delete doc fail！详情：" + resp.message);
             }
         })
     });
 </script>
+
+  </body>
+</html>
