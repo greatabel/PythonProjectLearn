@@ -319,7 +319,7 @@ def create_user():
         school_grade = request.form["school_grade"]
 
         # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password,role=role)
+        user = User(username=username, nickname=nickname,password=password,role=role,school_grade=school_grade)
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
