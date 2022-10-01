@@ -99,15 +99,17 @@ div[class*="release_year"] {
 
 
 <!-- <h3><a href="/home">< home</a></h3> -->
-<h1>&nbsp;&nbsp;&nbsp;&nbsp; manage course</h1>
+<h1>&nbsp;&nbsp;&nbsp;&nbsp; 学习材料管理</h1>
 <!-- Jinja模板语法 -->
 
-<h5><a href="/add_ppt">&nbsp;&nbsp;&nbsp;&nbsp; add course</a></h5>
+<h4><a href="/add_ppt">&nbsp;&nbsp;&nbsp;&nbsp; 添加高级学习材料(带文档/多媒体)</a></h4>
+<br/>
+<h4><a href="/blogs/create">&nbsp;&nbsp;&nbsp;&nbsp; 添加学习材料（文本)</a></h4>
 
-<hr/>
+<hr/><hr/>
 {% if blogs %}
     {% for blog in blogs%}
-        <h4><a href="/blogs/{{blog.id}}"> &nbsp;&nbsp;&nbsp;&nbsp;{{blog.title}}</a></h4>
+        <h5><a href="/blogs/{{blog.id}}"> &nbsp;&nbsp;&nbsp;&nbsp;{{blog.title}}</a></h5>
         <hr/>
     {% endfor %}
 {% else %}
