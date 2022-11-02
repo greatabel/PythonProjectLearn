@@ -4,7 +4,7 @@ import sys
 import json
 
 import flask_login
-from flask_cors import CORS
+
 
 from flask import send_from_directory
 from flask import request
