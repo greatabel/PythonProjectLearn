@@ -39,6 +39,6 @@ Question(title, content)
 Answers(question related, answer content)
 
 
-整体上主要是从前端Jinja的template页面触发事件，然后通过Flask API传递到pika中间件，pika然后传递到rabbitmq
+整体上主要是从前端Jinja的template + bootstrap + css3 页面触发事件，然后通过Flask CROS 传递到Flask的API 
 Flask 是一个基于 Python 的轻量级 Web 框架，WSGI 工具箱采用 Werkzeug，模板引擎使用 Jinja2。由于其不依赖于特殊的工具或库，并且没有数据抽象层、表单验证或是其他任何已有多种库可以胜任的功能，从而保持核心简单、易于扩展，而被定义为"微"框架。但是，Flask 可以通过扩展来添加应用功能。并且 Flask 具有自带开发用服务器和 debugger、集成单元测试和 RESTful 请求调度 (request dispatching)、支持 secure cookie 的特点。我们就主要使用Flask的网站部分和wsgi写API部分
 
