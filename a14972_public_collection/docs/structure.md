@@ -29,6 +29,8 @@ Flask
 flask_sqlalchemy
 要在 Flask 项目中设置 SQLAlchemy，我们可以导入 flask_sqlalchemy 软件包（我们之前已安装），然后将 Flask app 变量包装在新的 SQLAlchemy 对象。我们还希望在 Flask 应用程序配置中设置 SQLALCHEMY_DATABASE_URI 以指定我们要使用的数据库以及如何访问它
 
+sql对应的object数据对象在i6wsgi.py 43-73行部分
+
 # -- api 风格--- 
 最后，我们可以开始定义 RESTful 处理程序。我们将使用 Flask-RESTful 软件包，这是一组工具，可帮助我们使用面向对象的设计来构建 RESTful 路由。
 
@@ -58,3 +60,6 @@ echarts对象的初始化
 设置数据的类别
 编写功能配置信息option:标题、提示框、工具箱、图的类型、给节点和边赋值
 将option赋给echarts对象
+
+理论部分：https://zhuanlan.zhihu.com/p/405626050
+
