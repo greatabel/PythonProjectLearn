@@ -43,4 +43,5 @@ i3deep-learning-for-sentiment-analysis.ipynb 可以进行情感模型训练
 
 
 # 默认管理员账号：
-greatabel1@126.com abel1024
+greatabel1@126.com abel
+单独登陆页：http://localhost:5000/single_login

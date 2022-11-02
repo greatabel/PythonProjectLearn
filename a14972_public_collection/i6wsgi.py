@@ -177,6 +177,15 @@ def home(pagenum=1):
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
+def add_blog_with_sentiment(title, text):
+    # 创建一个ppt对象
+    blog = Blog(title=title, text=text)
+
+    db.session.add(blog)
+    # 必须提交才能生效
+    db.session.commit()
+
+
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
@@ -368,11 +377,13 @@ def load_user(email):
     print("$" * 30)
     return user_pass.get(email, None)
 
-
 @app.route("/login", methods=["POST"])
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
+    print(email, '#'*10,password)
+    fr = request.args.get('fr', default = 'pc', type = str)
+    print('fr=', fr)
     try:
         data = User.query.filter_by(username=email, password=password).first()
         print(data, "@" * 10)
@@ -382,6 +393,7 @@ def login():
 
             if email in admin_list:
                 session["isadmin"] = True
+                print('@'*20, 'setting isadmin')
             session["userid"] = data.id
 
             print("login sucess", "#" * 20, session["logged_in"])
@@ -392,6 +404,9 @@ def login():
             #     session['title'] = w.title
             #     session['detail'] = w.detail
             #     session['answer'] = w.answer
+            if fr == "mobile":
+                print('jump to blogs', '#'*10)
+                return redirect("/blogs")
 
             return redirect(url_for("home", pagenum=1))
         else:
@@ -399,8 +414,13 @@ def login():
     except Exception as e:
         print(e)
         return "Not Login"
+
+
     return redirect(url_for("home", pagenum=1))
 
+@app.route("/single_login", methods=["POST","GET"])
+def single_login():
+    return rt("single_login.html")
 
 @app.route("/register", methods=["POST"])
 def register():
