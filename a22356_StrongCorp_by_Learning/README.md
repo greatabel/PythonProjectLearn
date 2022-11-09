@@ -8,8 +8,11 @@
 3.
 可选  可以不做（创建python3虚拟目录，隔绝不同版本库之间相互影响）
 https://docs.python.org/zh-cn/3/tutorial/venv.html
-创建：python3 -m venv tutorial-env
-激活它（在Unix或MacOS上）：source tutorial-env/bin/activate
+创建：
+python3 -m venv tutorial-env
+
+激活它（在Unix或MacOS上）：
+source tutorial-env/bin/activate
 
 
 4.
