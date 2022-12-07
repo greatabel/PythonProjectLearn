@@ -25,6 +25,7 @@ def  main():
 	print('background_img=', args.background_img)
 	# --- read method 1 : read dataset of winemag-data-130k-v2.csv ----
 	df = pd.read_csv("Data/demo.csv", index_col=0)
+	df = pd.read_csv("Data/demo1.csv", index_col=0)
 	# print(df)
 
 	text = " ".join(review for review in df.description)
@@ -90,7 +91,8 @@ def  main():
 	wc = WordCloud(stopwords=stopwords,background_color='white',
 				 mask=bg, mode='RGB', 
 				max_words= 10000, contour_width=1,
-				contour_color='pink')
+				contour_color='pink',
+				font_path="/Library/Fonts/Songti.ttc")
 	wc.generate(text)
 
 	image_colors = ImageColorGenerator(bg)
