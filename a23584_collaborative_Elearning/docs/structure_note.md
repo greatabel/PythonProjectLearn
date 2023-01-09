@@ -30,6 +30,54 @@ Flask
 flask_sqlalchemy
 要在 Flask 项目中设置 SQLAlchemy，我们可以导入 flask_sqlalchemy 软件包（我们之前已安装），然后将 Flask app 变量包装在新的 SQLAlchemy 对象。我们还希望在 Flask 应用程序配置中设置 SQLALCHEMY_DATABASE_URI 以指定我们要使用的数据库以及如何访问它
 
+# -- 基于数据库添加
+
+Flask-SQLAlchemy 是一个 Flask 扩展，用于简化在 Flask 应用中使用 SQLAlchemy 的过程。它提供了一个高层次的封装，使得在 Flask 应用中使用 SQLAlchemy 变得更加方便。
+Flask-SQLAlchemy 使用了 SQLAlchemy 的核心功能，包括数据库会话和对象关系映射 (ORM)，并将其集成到 Flask 应用中。
+在 Flask-SQLAlchemy 中，所有的数据库操作都使用会话 (Session) 来执行。会话用于将对象加载到内存中，并将对象的修改持久化到数据库中。
+Flask-SQLAlchemy 也提供了一个高层次的 ORM，允许你使用 Python 类来映射数据库表。这些类被称为模型 (Model)，并使用 SQLAlchemy 的 declarative API 来定义。
+模型类中的每个属性都映射到数据库表中的一个字段。使用 Flask-SQLAlchemy 的 ORM，可以使用 Python 代码而不是 SQL 语句来查询、插入、更新和删除数据库中的数据。
+
+Flask-SQLAlchemy 提供了一种简单、方便的方式在 Flask 应用中使用 SQLAlchemy，使得你可以使用 Python 代码而不是 SQL 语句来操作数据库。
+创建一个 SQLAlchemy 实例，并将其绑定到你的 Flask 应用：
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
+db = SQLAlchemy(app)
+
+
+可以使用以下代码来定义用户、博客（也就是学习资料的介绍实体）和评论模型
+class User(db.Model):
+    """Create user table"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    password = db.Column(db.String(80))
+    nickname = db.Column(db.String(80))
+    school_class = db.Column(db.String(80))
+    school_grade = db.Column(db.String(80))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+剩下的会是（这部分还没有设计在flask_sqlchemy中创建）：
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comments = db.relationship('Comment', backref='post', lazy=True)
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+
+在上面的代码中，我们使用了SQLAlchemy的多对多关系来表示用户，学习材料和评论之间的关系
+
+
 # -- api 风格--- 
 最后，我们可以开始定义 RESTful 处理程序。我们将使用 Flask-RESTful 软件包，这是一组工具，可帮助我们使用面向对象的设计来构建 RESTful 路由。
 
