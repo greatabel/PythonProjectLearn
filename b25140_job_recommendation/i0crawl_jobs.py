@@ -3,6 +3,13 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 
+'''
+1.获取网页内容：使用requests库发送HTTP请求并获取返回的网页内容。
+2.解析网页内容：使用beautifulsoup4库解析网页内容，提取我们需要的信息（如职位标题和职位描述）。
+3.存储数据：使用csv库将提取的数据存储到CSV文件中。
+4.翻页：对于需要翻页的网站，编写一个循环，不断发送请求并解析页面，直到所有页面都被处理
+
+'''
 url = 'https://findajob.dwp.gov.uk/search?cat=28'
 page_number = 1
 
