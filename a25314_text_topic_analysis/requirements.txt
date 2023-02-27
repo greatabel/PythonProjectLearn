@@ -15,6 +15,10 @@ Flask-Login
 flask_sqlalchemy
 requests
 
+textblob
+
+gensim
+
 #termcolor
 #pdfreader
 
