@@ -23,7 +23,7 @@ from flask import flash
 
 from movie import create_app
 
-import es_search
+# import es_search
 import logging
 
 
@@ -191,9 +191,9 @@ def home(pagenum=1):
 
                     search_list.append(blog)
 
-            if len(search_list) == 0 and keyword in ["天气", "心情"]:
-                es_content = es_search.mysearch(keyword)
-                search_list.append(es_content)
+            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
+            #     es_content = es_search.mysearch(keyword)
+            #     search_list.append(es_content)
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)

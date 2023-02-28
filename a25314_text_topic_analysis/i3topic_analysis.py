@@ -78,8 +78,6 @@ Topic #4: china sea south southchinasea beijing amp satellite island amti every
 方便我们后续构建知识图谱
 '''
 
-
-
 # 创建词典，并过滤掉常用单词
 stopwords = set(['in', 'to', 'of', 'and', 'the','The', 'China'])
 dictionary = Dictionary([remove_stopwords(doc).split() for doc in corpus if remove_stopwords(doc)])
@@ -105,13 +103,13 @@ print("Term topics:")
 for term_id, topics in term_topics.items():
     print("Term {}: {}".format(dictionary[term_id], [(topic_id, prob) for topic_id, prob in topics]))
 
+'''
+Topic words:
+Topic #0: [('China', 0.04568844), ('South', 0.032654688), ('Sea', 0.018704137), ('US', 0.0051782276), ('Sea.', 0.004937116), ('The', 0.0049365982), ('sea', 0.0038870985), ('-', 0.0038327142), ('Sea,', 0.0038257875), ('&amp;', 0.0028837628)]
+Topic #1: [('China', 0.03188792), ('South', 0.02503358), ('Sea', 0.016786868), ('The', 0.0064823385), ('#SouthChinaSea', 0.0052225003), ('I', 0.004264642), ('south', 0.004137103), ('sea', 0.0039570634), ('china', 0.0038088218), ('Sea.', 0.003765828)]
+Topic #2: [('China', 0.04005005), ('South', 0.029851014), ('Sea', 0.018130453), ('Sea.', 0.0077272137), ('The', 0.006598889), ('Philippines', 0.004321567), ('Sea,', 0.004051669), ('I', 0.0040498003), ('Chinese', 0.0039930604), ('US', 0.003645211)]
+Term topics:
+Term china: [(0, 0.001797251), (1, 0.0037795447), (2, 0.0015984015)]
 
-# Topic words:
-# Topic #0: [('China', 0.04568844), ('South', 0.032654688), ('Sea', 0.018704137), ('US', 0.0051782276), ('Sea.', 0.004937116), ('The', 0.0049365982), ('sea', 0.0038870985), ('-', 0.0038327142), ('Sea,', 0.0038257875), ('&amp;', 0.0028837628)]
-# Topic #1: [('China', 0.03188792), ('South', 0.02503358), ('Sea', 0.016786868), ('The', 0.0064823385), ('#SouthChinaSea', 0.0052225003), ('I', 0.004264642), ('south', 0.004137103), ('sea', 0.0039570634), ('china', 0.0038088218), ('Sea.', 0.003765828)]
-# Topic #2: [('China', 0.04005005), ('South', 0.029851014), ('Sea', 0.018130453), ('Sea.', 0.0077272137), ('The', 0.006598889), ('Philippines', 0.004321567), ('Sea,', 0.004051669), ('I', 0.0040498003), ('Chinese', 0.0039930604), ('US', 0.003645211)]
-# Term topics:
-# Term china: [(0, 0.001797251), (1, 0.0037795447), (2, 0.0015984015)]
 
-
-
+'''

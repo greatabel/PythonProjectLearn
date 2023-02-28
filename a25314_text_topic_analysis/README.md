@@ -44,6 +44,17 @@ password: test
 个人主页： http://localhost:5000/profile
 
 
+
+8.
+（可选，不是必须做的）
+自己训练文本主题和文本主题关系可以单组在cmd运行：
+python3 i3topic_analysis.py
+
+
+
+
+
+
 # ------ 总需求 ------
 
 做twitter的文本主题分析吗，可以按月份来做主题；
