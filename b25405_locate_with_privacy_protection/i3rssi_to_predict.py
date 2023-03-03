@@ -7,6 +7,13 @@ from sklearn.neighbors import KNeighborsClassifier as kNN
 from i0positions import Positions
 import i1netmode
 
+'''
+读取i2visual_and_analysis.py生成的平均信号数据集，并将其转化为特征(features)和标签(labels)
+使用 k-近邻分类器 (kNN) 建立模型 clf，并利用数据集对其进行训练
+从网络中获取无线网络数据，并用已训练好的模型 clf 进行定位
+计算定位误差，并用散点图在地图上表示出定位结果
+提供了两个函数 rmse 和 relative_func 用于计算误差和相对误差
+'''
 
 def rmse(predictions, targets):
     predictions = np.array(predictions)
