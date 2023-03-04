@@ -9,7 +9,7 @@ import i1netmode
 from scipy.optimize import curve_fit
 from math import sqrt
 
-'''
+"""
 主要工作：用于分析从无线传感器网络获得的 RSSI 数据。 
 分析无线传感器网络的信号强度和可视化热图中的数据以识别强信号强度和弱信号强度的区域非常有用
 具体来说，我们拆分成4个story：
@@ -32,7 +32,7 @@ from math import sqrt
 例如，当我们接收到一个未知距离的信号时，我们可以使用这个关系来估计距离，并将估计的距离与实际测量值进行比较，以确保我们的计算是准确的。
 Curve fitting 图可以帮助我们更好地理解RSSI与距离之间的关系，并使用这个关系来计算距离或者其他指标
 
-'''
+"""
 Node_coords = {
     "ap": (-7.3, 15),
     "hub0": (-2.3, 16),
@@ -41,6 +41,8 @@ Node_coords = {
 }
 
 dataset = pd.read_csv("data/i1processed_localhall.csv", header=[0, 1, 2])
+
+
 features = np.asarray(dataset.iloc[:, 3:])
 labels = np.asarray(dataset["Relative Position"])
 headers = list(dataset)
@@ -49,6 +51,53 @@ labels = labels.flatten()  # all labels in an array
 points = list(set(labels))  # unique labels
 x = [Positions[str(point)]["Position_X"] for point in points]
 y = [Positions[str(point)]["Position_Y"] for point in points]
+
+
+print(dataset.head())
+
+
+print(dataset.describe())
+
+
+def return_mean(network_rssi):
+    sums = {}
+    counts = {}
+    i = 0
+    for label in labels:
+        if network_rssi[i] != 100:
+            if label not in sums:
+                sums[label] = network_rssi[i]
+                counts[label] = 1
+            else:
+                sums[label] += network_rssi[i]
+                counts[label] += 1
+        i += 1
+
+    means = []
+    for point in points:
+        if point in sums and str(point) in Positions:
+            means.append(sums[point] / counts[point])
+        else:
+            means.append(-100)
+
+    return means
+
+
+
+ap_rssi = dataset["ap"].values
+plt.hist(ap_rssi, bins=20)
+plt.xlabel("RSSI")
+plt.ylabel("Frequency")
+plt.title("Histogram of RSSI Values for AP Network")
+plt.show()
+
+hub0_rssi = return_mean(dataset["hub0"].values)
+plt.scatter(x, y, c=hub0_rssi)
+plt.colorbar()
+plt.xlabel("X Position")
+plt.ylabel("Y Position")
+plt.title("Scatterplot of RSSI Values for Hub0 Network")
+plt.show()
 
 
 def return_mean(network_rssi):

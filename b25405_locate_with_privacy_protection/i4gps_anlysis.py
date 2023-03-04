@@ -13,7 +13,7 @@ def relative_func(predictions, targets):
     print("@" * 20, predictions, targets)
     predictions = np.array(predictions)
     targets = np.array(targets)
-    return np.sqrt((predictions ** 2 + targets ** 2).mean())
+    return np.sqrt((predictions**2 + targets**2).mean())
 
 
 # data/i3gps_error.csv 处理
@@ -60,7 +60,7 @@ plt.legend(loc=4)  # 指定legend的位置右下角
 plt.title("polyfitting")
 plt.show()
 
-'''
+"""
           3         2
 -0.3672 x + 4.882 x - 14.75 x + 31.55
 yvals is :
@@ -70,4 +70,4 @@ yvals is :
  41.56212121 37.98636364] [17.4, 23.6, 30.5, 13.4, 34.9, 35.1, 54.2, 32.3]
 accuracy_error= 8.10553963208328 relative_error= 0.17970559593956342 accuracy= 0.8202944040604365
 
-'''
+"""

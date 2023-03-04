@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 
+
 def plot_atmosphere(ax):
     ax.hlines(y=0, xmin=0, xmax=4.5, linewidth=2, color="k")
     ax.hlines(y=16.5, xmin=0, xmax=4.5, linewidth=2, color="k")

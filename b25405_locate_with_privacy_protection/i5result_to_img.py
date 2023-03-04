@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-names = ['gps', 'wifi', 'gps-wifi-combine']
+names = ["gps", "wifi", "gps-wifi-combine"]
 values = [87, 92, 95]
 
 plt.figure(figsize=(9, 3))
@@ -13,5 +13,5 @@ plt.subplot(132)
 plt.scatter(names, values)
 plt.subplot(133)
 plt.plot(names, values)
-plt.suptitle('accuracy compare')
+plt.suptitle("accuracy compare")
 plt.show()
