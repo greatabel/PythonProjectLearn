@@ -40,7 +40,7 @@ def main(demo='Abel'):
     print("main", demo)
     data_path = os.path.join("app", "home")
 
-    mypath = "data/Elearning_rating.csv"
+    mypath = "data/jobs_rating.csv"
     print(mypath)
     ratings = pd.read_csv(mypath)
 

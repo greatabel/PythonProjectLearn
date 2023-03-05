@@ -5,6 +5,7 @@ from movie.domain.model import Movie, User, Review
 import pytest
 
 
+
 @pytest.fixture()
 def user():
     return User('dbowie', '1234567890')
