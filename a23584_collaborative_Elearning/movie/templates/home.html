@@ -46,6 +46,11 @@ div[class*="release_year"] {
   background-blend-mode: overlay;
 
 }
+/* 天蓝色 */
+.navbar {
+  background-color: #87CEFA;
+}
+
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -61,7 +66,7 @@ div[class*="release_year"] {
   </head>
 <body class="bg_rgba">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
   data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,17 +84,17 @@ div[class*="release_year"] {
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/add_ppt"> Add-LearningMeterial <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/add_ppt"> Add-Resource <span class="sr-only">(current)</span></a>
       </li>
         {% if session['isadmin'] %}
 
           <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> Manage-LearningMeterial <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/blogs"> Manage-Resource <span class="sr-only">(current)</span></a>
       </li>
 
 <!--       <li class="nav-item active">
         <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
-      </li> -->
+      </li> 
 
 
       {% endif %}
@@ -110,16 +115,16 @@ div[class*="release_year"] {
       </li>
 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!--            {% if session['logged_in'] %}
+          {% if session['logged_in'] %}
 
 
         <li class="nav-item active">
          <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
         </li>
- <!--       <li class="nav-item active">
+      <li class="nav-item active">
          <a class="nav-link" href="/review">review <span class="sr-only">(current)</span></a>
       </li> -->
-    {% endif %} -->
+    {% endif %} 
      
 
 
