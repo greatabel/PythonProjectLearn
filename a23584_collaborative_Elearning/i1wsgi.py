@@ -60,8 +60,11 @@ CORS(app)
 
 # ---start  数据库 ---
 
-print('#'*20, os.path.abspath("movie/campus_data.db"), '#'*20)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath("movie/campus_data.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(
+    "movie/campus_data.db"
+)
+
+app.config["UPLOAD_FOLDER"] = os.path.abspath("upload")
 
 # 防御点1: 防止入sql-inject ，不实用sql注入，sqlchemy让代码ORM化，安全执行
 db = SQLAlchemy(app)
@@ -611,11 +614,12 @@ def file_download(filename):
 
 
 # Custom static data
+
 @app.route("/cdn/<path:filename>")
 def custom_static(filename):
     print("#" * 20, filename, " in custom_static", app.root_path)
     return send_from_directory(
-        "/Users/abel/Downloads/AbelProject/FlaskRepository/ppt_platform/upload/",
+        app.config["UPLOAD_FOLDER"],
         filename,
     )
 
@@ -625,6 +629,7 @@ def custom_static(filename):
 
 if __name__ == "__main__":
     with app.app_context():
+        app.config["JSON_AS_ASCII"] = False
         db.create_all()
 
         app.run(host="localhost", port=5000, threaded=False)
