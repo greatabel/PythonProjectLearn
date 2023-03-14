@@ -164,8 +164,21 @@ td:last-child {
   background-color: #218838;
 }
 
+.bg_rgba {
+  background-image: url(/static/images/bg.png);
+  background-color: rgba(255, 255, 255, 0.886);
+  background-blend-mode: overlay;
 
+}
+/* 天蓝色 */
+.navbar {
+  background-color: #87CEFA;
+}
 
+td label {
+  font-weight: bold;
+  color: #007bff;
+}
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -223,32 +236,28 @@ td:last-child {
 </nav>
 
 
-
 <h1>My Profile</h1>
 <table>
   <tr>
-    <td>(Unchangeable)email/phone:</td>
+    <td><label>(Unchangeable)email/phone:</label></td>
     <td>{{user.username}}</td>
   </tr>
   <tr>
-    <td>name:</td>
+    <td><label>name:</label></td>
     <td>{{user.nickname}}</td>
   </tr>
   <tr>
-    <td>Profession:</td>
-    <td>{{user.school_class}}</td>
-  </tr>
-  <tr>
-    <td>special field of study:</td>
+    <td><label>special field of study:</label></td>
     <td>{{user.school_grade}}</td>
   </tr>
   <tr>
-    <td>password:</td>
+    <td><label>password:</label></td>
     <td>********</td>
   </tr>
 </table>
 <br>
 <a href="/profiles/update/{{user.id}}" id="update-profile-link">Update Profile</a>
+
 
 
 <!-- 先引入jquery，下面要用到-->
