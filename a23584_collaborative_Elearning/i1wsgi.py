@@ -25,9 +25,10 @@ from movie import create_app
 
 import es_search
 import logging
-
+import math
 
 import recommandation
+
 
 # from movie.domain.model import Director, Review, Movie
 
@@ -148,15 +149,13 @@ def replace_html_tag(text, word):
             text = text[:i] + new_word + text[i + len_w :]
     return text
 
-
 class PageResult:
     def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
-            self.data[i : i + number] for i in range(0, len(self.data), number)
+            self.data[i:i + number] for i in range(0, len(self.data), number)
         ]
-        self.totalpage = len(data) // number
-        print("totalpage=", self.totalpage)
+        self.totalpage = len(data) // number + (len(data) % number > 0)
 
     def __iter__(self):
         if self.page - 1 < len(self.full_listing):
@@ -168,6 +167,26 @@ class PageResult:
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
 
+
+
+class PageResult:
+    def __init__(self, data, page=1, number=4):
+        self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
+        self.full_listing = [
+            self.data[i : i + number] for i in range(0, len(self.data), number)
+        ]
+        self.totalpage = math.ceil(len(data) / number)
+        print("totalpage=", self.totalpage)
+
+    def __iter__(self):
+        if self.page - 1 < len(self.full_listing):
+            for i in self.full_listing[self.page - 1]:
+                yield i
+        else:
+            return None
+
+    def __repr__(self):  # used for page linking
+        return "/home/{}".format(self.page + 1)  # view the next page
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
