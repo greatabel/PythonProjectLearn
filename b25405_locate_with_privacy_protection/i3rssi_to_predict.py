@@ -98,7 +98,7 @@ while not stop:
             mac = cell["bssid"]
             if mac not in networks:
                 continue
-            rssi = cell["signal level"]
+            rssi = int(cell["signal level"])
             found_networks[networks.index(mac)] = rssi
         print("-" * 20, found_networks, "-" * 20)
         position = clf.predict([found_networks])[0]
