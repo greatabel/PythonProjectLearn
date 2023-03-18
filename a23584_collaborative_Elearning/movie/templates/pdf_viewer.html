@@ -1,198 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Viewer</title>
-<script src="{{ url_for('static', filename='pdf.min.js') }}"></script>
-<script src="{{ url_for('static', filename='pdf.worker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='pdf.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='pdf.worker.min.js') }}"></script>
 
-<!-- <link rel='stylesheet'src="{{ url_for('static', filename='pdf_viewer.css') }}"> -->
-   <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
-<script src="/static/jquery-3.5.1.min.js"></script>
+    <!-- <link rel='stylesheet'src="{{ url_for('static', filename='pdf_viewer.css') }}"> -->
+    <link
+      rel="stylesheet"
+      href="/static/bootstrap-4.5.2-dist/css/bootstrap.min.css"
+    />
+    <script src="/static/jquery-3.5.1.min.js"></script>
 
-<style>
-        #pdf-container {
-            width: 70%;
-            overflow: auto;
-            float: left;
-            position: relative;
-        }
-        canvas {
-            display: block;
-            margin-bottom: 10px;
-        }
-        #comment-section {
-            position: fixed;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-        }
-        .comment-label {
-            position: absolute;
-            right: 10px;
-            color: blue;
-            font-weight: bold;
-        }
+    <style>
+      #pdf-container {
+        width: 70%;
+        overflow: auto;
+        float: left;
+        position: relative;
+      }
+      canvas {
+        display: block;
+        margin-bottom: 10px;
+      }
+      #comment-section {
+        position: fixed;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+      }
+      .comment-label {
+        position: absolute;
+        right: 10px;
+        color: blue;
+        font-weight: bold;
+      }
 
-        .comment-label::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -110px;
-    width: 100px;
-    height: 2px;
-    background-color: red;
-    top: 50%;
-    margin-top: -1px;
-}
-
-</style>
-
-</head>
-<body>
+      .comment-label::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -110px;
+        width: 100px;
+        height: 2px;
+        background-color: red;
+        top: 50%;
+        margin-top: -1px;
+      }
+    </style>
+  </head>
+  <body>
     <h1>{{ filename }}</h1>
     <div id="pdf-container"></div>
     <div id="comment-section">
-        <textarea id="comment" placeholder="Leave your comment here..."></textarea>
-        <br/>
-        <button id="save-comment" >Save Comment</button>
+      <textarea
+        id="comment"
+        placeholder="Leave your comment here..."
+      ></textarea>
+      <br />
+      <button id="save-comment">Save Comment</button>
     </div>
 
     <script>
-        const pdfFilename = "{{ filename }}";
+      const pdfFilename = "{{ filename }}";
 
-        let currentPageNum = 1;
-        // Load and display the PDF
-        const pdfPath = "{{ url_for('download', filename=filename) }}";
-        pdfjsLib.getDocument(pdfPath).promise.then(function(pdf) {
-            const container = document.getElementById('pdf-container');
-            const renderPage = function (pageNum) {
-                pdf.getPage(pageNum).then(function(page) {
-                    const scale = 1.5;
-                    const viewport = page.getViewport({ scale: scale });
-                    const canvas = document.createElement('canvas');
-                    container.appendChild(canvas);
+      let currentPageNum = 1;
+      // Load and display the PDF
+      const pdfPath = "{{ url_for('download', filename=filename) }}";
+      pdfjsLib.getDocument(pdfPath).promise.then(function (pdf) {
+        const container = document.getElementById("pdf-container");
+        const renderPage = function (pageNum) {
+          pdf.getPage(pageNum).then(function (page) {
+            const scale = 1.5;
+            const viewport = page.getViewport({ scale: scale });
+            const canvas = document.createElement("canvas");
+            container.appendChild(canvas);
 
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
+            const context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
 
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                    currentPageNum = pageNum;
-                });
-            }
+            const renderContext = {
+              canvasContext: context,
+              viewport: viewport,
+            };
+            page.render(renderContext);
+            currentPageNum = pageNum;
+          });
+        };
 
-            // Render all pages
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                renderPage(pageNum);
-            }
-        });
+        // Render all pages
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          renderPage(pageNum);
+        }
+      });
 
-
-/* start 显示已经存有的 */
-function fetchAndDisplayComments() {
-    fetch('/get_comments/' + pdfFilename)
-        .then(function (response) {
+      /* start 显示已经存有的 */
+      function fetchAndDisplayComments() {
+        fetch("/get_comments/" + pdfFilename)
+          .then(function (response) {
             if (response.ok) {
-                return response.json();
+              return response.json();
             } else {
-                throw new Error('Server response was not OK');
+              throw new Error("Server response was not OK");
             }
-        })
-        .then(function (data) {
+          })
+          .then(function (data) {
             for (let commentData of data) {
-                displayComment(commentData.comment, commentData.y);
+              displayComment(commentData.comment, commentData.y);
             }
-        })
-        .catch(function (error) {
-            console.error('Error fetching comments:', error);
-        });
-}
+          })
+          .catch(function (error) {
+            console.error("Error fetching comments:", error);
+          });
+      }
 
-function displayComment(commentText, yPosition) {
-    const commentLabel = document.createElement('div');
+      function displayComment(commentText, yPosition) {
+        const commentLabel = document.createElement("div");
 
-    commentLabel.classList.add('comment-label');
-    commentLabel.textContent = commentText;
-    commentLabel.style.top = yPosition + 'px';
-
-    // Append the comment label to the container
-    const container = document.getElementById('pdf-container');
-    container.appendChild(commentLabel);
-}
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    fetchAndDisplayComments();
-});
-
-/* end 显示已经存有的 */
-
-
-
-
-       // Save comment
-// Save comment
-document.getElementById('save-comment').addEventListener('click', function () {
-    const commentText = document.getElementById('comment').value;
-
-    console.log(commentText);
-
-    if (commentText.trim() !== '') {
-        const commentLabel = document.createElement('div');
-
-        const username = "{{ username }}";
-
-        commentLabel.classList.add('comment-label');
-        // commentLabel.textContent = commentText;
-        commentLabel.textContent = username + ": " + commentText;
-        // Calculate the position based on the textarea's position
-        const commentSection = document.getElementById('comment-section');
-        const commentRect = commentSection.getBoundingClientRect();
-        const container = document.getElementById('pdf-container');
-        const scrollTop = container.scrollTop;
-        const labelTop = commentRect.top + window.scrollY - container.offsetTop;
-        commentLabel.style.top = (scrollTop + labelTop) + 'px';
+        commentLabel.classList.add("comment-label");
+        commentLabel.textContent = commentText;
+        commentLabel.style.top = yPosition + "px";
 
         // Append the comment label to the container
+        const container = document.getElementById("pdf-container");
         container.appendChild(commentLabel);
+      }
 
-        fetch('/save_comment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'comment': username + ": " + commentText,
-                'y': parseInt(commentLabel.style.top),
-                'pdf_name': pdfFilename
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchAndDisplayComments();
+      });
+
+      /* end 显示已经存有的 */
+
+      // Save comment
+      // Save comment
+      document
+        .getElementById("save-comment")
+        .addEventListener("click", function () {
+          const commentText = document.getElementById("comment").value;
+
+          console.log(commentText);
+
+          if (commentText.trim() !== "") {
+            const commentLabel = document.createElement("div");
+
+            const username = "{{ username }}";
+
+            commentLabel.classList.add("comment-label");
+            // commentLabel.textContent = commentText;
+            commentLabel.textContent = username + ": " + commentText;
+            // Calculate the position based on the textarea's position
+            const commentSection = document.getElementById("comment-section");
+            const commentRect = commentSection.getBoundingClientRect();
+            const container = document.getElementById("pdf-container");
+            const scrollTop = container.scrollTop;
+            const labelTop =
+              commentRect.top + window.scrollY - container.offsetTop;
+            commentLabel.style.top = scrollTop + labelTop + "px";
+
+            // Append the comment label to the container
+            container.appendChild(commentLabel);
+
+            fetch("/save_comment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                comment: username + ": " + commentText,
+                y: parseInt(commentLabel.style.top),
+                pdf_name: pdfFilename,
+              }),
             })
-        })
-            .then(function (response) {
+              .then(function (response) {
                 if (response.ok) {
-                    return response.json();
+                  return response.json();
                 } else {
-                    throw new Error('Server response was not OK');
+                  throw new Error("Server response was not OK");
                 }
-            })
-            .then(function (data) {
-                console.log('Comment saved:', data);
-            })
-            .catch(function (error) {
-                console.error('Error saving comment:', error);
-            });
+              })
+              .then(function (data) {
+                console.log("Comment saved:", data);
+              })
+              .catch(function (error) {
+                console.error("Error saving comment:", error);
+              });
 
-        document.getElementById('comment').value = '';
-    }
-});
-
-
+            document.getElementById("comment").value = "";
+          }
+        });
     </script>
-</body>
+  </body>
 </html>
