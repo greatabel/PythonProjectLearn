@@ -15,6 +15,6 @@ Flask-Login
 flask_sqlalchemy
 requests
 
-#termcolor
+termcolor
 #pdfreader
-
+PyPDF2

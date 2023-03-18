@@ -109,6 +109,20 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
+class Comment(db.Model):
+    """Create comment table"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(200))
+    page = db.Column(db.Integer)
+    x = db.Column(db.Float)
+    y = db.Column(db.Float)
+
+    def __init__(self, comment, page, x, y):
+        self.comment = comment
+        self.page = page
+        self.x = x
+        self.y = y
 
 # # 老师当前布置作业的表
 # class TeacherWork(db.Model):
@@ -139,15 +153,7 @@ class Blog(db.Model):
 #         self.course_id = course_id
 
 
-### -------------start of home
-def replace_html_tag(text, word):
-    new_word = '<font color="red">' + word + "</font>"
-    len_w = len(word)
-    len_t = len(text)
-    for i in range(len_t - len_w, -1, -1):
-        if text[i : i + len_w] == word:
-            text = text[:i] + new_word + text[i + len_w :]
-    return text
+
 
 class PageResult:
     def __init__(self, data, page=1, number=4):
@@ -169,24 +175,40 @@ class PageResult:
 
 
 
-class PageResult:
-    def __init__(self, data, page=1, number=4):
-        self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
-        self.full_listing = [
-            self.data[i : i + number] for i in range(0, len(self.data), number)
-        ]
-        self.totalpage = math.ceil(len(data) / number)
-        print("totalpage=", self.totalpage)
+### -------------start of home
+def replace_html_tag(text, word):
+    new_word = '<font color="red">' + word + "</font>"
+    len_w = len(word)
+    len_t = len(text)
+    for i in range(len_t - len_w, -1, -1):
+        if text[i : i + len_w] == word:
+            text = text[:i] + new_word + text[i + len_w :]
+    return text
 
-    def __iter__(self):
-        if self.page - 1 < len(self.full_listing):
-            for i in self.full_listing[self.page - 1]:
-                yield i
-        else:
-            return None
 
-    def __repr__(self):  # used for page linking
-        return "/home/{}".format(self.page + 1)  # view the next page
+# --- pdf在线查看 ---
+
+@app.route('/pdf_viewer/<filename>')
+def pdf_viewer(filename):
+    return rt('pdf_viewer.html', filename=filename)
+
+@app.route('/pdf_files/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    print('in download pdf_files#')
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+@app.route('/save_comment', methods=['POST'])
+def save_comment():
+    comment_data = request.get_json()
+    comment = Comment(comment_data['comment'], comment_data['page'], comment_data['x'], comment_data['y'])
+    db.session.add(comment)
+    db.session.commit()
+    return jsonify({'result': 'success'})
+
+
+# --- pdf在线 end ----
+
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])

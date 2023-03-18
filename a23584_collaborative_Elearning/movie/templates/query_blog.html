@@ -113,6 +113,10 @@ div[class*="release_year"] {
     <span>ppt 下载url:</span>
         <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
     <hr/>
+    <p>Click on the PDF file to view and comment:</p>
+    <a href="{{ url_for('pdf_viewer', filename='java_tutorial.pdf') }}"> {{blog.title}} </a>
+    <hr/>
+
 
      {% if session['isadmin'] %}
     <a href="#" class="btn-delete" id="{{blog.id}}">Delete</a>
