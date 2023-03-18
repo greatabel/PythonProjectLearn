@@ -114,15 +114,14 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(200))
-    page = db.Column(db.Integer)
-    x = db.Column(db.Float)
     y = db.Column(db.Float)
+    pdf_name = db.Column(db.String(200))
 
-    def __init__(self, comment, page, x, y):
+    def __init__(self, comment, y, pdf_name):
         self.comment = comment
-        self.page = page
-        self.x = x
         self.y = y
+        self.pdf_name = pdf_name
+
 
 # # 老师当前布置作业的表
 # class TeacherWork(db.Model):
@@ -201,10 +200,20 @@ def download(filename):
 @app.route('/save_comment', methods=['POST'])
 def save_comment():
     comment_data = request.get_json()
-    comment = Comment(comment_data['comment'], comment_data['page'], comment_data['x'], comment_data['y'])
+    comment = Comment(comment_data['comment'], comment_data['y'], comment_data['pdf_name'])
     db.session.add(comment)
     db.session.commit()
     return jsonify({'result': 'success'})
+
+
+@app.route('/get_comments/<pdf_name>', methods=['GET'])
+def get_comments(pdf_name):
+    comments = Comment.query.filter_by(pdf_name=pdf_name).all()
+    comments_data = [
+        {"id": comment.id, "comment": comment.comment, "y": comment.y, "pdf_name": comment.pdf_name}
+        for comment in comments
+    ]
+    return jsonify(comments_data)
 
 
 # --- pdf在线 end ----
