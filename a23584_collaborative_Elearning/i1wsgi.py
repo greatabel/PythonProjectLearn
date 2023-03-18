@@ -109,6 +109,7 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
+
 class Comment(db.Model):
     """Create comment table"""
 
@@ -152,13 +153,11 @@ class Comment(db.Model):
 #         self.course_id = course_id
 
 
-
-
 class PageResult:
     def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
-            self.data[i:i + number] for i in range(0, len(self.data), number)
+            self.data[i : i + number] for i in range(0, len(self.data), number)
         ]
         self.totalpage = len(data) // number + (len(data) % number > 0)
 
@@ -171,7 +170,6 @@ class PageResult:
 
     def __repr__(self):  # used for page linking
         return "/home/{}".format(self.page + 1)  # view the next page
-
 
 
 ### -------------start of home
@@ -187,7 +185,8 @@ def replace_html_tag(text, word):
 
 # --- pdf在线查看 ---
 
-@app.route('/pdf_viewer/<filename>')
+
+@app.route("/pdf_viewer/<filename>")
 def pdf_viewer(filename):
     user = None
     if "userid" in session:
@@ -195,29 +194,36 @@ def pdf_viewer(filename):
     else:
         print("userid not in session")
     username = user.nickname
-    return rt('pdf_viewer.html', filename=filename, username=username)
+    return rt("pdf_viewer.html", filename=filename, username=username)
 
 
-@app.route('/pdf_files/<path:filename>', methods=['GET', 'POST'])
+@app.route("/pdf_files/<path:filename>", methods=["GET", "POST"])
 def download(filename):
-    print('in download pdf_files#')
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    print("in download pdf_files#")
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
-@app.route('/save_comment', methods=['POST'])
+@app.route("/save_comment", methods=["POST"])
 def save_comment():
     comment_data = request.get_json()
-    comment = Comment(comment_data['comment'], comment_data['y'], comment_data['pdf_name'])
+    comment = Comment(
+        comment_data["comment"], comment_data["y"], comment_data["pdf_name"]
+    )
     db.session.add(comment)
     db.session.commit()
-    return jsonify({'result': 'success'})
+    return jsonify({"result": "success"})
 
 
-@app.route('/get_comments/<pdf_name>', methods=['GET'])
+@app.route("/get_comments/<pdf_name>", methods=["GET"])
 def get_comments(pdf_name):
     comments = Comment.query.filter_by(pdf_name=pdf_name).all()
     comments_data = [
-        {"id": comment.id, "comment": comment.comment, "y": comment.y, "pdf_name": comment.pdf_name}
+        {
+            "id": comment.id,
+            "comment": comment.comment,
+            "y": comment.y,
+            "pdf_name": comment.pdf_name,
+        }
         for comment in comments
     ]
     return jsonify(comments_data)
@@ -671,6 +677,7 @@ def file_download(filename):
 
 
 # Custom static data
+
 
 @app.route("/cdn/<path:filename>")
 def custom_static(filename):
