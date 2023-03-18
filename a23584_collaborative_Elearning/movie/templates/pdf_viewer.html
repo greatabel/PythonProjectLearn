@@ -147,9 +147,11 @@ document.getElementById('save-comment').addEventListener('click', function () {
     if (commentText.trim() !== '') {
         const commentLabel = document.createElement('div');
 
-        commentLabel.classList.add('comment-label');
-        commentLabel.textContent = commentText;
+        const username = "{{ username }}";
 
+        commentLabel.classList.add('comment-label');
+        // commentLabel.textContent = commentText;
+        commentLabel.textContent = username + ": " + commentText;
         // Calculate the position based on the textarea's position
         const commentSection = document.getElementById('comment-section');
         const commentRect = commentSection.getBoundingClientRect();
@@ -167,7 +169,7 @@ document.getElementById('save-comment').addEventListener('click', function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'comment': commentText,
+                'comment': username + ": " + commentText,
                 'y': parseInt(commentLabel.style.top),
                 'pdf_name': pdfFilename
             })

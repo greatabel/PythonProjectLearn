@@ -189,7 +189,14 @@ def replace_html_tag(text, word):
 
 @app.route('/pdf_viewer/<filename>')
 def pdf_viewer(filename):
-    return rt('pdf_viewer.html', filename=filename)
+    user = None
+    if "userid" in session:
+        user = User.query.filter_by(id=session["userid"]).first()
+    else:
+        print("userid not in session")
+    username = user.nickname
+    return rt('pdf_viewer.html', filename=filename, username=username)
+
 
 @app.route('/pdf_files/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
