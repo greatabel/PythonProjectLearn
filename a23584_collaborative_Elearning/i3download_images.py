@@ -22,7 +22,7 @@ def download_images(topic, num_images, output_dir):
         img_url = img_tag['src']
         img_data = requests.get(img_url).content
         filename = os.path.join(output_dir, f'{downloaded }.jpg')
-        downloaded += 1
+
         with open(filename, 'wb') as f:
             f.write(img_data)
             print(f'Downloaded {filename}')
@@ -32,7 +32,8 @@ def download_images(topic, num_images, output_dir):
             break
 
 if __name__ == '__main__':
-    topic = 'music'
+    # topic = 'music'
+    topic = 'workplace'
     num_images = 20
     output_dir = 'downloaded_img'
 
