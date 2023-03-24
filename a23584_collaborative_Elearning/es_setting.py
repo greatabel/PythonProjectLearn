@@ -16,6 +16,7 @@ r = requests.put(
     json={"message": "今天天气不错，风和日丽的."},
 )
 
+
 # check status code for response received
 # success code - 200
 print(r)
