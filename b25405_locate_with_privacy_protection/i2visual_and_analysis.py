@@ -29,7 +29,8 @@ from math import sqrt
 在这里，我们将RSSI值作为y轴坐标，将距离值作为x轴坐标，并使用matplot绘制了一个曲线拟合图。
 
 通过这个曲线拟合图，我们可以看到RSSI与距离之间的关系，从而可以使用这个关系来计算距离或者其他指标。
-例如，当我们接收到一个未知距离的信号时，我们可以使用这个关系来估计距离，并将估计的距离与实际测量值进行比较，以确保我们的计算是准确的。
+例如，当我们接收到一个未知距离的信号时，我们可以使用这个关系来估计距离，并将估计的距离与实际测量值进行比较，
+以确保我们的计算是准确的。
 Curve fitting 图可以帮助我们更好地理解RSSI与距离之间的关系，并使用这个关系来计算距离或者其他指标
 
 """
@@ -81,7 +82,6 @@ def return_mean(network_rssi):
             means.append(-100)
 
     return means
-
 
 
 ap_rssi = dataset["ap"].values
@@ -150,9 +150,10 @@ def find_optimal_curve_and_plot(network, network_mean_rssi):
     plt.ylabel("rssi")
     plt.legend()
     # plt.show()
-    plt.draw()
-    plt.waitforbuttonpress(0)  # this will wait for indefinite time
-    plt.close()
+    # plt.draw()
+    # plt.waitforbuttonpress(0)  # this will wait for indefinite time
+    # plt.close()
+    plt.show()
 
 
 def plot_heatmap(network, network_mean_rssi):
@@ -186,9 +187,11 @@ def plot_heatmap(network, network_mean_rssi):
 
     plt.title("RSSI Map of {}".format(network))
     # plt.show()
-    plt.draw()
-    plt.waitforbuttonpress(0)  # this will wait for indefinite time
-    plt.close(fig)
+    # plt.draw()
+    # plt.waitforbuttonpress(0)  # this will wait for indefinite time
+    # plt.close(fig)
+    plt.show()
+
 
 
 plot = True
