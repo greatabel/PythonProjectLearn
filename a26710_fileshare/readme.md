@@ -20,11 +20,8 @@ pip3 install --upgrade -r requirements.txt
 
 5.
 根据自己机器的ip和操作系统情况，修改下面的ip
-at home:
-on osx:
-python3 main.py --ip 192.168.2.102 --encryption yes
-on ubuntu server:
-python3 main.py --ip 192.168.2.101 --encryption yes
+i0start_ui.py 中的
+cmd = "python3 main.py --ip 192.168.2.102 --encryption yes"
 
 
 
