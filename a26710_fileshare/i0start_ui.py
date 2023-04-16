@@ -3,7 +3,9 @@ import subprocess
 
 
 def run_main_script():
-    cmd = "python3 main.py --ip 192.168.2.102 --encryption yes"
+    # 192.168.0.103  windows
+    # 192.168.0.104 mac
+    cmd = "python3 main.py --ip 192.168.0.104   --encryption yes"
     subprocess.run(cmd, shell=True, check=True)
 
 

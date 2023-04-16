@@ -97,6 +97,7 @@ def main():
 
 
 if __name__ == "__main__":
+    # python3 main.py --ip 192.168.0.103   --encryption yes
     main()
     """
 
