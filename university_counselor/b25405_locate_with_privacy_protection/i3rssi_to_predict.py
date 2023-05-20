@@ -58,7 +58,7 @@ def i3main():
     # a = dataset.hist()
     # plt.plot(a)
 
-    clf = kNN(n_neighbors=2)
+    clf = kNN(n_neighbors=1)
     print("=====开始======")
     print(clf)
     clf.fit(features, labels)
