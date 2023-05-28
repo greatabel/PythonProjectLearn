@@ -23,29 +23,29 @@ from flask import flash
 
 from movie import create_app
 
-import es_search
+# import es_search
 import logging
+import numpy as np
+from scipy.integrate import odeint
+import pandas as pd
+import plotly.express as px
+from flask import render_template_string
 
-
-import recommandation
-
-# from movie.domain.model import Director, Review, Movie
-
-# from html_similarity import style_similarity, structural_similarity, similarity
-# from common import set_js_file
 
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 
 
-handler = logging.FileHandler('flask.log', encoding='UTF-8')
-handler.setLevel(logging.DEBUG) # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+handler = logging.FileHandler("flask.log", encoding="UTF-8")
+handler.setLevel(
+    logging.DEBUG
+)  # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
 logging_format = logging.Formatter(
-    '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+    "%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s"
+)
 handler.setFormatter(logging_format)
 app.logger.addHandler(handler)
-
 
 
 CORS(app)
@@ -58,12 +58,15 @@ CORS(app)
 
 # ---start  数据库 ---
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
+print("#" * 20, os.path.abspath("movie/campus_data.db"), "#" * 20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(
+    "movie/campus_data.db"
+)
 # 防御点1: 防止入sql-inject ，不实用sql注入，sqlchemy让代码ORM化，安全执行
 db = SQLAlchemy(app)
 
 last_upload_filename = None
-# --- end   数据库 ---
+# --- end   database  ---
 admin_list = ["admin@126.com", "greatabel1@126.com"]
 
 
@@ -74,28 +77,23 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(80))
     nickname = db.Column(db.String(80))
-    role = db.Column(db.String(80))
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
 
-    def __init__(self, username, password, nickname='',role='',school_class='',school_grade=''):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.nickname = nickname
-        self.role = role
-        self.school_class = school_class
-        self.school_grade = school_grade
+
 
 class Blog(db.Model):
     """
-    ppt数据模型
+    ppt entity
     """
 
-    # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # ppt标题
+
     title = db.Column(db.String(100))
-    # ppt正文
+
     text = db.Column(db.Text)
 
     def __init__(self, title, text):
@@ -104,9 +102,6 @@ class Blog(db.Model):
         """
         self.title = title
         self.text = text
-
-
-
 
 
 ### -------------start of home
@@ -121,7 +116,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=3):
+    def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -140,13 +135,50 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
+@app.route("/plot_demand/<string:material>")
+def plot_demand(material):
+    material = material.lower()
+    if material == "aggregate":
+        file_path = "data/Aggregate/predictions_2023.csv"
+        title = "Demand Prediction for 2023 (Aggregate)"
+    elif material == "concrete":
+        file_path = "data/Concrete/predictions_2023.csv"
+        title = "Demand Prediction for 2023 (Concrete)"
+    else:
+        return "Invalid material. Please choose 'aggregate' or 'concrete'."
+
+    # 从CSV文件读取预测数据
+    predictions_2023_df = pd.read_csv(file_path)
+
+    # 使用Plotly创建交互式折线图
+    fig = px.line(predictions_2023_df, x="timestamp", y="prediction", title=title)
+
+    # 将图形转换为HTML
+    plot_html = fig.to_html(full_html=False)
+
+    return render_template_string(
+        f"""
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>{title}</title>
+        </head>
+        <body>
+            {plot_html}
+        </body>
+    </html>
+    """
+    )
+
+
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
     print("home " * 10)
-    app.logger.info('home info log')
+    app.logger.info("home info log")
 
     blogs = Blog.query.all()
+    blogs = list(reversed(blogs))
     user = None
     if "userid" in session:
         user = User.query.filter_by(id=session["userid"]).first()
@@ -166,9 +198,9 @@ def home(pagenum=1):
 
                     search_list.append(blog)
 
-            if len(search_list) == 0 and keyword in ["天气", "心情"]:
-                es_content = es_search.mysearch(keyword)
-                search_list.append(es_content)
+            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
+            #     es_content = es_search.mysearch(keyword)
+            #     search_list.append(es_content)
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)
@@ -222,6 +254,7 @@ def list_notes():
     查询ppt列表
     """
     blogs = Blog.query.all()
+
     # 渲染ppt列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
@@ -229,7 +262,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新cousre
+    更新Predict_Category
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -252,7 +285,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询cousre详情、删除cousre
+    查询Predict_Category详情、删除Predict_Category
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -269,85 +302,7 @@ def query_note(id):
         return "", 204
 
 
-@app.route("/users", methods=["GET"])
-def list_users():
-    """
-    查询用户列表
-    """
-    users = User.query.all()
-    print('users=', users)
-    # 渲染ppt列表页面目标文件，传入blogs参数
-    return rt("list_users.html", users=users)
-
-
-@app.route("/users/create", methods=["GET", "POST"])
-def create_user():
-    """
-    创建android_security_apk文章
-    """
-    if request.method == "GET":
-        # 如果是GET请求，则渲染创建页面
-        return rt("create_user.html")
-    else:
-        # 从表单请求体中获取请求数据
-        username = request.form["username"]
-        nickname = request.form["nickname"]
-        password = request.form["password"]
-        role = request.form["role"]
-        school_grade = request.form["school_grade"]
-        school_class = request.form["school_class"]
-
-        # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password,role=role,school_grade=school_grade,
-            school_class=school_class)
-        db.session.add(user)
-        # 必须提交才能生效
-        db.session.commit()
-        # 创建完成之后重定向到ppt列表页面
-        return redirect("/users")
-
-@app.route("/users/<id>", methods=["GET", "DELETE"])
-def query_user(id):
-    """
-    查询android_security_apk详情、删除ppt
-    """
-    if request.method == "GET":
-        # 到数据库查询ppt详情
-        user = User.query.filter_by(id=id).first_or_404()
-        print(id, user, "in query_user", "@" * 20)
-        # 渲染ppt详情页面
-        return rt("query_user.html", user=user)
-    else:
-        print('delete user')
-        # 删除ppt
-        user = User.query.filter_by(id=id).delete()
-        # 提交才能生效
-        db.session.commit()
-        # 返回204正常响应，否则页面ajax会报错
-        return "", 204
-
-
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询cousre item 推荐
-    """
-    if request.method == "GET":
-        choosed = recommandation.main()
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
-
-        # 添加一些冷启动的推荐, 弥补协同过滤启动数据不足的问题
-        blogs = Blog.query.all()
-        r_index = random.randint(0, len(blogs)-1)
-        cold_r = blogs[r_index].title
-
-        
-        print(cold_r, '#####in cold start')
-        choosed.append(cold_r)
-        return rt("recommend.html", choosed=choosed)
 
 
 ### -------------start of profile
@@ -356,7 +311,7 @@ def recommend():
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询cousre详情、删除ppt
+    查询Predict_Category详情、删除ppt
     """
 
     id = session["userid"]
@@ -399,7 +354,7 @@ def update_profile(id):
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
-        role = request.form["role"]
+
         # 更新ppt
         user = User.query.filter_by(id=id).update(
             {
@@ -407,7 +362,6 @@ def update_profile(id):
                 "nickname": nickname,
                 "school_class": school_class,
                 "school_grade": school_grade,
-                "role": role,
             }
         )
         # 提交才能生效
@@ -417,22 +371,6 @@ def update_profile(id):
 
 
 ### -------------end of profile
-
-
-@app.route("/course/<id>", methods=["GET"])
-def course_home(id):
-    """
-    查询ppt详情、删除ppt
-    """
-    if request.method == "GET":
-        # 到数据库查询ppt详情
-        blog = Blog.query.filter_by(id=id).first_or_404()
-        teacherWork = TeacherWork.query.filter_by(course_id=id).first()
-        print(id, blog, "in query_blog", "@" * 20)
-        # 渲染ppt详情页面
-        return rt("course.html", blog=blog, teacherWork=teacherWork)
-    else:
-        return "", 204
 
 
 login_manager = flask_login.LoginManager(app)
@@ -447,23 +385,26 @@ user_pass = {}
 
 @app.route("/statistics", methods=["GET"])
 def relationship():
-    # static/data/test_data.json
-    filename = os.path.join(app.static_folder, "data.json")
+    # 加载哪个刺绣的知识图谱
+    queryid = request.args.get("id")
+
+    if queryid is not None:
+        print("-" * 20)
+        print("##kg want queryid=", queryid, "#" * 30)
+
+        # static/data/test_data.json
+        filename = os.path.join(app.static_folder, "kg_data/" + queryid + ".json")
+        if os.path.isfile(filename):
+            print(filename, " ## It is a file")
+    else:
+        filename = os.path.join(app.static_folder, "kg_data/default.json")
+        print(filename, " ## use default file")
+
     # with open(filename) as test_file:
     with open(filename, "r", encoding="utf-8") as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
     return jsonify(d)
-
-
-@app.route("/index_a/")
-def index():
-    return rt("index-A.html")
-
-
-@app.route("/index_b/")
-def index_b():
-    return rt("index-B.html")
 
 
 @login_manager.user_loader
@@ -518,7 +459,7 @@ def register():
     # if email in user_pass:
     if data is not None:
         print("already existed user")
-        flash('already existed user')
+        flash("already existed user")
         return redirect(url_for("home", pagenum=1))
     # salt = PH.get_salt()
     # hashed = PH.get_hash(pw1 + salt)
@@ -545,119 +486,10 @@ def unauthorized_handler():
 
 
 # --------------------------
-@app.route("/add_ppt", methods=["GET"])
-def add_ppt():
-    return rt("index.html")
-
-
-@app.route("/upload_ppt", methods=["POST"])
-def upload_ppt():
-
-    # detail = request.form.get("detail")
-    # 从表单请求体中获取请求数据
-
-    title = request.form.get("title")
-    text = request.form.get("detail")
-
-    # 创建一个ppt对象
-    blog = Blog(title=title, text=text)
-    db.session.add(blog)
-    # 必须提交才能生效
-    db.session.commit()
-    # 创建完成之后重定向到ppt列表页面
-    # return redirect("/blogs")
-
-    return redirect(url_for("add_ppt"))
-
-
-@app.route("/student_work", methods=["POST"])
-def student_work():
-    return redirect(url_for("student_index"))
-
-
-@app.route("/student_index", methods=["GET"])
-def student_index():
-    return rt("student_index.html")
-
-
-# @app.route("/", methods=["GET"])
-# def index():
-#     return rt("index.html")
-
-
-@app.route("/file/upload", methods=["POST"])
-def upload_part():  # 接收前端上传的一个分片
-    task = request.form.get("task_id")  # 获取文件的唯一标识符
-    chunk = request.form.get("chunk", 0)  # 获取该分片在所有分片中的序号
-    filename = "%s%s" % (task, chunk)  # 构造该分片的唯一标识符
-    print("filename=", filename)
-    upload_file = request.files["file"]
-    upload_file.save("./upload/%s" % filename)  # 保存分片到本地
-    return rt("index.html")
-
-
-@app.route("/file/merge", methods=["GET"])
-def upload_success():  # 按序读出分片内容，并写入新文件
-    global last_upload_filename
-    target_filename = request.args.get("filename")  # 获取上传文件的文件名
-    last_upload_filename = target_filename
-    print("last_upload_filename=", last_upload_filename)
-    task = request.args.get("task_id")  # 获取文件的唯一标识符
-    chunk = 0  # 分片序号
-    with open("./upload/%s" % target_filename, "wb") as target_file:  # 创建新文件
-        while True:
-            try:
-                filename = "./upload/%s%d" % (task, chunk)
-                source_file = open(filename, "rb")  # 按序打开每个分片
-                target_file.write(source_file.read())  # 读取分片内容写入新文件
-                source_file.close()
-            except IOError as msg:
-                break
-
-            chunk += 1
-            os.remove(filename)  # 删除该分片，节约空间
-
-    return rt("index.html")
-
-
-@app.route("/file/list", methods=["GET"])
-def file_list():
-    files = os.listdir("./upload/")  # 获取文件目录
-    # print(type(files))
-    files.remove(".DS_Store")
-    # files = map(lambda x: x if isinstance(x, unicode) else x.decode('utf-8'), files)  # 注意编码
-    return rt("list.html", files=files)
-
-
-@app.route("/file/download/<filename>", methods=["GET"])
-def file_download(filename):
-    def send_chunk():  # 流式读取
-        store_path = "./upload/%s" % filename
-        print("store_path=", store_path)
-        with open(store_path, "rb") as target_file:
-            while True:
-                chunk = target_file.read(20 * 1024 * 1024)
-                if not chunk:
-                    break
-                yield chunk
-
-    return Response(send_chunk(), content_type="application/octet-stream")
-
-
-# Custom static data
-@app.route("/cdn/<path:filename>")
-def custom_static(filename):
-    print("#" * 20, filename, " in custom_static", app.root_path)
-    return send_from_directory(
-        "/Users/abel/Downloads/AbelProject/FlaskRepository/ppt_platform/upload/",
-        filename,
-    )
-
-
-# --------------------------
 
 
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 
-    app.run(host="localhost", port=5000, threaded=False)
+        app.run(host="localhost", port=5000, threaded=False)
