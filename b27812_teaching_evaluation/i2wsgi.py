@@ -135,40 +135,7 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
-@app.route("/plot_demand/<string:material>")
-def plot_demand(material):
-    material = material.lower()
-    if material == "aggregate":
-        file_path = "data/Aggregate/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Aggregate)"
-    elif material == "concrete":
-        file_path = "data/Concrete/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Concrete)"
-    else:
-        return "Invalid material. Please choose 'aggregate' or 'concrete'."
 
-    # 从CSV文件读取预测数据
-    predictions_2023_df = pd.read_csv(file_path)
-
-    # 使用Plotly创建交互式折线图
-    fig = px.line(predictions_2023_df, x="timestamp", y="prediction", title=title)
-
-    # 将图形转换为HTML
-    plot_html = fig.to_html(full_html=False)
-
-    return render_template_string(
-        f"""
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>{title}</title>
-        </head>
-        <body>
-            {plot_html}
-        </body>
-    </html>
-    """
-    )
 
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
@@ -198,22 +165,7 @@ def home(pagenum=1):
 
                     search_list.append(blog)
 
-            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
-            #     es_content = es_search.mysearch(keyword)
-            #     search_list.append(es_content)
-            # for movie in notice_list:
-            #     if movie.director.director_full_name == keyword:
-            #         search_list.append(movie)
 
-            #     for actor in movie.actors:
-            #         if actor.actor_full_name == keyword:
-            #             search_list.append(movie)
-            #             break
-
-            #     for gene in movie.genres:
-            #         if gene.genre_name == keyword:
-            #             search_list.append(movie)
-            #             break
         print("search_list=", search_list, "=>" * 5)
         return rt(
             "home.html",
@@ -377,34 +329,7 @@ login_manager = flask_login.LoginManager(app)
 user_pass = {}
 
 
-# @app.route("/call_bash", methods=["GET"])
-# def call_bash():
-#     i0bash_caller.open_client("")
-#     return {}, 200
 
-
-@app.route("/statistics", methods=["GET"])
-def relationship():
-    # 加载哪个刺绣的知识图谱
-    queryid = request.args.get("id")
-
-    if queryid is not None:
-        print("-" * 20)
-        print("##kg want queryid=", queryid, "#" * 30)
-
-        # static/data/test_data.json
-        filename = os.path.join(app.static_folder, "kg_data/" + queryid + ".json")
-        if os.path.isfile(filename):
-            print(filename, " ## It is a file")
-    else:
-        filename = os.path.join(app.static_folder, "kg_data/default.json")
-        print(filename, " ## use default file")
-
-    # with open(filename) as test_file:
-    with open(filename, "r", encoding="utf-8") as test_file:
-        d = json.load(test_file)
-    print(type(d), "#" * 10, d)
-    return jsonify(d)
 
 
 @login_manager.user_loader
