@@ -110,8 +110,33 @@ div[class*="release_year"] {
 <img src="/static/images/ppt_cover/{{blog.id % 10}}.jpg" class="img-fluid" style="height:250px;width:500px;">
         </figure>
 <br/>
-    <span>predict future:</span>
-        <a href="/plot_demand/{{blog.title}}"> {{blog.title }}  </a><br/>
+
+<h2>评论：</h2>
+{% for comment in comments %}
+    <div>
+        <p>评分：{{ comment.rating }}</p>
+        <p> 加密前：{{ comment.cipher_text }} </p>
+        <p>解密后：{{ comment.raw_text }}</p>
+    </div>
+    <hr/>
+{% endfor %}
+
+<hr/>
+<!-- 添加评论表单 -->
+<h2>添加评论:</h2>
+<form action="/comments/create" method="POST">
+    <textarea rows="4" cols="70" name="comment_text"></textarea>
+    <br><br>
+    <label>评分：</label>
+    <input type="number" name="rating" min="1" max="5">
+    <br><br>
+    <input type="hidden" name="blog_id" value="{{blog.id}}">
+    <input type="submit" value="提交评论">
+</form>
+
+
+
+
     <hr/>
 
      {% if session['isadmin'] %}

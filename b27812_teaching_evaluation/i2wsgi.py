@@ -12,6 +12,8 @@ from flask import url_for
 from flask import redirect, session
 from flask import Blueprint, render_template as rt
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer
+
 
 from flask import Flask, Response
 from flask import jsonify
@@ -29,8 +31,21 @@ import numpy as np
 from scipy.integrate import odeint
 import pandas as pd
 import plotly.express as px
+from plotly.offline import plot
+import plotly.graph_objs as go
+from collections import defaultdict
+from collections import Counter
+
 from flask import render_template_string
 
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+# key = get_random_bytes(16)  # 生成一个随机AES密钥，长度为16字节
+key= b'7\xf4\xae\xb6\xee$\x9cdw\xf7%\xde\x88\x01$<'
+print('key=', key)
 
 app = create_app()
 app.secret_key = "ABCabc123"
@@ -103,6 +118,34 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
+
+class Comment(db.Model):
+    """
+    Comment entity
+    """
+    id = db.Column(db.Integer, primary_key=True)
+
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))  
+    # the corresponding blog id
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  
+    # the corresponding user id, nullable=True for anonymous comments
+    rating = Column(Integer)  # 新增字段
+
+    raw_text = db.Column(db.Text)  # original comment text
+    cipher_text = db.Column(db.Text)  # encrypted comment text
+
+    def __init__(self, raw_text, blog_id, rating,user_id=None):
+        """
+        Initialization method
+        """
+        self.raw_text = raw_text
+        self.blog_id = blog_id
+        self.user_id = user_id
+        self.rating = rating
+
+        cipher = AES.new(key, AES.MODE_ECB)
+        self.cipher_text = base64.b64encode(cipher.encrypt(pad(self.raw_text.encode('utf-8'), 
+                            AES.block_size))).decode('utf-8')  # encrypt comment and store
 
 ### -------------start of home
 def replace_html_tag(text, word):
@@ -178,6 +221,68 @@ def home(pagenum=1):
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
+@app.route('/comments/create', methods=['POST'])
+def create_comment():
+    comment_text = request.form.get('comment_text')
+    rating = int(request.form.get('rating', 0))  # 获取评分
+    blog_id = request.form.get('blog_id')
+    user_id = session['user_id'] if 'user_id' in session else None  # 当前登录的用户ID，如果有的话
+
+    if not comment_text:
+        # 如果没有评论内容，返回错误信息
+        flash('评论内容不能为空')
+        return redirect(request.referrer)
+
+    if not 1 <= rating <= 5:
+        # 如果评分不在1到5的范围内，返回错误信息
+        flash('评分必须在1到5之间')
+        return redirect(request.referrer)
+    print('comment_text=',comment_text)
+    comment = Comment(raw_text=comment_text, rating=rating, blog_id=blog_id, user_id=user_id)
+    db.session.add(comment)
+    db.session.commit()
+
+    flash('评论添加成功')
+    return redirect(request.referrer)
+
+
+
+
+from plotly.offline import plot
+import plotly.graph_objs as go
+from collections import defaultdict
+
+@app.route("/statistics", methods=["GET"])
+def statistics():
+    blogs = Blog.query.all()  # get all blogs
+    blog_titles = {blog.id: blog.title for blog in blogs}  # map blog ids to titles
+
+    # Prepare a dictionary to store scores for each blog
+    scores_by_blog = defaultdict(list)
+
+    # Get all comments
+    comments = Comment.query.all()
+
+    # Go through each comment and add its score to the corresponding blog
+    for comment in comments:
+        blog_title = blog_titles.get(comment.blog_id)
+        if blog_title is not None:
+            scores_by_blog[blog_title].append(comment.rating)
+
+    # Now create a separate bar chart for each blog
+    fig = go.Figure()
+    for blog_title, scores in scores_by_blog.items():
+        score_counts = Counter(scores)
+        fig.add_trace(go.Bar(x=list(score_counts.keys()), y=list(score_counts.values()), name=blog_title))
+
+    # Update layout
+    fig.update_layout(barmode='stack', xaxis_title='Rating', yaxis_title='Count', title="Rating distribution by blog")
+
+    div = plot(fig, output_type='div')
+
+    return rt("statistics.html", plot_div=div)
+
+
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
@@ -243,8 +348,10 @@ def query_note(id):
         # 到数据库查询ppt详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
+        comments = Comment.query.filter_by(blog_id=blog.id).all()
+
         # 渲染ppt详情页面
-        return rt("query_blog.html", blog=blog)
+        return rt("query_blog.html", blog=blog, comments=comments)
     else:
         # 删除ppt
         blog = Blog.query.filter_by(id=id).delete()
