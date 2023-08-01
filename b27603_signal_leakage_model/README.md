@@ -16,7 +16,7 @@ pip install --upgrade -r requirements.txt
 
 5.
 terminal底执行；
-python3 
+python3 main.py
 
 
 
