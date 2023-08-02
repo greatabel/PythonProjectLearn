@@ -18,6 +18,7 @@ pip install --upgrade -r requirements.txt
 terminal底执行；
 python3 main.py
 
+python3 i0cable_visual.py
 
 
 

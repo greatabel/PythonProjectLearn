@@ -76,7 +76,7 @@ for i, gamma in enumerate(gammas):
             else:
                 random_walk += np.random.normal(scale=noise_scale)
                 loss_matrix[i, j] = random_walk
-            print("total_loss_db is not a scalar.")
+            # print("total_loss_db is not a scalar.")
 
 
 # 生成热图
