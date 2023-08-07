@@ -1,6 +1,0 @@
-discord.py
-youtube_dl
-pynacl
-
-numpy
-termcolor

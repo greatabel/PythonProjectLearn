@@ -1,8 +1,0 @@
-termcolor
-#pdfreader
-PyPDF2 
-
-requests
-# numpy
-# matplotlib
-
